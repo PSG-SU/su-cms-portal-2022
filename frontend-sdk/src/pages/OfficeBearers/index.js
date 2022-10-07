@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import AddMembers from "./AddMembers";
+import ViewMembers from "./ViewMembers";
 
 const OfficeBearers = () => {
   const TabMenuItems = [
     {
       text: "Add Members",
       tab: <AddMembers />,
+      // link: "/officebearers/add",
     },
     {
       text: "View Members",
-      tab: <div>View Members</div>,
+      tab: <ViewMembers />,
+      // link: "/officebearers/view",
     },
   ];
 
@@ -24,13 +27,15 @@ const OfficeBearers = () => {
             return (
               <button
                 onClick={() => setSelected(idx)}
+                key={idx}
                 style={
                   selected === idx
                     ? {
                         WebkitBoxShadow: "2px -2px 25px 0px rgba(0,0,0,0.2)",
                         MozBoxShadow: "2px -2px 25px 0px rgba(0,0,0,0.2)",
                         boxShadow: "2px -2px 25px 0px rgba(0,0,0,0.2)",
-                        clipPath: "polygon(-50% -50%, 150% -50%, 150% 100%, 0 100%)",
+                        clipPath:
+                          "polygon(-50% -50%, 150% -50%, 150% 100%, 0 100%)",
                       }
                     : {}
                 }

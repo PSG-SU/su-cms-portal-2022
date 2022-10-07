@@ -6,15 +6,15 @@ import OfficeBearers from "./pages/OfficeBearers";
 import UserManagement from "./pages/UserManagement";
 import "./styles/tailwind.output.css";
 
+
+
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route inedx element={<CMSWrapper />}>
+        <Route path="" element={<CMSWrapper />}>
           <Route path="office-bearers" element={<OfficeBearers />} />
-        </Route>
-        <Route inedx element={<CMSWrapper />}>
           <Route path="user-management" element={<UserManagement />} />
         </Route>
       </Routes>
