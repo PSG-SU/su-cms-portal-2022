@@ -9,14 +9,17 @@ const AddUsers = () => {
   const [name, setName] = useState("");
   const [cname, setcname] = useState("");
   const [rights, setrights] = useState("");
+  const [pwd, setpwd] = useState("");
+  const [rpwd, setrpwd] = useState("");
+
 
   return (
     <section className="px-8 py-8 w-full">
       <Heading>Add Users</Heading>
       <div className="mt-8  w-3/4">
-      <div className="flex items-center w-full space-x-4 mt-4">
+      <div className="flex items-center w-full space-x-4">
           <Dropdown
-            valueState={[rights, rights]}
+            valueState={[rights, setrights]}
             title="Rights"
             placeholder="Select a Privilege"
             options={[
@@ -24,12 +27,11 @@ const AddUsers = () => {
               "Faculty Advisor",
               "Dean",
             ]}
-            className="w-full"
           />
           <Dropdown
-            valueState={[cname, cname]}
+            valueState={[cname, setcname]}
             title="Club Name"
-            placeholder="Select a Privilege"
+            placeholder="Select a club"
             options={[
               "Student",
               "Faculty Advisor",
@@ -38,29 +40,29 @@ const AddUsers = () => {
             className="w-full"
           />
         </div>
-        <div className="flex items-center w-full space-x-4">
+
+        <div className="flex items-center w-full space-x-4 mt-4">
           <Inputfield
             valueState={[name, setName]}
-            title="Name"
-            placeholder="Enter name"
+            title="User Id"
+            placeholder="Enter userId"
           />
-          <Dropdown
-            valueState={[position, setPosition]}
-            title="Position"
-            placeholder="Select a position"
-            options={[
-              "Chairperson",
-              "Co-Chairperson",
-              "Secretary(Male)",
-              "Secretary(Female)",
-              "Secretary(Science)",
-            ]}
-            className="w-full"
+           <Inputfield
+            type="Password"
+            valueState={[pwd, setpwd]}
+            title="Password"
+            placeholder="Enter your password here"
+          />
+           <Inputfield
+            type="Password"
+            valueState={[rpwd, setrpwd]}
+            title="Re-Enter Password"
+            placeholder="Re-Enter your password here"
           />
         </div>
         
         <div className="flex items-center space-x-4 mt-8 w-1/2">
-          <Button className="w-3/4" text="Add Member" />
+          <Button className="w-3/4" text="Add User" />
         </div>
       </div>
     </section>
