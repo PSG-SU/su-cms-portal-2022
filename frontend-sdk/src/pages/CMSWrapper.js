@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
-import { BsFillPeopleFill } from "react-icons/bs";
+import { Link, Outlet } from "react-router-dom";
+import { BsFillSuitClubFill } from "react-icons/bs";
+import { FaUserEdit } from "react-icons/bs";
+
 
 const CMSWrapper = () => {
   const [menuItems, setMenuItems] = useState([]);
@@ -9,7 +11,12 @@ const CMSWrapper = () => {
     {
       text: "Office Bearers",
       link: "/office-bearers",
-      icon: <BsFillPeopleFill />,
+      icon: <BsFillSuitClubFill />,
+    },
+    {
+      text: "User Management",
+      link: "/user-management",
+      // icon: <FaUserEdit />,
     },
   ];
 
@@ -26,10 +33,12 @@ const CMSWrapper = () => {
         <div className="flex flex-col w-full">
           {menuItems.map((item) => {
             return (
+              <Link to={item.link}>
               <div className="text-white text-xl mb-4 flex items-center space-x-4 px-8 hover:bg-cloud hover:text-blue py-2">
                 {item.icon}
                 <p>{item.text}</p>
               </div>
+              </Link>
             );
           })}
         </div>
