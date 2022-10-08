@@ -1,23 +1,19 @@
 import { Schema, model } from "mongoose";
 
-const userSchema = new Schema({
-  associationName: {
+const clubSchema = new Schema({
+  clubName: {
     type: String,
     required: true,
   },
-  userId: {
+  clubId: {
     type: String,
     required: true,
     unique: true,
   },
-  password: {
-    type: String,
-    required: true,
-  },
-  rights: {
+  category: {
     type: String,
     required: true,
   },
 });
 
-export default model("User", userSchema);
+export default model("Club", clubSchema);
