@@ -8,11 +8,12 @@ const SUTeamSchema = new Schema({
   position: {
     type: String,
     required: true,
+    lowercase: true,
   },
-  image: {
+  image_url: {
     type: String,
     required: true,
   },
 });
 
-export default model("User", SUTeamSchema);
+export default model("SUTeam", SUTeamSchema);

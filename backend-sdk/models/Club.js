@@ -9,10 +9,15 @@ const clubSchema = new Schema({
     type: String,
     required: true,
     unique: true,
+    lowercase: true,
   },
   category: {
     type: String,
     required: true,
+    lowercase: true,
+  },
+  image_url: {
+    type: String,
   },
 });
 

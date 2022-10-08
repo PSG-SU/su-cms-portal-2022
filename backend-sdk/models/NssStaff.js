@@ -1,28 +1,28 @@
 import { Schema, model } from "mongoose";
 
-const officeBearerSchema = new Schema({
+const nssStaffSchema = new Schema({
   name: {
     type: String,
     required: true,
   },
-  role: {
+  club: {
     type: String,
     required: true,
-    unique: true,
     lowercase: true,
   },
-  year: {
-    type: String,
+  priority: {
+    type: Number,
     required: true,
   },
-  deptyos: {
+  dept: {
     type: String,
     required: true,
   },
   image_url: {
     type: String,
-    required: true,
   },
 });
 
-export default model("OfficeBearer", officeBearerSchema);
+nssStaffSchema.index({ club: 1, priority: 1 }, { unique: true });
+
+export default model("NssStaff", nssStaffSchema);
