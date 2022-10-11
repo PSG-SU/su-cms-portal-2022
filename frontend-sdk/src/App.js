@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import CMSWrapper from "./pages/CMSWrapper";
 import Login from "./pages/Login";
 import OfficeBearers from "./pages/OfficeBearers";
+import Clubs from "./pages/Clubs";
 import UserManagement from "./pages/UserManagement";
 import "./styles/tailwind.output.css";
 
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="" element={<CMSWrapper />}>
           <Route path="office-bearers" element={<OfficeBearers />} />
           <Route path="user-management" element={<UserManagement />} />
+          <Route path="clubs" element={<Clubs />} />
         </Route>
       </Routes>
     </BrowserRouter>

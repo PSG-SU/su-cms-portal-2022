@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { FaUserTie, FaUsers } from "react-icons/fa";
+import { FaUserTie, FaUsers,FaUser } from "react-icons/fa";
+
 
 const CMSWrapper = () => {
   const [menuItems, setMenuItems] = useState([]);
@@ -14,6 +15,11 @@ const CMSWrapper = () => {
     {
       text: "User Management",
       link: "/user-management",
+      icon: <FaUser />,
+    },
+    {
+      text: "Clubs",
+      link: "/clubs",
       icon: <FaUsers />,
     },
   ];
