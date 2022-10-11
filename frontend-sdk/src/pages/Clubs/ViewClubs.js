@@ -28,9 +28,9 @@ const ViewClubs = () => {
       <Heading>View Members</Heading>
       <div className="mt-8  w-3/4">
         <Table
-          theads={["User ID", "ID", "Title"]}
+          theads={["Club", "ID"]}
           tdata={data}
-          tkeys={["userId", "id", "title"]}
+          tkeys={["clubName", "clubId"]}
           className="h-[calc(100vh-20rem)] w-full"
         />
       </div>
