@@ -2,16 +2,15 @@ import React from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
 import { HiOutlineTrash } from "react-icons/hi";
-import { CompactTable } from '@table-library/react-table-library/compact';
-import { useTheme } from '@table-library/react-table-library/theme';
-import { getTheme } from '@table-library/react-table-library/baseline';
+import { CompactTable } from "@table-library/react-table-library/compact";
+import { useTheme } from "@table-library/react-table-library/theme";
+import { getTheme } from "@table-library/react-table-library/baseline";
 
 const Table = ({ theads = [], tdata = [], tkeys = [], className = "" }) => {
-
-  const nodes = tdata.map(d => {
+  const nodes = tdata.map((d) => {
     let j = Object();
-    tkeys.map(k => {
-      j[k] = d[k]
+    tkeys.map((k) => {
+      j[k] = d[k];
     });
     return j;
   });
@@ -22,10 +21,12 @@ const Table = ({ theads = [], tdata = [], tkeys = [], className = "" }) => {
     console.log(tkeys[idx]);
     return {
       label: h,
-      renderCell: item => { return item[tkeys[idx]] },
-      resize: true
-    }
-  })
+      renderCell: (item) => {
+        return item[tkeys[idx]];
+      },
+      resize: true,
+    };
+  });
 
   console.log(COLUMNS);
 
@@ -38,16 +39,23 @@ const Table = ({ theads = [], tdata = [], tkeys = [], className = "" }) => {
     },
   ]);
 
-  const VIRTUALIZED_OPTIONS = {
-    rowHeight: (_item, _index) => 33,
-  };
-
 
   const data = { nodes };
 
-  return (<div className={`${className}`}>
-    <CompactTable virtualizedOptions={VIRTUALIZED_OPTIONS} columns={COLUMNS} data={data} theme={theme} layout={{custom: true, isDiv: true, fixedHeader: true }} />;
-  </div>)
+  return (
+    <div className={`${className}`}>
+      <CompactTable
+        columns={COLUMNS}
+        data={data}
+        theme={theme}
+        layout={{
+          custom: true,
+          isDiv: true,
+          fixedHeader: true,
+        }}
+      />
+    </div>
+  );
 };
 
 export default Table;

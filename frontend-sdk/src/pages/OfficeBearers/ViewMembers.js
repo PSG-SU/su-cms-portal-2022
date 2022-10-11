@@ -31,7 +31,7 @@ const ViewMembers = () => {
           theads={["User ID", "ID", "Title"]}
           tdata={data}
           tkeys={["userId", "id", "title"]}
-          className="h-[calc(100vh-20rem)]"
+          className="h-[calc(100vh-20rem)] w-full"
         />
       </div>
     </section>
