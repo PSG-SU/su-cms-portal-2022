@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Club from "../models/Club";
+import Club from "../models/Club.js";
 
 const router = Router();
 
