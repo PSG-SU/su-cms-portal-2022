@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import OfficeBearers from "./pages/OfficeBearers";
 import Clubs from "./pages/Clubs";
 import UserManagement from "./pages/UserManagement";
+import SUStaff from "./pages/SUStaff";
 import "./styles/tailwind.output.css";
 
 
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="office-bearers" element={<OfficeBearers />} />
           <Route path="user-management" element={<UserManagement />} />
           <Route path="clubs" element={<Clubs />} />
+          <Route path="su-staff" element={<SUStaff />} />
         </Route>
       </Routes>
     </BrowserRouter>

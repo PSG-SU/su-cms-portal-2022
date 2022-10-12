@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { FaUserTie, FaUsers,FaUser } from "react-icons/fa";
+import { FaUserTie, FaUsers, FaUser, FaUserGraduate } from "react-icons/fa";
 
 
 const CMSWrapper = () => {
@@ -21,6 +21,11 @@ const CMSWrapper = () => {
       text: "Clubs",
       link: "/clubs",
       icon: <FaUsers />,
+    },
+    {
+      text: "SU Team Staff",
+      link: "/su-staff",
+      icon: <FaUserGraduate />,
     },
   ];
 
