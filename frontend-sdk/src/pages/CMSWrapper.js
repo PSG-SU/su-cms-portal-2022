@@ -56,8 +56,9 @@ const CMSWrapper = () => {
   }, []);
 
   return (
-    <main className="w-screen h-screen overflow-hidden flex">
-      <nav className="h-screen bg-gradient-to-bl from-blue to-black shadow-lg w-1/4 py-8">
+    <main className="h-screen' w-screen overflow-auto flex">
+ 
+      <nav className="bg-gradient-to-bl from-blue to-black shadow-lg w-1/4 py-8">
         <div className="text-white text-3xl font-semibold mb-8 px-8">
           SU CMS Portal
         </div>
