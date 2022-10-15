@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { FaUserTie, FaUsers, FaUser, FaUserGraduate, FaPhotoVideo, FaKey, FaCalendarCheck } from "react-icons/fa";
+import { FaUserTie, FaUsers, FaUser, FaUserGraduate, FaPhotoVideo, FaKey, FaCalendarCheck} from "react-icons/fa";
 
 
 const CMSWrapper = () => {
@@ -43,6 +43,11 @@ const CMSWrapper = () => {
       text: "Event Proposal",
       link: "/proposal",
       icon: <FaCalendarCheck />,
+    },
+    {
+      text: "Team",
+      link: "/team",
+      icon: <FaUsers />,
     },
   ];
 

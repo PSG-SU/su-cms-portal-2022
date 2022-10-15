@@ -9,6 +9,8 @@ import SUStaff from "./pages/Admin/SUStaff";
 import Gallery from "./pages/Club/Gallery";
 import Password from "./pages/Club/Password";
 import Proposal from "./pages/Club/Proposal";
+import Team from "./pages/Club/Team";
+
 import "./styles/tailwind.output.css";
 
 
@@ -22,10 +24,13 @@ const App = () => {
           <Route path="office-bearers" element={<OfficeBearers />} />
           <Route path="user-management" element={<UserManagement />} />
           <Route path="club-management" element={<ClubManagement />} />
+          
           <Route path="su-staff" element={<SUStaff />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="password" element={<Password />} />
           <Route path="proposal" element={<Proposal />} />
+          <Route path="team" element={<Team />} />
+
         </Route>
       </Routes>
     </BrowserRouter>
