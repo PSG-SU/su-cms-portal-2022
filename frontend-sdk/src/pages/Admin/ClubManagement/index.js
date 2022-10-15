@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import AddStaff from "./AddStaff";
-import ViewStaff from "./ViewStaff";
+import AddClubs from "./AddClubs";
+import ViewClubs from "./ViewClubs";
 
-const SUStaff = () => {
+const ClubManagement = () => {
   const TabMenuItems = [
     {
-      text: "Add Staffs",
-      tab: <AddStaff />,
-      // link: "/SUStaff/add",
+      text: "Add Clubs",
+      tab: <AddClubs />,
+      // link: "/officebearers/add",
     },
     {
-      text: "View Staffs",
-      tab: <ViewStaff />,
-      // link: "/SUStaff/view",
+      text: "View Clubs",
+      tab: <ViewClubs />,
+      // link: "/officebearers/view",
     },
   ];
 
@@ -21,7 +21,7 @@ const SUStaff = () => {
   return (
     <section className="">
       <div className="h-fit bg-gray px-8 pt-8">
-        <p className="text-lg uppercase tracking-wider mb-8">OFFICE BEARERS</p>
+        <p className="text-lg uppercase tracking-wider mb-8">CLUB MANAGEMENT</p>
         <header className="flex">
           {TabMenuItems.map((item, idx) => {
             return (
@@ -55,4 +55,4 @@ const SUStaff = () => {
   );
 };
 
-export default SUStaff;
+export default ClubManagement;

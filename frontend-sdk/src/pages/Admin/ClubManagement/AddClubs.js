@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Button from "../../components/Button";
-import Dropdown from "../../components/Dropdown";
-import FileUpload from "../../components/FileUpload";
-import Heading from "../../components/Heading";
-import Inputfield from "../../components/TextInput";
+import Button from "../../../components/Button";
+import Dropdown from "../../../components/Dropdown";
+import FileUpload from "../../../components/FileUpload";
+import Heading from "../../../components/Heading";
+import Inputfield from "../../../components/TextInput";
 
 const AddClubs = () => {
   const [cat, setCat] = useState("");
@@ -21,7 +21,7 @@ const AddClubs = () => {
             placeholder="Select a Privilege"
             options={["Clubs", "Associations"]}
           />
-         
+
         </div>
 
         <div className="flex items-center w-full space-x-4 mt-4">
@@ -37,7 +37,7 @@ const AddClubs = () => {
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
-          
+
         </div>
 
         <div className="flex items-center space-x-4 mt-8 w-1/2">

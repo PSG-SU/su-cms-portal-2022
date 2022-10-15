@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Button from "../../components/Button";
-import Dropdown from "../../components/Dropdown";
-import Heading from "../../components/Heading";
-import Inputfield from "../../components/TextInput";
+import Button from "../../../components/Button";
+import Dropdown from "../../../components/Dropdown";
+import Heading from "../../../components/Heading";
+import Inputfield from "../../../components/TextInput";
 
 const AddUsers = () => {
   const [position, setPosition] = useState("");

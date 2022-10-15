@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
 import { HiOutlineTrash } from "react-icons/hi";
-import Heading from "../../components/Heading";
-import Table from "../../components/Table";
+import Heading from "../../../components/Heading";
+import Table from "../../../components/Table";
 
 const ViewMembers = () => {
   const [position, setPosition] = useState("");

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Button from "../../components/Button";
-import Dropdown from "../../components/Dropdown";
-import Heading from "../../components/Heading";
-import Inputfield from "../../components/TextInput";
-import Column from "../../components/Column";
+import Button from "../../../components/Button";
+import Dropdown from "../../../components/Dropdown";
+import Heading from "../../../components/Heading";
+import Inputfield from "../../../components/TextInput";
+import Column from "../../../components/Column";
 
 
 const DeleteUsers = () => {
@@ -13,7 +13,6 @@ const DeleteUsers = () => {
   const [acayear, setAcayear] = useState("");
 
   return (
-
     <div>
       <div class="flex items-center justify-center min-h-screen bg-gray-900">
         <div class="col-span-12">

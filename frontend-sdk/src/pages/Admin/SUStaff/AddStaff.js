@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import Button from "../../components/Button";
-import Dropdown from "../../components/Dropdown";
-import FileUpload from "../../components/FileUpload";
-import Heading from "../../components/Heading";
-import Inputfield from "../../components/TextInput";
+import Button from "../../../components/Button";
+import Dropdown from "../../../components/Dropdown";
+import Heading from "../../../components/Heading";
+import Inputfield from "../../../components/TextInput";
 
 const AddStaff = () => {
   const [role, setRole] = useState("");

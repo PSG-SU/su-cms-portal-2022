@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import AddClubs from "./AddClubs";
-import ViewClubs from "./ViewClubs";
+import AddImage from "./AddImage";
+import ViewImage from "./ViewImage";
 
-const Clubs = () => {
+const Gallery = () => {
   const TabMenuItems = [
     {
-      text: "Add Clubs",
-      tab: <AddClubs />,
-      // link: "/officebearers/add",
+      text: "Upload Images",
+      tab: <AddImage />,
+      // link: "/Gallery/add",
     },
     {
-      text: "View Clubs",
-      tab: <ViewClubs />,
-      // link: "/officebearers/view",
+      text: "View Images",
+      tab: <ViewImage />,
+      // link: "/Gallery/view",
     },
   ];
 
@@ -21,7 +21,7 @@ const Clubs = () => {
   return (
     <section className="">
       <div className="h-fit bg-gray px-8 pt-8">
-        <p className="text-lg uppercase tracking-wider mb-8">CLUBS</p>
+        <p className="text-lg uppercase tracking-wider mb-8">GALLERY</p>
         <header className="flex">
           {TabMenuItems.map((item, idx) => {
             return (
@@ -55,4 +55,4 @@ const Clubs = () => {
   );
 };
 
-export default Clubs;
+export default Gallery;

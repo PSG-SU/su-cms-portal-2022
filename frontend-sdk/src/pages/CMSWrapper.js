@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { FaUserTie, FaUsers, FaUser, FaUserGraduate } from "react-icons/fa";
+import { FaUserTie, FaUsers, FaUser, FaUserGraduate, FaPhotoVideo, FaKey, FaCalendarCheck } from "react-icons/fa";
 
 
 const CMSWrapper = () => {
@@ -18,8 +18,8 @@ const CMSWrapper = () => {
       icon: <FaUser />,
     },
     {
-      text: "Clubs",
-      link: "/clubs",
+      text: "Club Management",
+      link: "/club-management",
       icon: <FaUsers />,
     },
     {
@@ -27,10 +27,27 @@ const CMSWrapper = () => {
       link: "/su-staff",
       icon: <FaUserGraduate />,
     },
+  ]
+  const AdminSUMenuItems = [
+    {
+      text: "Gallery",
+      link: "/gallery",
+      icon: <FaPhotoVideo />,
+    },
+    {
+      text: "Password",
+      link: "/password",
+      icon: <FaKey />,
+    },
+    {
+      text: "Event Proposal",
+      link: "/proposal",
+      icon: <FaCalendarCheck />,
+    },
   ];
 
   useEffect(() => {
-    setMenuItems(SUMenuItems);
+    setMenuItems(localStorage.getItem("role") !== "admin" ? AdminSUMenuItems : SUMenuItems);
   }, []);
 
   return (
