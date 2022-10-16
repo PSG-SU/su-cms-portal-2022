@@ -7,12 +7,12 @@ import Clubs from "./pages/Clubs";
 import UserManagement from "./pages/UserManagement";
 import SUStaff from "./pages/SUStaff";
 import "./styles/tailwind.output.css";
-
-
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
     <BrowserRouter>
+      <Toaster />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="" element={<CMSWrapper />}>

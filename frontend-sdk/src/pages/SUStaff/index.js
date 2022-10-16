@@ -21,7 +21,7 @@ const SUStaff = () => {
   return (
     <section className="">
       <div className="h-fit bg-gray px-8 pt-8">
-        <p className="text-lg uppercase tracking-wider mb-8">OFFICE BEARERS</p>
+        <p className="text-lg uppercase tracking-wider mb-8">SU Team Staff</p>
         <header className="flex">
           {TabMenuItems.map((item, idx) => {
             return (

@@ -6,8 +6,8 @@ const router = Router();
 
 router.post("/", upload.single("file"), async (req, res) => {
   try {
+    console.log(req.file);
     const result = await cloudinary.uploader.upload(req.file.path);
-    console.log(req);
     console.log(result);
     res.status(200).send({
       name: req.file.originalname,
