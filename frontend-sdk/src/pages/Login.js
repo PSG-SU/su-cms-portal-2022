@@ -18,6 +18,7 @@ const Login = () => {
       .post(LOGIN_URL, { userId: username, password: password }, {})
       .then((res) => {
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("rights", res.data.rights);
         toast.success("Login Successful !");
         navigate("/admin");
       })
