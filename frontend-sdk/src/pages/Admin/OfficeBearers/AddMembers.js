@@ -32,7 +32,7 @@ const AddMembers = () => {
         toast.promise(addOfficeBearers(postBody), {
           loading: "Adding...",
           success: "Added Successfully",
-          error: "Error Occured",
+          error: (err) => `Error: ${err.response.data.error}`,
         });
         return "Uploaded";
       },

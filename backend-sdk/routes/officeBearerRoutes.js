@@ -35,7 +35,11 @@ router.post("/add", async (req, res) => {
     res.status(201).json({ officeBearer: officeBearer._id });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: err.message });
+    if (err.code === 11000) {
+      res.status(409).json({ error: "Already exists" });
+    } else {
+      res.status(500).json({ error: err.message });
+    }
   }
 });
 
@@ -67,6 +71,16 @@ router.delete("/delete/:role", async (req, res) => {
     } else {
       res.status(200).json(officeBearer);
     }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.delete("/deleteAll", async (req, res) => {
+  try {
+    const officeBearers = await OfficeBearer.deleteMany({});
+    res.status(200).json(officeBearers);
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err.message });

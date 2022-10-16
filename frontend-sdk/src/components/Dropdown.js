@@ -28,7 +28,6 @@ const Dropdown = ({
         <select
           disabled={isDisabled}
           placeholder={placeholder}
-          defaultValue={options[0]}
           onChange={(e) => {
             e.preventDefault();
             setValue(e.target.value);
