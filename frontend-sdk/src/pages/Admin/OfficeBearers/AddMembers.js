@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { OFFICE_BEARERS_URL, UPLOAD_URL } from "../../API/config";
-import Button from "../../components/Button";
-import Dropdown from "../../components/Dropdown";
-import FileUpload from "../../components/FileUpload";
-import Heading from "../../components/Heading";
-import Inputfield from "../../components/TextInput";
-import { toast } from "react-hot-toast";
+import Button from "../../../components/Button";
+import Dropdown from "../../../components/Dropdown";
+import FileUpload from "../../../components/FileUpload";
+import Heading from "../../../components/Heading";
+import Inputfield from "../../../components/TextInput";
 
 const AddMembers = () => {
   const [position, setPosition] = useState("");

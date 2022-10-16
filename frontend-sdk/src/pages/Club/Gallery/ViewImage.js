@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
 import { HiOutlineTrash } from "react-icons/hi";
-import Heading from "../../components/Heading";
-import Table from "../../components/Table";
+import Heading from "../../../components/Heading";
+import Table from "../../../components/Table";
 
-const ViewClubs = () => {
+const ViewImage = () => {
   const [position, setPosition] = useState("");
   const [name, setName] = useState("");
   const [deptyos, setDeptyos] = useState("");
@@ -25,12 +25,12 @@ const ViewClubs = () => {
 
   return (
     <section className="px-8 py-8 w-full">
-      <Heading>View Members</Heading>
+      <Heading>View Images</Heading>
       <div className="mt-8  w-3/4">
         <Table
-          theads={["Club", "ID"]}
+          theads={["User ID", "ID", "Title"]}
           tdata={data}
-          tkeys={["clubName", "clubId"]}
+          tkeys={["userId", "id", "title"]}
           className="h-[calc(100vh-20rem)] w-full"
         />
       </div>
@@ -38,4 +38,4 @@ const ViewClubs = () => {
   );
 };
 
-export default ViewClubs;
+export default ViewImage;

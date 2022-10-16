@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { FaUserTie, FaUsers, FaUser, FaUserGraduate } from "react-icons/fa";
+import { FaUserTie, FaUsers, FaUser, FaUserGraduate, FaPhotoVideo, FaKey, FaCalendarCheck} from "react-icons/fa";
 
 
 const CMSWrapper = () => {
@@ -18,8 +18,8 @@ const CMSWrapper = () => {
       icon: <FaUser />,
     },
     {
-      text: "Clubs",
-      link: "/clubs",
+      text: "Club Management",
+      link: "/club-management",
       icon: <FaUsers />,
     },
     {
@@ -27,15 +27,38 @@ const CMSWrapper = () => {
       link: "/su-staff",
       icon: <FaUserGraduate />,
     },
+  ]
+  const AdminSUMenuItems = [
+    {
+      text: "Gallery",
+      link: "/gallery",
+      icon: <FaPhotoVideo />,
+    },
+    {
+      text: "Password",
+      link: "/password",
+      icon: <FaKey />,
+    },
+    {
+      text: "Event Proposal",
+      link: "/proposal",
+      icon: <FaCalendarCheck />,
+    },
+    {
+      text: "Team",
+      link: "/team",
+      icon: <FaUsers />,
+    },
   ];
 
   useEffect(() => {
-    setMenuItems(SUMenuItems);
+    setMenuItems(localStorage.getItem("role") !== "admin" ? AdminSUMenuItems : SUMenuItems);
   }, []);
 
   return (
-    <main className="w-screen h-screen overflow-hidden flex">
-      <nav className="h-screen bg-gradient-to-bl from-blue to-black shadow-lg w-1/4 py-8">
+    <main className="h-screen' w-screen overflow-auto flex">
+ 
+      <nav className="bg-gradient-to-bl from-blue to-black shadow-lg w-1/4 py-8">
         <div className="text-white text-3xl font-semibold mb-8 px-8">
           SU CMS Portal
         </div>

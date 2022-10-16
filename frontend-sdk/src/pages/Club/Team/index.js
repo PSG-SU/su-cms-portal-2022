@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-import AddClubs from "./AddClubs";
-import ViewClubs from "./ViewClubs";
+import AddMember from "./Addmember";
+import EditandDelete from "./Editanddelete";
 
-const Clubs = () => {
+const Team = () => {
   const TabMenuItems = [
     {
-      text: "Add Clubs",
-      tab: <AddClubs />,
-      // link: "/officebearers/add",
+      text: "Add Member",
+      tab: <AddMember />,
     },
     {
-      text: "View Clubs",
-      tab: <ViewClubs />,
-      // link: "/officebearers/view",
+      text: "Edit and Delete Member",
+      tab: <EditandDelete />,
     },
   ];
 
@@ -21,7 +19,7 @@ const Clubs = () => {
   return (
     <section className="">
       <div className="h-fit bg-gray px-8 pt-8">
-        <p className="text-lg uppercase tracking-wider mb-8">CLUBS</p>
+        <p className="text-lg uppercase tracking-wider mb-8">TEAM MANAGEMENT</p>
         <header className="flex">
           {TabMenuItems.map((item, idx) => {
             return (
@@ -55,4 +53,4 @@ const Clubs = () => {
   );
 };
 
-export default Clubs;
+export default Team;
