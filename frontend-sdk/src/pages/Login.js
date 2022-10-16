@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { LOGIN_URL } from "../API/config";
+import { fetchLogin } from "../API/calls";
 import Button from "../components/Button";
 import Heading from "../components/Heading";
 import TextInput from "../components/TextInput";
@@ -14,8 +14,8 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    axios
-      .post(LOGIN_URL, { userId: username, password: password }, {})
+    const postBody = { userId: username, password: password };
+    fetchLogin(postBody)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("rights", res.data.rights);
@@ -24,6 +24,7 @@ const Login = () => {
       })
       .catch((err) => {
         console.log(err);
+        toast.error(`Error: ${err}`);
       });
   };
 

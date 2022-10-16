@@ -1,7 +1,9 @@
 import axios from "axios";
-import { OFFICE_BEARERS_URL, UPLOAD_URL } from "./config";
+import { LOGIN_URL, OFFICE_BEARERS_URL, UPLOAD_URL } from "./config";
 
-export const uploadFile = (file) => {
+export const fetchLogin = (postBody) => axios.post(LOGIN_URL, postBody, {});
+
+export const fetchUploadFile = (file) => {
   let data = new FormData();
   data.append("file", file);
   return axios.post(UPLOAD_URL, data, {
@@ -11,6 +13,9 @@ export const uploadFile = (file) => {
   });
 };
 
-export const addOfficeBearers = (postBody) => {
-  return axios.post(`${OFFICE_BEARERS_URL}/add`, postBody, {});
-};
+// For OFFICE BEARERS
+
+export const fetchAddOfficeBearers = (postBody) =>
+  axios.post(`${OFFICE_BEARERS_URL}/add`, postBody, {});
+
+/* ------------------------------------------- */

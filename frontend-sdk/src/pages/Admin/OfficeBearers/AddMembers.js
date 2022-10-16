@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import axios from "axios";
 import Button from "../../../components/Button";
 import Dropdown from "../../../components/Dropdown";
 import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
-import { OFFICE_BEARERS_URL, UPLOAD_URL } from "../../../API/config";
-import { addOfficeBearers, uploadFile } from "../../../API/calls";
+import { fetchAddOfficeBearers, fetchUploadFile } from "../../../API/calls";
 
 const AddMembers = () => {
   const [position, setPosition] = useState("");
@@ -18,7 +16,7 @@ const AddMembers = () => {
   const [image_url, setImage_url] = useState("");
 
   const handlePost = async () => {
-    toast.promise(uploadFile(file), {
+    toast.promise(fetchUploadFile(file), {
       loading: "Uploading...",
       success: (res) => {
         setImage_url(res.data.url);
@@ -29,7 +27,7 @@ const AddMembers = () => {
           year: acayear,
           image_url: res.data.url,
         };
-        toast.promise(addOfficeBearers(postBody), {
+        toast.promise(fetchAddOfficeBearers(postBody), {
           loading: "Adding...",
           success: "Added Successfully",
           error: (err) => `Error: ${err.response.data.error}`,
