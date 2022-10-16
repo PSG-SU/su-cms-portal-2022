@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { LOGIN_URL } from "../API/config";
 import Button from "../components/Button";
@@ -14,10 +15,11 @@ const Login = () => {
 
   const handleClick = () => {
     axios
-      .post(LOGIN_URL, { username, password }, {})
+      .post(LOGIN_URL, { userId: username, password: password }, {})
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        navigate("/");
+        toast.success("Login Successful !");
+        navigate("/admin");
       })
       .catch((err) => {
         console.log(err);

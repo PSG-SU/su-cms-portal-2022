@@ -26,7 +26,7 @@ const ViewMembers = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>View Members</Heading>
-      <div className="mt-8  w-3/4">
+      <div className="mt-8 w-full lg:w-3/4">
         <Table
           theads={["User ID", "ID", "Title"]}
           tdata={data}

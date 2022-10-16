@@ -11,7 +11,7 @@ const AddStaff = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>Add SU Team Staffs</Heading>
-      <div className="mt-8  w-3/4">
+      <div className="mt-8 w-full lg:w-3/4">
         <div className="flex items-center w-full space-x-4">
           <Inputfield
             valueState={[name, setName]}

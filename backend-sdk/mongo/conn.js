@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const connectionString =
-  "mongodb+srv://admin:admin@su-cms-cluster.w2oqqgh.mongodb.net/?retryWrites=true&w=majority";
+  "mongodb+srv://admin:admin@su-cms-cluster.divdmpb.mongodb.net/?retryWrites=true&w=majority";
 
 export const connectToServer = (callback) => {
   mongoose

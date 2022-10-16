@@ -1,18 +1,19 @@
 import { useEffect } from "react";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import CMSWrapper from "./pages/CMSWrapper";
 import Login from "./pages/Login";
-import OfficeBearers from "./pages/Admin/OfficeBearers";
-import ClubManagement from "./pages/Admin/ClubManagement";
-import UserManagement from "./pages/Admin/UserManagement";
-import SUStaff from "./pages/Admin/SUStaff";
-import Gallery from "./pages/Club/Gallery";
-import Password from "./pages/Club/Password";
-import Proposal from "./pages/Club/Proposal";
-import Team from "./pages/Club/Team";
 
 import "./styles/tailwind.output.css";
 import { Toaster } from "react-hot-toast";
+
+import AdminSUMenuItems from "./pages/Admin.routes.js";
+import SUMenuItems from "./pages/User.routes.js";
 
 const App = () => {
   return (
@@ -21,17 +22,14 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="" element={<CMSWrapper />}>
-          <Route path="office-bearers" element={<OfficeBearers />} />
-          <Route path="user-management" element={<UserManagement />} />
-          <Route path="club-management" element={<ClubManagement />} />
-          
-          <Route path="su-staff" element={<SUStaff />} />
-          <Route path="gallery" element={<Gallery />} />
-          <Route path="password" element={<Password />} />
-          <Route path="proposal" element={<Proposal />} />
-          <Route path="team" element={<Team />} />
-
+          {AdminSUMenuItems.map((item) => (
+            <Route key={item.text} path={item.link} element={item.element} />
+          ))}
+          {SUMenuItems.map((item) => (
+            <Route key={item.text} path={item.link} element={item.element} />
+          ))}
         </Route>
+        <Route index element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>
   );

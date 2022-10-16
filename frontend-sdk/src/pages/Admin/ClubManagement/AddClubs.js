@@ -11,11 +11,10 @@ const AddClubs = () => {
   const [clname, setClname] = useState("");
   const [file, setFile] = useState("");
 
-
   return (
     <section className="px-8 py-8 w-full">
       <Heading>New Club / Association addition</Heading>
-      <div className="mt-8  w-3/4">
+      <div className="mt-8 w-full lg:w-3/4">
         <div className="flex items-center w-1/2 space-x-4">
           <Dropdown
             valueState={[cat, setCat]}
@@ -23,7 +22,6 @@ const AddClubs = () => {
             placeholder="Select a Privilege"
             options={["Clubs", "Associations"]}
           />
-
         </div>
 
         <div className="flex items-center w-full space-x-4 mt-4">
@@ -38,8 +36,8 @@ const AddClubs = () => {
             placeholder="Enter the name of the Club"
           />
         </div>
-        <div className="flex items-center w-full space-x-4 mt-4">
-          <FileUpload fileState={[file, setFile]} />
+        <div className="flex items-center w-1/2 space-x-4 mt-4">
+          <FileUpload fileState={[file, setFile]} title="Upload Logo" />
         </div>
 
         <div className="flex items-center space-x-4 mt-8 w-1/2">

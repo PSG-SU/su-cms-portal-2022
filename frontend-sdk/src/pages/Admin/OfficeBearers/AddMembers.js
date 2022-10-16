@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
+import axios from "axios";
 import Button from "../../../components/Button";
 import Dropdown from "../../../components/Dropdown";
 import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
+import { UPLOAD_URL } from "../../../API/config";
 
 const AddMembers = () => {
   const [position, setPosition] = useState("");
@@ -47,7 +50,7 @@ const AddMembers = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>Add Members</Heading>
-      <div className="mt-8  w-3/4">
+      <div className="mt-8 w-full lg:w-3/4">
         <div className="flex items-center w-full space-x-4">
           <Inputfield
             valueState={[name, setName]}
