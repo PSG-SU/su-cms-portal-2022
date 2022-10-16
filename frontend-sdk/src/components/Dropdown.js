@@ -39,7 +39,7 @@ const Dropdown = ({
           } first-letter:transition ease-in-out m-0 focus:outline-none focus:border-cloud`}
         >
           {placeholder.length > 0 && (
-            <option value="" disabled>
+            <option value="" selected disabled>
               {placeholder}
             </option>
           )}

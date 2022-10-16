@@ -8,7 +8,6 @@ const officeBearerSchema = new Schema({
   role: {
     type: String,
     required: true,
-    unique: true,
     lowercase: true,
   },
   year: {
@@ -24,5 +23,7 @@ const officeBearerSchema = new Schema({
     required: true,
   },
 });
+
+officeBearerSchema.index({ role: 1, year: 1 }, { unique: true });
 
 export default model("OfficeBearer", officeBearerSchema);

@@ -31,10 +31,7 @@ router.get("/:role", async (req, res) => {
 
 router.post("/add", async (req, res) => {
   try {
-    const officeBearer = await OfficeBearer.create({
-      ...req.body,
-      role: req.body.role.toLowerCase(),
-    });
+    const officeBearer = await OfficeBearer.create(req.body);
     res.status(201).json({ officeBearer: officeBearer._id });
   } catch (err) {
     console.log(err);

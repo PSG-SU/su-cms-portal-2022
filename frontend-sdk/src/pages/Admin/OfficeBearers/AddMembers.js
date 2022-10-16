@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import Button from "../../../components/Button";
@@ -6,7 +6,8 @@ import Dropdown from "../../../components/Dropdown";
 import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
-import { UPLOAD_URL } from "../../../API/config";
+import { OFFICE_BEARERS_URL, UPLOAD_URL } from "../../../API/config";
+import { addOfficeBearers, uploadFile } from "../../../API/calls";
 
 const AddMembers = () => {
   const [position, setPosition] = useState("");
@@ -17,40 +18,26 @@ const AddMembers = () => {
   const [image_url, setImage_url] = useState("");
 
   const handlePost = async () => {
-    let data = new FormData();
-    console.log("UPLOAD file",file);
-    data.append("file", file);
-    for (const pair of data.entries()) {
-      console.log("UPLOAD", `${pair[0]}, ${pair[1]}`);
-    }
-    toast.promise(
-      axios
-        .post(UPLOAD_URL, data, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((res) => {
-          console.log("UPLOAD", res.data);
-          // axios
-          //   .post(`${OFFICE_BEARERS_URL}/add`, {
-          //     name: name,
-          //     role: position,
-          //     year: acayear,
-          //     deptyos: deptyos,
-          //     image_url: image_url,
-          //   })
-          //   .then((res1) => {});
-        })
-        .catch((err) => {
-          console.log("UPLOAD", err);
-        }),
-      {
-        loading: "Uploading...",
-        success: "Uploaded",
-        error: "Error",
-      }
-    );
+    toast.promise(uploadFile(file), {
+      loading: "Uploading...",
+      success: (res) => {
+        setImage_url(res.data.url);
+        const postBody = {
+          role: position,
+          name: name,
+          deptyos: deptyos,
+          year: acayear,
+          image_url: res.data.url,
+        };
+        toast.promise(addOfficeBearers(postBody), {
+          loading: "Adding...",
+          success: "Added Successfully",
+          error: "Error Occured",
+        });
+        return "Uploaded";
+      },
+      error: "Error Occured",
+    });
   };
 
   return (
