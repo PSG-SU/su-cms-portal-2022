@@ -26,7 +26,7 @@ const ViewStaff = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>View SU Team Staffs</Heading>
-      <div className="mt-8 w-full lg:w-3/4">
+      <div className="mt-8 w-full lg:w-4/5">
         <Table
           theads={["Name", "Role"]}
           tdata={data}

@@ -4,15 +4,15 @@ import { AiFillExclamationCircle } from "react-icons/ai";
 
 const FileUpload = ({
   fileState,
-  fileErrorState = [null, () => {}],
+  fileErrorState = ["", (e) => {}],
   className = "",
   title = "",
 }) => {
-  const [file, setFile] = useState(null);
-  const [fileError, setFileError] = useState("");
+  const [file, setFile] = fileState;
+  const [fileError, setFileError] = fileErrorState;
 
   useEffect(() => {
-    console.log(file);
+    console.log("UPLOAD", file);
   }, [file]);
 
   return (

@@ -19,18 +19,18 @@ const ViewMembers = () => {
       .then((response) => response.json())
       .then((json) => {
         setData(json);
-        console.log(json);
       });
   }, []);
 
   return (
     <section className="px-8 py-8 w-full">
       <Heading>View Members</Heading>
-      <div className="mt-8 w-full lg:w-3/4">
+      <div className="mt-8 w-full lg:w-4/5">
         <Table
           theads={["User ID", "ID", "Title"]}
           tdata={data}
           tkeys={["userId", "id", "title"]}
+          tratio="1fr 1fr 2fr"
           className="h-[calc(100vh-20rem)] w-full"
         />
       </div>

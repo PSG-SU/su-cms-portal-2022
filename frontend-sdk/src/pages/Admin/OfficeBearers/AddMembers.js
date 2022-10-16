@@ -18,8 +18,11 @@ const AddMembers = () => {
 
   const handlePost = async () => {
     let data = new FormData();
+    console.log("UPLOAD file",file);
     data.append("file", file);
-
+    for (const pair of data.entries()) {
+      console.log("UPLOAD", `${pair[0]}, ${pair[1]}`);
+    }
     toast.promise(
       axios
         .post(UPLOAD_URL, data, {
@@ -28,7 +31,7 @@ const AddMembers = () => {
           },
         })
         .then((res) => {
-          console.log(res.data);
+          console.log("UPLOAD", res.data);
           // axios
           //   .post(`${OFFICE_BEARERS_URL}/add`, {
           //     name: name,
@@ -38,6 +41,9 @@ const AddMembers = () => {
           //     image_url: image_url,
           //   })
           //   .then((res1) => {});
+        })
+        .catch((err) => {
+          console.log("UPLOAD", err);
         }),
       {
         loading: "Uploading...",
@@ -50,7 +56,7 @@ const AddMembers = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>Add Members</Heading>
-      <div className="mt-8 w-full lg:w-3/4">
+      <div className="mt-8 w-full lg:w-4/5">
         <div className="flex items-center w-full space-x-4">
           <Inputfield
             valueState={[name, setName]}

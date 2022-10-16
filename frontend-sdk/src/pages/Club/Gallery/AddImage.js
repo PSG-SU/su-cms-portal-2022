@@ -9,7 +9,7 @@ const AddImage = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>Upload Images</Heading>
-      <div className="mt-8 w-full lg:w-3/4">
+      <div className="mt-8 w-full lg:w-4/5">
         <div className="flex items-center w-full space-x-4">
           <p>The last uploaded image will be on the top during display in the gallery page.
             Only jpg / png files are supported.

@@ -20,7 +20,7 @@ const AddUsers = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>Add Users</Heading>
-      <div className="mt-8 w-full lg:w-3/4">
+      <div className="mt-8 w-full lg:w-4/5">
         <div className="flex items-center w-full space-x-4">
           <Dropdown
             valueState={[rights, setrights]}
@@ -56,9 +56,7 @@ const AddUsers = () => {
             placeholder="Re-Enter your password here"
           />
         </div>
-        <div className="flex items-center w-full space-x-4 mt-4">
-          
-        </div>
+        <div className="flex items-center w-full space-x-4 mt-4"></div>
 
         <div className="flex items-center space-x-4 mt-8 w-1/2">
           <Button className="w-3/4" text="Add User" />

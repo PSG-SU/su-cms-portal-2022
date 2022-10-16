@@ -24,7 +24,7 @@ const AddMember = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>Team conent for website</Heading>
-      <div className="mt-8 w-full lg:w-3/4">
+      <div className="mt-8 w-full lg:w-4/5">
         <div className="flex items-center w-full space-x-4">
           <Dropdown
             valueState={[pos, setPos]}
