@@ -26,7 +26,7 @@ const ViewImage = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>View Images</Heading>
-      <div className="mt-8 w-full lg:w-4/5">
+      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
         <Table
           theads={["User ID", "ID", "Title"]}
           tdata={data}

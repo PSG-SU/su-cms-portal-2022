@@ -41,7 +41,7 @@ const AddMembers = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>Add Members</Heading>
-      <div className="mt-8 w-full lg:w-4/5">
+      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
         <div className="flex items-center w-full space-x-4">
           <Inputfield
             valueState={[name, setName]}

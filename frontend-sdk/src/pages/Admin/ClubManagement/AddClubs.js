@@ -14,7 +14,7 @@ const AddClubs = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>New Club / Association addition</Heading>
-      <div className="mt-8 w-full lg:w-4/5">
+      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
         <div className="flex items-center w-1/2 space-x-4">
           <Dropdown
             valueState={[cat, setCat]}

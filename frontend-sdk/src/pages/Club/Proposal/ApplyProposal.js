@@ -30,7 +30,7 @@ const ApplyProposal = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>Event Proposal Application</Heading>
-      <div className="mt-8 w-full lg:w-4/5">
+      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-y-auto">
         <div className="flex items-center w-full space-x-4">
           <Inputfield
             valueState={[date, setDate]}
@@ -136,10 +136,10 @@ const ApplyProposal = () => {
             valueState={[facultyName, setfacultyName]}
             title="Faculty Observer - Name"
             placeholder="Eg. Mr. Abc"
-          /> 
+          />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
-          <TextArea 
+          <TextArea
             title="Comments"
             placeholder="Special Requirements (if any)"
           />

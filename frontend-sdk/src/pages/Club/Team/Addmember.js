@@ -24,7 +24,7 @@ const AddMember = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>Team conent for website</Heading>
-      <div className="mt-8 w-full lg:w-4/5">
+      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
         <div className="flex items-center w-full space-x-4">
           <Dropdown
             valueState={[pos, setPos]}
@@ -40,7 +40,7 @@ const AddMember = () => {
         </div>
 
         <div className="flex items-center w-full space-x-4 mt-4">
-        <Dropdown
+          <Dropdown
             valueState={[dept, setDept]}
             title="Department"
             placeholder="Select a Department"
@@ -64,21 +64,21 @@ const AddMember = () => {
             title="Email"
             placeholder="Enter Email-Id"
           />
-          </div>
-          <div className="flex items-center w-full space-x-4 mt-4">
+        </div>
+        <div className="flex items-center w-full space-x-4 mt-4">
           <Dropdown
             valueState={[from, setFrom]}
             title="Select Year From"
             placeholder="Select a Department"
-            options={["2003", "2004", "2005","2006", "2007", "2008","2009", "2010", "2011"]}
+            options={["2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011"]}
           />
           <Dropdown
             valueState={[to, setTo]}
             title="Select Year to"
             placeholder="Select a Department"
-            options={["2003", "2004", "2005","2006", "2007", "2008","2009", "2010", "2011"]}          
+            options={["2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011"]}
           />
-          </div>
+        </div>
 
         <div className="flex items-center space-x-4 mt-8 w-1/2">
           <Button className="w-3/4" text="Add Team" />
