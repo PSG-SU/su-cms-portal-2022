@@ -7,7 +7,7 @@ const router = Router();
 
 export const SECRET = "sucms.psgtech";
 
-router.post("/signup", async (req, res) => {
+router.post("/add", async (req, res) => {
   const { userId, password, rights, associationName } = req.body;
   try {
     const user = await User.create({
@@ -23,6 +23,30 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+router.get("/", async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.status(200).json(users);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findOne({ userId: id });
+    if (user) {
+      return res.status(200).json(user);
+    }
+    res.status(404).json({ message: "User not found!" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 router.post("/login", async (req, res) => {
   const { userId, password } = req.body;
   try {
@@ -30,12 +54,10 @@ router.post("/login", async (req, res) => {
     if (user) {
       const auth = bcrypt.compareSync(password, user.password);
       if (auth) {
-        res
-          .status(200)
-          .json({
-            token: jwt.sign({ _id: user._id }, SECRET),
-            rights: user.rights,
-          });
+        res.status(200).json({
+          token: jwt.sign({ _id: user._id }, SECRET),
+          rights: user.rights,
+        });
       } else {
         res.status(401).json({ error: "Invalid credentials" });
       }
