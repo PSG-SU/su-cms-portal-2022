@@ -4,6 +4,7 @@ import OfficeBearers from "./Admin/OfficeBearers";
 import ClubManagement from "./Admin/ClubManagement";
 import UserManagement from "./Admin/UserManagement";
 import SUStaff from "./Admin/SUStaff";
+import NSS_NCC from "./Admin/NSS_NCC";
 import { Navigate } from "react-router-dom";
 
 const list = [
@@ -30,6 +31,12 @@ const list = [
     link: "/admin/office-bearers",
     icon: <FaUserTie />,
     element: <OfficeBearers />,
+  },
+  {
+    text: "NSS/NCC",
+    link: "/admin/nss-ncc",
+    icon: <FaUserTie />,
+    element: <NSS_NCC />,
   },
   {
     text: "default",
