@@ -10,9 +10,13 @@ const FileUpload = ({
 }) => {
   const [file, setFile] = fileState;
   const [fileError, setFileError] = fileErrorState;
+  const [fileName, setfileName] = useState("No file chosen");
 
   useEffect(() => {
     console.log("UPLOAD", file);
+    if (file) {
+      setfileName(file.name);
+    }
   }, [file]);
 
   return (
@@ -39,7 +43,7 @@ const FileUpload = ({
               />
               <FiUpload />
             </label>
-            {file && <p className="whitespace-pre-wrap">{file.name}</p>}
+            <p className="whitespace-pre-wrap">{fileName}</p>
           </div>
         </div>
       </div>

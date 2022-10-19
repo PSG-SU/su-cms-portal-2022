@@ -30,8 +30,8 @@ const TextArea = ({
             setValue(e.target.value);
             setError("");
           }}
-          className={`h-24 px-4 py-2 w-full rounded-lg text-slate bg-cloud bg-clip-padding bg-no-repeat border-2 border-solid ${
-            error.length !== 0 ? "border-red" : "border-cloud"
+          className={`h-24 px-4 py-2 w-full rounded-lg text-slate bg-gray bg-clip-padding bg-no-repeat border-2 border-solid ${
+            error.length !== 0 ? "border-red" : "border-gray"
           } first-letter:transition ease-in-out m-0 focus:outline-none focus:border-mid-violet`}
         />
       </div>

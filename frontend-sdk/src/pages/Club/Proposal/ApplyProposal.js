@@ -24,6 +24,8 @@ const ApplyProposal = () => {
   const [amountSpent, setamountSpent] = useState("");
   const [facultyDept, setfacultyDept] = useState("");
   const [facultyName, setfacultyName] = useState("");
+  const [comment, setComment] = useState("");
+  const [desc, setDesc] = useState("");
 
   const [file, setFile] = useState(null);
 
@@ -142,12 +144,14 @@ const ApplyProposal = () => {
           <TextArea
             title="Comments"
             placeholder="Special Requirements (if any)"
+            valueState={[comment, setComment]}
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
           <TextArea
             title="Event Description (Brief)"
             placeholder="The content entered will be shown as a description for thumbnail in events page"
+            valueState={[desc, setDesc]}
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">

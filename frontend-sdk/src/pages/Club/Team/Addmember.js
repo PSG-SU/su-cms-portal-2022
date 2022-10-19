@@ -23,13 +23,13 @@ const AddMember = () => {
 
   return (
     <section className="px-8 py-8 w-full">
-      <Heading>Team conent for website</Heading>
+      <Heading>Content for website</Heading>
       <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
         <div className="flex items-center w-full space-x-4">
           <Dropdown
             valueState={[pos, setPos]}
             title="Position"
-            placeholder="Select a Privilege"
+            placeholder="Select a Position"
             options={["Member", "Student", "Faculty"]}
           />
           <Inputfield
@@ -51,7 +51,9 @@ const AddMember = () => {
             title="Designation / Year of study"
             placeholder="Enter the name of the Club"
           />
-          <FileUpload fileState={[pic, setPic]} />
+          <FileUpload
+            title="Member photo"
+            fileState={[pic, setPic]} />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
           <Inputfield
