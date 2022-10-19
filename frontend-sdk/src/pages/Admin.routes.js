@@ -32,13 +32,13 @@ const list = [
   {
     text: "SU Team Staff",
     link: "/admin/su-staff",
-    icon: <FaUserGraduate />,
+    icon: < FaUserTie />,
     element: <SUStaff />,
   },
   {
     text: "SU Office Bearers",
     link: "/admin/office-bearers",
-    icon: <FaUserTie />,
+    icon: <FaUserGraduate/>,
     element: <OfficeBearers />,
   },
   {
