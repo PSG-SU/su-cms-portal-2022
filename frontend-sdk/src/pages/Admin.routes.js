@@ -46,6 +46,8 @@ const list = [
     link: "/admin/nss-ncc",
     icon: <FaUserTie />,
     element: <NSS_NCC />,
+  },
+  {
     text: "Password",
     link: "/admin/password",
     icon: <FaKey />,
