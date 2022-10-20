@@ -6,22 +6,28 @@ import AdminSUMenuItems from "./Admin.routes.js";
 import SUMenuItems from "./User.routes.js";
 import { MdLogout } from "react-icons/md";
 import { toast } from "react-hot-toast";
-const CMSWrapper = () => {
+
+const AdminWrapper = () => {
   const [menuItems, setMenuItems] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.getItem("token")
-      ? axios
-          .get(LOGIN_URL, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
-          .then((res) => {
-            console.log(res.data);
-          })
-      : navigate("/login");
+    if (localStorage.getItem("token") && localStorage.getItem("rights") === "admin") {
+      axios
+        .get(LOGIN_URL, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+      .then((res) => {
+        toast.show(res.data.message);
+        if(res.data.message === "Unauthorized"){
+          navigate("/login");
+        }
+      })
+    } else {
+      navigate("/login");
+    }
     setMenuItems(
       localStorage.getItem("rights") === "admin"
         ? AdminSUMenuItems
@@ -74,4 +80,4 @@ const CMSWrapper = () => {
   );
 };
 
-export default CMSWrapper;
+export default AdminWrapper;

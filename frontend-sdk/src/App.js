@@ -6,7 +6,7 @@ import {
   Routes,
   useNavigate,
 } from "react-router-dom";
-import CMSWrapper from "./pages/CMSWrapper";
+
 import Login from "./pages/Login";
 
 import "./styles/tailwind.output.css";
@@ -14,6 +14,8 @@ import { Toaster } from "react-hot-toast";
 
 import AdminSUMenuItems from "./pages/Admin.routes.js";
 import SUMenuItems from "./pages/User.routes.js";
+import AdminWrapper from "./pages/AdminWrapper";
+import UserWrapper from "./pages/UserWrapper";
 
 const App = () => {
   return (
@@ -21,14 +23,16 @@ const App = () => {
       <Toaster />
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="" element={<CMSWrapper />}>
+        <Route path="admin" element={<AdminWrapper />}>
           {AdminSUMenuItems.map((item) => (
-            <Route key={item.text} path={item.link} element={item.element} />
-          ))}
-          {SUMenuItems.map((item) => (
-            <Route key={item.text} path={item.link} element={item.element} />
+            <Route key={item.text} path={item.rlink} element={item.element} />
           ))}
         </Route>
+          <Route path="club" element={<UserWrapper />} >
+            {SUMenuItems.map((item) => (
+              <Route key={item.text} path={item.rlink} element={item.element} />
+            ))}
+          </Route>
         <Route index element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>

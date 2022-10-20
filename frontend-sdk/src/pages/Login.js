@@ -20,7 +20,9 @@ const Login = () => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("rights", res.data.rights);
         toast.success("Login Successful !");
-        navigate("/admin");
+        res.data.rights === "admin" ?
+          navigate("/admin") :
+          navigate("/club");
       })
       .catch((err) => {
         console.log(err);
