@@ -27,9 +27,9 @@ const ViewStaff = () => {
       <Heading>View SU Team Staffs</Heading>
       <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
         <Table
-          theads={["Name", "Role", "Photo"]}
+          theads={["Name", "Role"]}
           tdata={data}
-          tkeys={["name", "role"]}
+          tkeys={["name", "role","image_url"]}
           className="h-[calc(100vh-20rem)] w-full"
         />
       </div>
