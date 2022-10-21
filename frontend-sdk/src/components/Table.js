@@ -55,7 +55,7 @@ const Table = ({
       label: "Actions",
       renderCell: (item) => {
         return (
-          <div className="flex">
+          <div className="flex space-x-4">
             <button className="hover:text-[#ff0000]">
               <HiOutlineTrash />
             </button>
