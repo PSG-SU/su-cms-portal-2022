@@ -61,10 +61,10 @@ router.put("/update/:role", async (req, res) => {
   }
 });
 
-router.delete("/delete/:role", async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   try {
     const officeBearer = await OfficeBearer.findOneAndDelete({
-      role: req.params.role,
+      _id: req.params.id,
     });
     if (!officeBearer) {
       return res.status(404).json({ error: "Not Found" });
