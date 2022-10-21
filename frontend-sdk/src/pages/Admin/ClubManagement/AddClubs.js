@@ -1,15 +1,40 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import Button from "../../../components/Button";
 import Dropdown from "../../../components/Dropdown";
 import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
+import { fetchAddClubs, fetchUploadFile } from "../../../API/calls";
 
 const AddClubs = () => {
   const [cat, setCat] = useState("");
   const [clid, setClid] = useState("");
   const [clname, setClname] = useState("");
   const [file, setFile] = useState("");
+  const [image_url, setImage_url] = useState("");
+
+  const handlePost = async () => {
+    toast.promise(fetchUploadFile(file), {
+      loading: "Uploading...",
+      success: (res) => {
+        setImage_url(res.data.url);
+        const postBody = {
+          clubName: clname,
+          clubId: clid,
+          category: cat,
+          image_url: res.data.url,
+        };
+        toast.promise(fetchAddClubs(postBody), {
+          loading: "Adding...",
+          success: "Added Successfully",
+          error: (err) => `Error: ${err.response.data.error}`,
+        });
+        return "Uploaded";
+      },
+      error: "Error Occured",
+    });
+  };
 
   return (
     <section className="px-8 py-8 w-full">
@@ -19,7 +44,7 @@ const AddClubs = () => {
           <Dropdown
             valueState={[cat, setCat]}
             title="Category"
-            placeholder="Select a Privilege"
+            placeholder="Select a category"
             options={["Clubs", "Associations"]}
           />
         </div>
@@ -41,7 +66,11 @@ const AddClubs = () => {
         </div>
 
         <div className="flex items-center space-x-4 mt-8 w-1/2">
-          <Button className="w-3/4" text="Add Club" />
+          <Button
+            className="w-3/4"
+            text="Add Club"
+            handleClick={handlePost}
+          />
         </div>
       </div>
     </section>

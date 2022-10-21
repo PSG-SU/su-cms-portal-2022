@@ -43,11 +43,11 @@ const list = [
     text: "SU Office Bearers",
     link: "/admin/office-bearers",
     rlink: "office-bearers",
-    icon: <FaUserGraduate/>,
+    icon: <FaUserGraduate />,
     element: <OfficeBearers />,
   },
   {
-    text: "NSS/NCC",
+    text: "NSS / NCC",
     link: "/admin/nss-ncc",
     rlink: "nss-ncc",
     icon: <FaUserTie />,

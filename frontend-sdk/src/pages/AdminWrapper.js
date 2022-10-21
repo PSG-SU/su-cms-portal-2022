@@ -9,6 +9,7 @@ import { toast } from "react-hot-toast";
 
 const AdminWrapper = () => {
   const [menuItems, setMenuItems] = useState([]);
+  const [user, setUser] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,12 +20,12 @@ const AdminWrapper = () => {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         })
-      .then((res) => {
-        toast.show(res.data.message);
-        if(res.data.message === "Unauthorized"){
-          navigate("/login");
-        }
-      })
+        .then((res) => {
+          toast.show(res.data.message);
+          if (res.data.message === "Unauthorized") {
+            navigate("/login");
+          }
+        })
     } else {
       navigate("/login");
     }
@@ -33,6 +34,9 @@ const AdminWrapper = () => {
         ? AdminSUMenuItems
         : SUMenuItems
     );
+    setUser(
+      localStorage.getItem("rights") === "admin" ? "Administrator" : "Club"
+    )
   }, []);
 
   const handleLogout = (e) => {
@@ -47,7 +51,7 @@ const AdminWrapper = () => {
     <main className="h-screen w-screen overflow-auto flex">
       <nav className="bg-gradient-to-bl from-blue to-black shadow-lg w-1/4 overflow-hidden py-8 h-screen">
         <div className="text-white text-3xl font-semibold mb-8 px-8 w-full">
-          SU CMS Portal
+          SU CMS Portal - {user}
         </div>
         <div className="flex flex-col w-full h-[calc(100vh-8rem)]">
           {menuItems.map((item, idx) => {

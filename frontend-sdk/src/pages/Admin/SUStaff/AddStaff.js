@@ -1,12 +1,36 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { fetchAddSUTeamStaff, fetchUploadFile } from "../../../API/calls";
 import Button from "../../../components/Button";
 import Dropdown from "../../../components/Dropdown";
+import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
 
 const AddStaff = () => {
   const [role, setRole] = useState("");
   const [name, setName] = useState("");
+  const [file, setFile] = useState("");
+
+  const handlePost = async () => {
+    toast.promise(fetchUploadFile(file), {
+      loading: "Uploading...",
+      success: (res) => {
+        const postBody = {
+          role: role,
+          name: name,
+          image_url: res.data.url,
+        };
+        toast.promise(fetchAddSUTeamStaff(postBody), {
+          loading: "Adding...",
+          success: "Added Successfully",
+          error: (err) => `Error: ${err.response.data.error}`,
+        });
+        return "Uploaded";
+      },
+      error: "Error Occured",
+    });
+  };
 
   return (
     <section className="px-8 py-8 w-full">
@@ -36,8 +60,15 @@ const AddStaff = () => {
             className="w-full"
           />
         </div>
+        <div className="flex items-center w-full space-x-4 mt-4">
+          <FileUpload
+            fileState={[file, setFile]}
+            title="Upload Image"
+            className="w-1/2"
+          />
+        </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">
-          <Button className="w-3/4" text="Add Staff" />
+          <Button className="w-3/4" text="Add Staff" handleClick={handlePost} />
         </div>
       </div>
     </section>

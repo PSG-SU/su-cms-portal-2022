@@ -56,7 +56,7 @@ const list = [
     text: "default",
     link: "/club",
     rlink: "",
-    element: <Navigate to="/club/team" />,
+    element: <Navigate to="/club/general" />,
   },
 ];
 

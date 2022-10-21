@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AUTH_URL, LOGIN_URL, OFFICE_BEARERS_URL, UPLOAD_URL } from "./config";
+import { AUTH_URL, LOGIN_URL, OFFICE_BEARERS_URL, UPLOAD_URL, CLUB_URL, SUTEAM_URL, ABOUT_URL } from "./config";
 
 export const fetchUploadFile = (file) => {
   let data = new FormData();
@@ -12,14 +12,26 @@ export const fetchUploadFile = (file) => {
 };
 
 // For OFFICE BEARERS
-
 export const fetchAddOfficeBearers = (postBody) =>
   axios.post(`${OFFICE_BEARERS_URL}/add`, postBody, {});
+/* ------------------------------------------- */
 
+// For CLUBS
+export const fetchAddClubs = (postBody) =>
+  axios.post(`${CLUB_URL}/add`, postBody, {});
+/* ------------------------------------------- */
+
+// For SU Team
+export const fetchAddSUTeamStaff = (postBody) =>
+  axios.post(`${SUTEAM_URL}/add`, postBody, {});
+/* ------------------------------------------- */
+
+// For About Page
+export const fetchAddAbout = (postBody) =>
+  axios.post(`${ABOUT_URL}/add`, postBody, {});
 /* ------------------------------------------- */
 
 // For Auth
-
 export const fetchLogin = (postBody) => axios.post(LOGIN_URL, postBody, {});
 export const fetchAddUser = (postBody) =>
   axios.post(`${AUTH_URL}/add`, postBody, {});

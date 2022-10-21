@@ -5,10 +5,10 @@ const SUTeamSchema = new Schema({
     type: String,
     required: true,
   },
-  position: {
+  role: {
     type: String,
     required: true,
-    lowercase: true,
+    // lowercase: true,
   },
   image_url: {
     type: String,
