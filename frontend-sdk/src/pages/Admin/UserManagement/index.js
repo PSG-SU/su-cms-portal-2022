@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DeleteUsers from "./DeleteUsers";
+import ViewUsers from "./ViewUsers";
 import AddUsers from "./AddUsers";
 
 const UserManagement = () => {
@@ -9,8 +9,8 @@ const UserManagement = () => {
       tab: <AddUsers />,
     },
     {
-      text: "Delete Users",
-      tab: <DeleteUsers />,
+      text: "View Users",
+      tab: <ViewUsers />,
     },
   ];
 

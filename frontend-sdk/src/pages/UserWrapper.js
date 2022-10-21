@@ -49,7 +49,7 @@ const UserWrapper = () => {
         <div className="text-white text-3xl font-semibold mb-8 px-8 w-full">
           SU CMS Portal - {user}
         </div>
-        <div className="flex flex-col w-full h-[calc(100vh-8rem)]">
+        <div className="flex flex-col w-full h-[calc(100vh-10rem)]">
           {menuItems.map((item, idx) => {
             return item.text !== "default" ? (
               <Link to={item.link} key={idx}>
