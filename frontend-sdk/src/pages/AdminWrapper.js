@@ -3,7 +3,6 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { LOGIN_URL } from "../API/config";
 import AdminSUMenuItems from "./Admin.routes.js";
-import SUMenuItems from "./User.routes.js";
 import { MdLogout } from "react-icons/md";
 import { toast } from "react-hot-toast";
 

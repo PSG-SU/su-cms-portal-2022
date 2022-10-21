@@ -34,9 +34,9 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   try {
-    const club = await Club.findOneAndDelete({ clubId: req.params.id });
+    const club = await Club.findOneAndDelete({ _id: req.params.id });
     if (!club) return res.status(404).json({ error: "Club not found" });
     res.status(200).json(club);
   } catch (err) {

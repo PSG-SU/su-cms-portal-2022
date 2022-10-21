@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import AddStaff from "./AddStaff";
+import AddNssNcc from "./AddNssNcc";
+import ViewNssNcc from "./ViewNssNcc";
 
 const NSS_NCC = () => {
   const TabMenuItems = [
     {
       text: "Add Staff",
-      tab: <AddStaff />,
+      tab: <AddNssNcc />,
+      // link: "/SUStaff/add",
+    },
+    {
+      text: "View Staff",
+      tab: <ViewNssNcc />,
       // link: "/SUStaff/add",
     },
   ];

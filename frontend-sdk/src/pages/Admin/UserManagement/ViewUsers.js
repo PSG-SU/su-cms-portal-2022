@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useEffect, useState } from "react";
-import { AiOutlineEye } from "react-icons/ai";
-import { BsPencil } from "react-icons/bs";
-import { HiOutlineTrash } from "react-icons/hi";
+import React, { useContext, useEffect, useState } from "react";
 import Heading from "../../../components/Heading";
 import Table from "../../../components/Table";
 import axios from "axios";
+import { RefreshContext } from "../../../Refresher";
 
 const ViewUsers = () => {
   const [data, setData] = useState([]);
+  const { refreshToken } = useContext(RefreshContext);
+  const url = "http://localhost:8080/api/office-bearers";
 
   useEffect(() => {
     // fetch("https://jsonplaceholder.typicode.com/posts/")
@@ -17,7 +17,7 @@ const ViewUsers = () => {
     //     setData(json);
     //   });
     axios
-      .get("http://localhost:8080/api/office-bearers")
+      .get(url)
       .then((res) => {
         console.log(res.data);
         setData(res.data);
@@ -25,22 +25,22 @@ const ViewUsers = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [refreshToken]);
 
   return (
     <section className="px-8 py-8 w-full">
-      <Heading>View Users</Heading>
+      <Heading>View Users - Change this page</Heading>
       <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
         <Table
           theads={["Name", "Role", "Year", "Dept", "Image"]}
           tdata={data}
           tkeys={["name", "role", "year", "deptyos", "image_url"]}
-          tratio="0.5fr 1fr 1fr 1fr 1fr"
-          className={`${
-            data.length < 8
-              ? "max-h-[calc(100vh-20rem)]"
-              : "h-[calc(100vh-20rem)]"
-          } w-full`}
+          className={`${data.length < 8
+            ? "max-h-[calc(100vh-20rem)]"
+            : "h-[calc(100vh-20rem)]"
+            } w-full`}
+          tratio="1fr 1fr 1fr 1fr 0.5fr"
+          url={url}
         />
       </div>
     </section>

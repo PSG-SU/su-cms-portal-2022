@@ -8,6 +8,7 @@ import officeBearerRoutes from "./routes/officeBearerRoutes.js";
 import suTeamRoutes from "./routes/suTeamRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import aboutRoutes from "./routes/AboutRoutes.js";
+import nssRoutes from "./routes/nssStaffRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -22,6 +23,7 @@ app.use("/api/office-bearers", officeBearerRoutes);
 app.use("/api/clubs", clubRoutes);
 app.use("/api/suteam", suTeamRoutes);
 app.use("/api/about", aboutRoutes);
+app.use("/api/nssncc", nssRoutes);
 
 app.get("/", async (req, res) => {
   res.send("Welcome to the SU CMS API");

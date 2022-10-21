@@ -51,7 +51,7 @@ router.post("/add", async (req, res) => {
   try {
     const nssStaff = await NssStaff.create({
       ...req.body,
-      club: req.body.club.toLowerCase(),
+      scheme: req.body.scheme,
     });
     res.status(201).json({ nssStaff: nssStaff._id });
   } catch (err) {
@@ -95,6 +95,22 @@ router.put("/update/ncc/:id", async (req, res) => {
       return res.status(404).json({ error: "Not Found" });
     } else {
       res.status(200).json(nccStaff);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const nssStaff = await NssStaff.findOneAndDelete({
+      _id: req.params.id,
+    });
+    if (!nssStaff) {
+      return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json(nssStaff);
     }
   } catch (err) {
     console.log(err);

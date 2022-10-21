@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from "react";
-import { AiOutlineEye } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
 import { HiOutlineTrash } from "react-icons/hi";
 import { CompactTable } from "@table-library/react-table-library/compact";
@@ -9,7 +8,9 @@ import { getTheme } from "@table-library/react-table-library/baseline";
 import ModalImage from "react-modal-image";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import Popup from 'reactjs-popup';
 import { RefreshContext } from "../Refresher";
+import Button from "./Button";
 
 const Table = ({
   theads = [],
@@ -21,6 +22,10 @@ const Table = ({
 }) => {
   const { refreshPage } = useContext(RefreshContext);
 
+  const contentStyle = { background: '#E5E5E5' };
+  const overlayStyle = { background: 'rgba(0,0,0,0.5)' };
+  const arrowStyle = { color: '#E5E5E5' };
+
   const handleDelete = (item) => {
     axios
       .delete(`${url}/delete/${item._id}`)
@@ -31,6 +36,7 @@ const Table = ({
       })
       .catch((err) => {
         console.log(err);
+        toast("Delete Unsuccessful");
       });
   };
 
@@ -57,7 +63,7 @@ const Table = ({
           return (
             <div className="flex space-x-2">
               <ModalImage
-                className="w-10 h-10 rounded-full"
+                className="w-12 h-12 rounded-full"
                 small={item[tkeys[idx]]}
                 large={item[tkeys[idx]]}
                 alt="Image URL"
@@ -77,16 +83,25 @@ const Table = ({
       renderCell: (item) => {
         return (
           <div className="flex space-x-4">
-            <button
-              className="hover:text-[#ff0000]"
-              onClick={(e) => {
-                e.preventDefault();
-                console.log("Delete item");
-                handleDelete(item);
-              }}
-            >
-              <HiOutlineTrash />
-            </button>
+            <Popup trigger={
+              <button className="hover:text-[#ff0000]">
+                <HiOutlineTrash />
+              </button>
+            } position="top center" {...{ contentStyle, overlayStyle, arrowStyle }}>
+              {close => (
+                <div className="flex items-center space-x-4 m-4">
+                  <Button className="w-3/4" text="Cancel" handleClick={close} />
+                  <Button className="w-3/4" text="Confirm"
+                    handleClick={(e) => {
+                      console.log("Delete");
+                      handleDelete(item);
+                      close()
+                    }
+                    }
+                  />
+                </div>
+              )}
+            </Popup>
             <button className="hover:text-[#494998]">
               <BsPencil />
             </button>
@@ -108,8 +123,7 @@ const Table = ({
     getTheme(),
     {
       Table: `
-        --data-table-library_grid-template-columns:  ${
-          tratio.length <= 0 ? getDefaults() : tratio
+        --data-table-library_grid-template-columns:  ${tratio.length <= 0 ? getDefaults() : tratio
         } 100px;
       `,
     },

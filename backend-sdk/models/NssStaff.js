@@ -5,10 +5,10 @@ const nssStaffSchema = new Schema({
     type: String,
     required: true,
   },
-  club: {
+  scheme: {
     type: String,
     required: true,
-    lowercase: true,
+    // lowercase: true,
   },
   priority: {
     type: Number,
@@ -20,6 +20,7 @@ const nssStaffSchema = new Schema({
   },
   image_url: {
     type: String,
+    required: true,
   },
 });
 

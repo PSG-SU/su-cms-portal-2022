@@ -1,14 +1,40 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { fetchAddNssNcc, fetchUploadFile } from "../../../API/calls";
 import Button from "../../../components/Button";
 import Dropdown from "../../../components/Dropdown";
+import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
 
-const AddStaff = () => {
-  const [role, setRole] = useState("");
+const AddNssNcc = () => {
+  const [scheme, setScheme] = useState("");
   const [name, setName] = useState("");
-  const [priority, setpriority] = useState("");
+  const [priority, setpriority] = useState(0);
   const [department, setdepartment] = useState("");
+  const [file, setFile] = useState(null);
+
+  const handlePost = async () => {
+    toast.promise(fetchUploadFile(file), {
+      loading: "Uploading...",
+      success: (res) => {
+        const postBody = {
+          name: name,
+          scheme: scheme,
+          priority: priority,
+          dept: department,
+          image_url: res.data.url,
+        };
+        toast.promise(fetchAddNssNcc(postBody), {
+          loading: "Adding...",
+          success: "Added Successfully",
+          error: (err) => `Error: ${err.response.data.error}`,
+        });
+        return "Uploaded";
+      },
+      error: "Error Occured",
+    });
+  };
 
   return (
     <section className="px-8 py-8 w-full">
@@ -21,7 +47,7 @@ const AddStaff = () => {
             placeholder="Enter name"
           />
           <Dropdown
-            valueState={[role, setRole]}
+            valueState={[scheme, setScheme]}
             title="NSS / NCC"
             placeholder="Select NSS / NCC"
             options={[
@@ -42,12 +68,19 @@ const AddStaff = () => {
             placeholder="Enter Department"
           />
         </div>
+        <div className="flex items-center w-full space-x-4 mt-4">
+          <FileUpload
+            fileState={[file, setFile]}
+            title="Upload Image"
+            className="w-1/2"
+          />
+        </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">
-          <Button className="w-3/4" text="Add Staff" />
+          <Button className="w-3/4" text="Add Staff" handleClick={handlePost} />
         </div>
       </div>
     </section>
   );
 };
 
-export default AddStaff;
+export default AddNssNcc;

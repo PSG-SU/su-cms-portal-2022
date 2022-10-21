@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { LOGIN_URL } from "../API/config";
-import AdminSUMenuItems from "./Admin.routes.js";
 import SUMenuItems from "./User.routes.js";
 import { MdLogout } from "react-icons/md";
 import { toast } from "react-hot-toast";
@@ -38,7 +37,7 @@ const UserWrapper = () => {
   return (
     <main className="h-screen w-screen overflow-auto flex">
       <nav className="bg-gradient-to-bl from-blue to-black shadow-lg w-1/4 overflow-hidden py-8 h-screen">
-        <div className="text-white text-3xl font-semibold mb-8 px-8 w-full">
+        <div className="text-white text-3xl font-semibold mb-2 px-8 w-full">
           SU CMS Portal
         </div>
         <p className="text-xs uppercase tracking-wider mb-8 px-8 text-white">
