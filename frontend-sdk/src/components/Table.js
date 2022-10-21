@@ -15,9 +15,11 @@ const Table = ({
   className = "",
   tratio = "",
 }) => {
+  
   const nodes = tdata.map((d) => {
     console.log(d);
     let j = Object();
+    j["_id"] = d["_id"];
     tkeys.forEach((k) => {
       j[k] = d[k];
     });
