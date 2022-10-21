@@ -35,7 +35,7 @@ const ViewMembers = () => {
           theads={["Name", "Role", "Year", "Dept", "Image"]}
           tdata={data}
           tkeys={["name", "role", "year", "deptyos", "image_url"]}
-          tratio="0.5fr 1fr 1fr 1fr 1fr"
+          tratio="0.5fr 1fr 1fr 1fr 0.5fr"
           className={`${
             data.length < 8
               ? "max-h-[calc(100vh-20rem)]"

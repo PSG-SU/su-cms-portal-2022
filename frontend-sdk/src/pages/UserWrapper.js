@@ -23,16 +23,10 @@ const UserWrapper = () => {
         })
         .then((res) => {
           console.log(res.data);
+          setMenuItems(SUMenuItems);
+          setUser("Club");
         })
       : navigate("/login");
-    setMenuItems(
-      localStorage.getItem("rights") === "admin"
-        ? AdminSUMenuItems
-        : SUMenuItems
-    );
-    setUser(
-      localStorage.getItem("rights") === "admin" ? "Administrator" : "Club"
-    )
   }, []);
 
   const handleLogout = (e) => {

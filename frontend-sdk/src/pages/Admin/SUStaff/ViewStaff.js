@@ -9,6 +9,7 @@ import Table from "../../../components/Table";
 
 const ViewStaff = () => {
   const [data, setData] = useState([]);
+  const [seed, setSeed] = useState(0);
 
   useEffect(() => {
     axios
@@ -35,6 +36,8 @@ const ViewStaff = () => {
               ? "max-h-[calc(100vh-20rem)]"
               : "h-[calc(100vh-20rem)]"
           } w-full`}
+          tratio="1fr 1fr 0.5fr"
+          url="http://localhost:8080/api/suteam"
         />
       </div>
     </section>

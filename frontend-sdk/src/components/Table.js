@@ -7,6 +7,8 @@ import { useTheme } from "@table-library/react-table-library/theme";
 import { getTheme } from "@table-library/react-table-library/baseline";
 
 import ModalImage from "react-modal-image";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const Table = ({
   theads = [],
@@ -14,8 +16,21 @@ const Table = ({
   tkeys = [],
   className = "",
   tratio = "",
+  url = "",
 }) => {
-  
+
+  const handleDelete = (item) => {
+    axios
+      .delete(`${url}/delete/${item._id}`)
+      .then((res) => {
+        console.log(res);
+        toast("Delete Successful");
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   const nodes = tdata.map((d) => {
     console.log(d);
     let j = Object();
@@ -30,6 +45,7 @@ const Table = ({
     return {
       label: h,
       renderCell: (item) => {
+        console.log("ITEM: ", item);
         if (
           /^https?:\/\/(?:[a-z0-9-]+\.)+[a-z]{2,6}(?:\/[^/#?]+)+\.(?:jpg|gif|png)$/.test(
             item[tkeys[idx]]
@@ -58,7 +74,12 @@ const Table = ({
       renderCell: (item) => {
         return (
           <div className="flex space-x-4">
-            <button className="hover:text-[#ff0000]">
+            <button className="hover:text-[#ff0000]"
+              onClick={(e) => {
+                e.preventDefault();
+                console.log("Delete item");
+                handleDelete(item)
+              }}>
               <HiOutlineTrash />
             </button>
             <button className="hover:text-[#494998]">
@@ -82,8 +103,7 @@ const Table = ({
     getTheme(),
     {
       Table: `
-        --data-table-library_grid-template-columns:  ${
-          tratio.length <= 0 ? getDefaults() : tratio
+        --data-table-library_grid-template-columns:  ${tratio.length <= 0 ? getDefaults() : tratio
         } 100px;
       `,
     },

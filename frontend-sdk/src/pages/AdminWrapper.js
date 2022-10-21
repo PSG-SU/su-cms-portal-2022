@@ -21,22 +21,14 @@ const AdminWrapper = () => {
           },
         })
         .then((res) => {
-          toast.show(res.data.message);
-          if (res.data.message === "Unauthorized") {
-            navigate("/login");
-          }
+          console.log(res.data);
+          setMenuItems(AdminSUMenuItems);
+          setUser("Administrator");
         })
     } else {
       navigate("/login");
     }
-    setMenuItems(
-      localStorage.getItem("rights") === "admin"
-        ? AdminSUMenuItems
-        : SUMenuItems
-    );
-    setUser(
-      localStorage.getItem("rights") === "admin" ? "Administrator" : "Club"
-    )
+
   }, []);
 
   const handleLogout = (e) => {
