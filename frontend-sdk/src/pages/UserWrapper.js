@@ -9,7 +9,6 @@ import { toast } from "react-hot-toast";
 
 const UserWrapper = () => {
   const [menuItems, setMenuItems] = useState([]);
-  const [user, setUser] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,7 +23,6 @@ const UserWrapper = () => {
         .then((res) => {
           console.log(res.data);
           setMenuItems(SUMenuItems);
-          setUser("Club");
         })
       : navigate("/login");
   }, []);
@@ -41,8 +39,11 @@ const UserWrapper = () => {
     <main className="h-screen w-screen overflow-auto flex">
       <nav className="bg-gradient-to-bl from-blue to-black shadow-lg w-1/4 overflow-hidden py-8 h-screen">
         <div className="text-white text-3xl font-semibold mb-8 px-8 w-full">
-          SU CMS Portal - {user}
+          SU CMS Portal
         </div>
+        <p className="text-xs uppercase tracking-wider mb-8 px-8 text-white">
+          User Panel
+        </p>
         <div className="flex flex-col w-full h-[calc(100vh-10rem)]">
           {menuItems.map((item, idx) => {
             return item.text !== "default" ? (
@@ -64,7 +65,9 @@ const UserWrapper = () => {
             <MdLogout />
             <p>Logout</p>
           </button>
-          <p className="text-xs text-white px-8">A Product for PSG College of Technology, Coimbatore.</p>
+          <p className="text-xs text-white px-8">
+            A Product for PSG College of Technology, Coimbatore.
+          </p>
         </div>
       </nav>
       <div className="w-3/4 overflow-hidden">

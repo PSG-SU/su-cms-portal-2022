@@ -1,15 +1,17 @@
 /* eslint-disable jsx-a11y/alt-text */
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
 import { HiOutlineTrash } from "react-icons/hi";
 import Heading from "../../../components/Heading";
 import Table from "../../../components/Table";
+import { RefreshContext } from "../../../Refresher";
 
 const ViewStaff = () => {
   const [data, setData] = useState([]);
-  const [seed, setSeed] = useState(0);
+
+  const { refreshToken } = useContext(RefreshContext);
 
   useEffect(() => {
     axios
@@ -21,7 +23,7 @@ const ViewStaff = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [refreshToken]);
 
   return (
     <section className="px-8 py-8 w-full">

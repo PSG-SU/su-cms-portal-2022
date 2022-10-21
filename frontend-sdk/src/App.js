@@ -17,28 +17,31 @@ import SUMenuItems from "./pages/User.routes.js";
 import AdminWrapper from "./pages/AdminWrapper";
 import UserWrapper from "./pages/UserWrapper";
 import Error404 from "./pages/Error404";
+import Refresher from "./Refresher";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Toaster />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="admin" element={<AdminWrapper />}>
-          {AdminSUMenuItems.map((item) => (
-            <Route key={item.text} path={item.rlink} element={item.element} />
-          ))}
-        </Route>
-        <Route path="club" element={<UserWrapper />}>
-          {SUMenuItems.map((item) => (
-            <Route key={item.text} path={item.rlink} element={item.element} />
-          ))}
-        </Route>
-        <Route path="404-error" element={<Error404 />} />
-        <Route path="*" element={<Navigate to="/404-error" />} />
-        <Route index element={<Navigate to="/login" />} />
-      </Routes>
-    </BrowserRouter>
+    <Refresher>
+      <BrowserRouter>
+        <Toaster />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="admin" element={<AdminWrapper />}>
+            {AdminSUMenuItems.map((item) => (
+              <Route key={item.text} path={item.rlink} element={item.element} />
+            ))}
+          </Route>
+          <Route path="club" element={<UserWrapper />}>
+            {SUMenuItems.map((item) => (
+              <Route key={item.text} path={item.rlink} element={item.element} />
+            ))}
+          </Route>
+          <Route path="404-error" element={<Error404 />} />
+          <Route path="*" element={<Navigate to="/404-error" />} />
+          <Route index element={<Navigate to="/login" />} />
+        </Routes>
+      </BrowserRouter>
+    </Refresher>
   );
 };
 

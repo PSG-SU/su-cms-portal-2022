@@ -9,11 +9,13 @@ import { toast } from "react-hot-toast";
 
 const AdminWrapper = () => {
   const [menuItems, setMenuItems] = useState([]);
-  const [user, setUser] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("token") && localStorage.getItem("rights") === "admin") {
+    if (
+      localStorage.getItem("token") &&
+      localStorage.getItem("rights") === "admin"
+    ) {
       axios
         .get(LOGIN_URL, {
           headers: {
@@ -23,12 +25,10 @@ const AdminWrapper = () => {
         .then((res) => {
           console.log(res.data);
           setMenuItems(AdminSUMenuItems);
-          setUser("Administrator");
-        })
+        });
     } else {
       navigate("/login");
     }
-
   }, []);
 
   const handleLogout = (e) => {
@@ -40,11 +40,12 @@ const AdminWrapper = () => {
   };
 
   return (
-    <main className="h-screen w-screen overflow-auto flex">
+    <main className="h-screen w-screen overflow-auto flex font-sans">
       <nav className="bg-gradient-to-bl from-blue to-black shadow-lg w-1/4 overflow-hidden py-8 h-screen">
-        <div className="text-white text-3xl font-semibold mb-8 px-8 w-full">
-          SU CMS Portal - {user}
+        <div className="text-white text-3xl font-semibold mb-2 px-8 w-full">
+          SU CMS Portal
         </div>
+        <p className="text-xs uppercase tracking-wider mb-8 px-8 text-white">Administrator Panel</p>
         <div className="flex flex-col w-full h-[calc(100vh-10rem)]">
           {menuItems.map((item, idx) => {
             return item.text !== "default" ? (
@@ -66,7 +67,9 @@ const AdminWrapper = () => {
             <MdLogout />
             <p>Logout</p>
           </button>
-          <p className="text-xs text-white px-8">A Product for PSG College of Technology, Coimbatore.</p>
+          <p className="text-xs text-white px-8">
+            A Product for PSG College of Technology, Coimbatore.
+          </p>
         </div>
       </nav>
       <div className="w-3/4 overflow-hidden">

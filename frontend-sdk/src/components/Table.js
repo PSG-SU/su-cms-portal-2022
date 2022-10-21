@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
 import { HiOutlineTrash } from "react-icons/hi";
@@ -9,6 +9,7 @@ import { getTheme } from "@table-library/react-table-library/baseline";
 import ModalImage from "react-modal-image";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { RefreshContext } from "../Refresher";
 
 const Table = ({
   theads = [],
@@ -18,6 +19,7 @@ const Table = ({
   tratio = "",
   url = "",
 }) => {
+  const { refreshPage } = useContext(RefreshContext);
 
   const handleDelete = (item) => {
     axios
@@ -25,11 +27,12 @@ const Table = ({
       .then((res) => {
         console.log(res);
         toast("Delete Successful");
+        refreshPage();
       })
       .catch((err) => {
         console.log(err);
-      })
-  }
+      });
+  };
 
   const nodes = tdata.map((d) => {
     console.log(d);
@@ -74,12 +77,14 @@ const Table = ({
       renderCell: (item) => {
         return (
           <div className="flex space-x-4">
-            <button className="hover:text-[#ff0000]"
+            <button
+              className="hover:text-[#ff0000]"
               onClick={(e) => {
                 e.preventDefault();
                 console.log("Delete item");
-                handleDelete(item)
-              }}>
+                handleDelete(item);
+              }}
+            >
               <HiOutlineTrash />
             </button>
             <button className="hover:text-[#494998]">
@@ -103,7 +108,8 @@ const Table = ({
     getTheme(),
     {
       Table: `
-        --data-table-library_grid-template-columns:  ${tratio.length <= 0 ? getDefaults() : tratio
+        --data-table-library_grid-template-columns:  ${
+          tratio.length <= 0 ? getDefaults() : tratio
         } 100px;
       `,
     },
