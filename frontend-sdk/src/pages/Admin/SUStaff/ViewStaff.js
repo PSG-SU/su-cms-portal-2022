@@ -30,7 +30,11 @@ const ViewStaff = () => {
           theads={["Name", "Role", "Image"]}
           tdata={data}
           tkeys={["name", "role", "image_url"]}
-          className="h-[calc(100vh-20rem)] w-full"
+          className={`${
+            data.length < 8
+              ? "max-h-[calc(100vh-20rem)]"
+              : "h-[calc(100vh-20rem)]"
+          } w-full`}
         />
       </div>
     </section>

@@ -31,7 +31,11 @@ const ViewClubs = () => {
           tdata={data}
           tkeys={["clubName", "clubId", "category"]}
           tratio="1fr 1fr 1fr"
-          className="h-[calc(100vh-20rem)] w-full"
+          className={`${
+            data.length < 8
+              ? "max-h-[calc(100vh-20rem)]"
+              : "h-[calc(100vh-20rem)]"
+          } w-full`}
           // delete={handleDelete}
         />
       </div>

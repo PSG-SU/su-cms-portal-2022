@@ -31,7 +31,11 @@ const EditandDelete = () => {
           theads={["Club", "ID"]}
           tdata={data}
           tkeys={["clubName", "clubId"]}
-          className="h-[calc(100vh-20rem)] w-full"
+          className={`${
+            data.length < 8
+              ? "max-h-[calc(100vh-20rem)]"
+              : "h-[calc(100vh-20rem)]"
+          } w-full`}
         />
       </div>
     </section>

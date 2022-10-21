@@ -31,7 +31,11 @@ const ViewImage = () => {
           theads={["User ID", "ID", "Title"]}
           tdata={data}
           tkeys={["userId", "id", "title"]}
-          className="h-[calc(100vh-20rem)] w-full"
+          className={`${
+            data.length < 8
+              ? "max-h-[calc(100vh-20rem)]"
+              : "h-[calc(100vh-20rem)]"
+          } w-full`}
         />
       </div>
     </section>

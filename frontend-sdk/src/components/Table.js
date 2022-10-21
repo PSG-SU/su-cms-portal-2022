@@ -36,7 +36,7 @@ const Table = ({
           return (
             <div className="flex space-x-2">
               <ModalImage
-                className="w-6 h-6 rounded-full"
+                className="w-10 h-10 rounded-full"
                 small={item[tkeys[idx]]}
                 large={item[tkeys[idx]]}
                 alt="Image URL"

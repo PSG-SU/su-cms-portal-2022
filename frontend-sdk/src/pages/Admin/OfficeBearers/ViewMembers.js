@@ -36,7 +36,11 @@ const ViewMembers = () => {
           tdata={data}
           tkeys={["name", "role", "year", "deptyos", "image_url"]}
           tratio="0.5fr 1fr 1fr 1fr 1fr"
-          className="h-[calc(100vh-20rem)] w-full"
+          className={`${
+            data.length < 8
+              ? "max-h-[calc(100vh-20rem)]"
+              : "h-[calc(100vh-20rem)]"
+          } w-full`}
         />
       </div>
     </section>
