@@ -8,18 +8,15 @@ import { getTheme } from "@table-library/react-table-library/baseline";
 
 import ModalImage from "react-modal-image";
 
-
 const Table = ({
   theads = [],
   tdata = [],
   tkeys = [],
   className = "",
   tratio = "",
- 
 }) => {
-
   const nodes = tdata.map((d) => {
-    console.log(d)
+    console.log(d);
     let j = Object();
     tkeys.forEach((k) => {
       j[k] = d[k];
@@ -28,60 +25,53 @@ const Table = ({
   });
 
   let COLUMNS = theads.map((h, idx) => {
-    
     return {
       label: h,
-     
       renderCell: (item) => {
-        return item[tkeys[idx]];
+        if (
+          /^https?:\/\/(?:[a-z0-9-]+\.)+[a-z]{2,6}(?:\/[^/#?]+)+\.(?:jpg|gif|png)$/.test(
+            item[tkeys[idx]]
+          )
+        ) {
+          return (
+            <div className="flex space-x-2">
+              <ModalImage
+                className="w-6 h-6 rounded-full"
+                small={item[tkeys[idx]]}
+                large={item[tkeys[idx]]}
+                alt="Image URL"
+              />
+            </div>
+          );
+        } else return item[tkeys[idx]];
       },
       // resize: true,
     };
   });
-// console.log("ites"+item[tkeys[idx]])
+  // console.log("ites"+item[tkeys[idx]])
   COLUMNS = [
     ...COLUMNS,
-    // {
-    //   label: "Actions",
-    //   renderCell: (item) => {
-    //     return (
-          
-    //       <div className="flex">
-            
-    //         <button className="hover:text-[#ff0000]">
-    //           <HiOutlineTrash />
-    //         </button>
-    //         <button className="hover:text-[#494998]">
-    //           <BsPencil />
-    //         </button>
-    //       </div>
-    //     );
-    //   },
-    // },
     {
-      label: "Photo",
+      label: "Actions",
       renderCell: (item) => {
         return (
-          
-          <div className="flex space-x-2">
-            <ModalImage
-              small={tdata[0].image_url}
-              large={tdata[0].image_url}
-              alt="Hello World!"
-          />
-          
-
+          <div className="flex">
+            <button className="hover:text-[#ff0000]">
+              <HiOutlineTrash />
+            </button>
+            <button className="hover:text-[#494998]">
+              <BsPencil />
+            </button>
           </div>
-          
         );
       },
     },
   ];
-  
+
   const getDefaults = () => {
     let defaultRatio = "";
     theads.forEach((h, idx) => {
-      defaultRatio += `${100 / (theads.length + 3)}% `;
+      defaultRatio += `${100 / (theads.length + 1)}% `;
     });
     return defaultRatio;
   };
@@ -98,7 +88,6 @@ const Table = ({
   ]);
 
   const data = { nodes };
-
 
   useEffect(() => {
     console.log("JSON", nodes, COLUMNS, getDefaults(), tratio);

@@ -24,7 +24,7 @@ const ViewMembers = () => {
       })
       .catch((err) => {
         console.log(err);
-      })
+      });
   }, []);
 
   return (
@@ -32,10 +32,10 @@ const ViewMembers = () => {
       <Heading>View Members</Heading>
       <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
         <Table
-          theads={["Name", "Role", "Year", "Dept"]}
+          theads={["Name", "Role", "Year", "Dept", "Image"]}
           tdata={data}
-          tkeys={["name", "role", "year", "deptyos"]}
-          tratio="1fr 1fr 1fr 1fr"
+          tkeys={["name", "role", "year", "deptyos", "image_url"]}
+          tratio="0.5fr 1fr 1fr 1fr 1fr"
           className="h-[calc(100vh-20rem)] w-full"
         />
       </div>
