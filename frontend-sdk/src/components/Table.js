@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { BsPencil } from "react-icons/bs";
+import React, { useContext, useEffect, useState } from "react";
+import { BsPencil, BsCheck2Circle } from "react-icons/bs";
 import { HiOutlineTrash } from "react-icons/hi";
 import { CompactTable } from "@table-library/react-table-library/compact";
 import { useTheme } from "@table-library/react-table-library/theme";
@@ -8,38 +8,33 @@ import { getTheme } from "@table-library/react-table-library/baseline";
 import ModalImage from "react-modal-image";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import Popup from 'reactjs-popup';
+
 import { RefreshContext } from "../Refresher";
 import Button from "./Button";
-import styled from 'styled-components';
-import { keyframes } from 'styled-components'
+import Popup from 'reactjs-popup';
+import styled, { keyframes } from 'styled-components'
+import Inputfield from "./TextInput";
 
 const breatheAnimation = keyframes`
- 0% {opacity: 0.6; }
- 100% {}
+ 0% { opacity: 0; transform: scale(0.25) translateY(75px); }
+ 100% { opacity: 1; transform: scale(1); }
 `
 
 const StyledPopup = styled(Popup)`
-  // use your custom style for ".popup-overlay"
   &-overlay {
-    border-radius: 10px;
-    color: #E5E5E5;
     animation-name: ${breatheAnimation};
-    animation-duration: 1s;
+    animation-duration: 0.5s;
     }
-  // use your custom style for ".popup-content"
   &-content {
     border-radius: 10px;
     background-color: #E5E5E5;
     animation-name: ${breatheAnimation};
-    animation-duration: 1s;
-
-
+    animation-duration: 0.5s;
   }
   &-arrow {
     color: #E5E5E5;
     animation-name: ${breatheAnimation};
-    animation-duration: 1s;
+    animation-duration: 0.5s;
   }
 `;
 
@@ -51,6 +46,9 @@ const Table = ({
   tratio = "",
   url = "",
 }) => {
+
+  const [edit, setEdit] = useState(false);
+  const [ele, setEle] = useState("");
   const { refreshPage } = useContext(RefreshContext);
 
   const handleDelete = (item) => {
@@ -67,6 +65,23 @@ const Table = ({
       });
   };
 
+  // const handleEdit = (value, id, property) => {
+  //   setData((state) => ({
+  //     ...state,
+  //     nodes: state.nodes.map((node) => {
+  //       if (node._id === id) {
+  //         return { ...node, [property]: value };
+  //       } else {
+  //         return node;
+  //       }
+  //     }),
+  //   }));
+  // };
+
+  // const handleIcon = (id) => {
+
+  // }
+
   const nodes = tdata.map((d) => {
     console.log(d);
     let j = Object();
@@ -82,6 +97,7 @@ const Table = ({
       label: h,
       renderCell: (item) => {
         console.log("ITEM: ", item);
+        setEle(item[tkeys[idx]]);
         if (
           /^https?:\/\/(?:[a-z0-9-]+\.)+[a-z]{2,6}(?:\/[^/#?]+)+\.(?:jpg|gif|png)$/.test(
             item[tkeys[idx]]
@@ -97,6 +113,17 @@ const Table = ({
               />
             </div>
           );
+        // } else return <input
+        //   type="text"
+        //   className={` px-4 py-2 w-full rounded-lg text-slate bg-clip-padding bg-no-repeat border-2 border-solid ${
+        //     edit ? "border-gray" : "border-white"
+        //   } first-letter:transition ease-in-out m-0 focus:outline-none focus:border-cloud`}
+        //   value={item[tkeys[idx]]}
+        //   onChange={(event) => {
+        //     handleEdit(event.target.value, item._id, tkeys[idx]);
+        //   }}
+        // />
+
         } else return item[tkeys[idx]];
       },
       // resize: true,
@@ -111,11 +138,10 @@ const Table = ({
         return (
           <div className="flex space-x-4">
             <StyledPopup trigger={
-
               <button className="hover:text-[#ff0000]">
                 <HiOutlineTrash />
               </button>
-            } position="top center">
+            } position="top center" offsetX={-90} offsetY={64}>
               {close => (
                 <div className="flex items-center space-x-4 m-4">
                   <Button className="w-3/4" text="Cancel" handleClick={close} />
@@ -124,14 +150,18 @@ const Table = ({
                       console.log("Delete");
                       handleDelete(item);
                       close()
-                    }
-                    }
+                    }}
                   />
                 </div>
               )}
             </StyledPopup>
-            <button className="hover:text-[#494998]">
-              <BsPencil />
+            <button className="hover:text-[#494998]"
+            onClick={(e) => {
+              e.preventDefault();
+              // handleIcon(item._id);
+            }}
+            >
+              {edit ? <BsCheck2Circle /> : <BsPencil />}
             </button>
           </div>
         );
@@ -157,6 +187,7 @@ const Table = ({
     },
   ]);
 
+  // const [data, setData] = useState({ nodes });
   const data = { nodes };
 
   useEffect(() => {

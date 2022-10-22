@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Button from "../../../components/Button";
-import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
 import TextArea from "../../../components/TextArea";
 

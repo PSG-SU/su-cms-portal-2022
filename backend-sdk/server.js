@@ -9,6 +9,7 @@ import suTeamRoutes from "./routes/suTeamRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import aboutRoutes from "./routes/AboutRoutes.js";
 import nssRoutes from "./routes/nssStaffRoutes.js";
+import generalRoutes from "./routes/Club/GeneralRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -24,6 +25,8 @@ app.use("/api/clubs", clubRoutes);
 app.use("/api/suteam", suTeamRoutes);
 app.use("/api/about", aboutRoutes);
 app.use("/api/nssncc", nssRoutes);
+
+app.use("/api/club/general", generalRoutes);
 
 app.get("/", async (req, res) => {
   res.send("Welcome to the SU CMS API");

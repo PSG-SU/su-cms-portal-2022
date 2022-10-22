@@ -48,7 +48,7 @@ router.delete("/delete/:id", async (req, res) => {
 router.post("/update/:id", async (req, res) => {
   try {
     const club = await Club.findOneAndUpdate(
-      { clubId: req.params.id },
+      { _id: req.params.id },
       req.body,
       { new: true }
     );

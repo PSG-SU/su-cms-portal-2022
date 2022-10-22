@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AUTH_URL, LOGIN_URL, OFFICE_BEARERS_URL, UPLOAD_URL, CLUB_URL, SUTEAM_URL, ABOUT_URL, NSS_NCC_URL } from "./config";
+import { AUTH_URL, LOGIN_URL, OFFICE_BEARERS_URL, UPLOAD_URL, CLUB_URL, SUTEAM_URL, ABOUT_URL, NSS_NCC_URL, GENERAL_URL } from "./config";
 
 export const fetchUploadFile = (file) => {
   let data = new FormData();
@@ -34,6 +34,11 @@ export const fetchAddAbout = (postBody) =>
 // For NSS NCC Page
 export const fetchAddNssNcc = (postBody) =>
   axios.post(`${NSS_NCC_URL}/add`, postBody, {});
+/* ------------------------------------------- */
+
+// For Club - General Page
+export const fetchAddGeneral = (postBody) =>
+  axios.post(`${GENERAL_URL}/add`, postBody, {});
 /* ------------------------------------------- */
 
 // For Auth
