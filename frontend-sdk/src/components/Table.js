@@ -11,6 +11,37 @@ import { toast } from "react-hot-toast";
 import Popup from 'reactjs-popup';
 import { RefreshContext } from "../Refresher";
 import Button from "./Button";
+import styled from 'styled-components';
+import { keyframes } from 'styled-components'
+
+const breatheAnimation = keyframes`
+ 0% {opacity: 0.6; }
+ 100% {}
+`
+
+const StyledPopup = styled(Popup)`
+  // use your custom style for ".popup-overlay"
+  &-overlay {
+    border-radius: 10px;
+    color: #E5E5E5;
+    animation-name: ${breatheAnimation};
+    animation-duration: 1s;
+    }
+  // use your custom style for ".popup-content"
+  &-content {
+    border-radius: 10px;
+    background-color: #E5E5E5;
+    animation-name: ${breatheAnimation};
+    animation-duration: 1s;
+
+
+  }
+  &-arrow {
+    color: #E5E5E5;
+    animation-name: ${breatheAnimation};
+    animation-duration: 1s;
+  }
+`;
 
 const Table = ({
   theads = [],
@@ -22,21 +53,17 @@ const Table = ({
 }) => {
   const { refreshPage } = useContext(RefreshContext);
 
-  const contentStyle = { background: '#E5E5E5' };
-  const overlayStyle = { background: 'rgba(0,0,0,0.5)' };
-  const arrowStyle = { color: '#E5E5E5' };
-
   const handleDelete = (item) => {
     axios
       .delete(`${url}/delete/${item._id}`)
       .then((res) => {
         console.log(res);
-        toast("Delete Successful");
+        toast.success("Delete Successful");
         refreshPage();
       })
       .catch((err) => {
         console.log(err);
-        toast("Delete Unsuccessful");
+        toast.error("Delete Unsuccessful");
       });
   };
 
@@ -83,11 +110,12 @@ const Table = ({
       renderCell: (item) => {
         return (
           <div className="flex space-x-4">
-            <Popup trigger={
+            <StyledPopup trigger={
+
               <button className="hover:text-[#ff0000]">
                 <HiOutlineTrash />
               </button>
-            } position="top center" {...{ contentStyle, overlayStyle, arrowStyle }}>
+            } position="top center">
               {close => (
                 <div className="flex items-center space-x-4 m-4">
                   <Button className="w-3/4" text="Cancel" handleClick={close} />
@@ -101,7 +129,7 @@ const Table = ({
                   />
                 </div>
               )}
-            </Popup>
+            </StyledPopup>
             <button className="hover:text-[#494998]">
               <BsPencil />
             </button>
