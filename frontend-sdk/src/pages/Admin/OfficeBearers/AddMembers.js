@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Button from "../../../components/Button";
 import Dropdown from "../../../components/Dropdown";
@@ -6,14 +6,32 @@ import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
 import { fetchAddOfficeBearers, fetchUploadFile } from "../../../API/calls";
+import { OfficeBearersTabContext } from ".";
 
 const AddMembers = () => {
+  const { updateState } = useContext(OfficeBearersTabContext);
+
   const [position, setPosition] = useState("");
   const [name, setName] = useState("");
   const [deptyos, setDeptyos] = useState("");
   const [acayear, setAcayear] = useState("");
   const [file, setFile] = useState(null);
   const [image_url, setImage_url] = useState("");
+
+  useEffect(() => {
+    console.log(updateState);
+    if (Object.keys(updateState).length > 0) {
+      setPosition(capitalizeFirstLetter(updateState?.role));
+      setName(updateState?.name);
+      setDeptyos(updateState?.deptyos);
+      setAcayear(updateState?.year);
+      setImage_url(updateState?.image_url);
+    }
+  }, [updateState]);
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   const handlePost = async () => {
     toast.promise(fetchUploadFile(file), {
@@ -40,7 +58,9 @@ const AddMembers = () => {
 
   return (
     <section className="px-8 py-8 w-full">
-      <Heading>Add Members</Heading>
+      <Heading>
+        {Object.keys(updateState).length <= 0 ? "Add" : "Update"} Members
+      </Heading>
       <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
         <div className="flex items-center w-full space-x-4">
           <Inputfield
@@ -89,14 +109,22 @@ const AddMembers = () => {
             fileState={[file, setFile]}
             title="Upload Image"
             className="w-1/2"
+            url={image_url}
           />
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">
-          <Button
-            className="w-3/4"
-            text="Add Member"
-            handleClick={handlePost}
-          />
+          {Object.keys(updateState).length <= 0 ? (
+            <Button
+              className="w-3/4"
+              text={"Add Member"}
+              handleClick={handlePost}
+            />
+          ) : (
+            <React.Fragment>
+              <Button className="w-3/4" text={"Update Member"} />
+              <Button className="w-3/4" text={"Cancel update"} />
+            </React.Fragment>
+          )}
         </div>
       </div>
     </section>

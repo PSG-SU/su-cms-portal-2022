@@ -11,27 +11,27 @@ import { toast } from "react-hot-toast";
 
 import { RefreshContext } from "../Refresher";
 import Button from "./Button";
-import Popup from 'reactjs-popup';
-import styled, { keyframes } from 'styled-components'
+import Popup from "reactjs-popup";
+import styled, { keyframes } from "styled-components";
 
 const breatheAnimation = keyframes`
  0% { opacity: 0; transform: scale(0.25) translateY(75px); }
  100% { opacity: 1; transform: scale(1); }
-`
+`;
 
 const StyledPopup = styled(Popup)`
   &-overlay {
     animation-name: ${breatheAnimation};
     animation-duration: 0.5s;
-    }
+  }
   &-content {
     border-radius: 10px;
-    background-color: #E5E5E5;
+    background-color: #e5e5e5;
     animation-name: ${breatheAnimation};
     animation-duration: 0.5s;
   }
   &-arrow {
-    color: #E5E5E5;
+    color: #e5e5e5;
     animation-name: ${breatheAnimation};
     animation-duration: 0.5s;
   }
@@ -44,8 +44,8 @@ const Table = ({
   className = "",
   tratio = "",
   url = "",
+  handleUpdate,
 }) => {
-
   const { refreshPage } = useContext(RefreshContext);
 
   const handleDelete = (item) => {
@@ -62,21 +62,21 @@ const Table = ({
       });
   };
 
-  const handleUpdate = (value, id, property) => {
-    axios
-      .update(`${url}/update/${id}`, {
-        property: value,
-      })
-      .then((res) => {
-        console.log(res);
-        toast.success("Edit Successful");
-        refreshPage();
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Edit Unsuccessful");
-      })
-  };
+  // const handleUpdate = (value, id, property) => {
+  //   axios
+  //     .update(`${url}/update/${id}`, {
+  //       property: value,
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //       toast.success("Edit Successful");
+  //       refreshPage();
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       toast.error("Edit Unsuccessful");
+  //     });
+  // };
 
   const nodes = tdata.map((d) => {
     console.log(d);
@@ -121,30 +121,44 @@ const Table = ({
     {
       label: "Actions",
       renderCell: (item) => {
+        console.log(item._id);
         return (
           <div className="flex space-x-4">
-            <StyledPopup trigger={
-              <button className="hover:text-[#ff0000]">
-                <HiOutlineTrash />
-              </button>
-            } position="top center" offsetX={-90} offsetY={64}>
-              {close => (
+            <StyledPopup
+              trigger={
+                <button className="hover:text-[#ff0000]">
+                  <HiOutlineTrash />
+                </button>
+              }
+              position="top center"
+              offsetX={-90}
+              offsetY={64}
+            >
+              {(close) => (
                 <div className="flex items-center space-x-4 m-4">
                   <Button className="w-3/4" text="Cancel" handleClick={close} />
-                  <Button className="w-3/4" text="Confirm"
+                  <Button
+                    className="w-3/4"
+                    text="Confirm"
                     handleClick={(e) => {
                       console.log("Delete");
                       handleDelete(item);
-                      close()
+                      close();
                     }}
                   />
                 </div>
               )}
             </StyledPopup>
 
-            <button className="hover:text-[#494998]">
-                <BsPencil />
-              </button>
+            <button
+              className="hover:text-[#494998]"
+              onClick={(e) => {
+                console.log("HEY");
+                handleUpdate(item._id);
+              }}
+            >
+              <BsPencil />
+            </button>
           </div>
         );
       },
@@ -163,7 +177,8 @@ const Table = ({
     getTheme(),
     {
       Table: `
-        --data-table-library_grid-template-columns:  ${tratio.length <= 0 ? getDefaults() : tratio
+        --data-table-library_grid-template-columns:  ${
+          tratio.length <= 0 ? getDefaults() : tratio
         } 100px;
       `,
     },

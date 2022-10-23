@@ -4,6 +4,7 @@ import Heading from "../../../components/Heading";
 import Table from "../../../components/Table";
 import axios from "axios";
 import { RefreshContext } from "../../../Refresher";
+import { OfficeBearersTabContext } from ".";
 
 const ViewMembers = () => {
   const [data, setData] = useState([]);
@@ -22,6 +23,8 @@ const ViewMembers = () => {
       });
   }, [refreshToken]);
 
+  const { updateByID } = useContext(OfficeBearersTabContext);
+
   return (
     <section className="px-8 py-8 w-full">
       <Heading>View Members</Heading>
@@ -30,12 +33,14 @@ const ViewMembers = () => {
           theads={["Name", "Role", "Year", "Dept", "Image"]}
           tdata={data}
           tkeys={["name", "role", "year", "deptyos", "image_url"]}
-          className={`${data.length < 8
-            ? "max-h-[calc(100vh-20rem)]"
-            : "h-[calc(100vh-20rem)]"
-            } w-full`}
+          className={`${
+            data.length < 8
+              ? "max-h-[calc(100vh-20rem)]"
+              : "h-[calc(100vh-20rem)]"
+          } w-full`}
           tratio="1fr 1fr 1fr 1fr 0.5fr"
           url={url}
+          handleUpdate={(id) => updateByID(id)}
         />
       </div>
     </section>
