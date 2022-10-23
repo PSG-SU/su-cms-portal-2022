@@ -13,7 +13,6 @@ import { RefreshContext } from "../Refresher";
 import Button from "./Button";
 import Popup from 'reactjs-popup';
 import styled, { keyframes } from 'styled-components'
-import Inputfield from "./TextInput";
 
 const breatheAnimation = keyframes`
  0% { opacity: 0; transform: scale(0.25) translateY(75px); }
@@ -65,6 +64,22 @@ const Table = ({
       });
   };
 
+  const handleUpdate = (value, id, property) => {
+    axios
+      .update(`${url}/update/${id}`, {
+        property: value,
+      })
+      .then((res) => {
+        console.log(res);
+        toast.success("Edit Successful");
+        refreshPage();
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Edit Unsuccessful");
+      })
+  };
+
   // const handleEdit = (value, id, property) => {
   //   setData((state) => ({
   //     ...state,
@@ -77,10 +92,6 @@ const Table = ({
   //     }),
   //   }));
   // };
-
-  // const handleIcon = (id) => {
-
-  // }
 
   const nodes = tdata.map((d) => {
     console.log(d);
@@ -115,9 +126,8 @@ const Table = ({
           );
         // } else return <input
         //   type="text"
-        //   className={` px-4 py-2 w-full rounded-lg text-slate bg-clip-padding bg-no-repeat border-2 border-solid ${
-        //     edit ? "border-gray" : "border-white"
-        //   } first-letter:transition ease-in-out m-0 focus:outline-none focus:border-cloud`}
+        //   className={` px-4 py-2 w-full rounded-lg text-slate bg-clip-padding bg-no-repeat border-2 border-solid ${edit ? "border-gray" : "border-white"
+        //     } first-letter:transition ease-in-out m-0 focus:outline-none focus:border-cloud`}
         //   value={item[tkeys[idx]]}
         //   onChange={(event) => {
         //     handleEdit(event.target.value, item._id, tkeys[idx]);
@@ -156,10 +166,10 @@ const Table = ({
               )}
             </StyledPopup>
             <button className="hover:text-[#494998]"
-            onClick={(e) => {
-              e.preventDefault();
-              // handleIcon(item._id);
-            }}
+              onClick={(e) => {
+                e.preventDefault();
+                // handleIcon(item._id);
+              }}
             >
               {edit ? <BsCheck2Circle /> : <BsPencil />}
             </button>
