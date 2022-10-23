@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { BsPencil, BsCheck2Circle } from "react-icons/bs";
+import { BsPencil } from "react-icons/bs";
 import { HiOutlineTrash } from "react-icons/hi";
 import { CompactTable } from "@table-library/react-table-library/compact";
 import { useTheme } from "@table-library/react-table-library/theme";
@@ -46,8 +46,6 @@ const Table = ({
   url = "",
 }) => {
 
-  const [edit, setEdit] = useState(false);
-  const [ele, setEle] = useState("");
   const { refreshPage } = useContext(RefreshContext);
 
   const handleDelete = (item) => {
@@ -80,19 +78,6 @@ const Table = ({
       })
   };
 
-  // const handleEdit = (value, id, property) => {
-  //   setData((state) => ({
-  //     ...state,
-  //     nodes: state.nodes.map((node) => {
-  //       if (node._id === id) {
-  //         return { ...node, [property]: value };
-  //       } else {
-  //         return node;
-  //       }
-  //     }),
-  //   }));
-  // };
-
   const nodes = tdata.map((d) => {
     console.log(d);
     let j = Object();
@@ -108,7 +93,7 @@ const Table = ({
       label: h,
       renderCell: (item) => {
         console.log("ITEM: ", item);
-        setEle(item[tkeys[idx]]);
+
         if (
           /^https?:\/\/(?:[a-z0-9-]+\.)+[a-z]{2,6}(?:\/[^/#?]+)+\.(?:jpg|gif|png)$/.test(
             item[tkeys[idx]]
@@ -124,22 +109,13 @@ const Table = ({
               />
             </div>
           );
-        // } else return <input
-        //   type="text"
-        //   className={` px-4 py-2 w-full rounded-lg text-slate bg-clip-padding bg-no-repeat border-2 border-solid ${edit ? "border-gray" : "border-white"
-        //     } first-letter:transition ease-in-out m-0 focus:outline-none focus:border-cloud`}
-        //   value={item[tkeys[idx]]}
-        //   onChange={(event) => {
-        //     handleEdit(event.target.value, item._id, tkeys[idx]);
-        //   }}
-        // />
-
         } else return item[tkeys[idx]];
       },
       // resize: true,
     };
   });
   // console.log("ites"+item[tkeys[idx]])
+
   COLUMNS = [
     ...COLUMNS,
     {
@@ -165,14 +141,10 @@ const Table = ({
                 </div>
               )}
             </StyledPopup>
-            <button className="hover:text-[#494998]"
-              onClick={(e) => {
-                e.preventDefault();
-                // handleIcon(item._id);
-              }}
-            >
-              {edit ? <BsCheck2Circle /> : <BsPencil />}
-            </button>
+
+            <button className="hover:text-[#494998]">
+                <BsPencil />
+              </button>
           </div>
         );
       },
@@ -197,7 +169,6 @@ const Table = ({
     },
   ]);
 
-  // const [data, setData] = useState({ nodes });
   const data = { nodes };
 
   useEffect(() => {
