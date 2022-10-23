@@ -62,22 +62,6 @@ const Table = ({
       });
   };
 
-  // const handleUpdate = (value, id, property) => {
-  //   axios
-  //     .update(`${url}/update/${id}`, {
-  //       property: value,
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //       toast.success("Edit Successful");
-  //       refreshPage();
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       toast.error("Edit Unsuccessful");
-  //     });
-  // };
-
   const nodes = tdata.map((d) => {
     console.log(d);
     let j = Object();

@@ -13,10 +13,10 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:role", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const officeBearer = await OfficeBearer.findOne({
-      role: req.params.role,
+      _id: req.params.id,
     });
     if (!officeBearer) {
       return res.status(404).json({ error: "Not Found" });
@@ -43,10 +43,10 @@ router.post("/add", async (req, res) => {
   }
 });
 
-router.put("/update/:role", async (req, res) => {
+router.put("/update/:id", async (req, res) => {
   try {
     const officeBearer = await OfficeBearer.findOneAndUpdate(
-      { role: req.params.role },
+      { _id: req.params.id },
       req.body,
       { new: true }
     );

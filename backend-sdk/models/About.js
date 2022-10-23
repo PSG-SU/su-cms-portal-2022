@@ -5,6 +5,10 @@ const AboutSchema = new Schema({
     type: String,
     required: true,
   },
+  file_url: {
+    type: String,
+    required: true,
+  },
 });
 
 export default model("About", AboutSchema);

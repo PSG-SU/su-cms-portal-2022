@@ -8,7 +8,6 @@ const officeBearerSchema = new Schema({
   role: {
     type: String,
     required: true,
-    lowercase: true,
   },
   year: {
     type: String,

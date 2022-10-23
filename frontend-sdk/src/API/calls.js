@@ -14,6 +14,9 @@ export const fetchUploadFile = (file) => {
 // For OFFICE BEARERS
 export const fetchAddOfficeBearers = (postBody) =>
   axios.post(`${OFFICE_BEARERS_URL}/add`, postBody, {});
+
+export const fetchUpdateOfficeBearers = (postBody, id) =>
+  axios.put(`${OFFICE_BEARERS_URL}/update/${id}`, postBody, {});
 /* ------------------------------------------- */
 
 // For CLUBS

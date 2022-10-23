@@ -5,12 +5,13 @@ import Dropdown from "../../../components/Dropdown";
 import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
-import { fetchAddOfficeBearers, fetchUploadFile } from "../../../API/calls";
+import { fetchAddOfficeBearers, fetchUploadFile, fetchUpdateOfficeBearers } from "../../../API/calls";
 import { OfficeBearersTabContext } from ".";
 
 const AddMembers = () => {
   const { updateState } = useContext(OfficeBearersTabContext);
 
+  const [ID, setID] = useState("");
   const [position, setPosition] = useState("");
   const [name, setName] = useState("");
   const [deptyos, setDeptyos] = useState("");
@@ -26,6 +27,7 @@ const AddMembers = () => {
       setDeptyos(updateState?.deptyos);
       setAcayear(updateState?.year);
       setImage_url(updateState?.image_url);
+      setID(updateState?._id);
     }
   }, [updateState]);
 
@@ -54,6 +56,55 @@ const AddMembers = () => {
       },
       error: "Error Occured",
     });
+  };
+
+  const handleUpdate = async () => {
+    if (file) {
+      toast.promise(fetchUploadFile(file), {
+        loading: "Uploading...",
+        success: (res) => {
+          setImage_url(res.data.url);
+          const postBody = {
+            role: position,
+            name: name,
+            deptyos: deptyos,
+            year: acayear,
+            image_url: res.data.url,
+          };
+          toast.promise(fetchUpdateOfficeBearers(postBody, ID)
+            .then((res) => {
+              window.location.reload();
+            }), {
+            loading: "Adding...",
+            success: "Added Successfully",
+            error: (err) => `Error: ${err.response.data.error}`,
+          });
+          return "Uploaded";
+        },
+        error: "Error Occured",
+      });
+
+    } else {
+      const postBody = {
+        role: position,
+        name: name,
+        deptyos: deptyos,
+        year: acayear,
+      };
+      toast.promise(fetchUpdateOfficeBearers(postBody, ID)
+        .then((res) => {
+          window.location.reload();
+        }), {
+        loading: "Adding...",
+        success: "Added Successfully",
+        error: (err) => `Error: ${err.response.data.error}`,
+      });
+    }
+  };
+
+  const handleCancel = () => {
+    console.log("Cancel Button");
+    window.location.reload();
   };
 
   return (
@@ -120,10 +171,10 @@ const AddMembers = () => {
               handleClick={handlePost}
             />
           ) : (
-            <React.Fragment>
-              <Button className="w-3/4" text={"Update Member"} />
-              <Button className="w-3/4" text={"Cancel update"} />
-            </React.Fragment>
+            <div className="flex items-center w-full space-x-4 mt-4">
+              <Button className="w-3/4" text={"Update Member"} handleClick={handleUpdate} />
+              <Button className="w-3/4" text={"Cancel update"} handleClick={handleCancel} />
+            </div>
           )}
         </div>
       </div>

@@ -9,7 +9,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    lowercase: true,
   },
   password: {
     type: String,
@@ -18,7 +17,7 @@ const userSchema = new Schema({
   rights: {
     type: String,
     required: true,
-    lowercase: true,
+
   },
 });
 

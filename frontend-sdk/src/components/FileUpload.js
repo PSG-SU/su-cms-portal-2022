@@ -6,22 +6,23 @@ import toast from "react-hot-toast";
 
 const FileUpload = ({
   fileState,
-  fileErrorState = ["", (e) => {}],
+  fileErrorState = ["", (e) => { }],
   className = "",
   title = "",
   url,
+  pdf,
 }) => {
   const [file, setFile] = fileState;
   const [fileError, setFileError] = fileErrorState;
-  const [fileName, setFileName] = useState("No file chosen, yet.");
+  const [fileName, setFileName] = useState("No file chosen");
 
   useEffect(() => {
     console.log("UPLOAD", file);
     if (file) {
-      if (file.type === "image/jpeg" || file.type === "image/png") {
+      if ((pdf && file.type === "application/pdf") || (file.type === "image/jpeg" || file.type === "image/png")) {
         setFileName(file.name);
       } else {
-        toast.error("Please upload a valid image file (png or jpg)");
+        pdf ? toast.error("Please upload a valid PDF file") : toast.error("Please upload a valid image file (PNG or JPG)");
       }
     }
   }, [file]);
@@ -29,14 +30,16 @@ const FileUpload = ({
   useEffect(() => {
     setFileName(
       url.length > 0 ? (
-        <div className="">
-          {console.log("sdigfksdhf")}
-          <ModalImage
-            className="w-12 h-12 rounded-full"
-            small={url}
-            large={url}
-            alt="Image URL"
-          />
+        <div className="flex items-center space-x-2">
+          <div>
+            <ModalImage
+              className="w-12 h-12 rounded-full"
+              small={url}
+              large={url}
+              alt="Image URL"
+            />
+          </div>
+          <p>{fileName}</p>
         </div>
       ) : (
         "No file chosen"
@@ -51,9 +54,8 @@ const FileUpload = ({
       <label className="text-blue text-base">{title}</label>
       <div className="flex space-x-2 items-center w-full">
         <div
-          className={` px-4 py-2 w-full rounded-lg text-slate bg-gray bg-clip-padding bg-no-repeat border-2 border-solid ${
-            fileError.length !== 0 ? "border-yellow" : "border-gray"
-          } first-letter:transition ease-in-out m-0 focus:outline-none focus:border-cloud`}
+          className={` px-4 py-2 w-full rounded-lg text-slate bg-gray bg-clip-padding bg-no-repeat border-2 border-solid ${fileError.length !== 0 ? "border-yellow" : "border-gray"
+            } first-letter:transition ease-in-out m-0 focus:outline-none focus:border-cloud`}
         >
           <div className="w-full flex items-center space-x-6">
             <label className="bg-cloud p-3 rounded-lg w-fit whitespace-nowrap shadow-lg">

@@ -8,7 +8,6 @@ const SUTeamSchema = new Schema({
   role: {
     type: String,
     required: true,
-    // lowercase: true,
   },
   image_url: {
     type: String,

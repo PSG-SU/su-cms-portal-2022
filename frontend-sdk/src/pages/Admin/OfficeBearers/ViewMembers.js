@@ -5,11 +5,12 @@ import Table from "../../../components/Table";
 import axios from "axios";
 import { RefreshContext } from "../../../Refresher";
 import { OfficeBearersTabContext } from ".";
+import { OFFICE_BEARERS_URL } from "../../../API/config";
 
 const ViewMembers = () => {
   const [data, setData] = useState([]);
   const { refreshToken } = useContext(RefreshContext);
-  const url = "http://localhost:8080/api/office-bearers";
+  const url = OFFICE_BEARERS_URL;
 
   useEffect(() => {
     axios

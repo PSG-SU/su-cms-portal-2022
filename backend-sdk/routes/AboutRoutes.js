@@ -25,34 +25,34 @@ router.post("/add", async (req, res) => {
   }
 });
 
-// router.put("/update/:id", async (req, res) => {
-//   try {
-//     const suTeam = await SuTeam.findByIdAndUpdate(req.params.id, req.body, {
-//       new: true,
-//     });
-//     if (!suTeam) {
-//       return res.status(404).json({ error: "Not Found" });
-//     } else {
-//       res.status(200).json(suTeam);
-//     }
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json({ error: err.message });
-//   }
-// });
+router.put("/update/:id", async (req, res) => {
+  try {
+    const about = await About.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    if (!about) {
+      return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json(about);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
 
-// router.delete("/delete/:id", async (req, res) => {
-//   try {
-//     const suTeam = await SuTeam.findByIdAndDelete(req.params.id);
-//     if (!suTeam) {
-//       return res.status(404).json({ error: "Not Found" });
-//     } else {
-//       res.status(200).json(suTeam);
-//     }
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json({ error: err.message });
-//   }
-// });
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const about = await About.findByIdAndDelete(req.params.id);
+    if (!about) {
+      return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json(about);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
 
 export default router;

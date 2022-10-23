@@ -8,7 +8,6 @@ const nssStaffSchema = new Schema({
   scheme: {
     type: String,
     required: true,
-    // lowercase: true,
   },
   priority: {
     type: Number,

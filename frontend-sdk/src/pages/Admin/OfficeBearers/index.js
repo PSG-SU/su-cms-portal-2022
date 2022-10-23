@@ -22,9 +22,7 @@ const OfficeBearers = () => {
   ];
 
   const [selected, setSelected] = useState(0);
-
   const [updateState, setUpdateState] = useState({});
-
   const [tabMenuItems, setTabMenuItems] = useState(TabMenuItems);
 
   const updateByID = (id) => {
