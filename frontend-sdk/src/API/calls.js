@@ -30,8 +30,8 @@ export const fetchAddSUTeamStaff = (postBody) =>
 /* ------------------------------------------- */
 
 // For About Page
-export const fetchAddAbout = (postBody) =>
-  axios.post(`${ABOUT_URL}/add`, postBody, {});
+export const fetchUpdateAbout = (postBody) =>
+  axios.put(`${ABOUT_URL}/update/6355381dcef8729cb955e396`, postBody, {});
 /* ------------------------------------------- */
 
 // For NSS NCC Page

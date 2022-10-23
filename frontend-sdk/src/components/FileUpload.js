@@ -3,6 +3,7 @@ import { FiUpload } from "react-icons/fi";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import ModalImage from "react-modal-image";
 import toast from "react-hot-toast";
+import { VscFilePdf } from "react-icons/vsc";
 
 const FileUpload = ({
   fileState,
@@ -10,7 +11,7 @@ const FileUpload = ({
   className = "",
   title = "",
   url,
-  pdf,
+  pdf = false,
 }) => {
   const [file, setFile] = fileState;
   const [fileError, setFileError] = fileErrorState;
@@ -19,7 +20,7 @@ const FileUpload = ({
   useEffect(() => {
     console.log("UPLOAD", file);
     if (file) {
-      if ((pdf && file.type === "application/pdf") || (file.type === "image/jpeg" || file.type === "image/png")) {
+      if ((pdf && file.type === "application/pdf") || (!pdf && (file.type === "image/jpeg" || file.type === "image/png"))) {
         setFileName(file.name);
       } else {
         pdf ? toast.error("Please upload a valid PDF file") : toast.error("Please upload a valid image file (PNG or JPG)");
@@ -31,14 +32,19 @@ const FileUpload = ({
     setFileName(
       url.length > 0 ? (
         <div className="flex items-center space-x-2">
-          <div>
-            <ModalImage
-              className="w-12 h-12 rounded-full"
-              small={url}
-              large={url}
-              alt="Image URL"
-            />
-          </div>
+          {pdf && (<VscFilePdf />)}
+
+          {!pdf && (
+            <div>
+              <ModalImage
+                className="w-12 h-12 rounded-full"
+                small={url}
+                large={url}
+                alt="Image URL"
+              />
+            </div>
+          )}
+
           <p>{fileName}</p>
         </div>
       ) : (
