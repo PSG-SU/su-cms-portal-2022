@@ -22,7 +22,7 @@ const AddMembers = () => {
   useEffect(() => {
     console.log(updateState);
     if (Object.keys(updateState).length > 0) {
-      setPosition(capitalizeFirstLetter(updateState?.role));
+      setPosition(updateState?.role);
       setName(updateState?.name);
       setDeptyos(updateState?.deptyos);
       setAcayear(updateState?.year);
@@ -30,10 +30,6 @@ const AddMembers = () => {
       setID(updateState?._id);
     }
   }, [updateState]);
-
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
 
   const handlePost = async () => {
     toast.promise(fetchUploadFile(file), {
@@ -173,7 +169,7 @@ const AddMembers = () => {
           ) : (
             <div className="flex items-center w-full space-x-4 mt-4">
               <Button className="w-3/4" text={"Update Member"} handleClick={handleUpdate} />
-              <Button className="w-3/4" text={"Cancel update"} handleClick={handleCancel} />
+              <Button className="w-3/4" text={"Cancel Update"} handleClick={handleCancel} />
             </div>
           )}
         </div>

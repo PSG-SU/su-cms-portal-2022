@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.2.1",
     "autoprefixer": "^10.4.2",
     "axios": "^1.0.0",
+    "browser-image-compression": "^2.0.0",
     "concurrently": "^7.0.0",
     "pdfjs-dist": "2.15.349",
     "postcss": "^8.4.5",

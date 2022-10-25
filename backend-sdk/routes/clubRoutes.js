@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const club = await Club.findOne({ clubId: req.params.id });
+    const club = await Club.findOne({ _id: req.params.id });
     if (!club) return res.status(404).json({ error: "Club not found" });
     res.status(200).json(club);
   } catch (err) {
@@ -45,7 +45,7 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
-router.post("/update/:id", async (req, res) => {
+router.put("/update/:id", async (req, res) => {
   try {
     const club = await Club.findOneAndUpdate(
       { _id: req.params.id },

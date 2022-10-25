@@ -23,7 +23,7 @@ const FileUpload = ({
       if ((pdf && file.type === "application/pdf") || (!pdf && (file.type === "image/jpeg" || file.type === "image/png"))) {
         setFileName(file.name);
       } else {
-        pdf ? toast.error("Please upload a valid PDF file") : toast.error("Please upload a valid image file (PNG or JPG)");
+        pdf ? toast.error("Please upload a valid PDF file") : toast.error("Please upload a valid image file");
       }
     }
   }, [file]);

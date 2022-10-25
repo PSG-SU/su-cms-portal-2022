@@ -4,11 +4,13 @@ import Heading from "../../../components/Heading";
 import Table from "../../../components/Table";
 import axios from "axios";
 import { RefreshContext } from "../../../Refresher";
+import { CLUB_URL } from "../../../API/config";
+import { ClubManagementTabContext } from ".";
 
 const ViewClubs = () => {
   const [data, setData] = useState([]);
   const { refreshToken } = useContext(RefreshContext);
-  const url = "http://localhost:8080/api/clubs";
+  const url = CLUB_URL;
 
   useEffect(() => {
     axios
@@ -21,6 +23,8 @@ const ViewClubs = () => {
         console.log(err);
       })
   }, [refreshToken]);
+
+  const { updateByID } = useContext(ClubManagementTabContext);
 
   return (
     <section className="px-8 py-8 w-full">
@@ -36,6 +40,7 @@ const ViewClubs = () => {
             } w-full`}
           tratio="1fr 1fr 1fr 0.5fr"
           url={url}
+          handleUpdate={(id) => updateByID(id)}
         />
       </div>
     </section>

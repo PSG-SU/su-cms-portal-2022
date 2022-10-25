@@ -1,7 +1,33 @@
 import axios from "axios";
 import { AUTH_URL, LOGIN_URL, OFFICE_BEARERS_URL, UPLOAD_URL, CLUB_URL, SUTEAM_URL, ABOUT_URL, NSS_NCC_URL, GENERAL_URL } from "./config";
+import imageCompression from 'browser-image-compression';
+
+// async function handleImageUpload(img) {
+//   const imageFile = img
+//   console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
+//   console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+
+//   const options = {
+//     maxSizeMB: 1,
+//     maxWidthOrHeight: 1920,
+//     useWebWorker: true
+//   }
+//   try {
+//     const compressedFile = await imageCompression(imageFile, options);
+//     console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+//     console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+
+//     await uploadToServer(compressedFile); // write your own logic
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const fetchUploadFile = (file) => {
+  // if (file.type === "image/jpeg" || file.type === "image/png") {
+  //   handleImageUpload(file);
+  // }
+
   let data = new FormData();
   data.append("file", file);
   return axios.post(UPLOAD_URL, data, {
@@ -22,6 +48,9 @@ export const fetchUpdateOfficeBearers = (postBody, id) =>
 // For CLUBS
 export const fetchAddClubs = (postBody) =>
   axios.post(`${CLUB_URL}/add`, postBody, {});
+
+export const fetchUpdateClubs = (postBody, id) =>
+  axios.put(`${CLUB_URL}/update/${id}`, postBody, {});
 /* ------------------------------------------- */
 
 // For SU Team
