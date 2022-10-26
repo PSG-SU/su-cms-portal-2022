@@ -2,32 +2,30 @@ import axios from "axios";
 import { AUTH_URL, LOGIN_URL, OFFICE_BEARERS_URL, UPLOAD_URL, CLUB_URL, SUTEAM_URL, ABOUT_URL, NSS_NCC_URL, GENERAL_URL } from "./config";
 import imageCompression from 'browser-image-compression';
 
-// async function handleImageUpload(img) {
-//   const imageFile = img
-//   console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
-//   console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+async function handleImageUpload(img) {
+  const imageFile = img
+  console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
+  console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
 
-//   const options = {
-//     maxSizeMB: 1,
-//     maxWidthOrHeight: 1920,
-//     useWebWorker: true
-//   }
-//   try {
-//     const compressedFile = await imageCompression(imageFile, options);
-//     console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
-//     console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+  const options = {
+    maxSizeMB: 1,
+    maxWidthOrHeight: 1920,
+    useWebWorker: true
+  }
 
-//     await uploadToServer(compressedFile); // write your own logic
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+  return imageCompression(imageFile, options)
 
-export const fetchUploadFile = (file) => {
-  // if (file.type === "image/jpeg" || file.type === "image/png") {
-  //   handleImageUpload(file);
-  // }
+};
 
+export const fetchUploadFile = async (file) => {
+  console.log("DE", file);
+  if (file.type === "image/jpeg" || file.type === "image/png") {
+    await handleImageUpload(file).then(res => {
+      console.log(res)
+      file = new File([res], res.name, {type: res.type});
+      console.log(file)
+    });
+  }
   let data = new FormData();
   data.append("file", file);
   return axios.post(UPLOAD_URL, data, {
