@@ -37,7 +37,10 @@ const AddStaff = () => {
           name: name,
           image_url: res.data.url,
         };
-        toast.promise(fetchAddSUTeamStaff(postBody), {
+        toast.promise(fetchAddSUTeamStaff(postBody)
+          .then((res) => {
+            window.location.reload();
+          }), {
           loading: "Adding...",
           success: "Added Successfully",
           error: (err) => `Error: ${err.response.data.error}`,

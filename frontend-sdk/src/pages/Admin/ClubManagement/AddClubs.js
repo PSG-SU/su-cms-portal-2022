@@ -31,7 +31,10 @@ const AddClubs = () => {
       clubId: clid,
       category: cat,
     };
-    toast.promise(fetchAddClubs(postBody), {
+    toast.promise(fetchAddClubs(postBody)
+      .then((res) => {
+        window.location.reload();
+      }), {
       loading: "Adding...",
       success: "Added Successfully",
       error: (err) => `Error: ${err.response.data.error}`,

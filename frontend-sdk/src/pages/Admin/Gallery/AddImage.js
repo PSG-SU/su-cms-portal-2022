@@ -13,12 +13,11 @@ const AddImage = () => {
       <div className="flex items-center w-full space-x-4">
           <p>The last uploaded image will be on the top during display in the gallery page.<br></br>
             Only jpg / png files are supported.<br></br>
-            Upload a maximum of 3 images at a time.<br></br>
           </p>
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
           <FileUpload
-            title="Image to be uploaded"
+            title="Images to be uploaded"
             fileState={[file, setFile]} />
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">

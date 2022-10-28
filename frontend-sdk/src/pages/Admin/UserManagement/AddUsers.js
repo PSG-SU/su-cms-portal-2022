@@ -55,6 +55,7 @@ const AddUsers = () => {
       "rights": rights,
     }).then(res => {
       toast.success("User Added Successfully");
+      window.location.reload();
     }).catch(err => {
       toast.error("Error: " + err.response.data.error);
     })

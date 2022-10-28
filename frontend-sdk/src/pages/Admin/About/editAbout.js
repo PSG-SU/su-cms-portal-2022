@@ -34,6 +34,7 @@ const EditAbout = () => {
             success: "Added Successfully",
             error: (err) => `Error: ${err.response.data.error}`,
           });
+          window.location.reload();
           return "Uploaded";
         },
         error: "Error Occured",
@@ -47,6 +48,7 @@ const EditAbout = () => {
         success: "Added Successfully",
         error: (err) => `Error: ${err.response.data.error}`,
       });
+      window.location.reload();
     }
   };
 

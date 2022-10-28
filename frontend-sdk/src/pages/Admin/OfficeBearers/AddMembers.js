@@ -43,7 +43,10 @@ const AddMembers = () => {
           year: acayear,
           image_url: res.data.url,
         };
-        toast.promise(fetchAddOfficeBearers(postBody), {
+        toast.promise(fetchAddOfficeBearers(postBody)
+          .then((res) => {
+            window.location.reload();
+          }), {
           loading: "Adding...",
           success: "Added Successfully",
           error: (err) => `Error: ${err.response.data.error}`,

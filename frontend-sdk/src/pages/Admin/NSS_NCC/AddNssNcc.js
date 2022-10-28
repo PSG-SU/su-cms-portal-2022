@@ -43,7 +43,10 @@ const AddNssNcc = () => {
           dept: department,
           image_url: res.data.url,
         };
-        toast.promise(fetchAddNssNcc(postBody), {
+        toast.promise(fetchAddNssNcc(postBody)
+          .then((res) => {
+            window.location.reload();
+          }), {
           loading: "Adding...",
           success: "Added Successfully",
           error: (err) => `Error: ${err.response.data.error}`,
@@ -145,8 +148,20 @@ const AddNssNcc = () => {
             url={image_url}
           />
         </div>
+
         <div className="flex items-center space-x-4 mt-8 w-1/2">
-          <Button className="w-3/4" text="Add Staff" handleClick={handlePost} />
+          {Object.keys(updateState).length <= 0 ? (
+            <Button
+              className="w-3/4"
+              text="Add Staff"
+              handleClick={handlePost}
+            />
+          ) : (
+            <div className="flex items-center w-full space-x-4 mt-4">
+              <Button className="w-3/4" text={"Update Club"} handleClick={handleUpdate} />
+              <Button className="w-3/4" text={"Cancel Update"} handleClick={handleCancel} />
+            </div>
+          )}
         </div>
       </div>
     </section>
