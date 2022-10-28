@@ -12,7 +12,7 @@ const UserWrapper = () => {
 
   useEffect(() => {
     console.log(localStorage.getItem("rights"));
-    localStorage.getItem("token") && localStorage.getItem("rights") === "developer"
+    localStorage.getItem("token") && (localStorage.getItem("rights") === "developer" || localStorage.getItem("rights") === "club") 
       ? axios
         .get(LOGIN_URL, {
           headers: {

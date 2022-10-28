@@ -31,14 +31,14 @@ const ViewClubs = () => {
       <Heading>View Clubs</Heading>
       <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
         <Table
-          theads={["ID", "Club", "Category", "Image"]}
+          theads={["ID", "Club", "Category"]}
           tdata={data}
-          tkeys={["clubId", "clubName", "category", "image_url"]}
+          tkeys={["clubId", "clubName", "category"]}
           className={`${data.length < 8
             ? "max-h-[calc(100vh-20rem)]"
             : "h-[calc(100vh-20rem)]"
             } w-full`}
-          tratio="1fr 1fr 1fr 0.5fr"
+          tratio="1fr 1fr 1fr"
           url={url}
           handleUpdate={(id) => updateByID(id)}
         />

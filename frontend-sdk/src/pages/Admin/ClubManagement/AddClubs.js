@@ -14,8 +14,6 @@ const AddClubs = () => {
   const [cat, setCat] = useState("");
   const [clid, setClid] = useState("");
   const [clname, setClname] = useState("");
-  const [file, setFile] = useState("");
-  const [image_url, setImage_url] = useState("");
   const [ID, setID] = useState("");
 
   useEffect(() => {
@@ -23,73 +21,37 @@ const AddClubs = () => {
       setCat(updateState?.category);
       setClid(updateState?.clubId);
       setClname(updateState?.clubName);
-      setImage_url(updateState?.image_url);
       setID(updateState?._id);
     }
   }, [updateState]);
 
   const handlePost = async () => {
-    toast.promise(fetchUploadFile(file), {
-      loading: "Uploading...",
-      success: (res) => {
-        setImage_url(res.data.url);
-        const postBody = {
-          clubName: clname,
-          clubId: clid,
-          category: cat,
-          image_url: res.data.url,
-        };
-        toast.promise(fetchAddClubs(postBody), {
-          loading: "Adding...",
-          success: "Added Successfully",
-          error: (err) => `Error: ${err.response.data.error}`,
-        });
-        return "Uploaded";
-      },
-      error: "Error Occured",
+    const postBody = {
+      clubName: clname,
+      clubId: clid,
+      category: cat,
+    };
+    toast.promise(fetchAddClubs(postBody), {
+      loading: "Adding...",
+      success: "Added Successfully",
+      error: (err) => `Error: ${err.response.data.error}`,
     });
   };
 
   const handleUpdate = async () => {
-    if (file) {
-      toast.promise(fetchUploadFile(file), {
-        loading: "Uploading...",
-        success: (res) => {
-          setImage_url(res.data.url);
-          const postBody = {
-            clubName: clname,
-            clubId: clid,
-            category: cat,
-            image_url: res.data.url,
-          };
-          toast.promise(fetchUpdateClubs(postBody, ID)
-            .then((res) => {
-              window.location.reload();
-            }), {
-            loading: "Adding...",
-            success: "Added Successfully",
-            error: (err) => `Error: ${err.response.data.error}`,
-          });
-          return "Uploaded";
-        },
-        error: "Error Occured",
-      });
-
-    } else {
-      const postBody = {
-        clubName: clname,
-        clubId: clid,
-        category: cat,
-      };
-      toast.promise(fetchUpdateClubs(postBody, ID)
-        .then((res) => {
-          window.location.reload();
-        }), {
-        loading: "Adding...",
-        success: "Added Successfully",
-        error: (err) => `Error: ${err.response.data.error}`,
-      });
-    }
+    const postBody = {
+      clubName: clname,
+      clubId: clid,
+      category: cat,
+    };
+    toast.promise(fetchUpdateClubs(postBody, ID)
+      .then((res) => {
+        window.location.reload();
+      }), {
+      loading: "Adding...",
+      success: "Added Successfully",
+      error: (err) => `Error: ${err.response.data.error}`,
+    });
   };
 
   const handleCancel = () => {
@@ -122,14 +84,6 @@ const AddClubs = () => {
             valueState={[clname, setClname]}
             title="Club Name"
             placeholder="Enter the name of the Club"
-          />
-        </div>
-
-        <div className="flex items-center w-1/2 space-x-4 mt-4">
-          <FileUpload
-            fileState={[file, setFile]}
-            title="Upload Logo"
-            url={image_url}
           />
         </div>
 

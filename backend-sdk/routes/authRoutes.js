@@ -33,6 +33,22 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/unique/:id", async (req, res) => {
+  try {
+    const user = await User.findOne({
+      _id: req.params.id,
+    });
+    if (!user) {
+      return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json(user);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.get("/id/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -100,5 +116,31 @@ export const isLoggedIn = (req, res, next) => {
     res.status(401).json({ error: "Token not provided" });
   }
 };
+
+router.put("/update/:id", async (req, res) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      { _id: req.params.id },
+      req.body.password ? {...req.body, password: bcrypt.hashSync(req.body.password, 10)} : req.body,
+      { }
+    );
+    if (!user) return res.status(404).json({ error: "User not found" });
+    res.status(200).json(user);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const user = await User.findOneAndDelete({ _id: req.params.id });
+    if (!user) return res.status(404).json({ error: "User not found" });
+    res.status(200).json(user);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
 
 export default router;

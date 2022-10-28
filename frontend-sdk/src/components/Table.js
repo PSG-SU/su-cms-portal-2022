@@ -13,6 +13,7 @@ import { RefreshContext } from "../Refresher";
 import Button from "./Button";
 import Popup from "reactjs-popup";
 import styled, { keyframes } from "styled-components";
+import { AUTH_URL } from "../API/config";
 
 const breatheAnimation = keyframes`
  0% { opacity: 0; transform: scale(0.25) translateY(75px); }
@@ -49,17 +50,22 @@ const Table = ({
   const { refreshPage } = useContext(RefreshContext);
 
   const handleDelete = (item) => {
-    axios
-      .delete(`${url}/delete/${item._id}`)
-      .then((res) => {
-        console.log(res);
-        toast.success("Delete Successful");
-        refreshPage();
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Delete Unsuccessful");
-      });
+    if (url === AUTH_URL && (item.rights === "admin" || item.rights === "developer")) {
+      toast.error("Cannot delete admin or developer");
+      return;
+    } else {
+      axios
+        .delete(`${url}/delete/${item._id}`)
+        .then((res) => {
+          console.log(res);
+          toast.success("Delete Successful");
+          refreshPage();
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Delete Unsuccessful");
+        });
+    }
   };
 
   const nodes = tdata.map((d) => {
@@ -161,8 +167,7 @@ const Table = ({
     getTheme(),
     {
       Table: `
-        --data-table-library_grid-template-columns:  ${
-          tratio.length <= 0 ? getDefaults() : tratio
+        --data-table-library_grid-template-columns:  ${tratio.length <= 0 ? getDefaults() : tratio
         } 100px;
       `,
     },

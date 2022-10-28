@@ -14,9 +14,6 @@ const clubSchema = new Schema({
     type: String,
     required: true,
   },
-  image_url: {
-    type: String,
-  },
 });
 
 export default model("Club", clubSchema);

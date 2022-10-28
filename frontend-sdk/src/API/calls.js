@@ -6,8 +6,6 @@ const ABOUT_ID = "6355381dcef8729cb955e396";
 
 async function handleImageUpload(img) {
   const imageFile = img
-  console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
-  console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
 
   const options = {
     maxSizeMB: 1,
@@ -41,7 +39,11 @@ export const fetchUploadFile = async (file) => {
 export const fetchLogin = (postBody) => axios.post(LOGIN_URL, postBody, {});
 export const fetchAddUser = (postBody) =>
   axios.post(`${AUTH_URL}/add`, postBody, {});
-export const fetchGetUser = () => axios.get(`${AUTH_URL}`, {});
+export const fetchUpdateUser = (postBody, id) =>
+  axios.put(`${AUTH_URL}/update/${id}`, postBody, {});
+export const fetchGetAllUsers = () => axios.get(`${AUTH_URL}`, {});
+export const fetchGetUser = (id) =>
+  axios.get(`${AUTH_URL}/unique/${id}`, {});
 
 // For OFFICE BEARERS
 export const fetchAddOfficeBearers = (postBody) =>
