@@ -3,7 +3,7 @@ import EditAbout from "./editAbout.js";
 import ViewAbout from "./viewAbout.js";
 
 const About = () => {
-  const TabMenuItems = [
+  const initialTabMenuItems = [
     {
       text: "Edit About",
       tab: <EditAbout />,
@@ -23,7 +23,7 @@ const About = () => {
       <div className="h-fit bg-gray px-8 pt-8">
         <p className="text-lg uppercase tracking-wider mb-8">About Home Page</p>
         <header className="flex">
-          {TabMenuItems.map((item, idx) => {
+          {initialTabMenuItems.map((item, idx) => {
             return (
               <button
                 onClick={() => setSelected(idx)}
@@ -49,7 +49,7 @@ const About = () => {
           })}
         </header>
       </div>
-      {TabMenuItems[selected].tab}
+      {initialTabMenuItems[selected].tab}
     </section>
   );
 };

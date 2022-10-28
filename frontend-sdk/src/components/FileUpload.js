@@ -10,12 +10,12 @@ const FileUpload = ({
   fileErrorState = ["", (e) => { }],
   className = "",
   title = "",
-  url,
+  url = "",
   pdf = false,
 }) => {
   const [file, setFile] = fileState;
   const [fileError, setFileError] = fileErrorState;
-  const [fileName, setFileName] = useState("No file chosen");
+  const [fileName, setFileName] = useState("");
 
   useEffect(() => {
     console.log("UPLOAD", file);
@@ -29,6 +29,7 @@ const FileUpload = ({
   }, [file]);
 
   useEffect(() => {
+    console.log("htdht", url)
     setFileName(
       url.length > 0 ? (
         <div className="flex items-center space-x-2">
@@ -44,8 +45,6 @@ const FileUpload = ({
               />
             </div>
           )}
-
-          <p>{fileName}</p>
         </div>
       ) : (
         "No file chosen"

@@ -8,7 +8,7 @@ import axios from "axios";
 export const ClubManagementTabContext = createContext();
 
 const ClubManagement = () => {
-  const TabMenuItems = [
+  const initialTabMenuItems = [
     {
       text: "Add Club",
       tab: <AddClubs />,
@@ -23,7 +23,7 @@ const ClubManagement = () => {
 
   const [selected, setSelected] = useState(0);
   const [updateState, setUpdateState] = useState({});
-  const [tabMenuItems, setTabMenuItems] = useState(TabMenuItems);
+  const [tabMenuItems, setTabMenuItems] = useState(initialTabMenuItems);
 
   const updateByID = (id) => {
     axios
@@ -50,7 +50,7 @@ const ClubManagement = () => {
         <div className="h-fit bg-gray px-8 pt-8">
           <p className="text-lg uppercase tracking-wider mb-8">CLUB MANAGEMENT</p>
           <header className="flex">
-            {TabMenuItems.map((item, idx) => {
+            {tabMenuItems.map((item, idx) => {
               return (
                 <button
                   onClick={() => setSelected(idx)}
@@ -76,7 +76,7 @@ const ClubManagement = () => {
             })}
           </header>
         </div>
-        {TabMenuItems[selected].tab}
+        {tabMenuItems[selected].tab}
       </section>
     </ClubManagementTabContext.Provider>
   );

@@ -4,7 +4,7 @@ import Description from "./Description";
 import ViewGeneral from "./ViewGeneral";
 
 const General = () => {
-  const TabMenuItems = [
+  const initialTabMenuItems = [
     {
       text: "Add",
       tab: <AddGeneral />,
@@ -24,7 +24,7 @@ const General = () => {
       <div className="h-fit bg-gray px-8 pt-8">
         <p className="text-lg uppercase tracking-wider mb-8">GENERAL</p>
         <header className="flex">
-          {TabMenuItems.map((item, idx) => {
+          {initialTabMenuItems.map((item, idx) => {
             return (
               <button
                 onClick={() => setSelected(idx)}
@@ -50,7 +50,7 @@ const General = () => {
           })}
         </header>
       </div>
-      {TabMenuItems[selected].tab}
+      {initialTabMenuItems[selected].tab}
     </section>
   );
 };

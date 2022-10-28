@@ -21,8 +21,8 @@ const AddClubs = () => {
   useEffect(() => {
     if (Object.keys(updateState).length > 0) {
       setCat(updateState?.category);
-      setClid(updateState?.club_id);
-      setClname(updateState?.club_name);
+      setClid(updateState?.clubId);
+      setClname(updateState?.clubName);
       setImage_url(updateState?.image_url);
       setID(updateState?._id);
     }

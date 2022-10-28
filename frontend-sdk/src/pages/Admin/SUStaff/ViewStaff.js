@@ -4,11 +4,13 @@ import React, { useContext, useEffect, useState } from "react";
 import Heading from "../../../components/Heading";
 import Table from "../../../components/Table";
 import { RefreshContext } from "../../../Refresher";
+import { SUStaffTabContext } from ".";
+import { SUTEAM_URL } from "../../../API/config";
 
 const ViewStaff = () => {
   const [data, setData] = useState([]);
   const { refreshToken } = useContext(RefreshContext);
-  const url = "http://localhost:8080/api/suteam";
+  const url = SUTEAM_URL;
 
   useEffect(() => {
     axios
@@ -21,6 +23,8 @@ const ViewStaff = () => {
         console.log(err);
       });
   }, [refreshToken]);
+
+  const { updateByID } = useContext(SUStaffTabContext);
 
   return (
     <section className="px-8 py-8 w-full">
@@ -36,6 +40,7 @@ const ViewStaff = () => {
             } w-full`}
           tratio="1fr 1fr 0.5fr"
           url={url}
+          handleUpdate={(id) => updateByID(id)}
         />
       </div>
     </section>

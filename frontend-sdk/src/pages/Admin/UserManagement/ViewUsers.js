@@ -11,11 +11,6 @@ const ViewUsers = () => {
   const url = "http://localhost:8080/api/office-bearers";
 
   useEffect(() => {
-    // fetch("https://jsonplaceholder.typicode.com/posts/")
-    //   .then((response) => response.json())
-    //   .then((json) => {
-    //     setData(json);
-    //   });
     axios
       .get(url)
       .then((res) => {

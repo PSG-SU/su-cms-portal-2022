@@ -4,11 +4,13 @@ import Heading from "../../../components/Heading";
 import Table from "../../../components/Table";
 import axios from "axios";
 import { RefreshContext } from "../../../Refresher";
+import { NssNccTabContext } from ".";
+import { NSS_NCC_URL } from "../../../API/config";
 
 const ViewNssNcc = () => {
   const [data, setData] = useState([]);
   const { refreshToken } = useContext(RefreshContext);
-  const url = "http://localhost:8080/api/nssncc";
+  const url = NSS_NCC_URL;
 
   useEffect(() => {
     axios
@@ -21,6 +23,8 @@ const ViewNssNcc = () => {
         console.log(err);
       });
   }, [refreshToken]);
+
+  const { updateByID } = useContext(NssNccTabContext);
 
   return (
     <section className="px-8 py-8 w-full">
@@ -36,6 +40,7 @@ const ViewNssNcc = () => {
             } w-full`}
           tratio="1fr 1fr 1fr 1fr 0.5fr"
           url={url}
+          handleUpdate={(id) => updateByID(id)}
         />
       </div>
     </section>
