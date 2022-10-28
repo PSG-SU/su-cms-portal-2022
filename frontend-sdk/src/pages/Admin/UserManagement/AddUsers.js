@@ -13,8 +13,8 @@ const AddUsers = () => {
   const { updateState } = useContext(UserManagementTabContext);
 
   const [ID, setID] = useState("");
-  const [user, setUser] = useState("");
   const [associationName, setAssociationName] = useState("");
+  const [user, setUser] = useState("");
   const [rights, setRights] = useState("");
   const [pwd, setPWD] = useState("");
   const [rpwd, setRPWD] = useState("");
@@ -29,10 +29,12 @@ const AddUsers = () => {
   useEffect(() => {
     console.log(updateState);
     if (Object.keys(updateState).length > 0) {
+      setID(updateState?._id);
       setAssociationName(updateState.associationName);
       setUser(updateState?.userId);
       setRights(updateState?.rights);
-      setID(updateState?._id);
+      setPWD(null);
+      setRPWD(null);
     }
   }, [updateState]);
 
@@ -59,25 +61,42 @@ const AddUsers = () => {
   }
 
   const handleUpdate = async () => {
-    console.log("Users")
-    console.log(fetchGetUser(ID).rights);
     if (rights === "admin" || rights === "developer") {
       toast.error("Cannot update admin or developer");
       return;
     } else {
-      const postBody = {
-        associationName: associationName,
-        userId: user,
-        rights: rights,
-      };
-      toast.promise(fetchUpdateUser(postBody, ID)
-        .then((res) => {
-          window.location.reload();
-        }), {
-        loading: "Adding...",
-        success: "Added Successfully",
-        error: (err) => `Error: ${err.response.data.error}`,
-      });
+      if (pwd != null && rpwd != null) {
+        if (checkPassword()) {
+          const postBody = {
+            associationName: associationName,
+            userId: user,
+            rights: rights,
+            password: pwd,
+          };
+          toast.promise(fetchUpdateUser(postBody, ID)
+            .then((res) => {
+              window.location.reload();
+            }), {
+            loading: "Adding...",
+            success: "Added Successfully",
+            error: (err) => `Error: ${err.response.data.error}`,
+          });
+        }
+      } else {
+        const postBody = {
+          associationName: associationName,
+          userId: user,
+          rights: rights,
+        };
+        toast.promise(fetchUpdateUser(postBody, ID)
+          .then((res) => {
+            window.location.reload();
+          }), {
+          loading: "Adding...",
+          success: "Added Successfully",
+          error: (err) => `Error: ${err.response.data.error}`,
+        });
+      }
     }
   };
 
@@ -118,14 +137,14 @@ const AddUsers = () => {
             type="password"
             valueState={[pwd, setPWD]}
             title="Password"
-            isDisabled={Object.keys(updateState).length > 0}
+            // isDisabled={Object.keys(updateState).length > 0}
             placeholder="Enter your password here"
           />
           <Inputfield
             type="password"
             valueState={[rpwd, setRPWD]}
             title="Re-Enter Password"
-            isDisabled={Object.keys(updateState).length > 0}
+            // isDisabled={Object.keys(updateState).length > 0}
             placeholder="Re-Enter your password here"
           />
         </div>

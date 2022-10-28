@@ -5,7 +5,6 @@ import ClubManagement from "./Admin/ClubManagement";
 import UserManagement from "./Admin/UserManagement";
 import SUStaff from "./Admin/SUStaff";
 import NSS_NCC from "./Admin/NSS_NCC";
-import Password from "./Admin/Password";
 import About from "./Admin/About";
 import Gallery from "./Admin/Gallery";
 import { Navigate } from "react-router-dom";
@@ -52,13 +51,6 @@ const list = [
     rlink: "nss-ncc",
     icon: <FaUserTie />,
     element: <NSS_NCC />,
-  },
-  {
-    text: "Password",
-    link: "/admin/password",
-    rlink: "password",
-    icon: <FaKey />,
-    element: <Password />,
   },
   {
     text: "Gallery",
