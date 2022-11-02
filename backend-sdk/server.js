@@ -12,7 +12,7 @@ import nssRoutes from "./routes/nssStaffRoutes.js";
 import generalRoutes from "./routes/Club/generalRoutes.js";
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3002;
 
 app.use(cors());
 app.use(json());
