@@ -14,7 +14,7 @@ const ViewAbout = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/about")
+      .get("http://localhost:3002/api/about")
       .then((res) => {
         console.log(res.data);
         setContent(res.data);

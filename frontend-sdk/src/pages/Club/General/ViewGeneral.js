@@ -8,7 +8,7 @@ const ViewGeneral = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/club/general")
+      .get("http://localhost:3002/api/club/general")
       .then((res) => {
         console.log(res.data);
         setContent(res.data);
