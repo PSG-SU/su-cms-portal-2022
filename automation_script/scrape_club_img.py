@@ -37,4 +37,3 @@ for item in soup.find_all('img'):
         with open(f"{os.getcwd()}/automation_script/scrapeclubimages/{name}", "wb+") as f:
             f.write(r)
 
-        
