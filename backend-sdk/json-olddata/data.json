@@ -1,0 +1,611 @@
+[
+	{
+		"ID" : 1,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "B.E (Electrical and Electronics Engineering)",
+		"col3" : ""
+	},
+	{
+		"ID" : 2,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "B.E(Computer Science Engineering)",
+		"col3" : ""
+	},
+	{
+		"ID" : 3,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "B.E(Instrumentation and Control Engineering)",
+		"col3" : ""
+	},
+	{
+		"ID" : 4,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "B.E. Production Engineering",
+		"col3" : ""
+	},
+	{
+		"ID" : 5,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "B.E. Production Engineering",
+		"col3" : ""
+	},
+	{
+		"ID" : 6,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "B.E.Electronics and Communication Engineering",
+		"col3" : ""
+	},
+	{
+		"ID" : 7,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "B.Tech - Textile Technology",
+		"col3" : ""
+	},
+	{
+		"ID" : 8,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "B.Tech - Textile Technology",
+		"col3" : ""
+	},
+	{
+		"ID" : 9,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "B.Tech Bio Technology",
+		"col3" : ""
+	},
+	{
+		"ID" : 10,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "B.Tech Fashion Technology",
+		"col3" : ""
+	},
+	{
+		"ID" : 11,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "B.Tech Information Technology",
+		"col3" : ""
+	},
+	{
+		"ID" : 12,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "BE (Biomedical Engineering)",
+		"col3" : ""
+	},
+	{
+		"ID" : 13,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "BE (METALLURGICAL ENGINEERING)",
+		"col3" : ""
+	},
+	{
+		"ID" : 14,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "BE (Robotics and Automation)",
+		"col3" : ""
+	},
+	{
+		"ID" : 15,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "BE Automobile Engineering",
+		"col3" : ""
+	},
+	{
+		"ID" : 16,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "BE Civil Engineering",
+		"col3" : ""
+	},
+	{
+		"ID" : 17,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "BE Mechanical Engineering",
+		"col3" : ""
+	},
+	{
+		"ID" : 18,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "BE Mechanical Engineering",
+		"col3" : ""
+	},
+	{
+		"ID" : 19,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "BSc Applied Science",
+		"col3" : ""
+	},
+	{
+		"ID" : 20,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "BSc Computer Systems and Design",
+		"col3" : ""
+	},
+	{
+		"ID" : 21,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "English",
+		"col3" : ""
+	},
+	{
+		"ID" : 22,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "Humanities",
+		"col3" : ""
+	},
+	{
+		"ID" : 23,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.E (Applied Electronics)",
+		"col3" : ""
+	},
+	{
+		"ID" : 24,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.E (Electrical Machine)",
+		"col3" : ""
+	},
+	{
+		"ID" : 25,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.E (Power Electronics and Drives)",
+		"col3" : ""
+	},
+	{
+		"ID" : 26,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.E Biometrics and Cyber Security",
+		"col3" : ""
+	},
+	{
+		"ID" : 27,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.E Computer Science and Engineering",
+		"col3" : ""
+	},
+	{
+		"ID" : 28,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.E Structural Engineering",
+		"col3" : ""
+	},
+	{
+		"ID" : 29,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.E-Control Systems",
+		"col3" : ""
+	},
+	{
+		"ID" : 30,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.E. Manufacturing Engineering (erstwhile Production Engineering)",
+		"col3" : ""
+	},
+	{
+		"ID" : 31,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.E. Product Design and Commerce",
+		"col3" : ""
+	},
+	{
+		"ID" : 32,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.E. Production Engineering",
+		"col3" : ""
+	},
+	{
+		"ID" : 33,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.E. Software Engineering",
+		"col3" : ""
+	},
+	{
+		"ID" : 34,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.E. Virtual Prototyping and Digital Manufacturing",
+		"col3" : ""
+	},
+	{
+		"ID" : 35,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.E.Communication Systems",
+		"col3" : ""
+	},
+	{
+		"ID" : 36,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.E.VLSI Design",
+		"col3" : ""
+	},
+	{
+		"ID" : 37,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.E.Wireless Communication",
+		"col3" : ""
+	},
+	{
+		"ID" : 38,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.Sc. Fashion Design & Merchandising",
+		"col3" : ""
+	},
+	{
+		"ID" : 39,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.Tech - Textile Technology",
+		"col3" : ""
+	},
+	{
+		"ID" : 40,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.Tech Bio Technology",
+		"col3" : ""
+	},
+	{
+		"ID" : 41,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.Tech Information Technology",
+		"col3" : ""
+	},
+	{
+		"ID" : 42,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.TECH Nano Science and Technology",
+		"col3" : ""
+	},
+	{
+		"ID" : 43,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "M.Tech Textile Technology",
+		"col3" : ""
+	},
+	{
+		"ID" : 44,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "Master of Computer Applications",
+		"col3" : ""
+	},
+	{
+		"ID" : 45,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "Mathematics",
+		"col3" : ""
+	},
+	{
+		"ID" : 46,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "ME (INDUSTRIAL METALLURGY)",
+		"col3" : ""
+	},
+	{
+		"ID" : 47,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "ME Automotive Engineering",
+		"col3" : ""
+	},
+	{
+		"ID" : 48,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "ME Computer Integrated Manufacturing",
+		"col3" : ""
+	},
+	{
+		"ID" : 49,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "ME Energy Engineering",
+		"col3" : ""
+	},
+	{
+		"ID" : 50,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "ME Engineering Design",
+		"col3" : ""
+	},
+	{
+		"ID" : 51,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "ME Industrial Engineering",
+		"col3" : ""
+	},
+	{
+		"ID" : 52,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "ME Industrial Engineering (PT)",
+		"col3" : ""
+	},
+	{
+		"ID" : 53,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "ME Infrastructure Engineering",
+		"col3" : ""
+	},
+	{
+		"ID" : 54,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "ME Lean Manufacturing",
+		"col3" : ""
+	},
+	{
+		"ID" : 55,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "ME Structural Engineering",
+		"col3" : ""
+	},
+	{
+		"ID" : 56,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "ME(Applied Electronics)",
+		"col3" : ""
+	},
+	{
+		"ID" : 57,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "ME(Embedded & Real-Time Systems)",
+		"col3" : ""
+	},
+	{
+		"ID" : 58,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "MS (METALLURGICAL ENGINEERING)",
+		"col3" : ""
+	},
+	{
+		"ID" : 59,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "MSc Applied Mathematics",
+		"col3" : ""
+	},
+	{
+		"ID" : 60,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "MSc Data Science",
+		"col3" : ""
+	},
+	{
+		"ID" : 61,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "MSc Software Systems",
+		"col3" : ""
+	},
+	{
+		"ID" : 62,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "MSc Theoretical Computer Science",
+		"col3" : ""
+	},
+	{
+		"ID" : 63,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "prog",
+		"col2" : "Physics",
+		"col3" : ""
+	},
+	{
+		"ID" : 64,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "AFD",
+		"col3" : "Apparel & Fashion Design"
+	},
+	{
+		"ID" : 65,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "AMC",
+		"col3" : "Applied Mathematics & Computational Sciences"
+	},
+	{
+		"ID" : 66,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "AUT",
+		"col3" : "Automobile Engineering"
+	},
+	{
+		"ID" : 67,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "BIO",
+		"col3" : "Bio-Technology"
+	},
+	{
+		"ID" : 68,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "BME",
+		"col3" : "Biomedical Engineering"
+	},
+	{
+		"ID" : 69,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "CHE",
+		"col3" : "Chemistry"
+	},
+	{
+		"ID" : 70,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "CIV",
+		"col3" : "Civil Engineering"
+	},
+	{
+		"ID" : 71,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "CSE",
+		"col3" : "Computer Science & Engineering"
+	},
+	{
+		"ID" : 72,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "ECE",
+		"col3" : "Electronics & Communication Engineering"
+	},
+	{
+		"ID" : 73,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "EEE",
+		"col3" : "Electrical & Electronics Engineering"
+	},
+	{
+		"ID" : 74,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "ENG",
+		"col3" : "English"
+	},
+	{
+		"ID" : 75,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "FAT",
+		"col3" : "Fashion Technology"
+	},
+	{
+		"ID" : 76,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "HUM",
+		"col3" : "Humanities"
+	},
+	{
+		"ID" : 77,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "ICE",
+		"col3" : "Instrumentation & Control Systems Engineering"
+	},
+	{
+		"ID" : 78,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "IT",
+		"col3" : "Information Technology"
+	},
+	{
+		"ID" : 79,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "MAT",
+		"col3" : "Mathematics"
+	},
+	{
+		"ID" : 80,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "MCA",
+		"col3" : "Computer Applications"
+	},
+	{
+		"ID" : 81,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "MEC",
+		"col3" : "Mechanical Engineering"
+	},
+	{
+		"ID" : 82,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "MTL",
+		"col3" : "Metallurgical Engineering"
+	},
+	{
+		"ID" : 83,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "PHY",
+		"col3" : "Physics"
+	},
+	{
+		"ID" : 84,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "PRO",
+		"col3" : "Production Engineering"
+	},
+	{
+		"ID" : 85,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "RAE",
+		"col3" : "Robotics & Automation Engineering"
+	},
+	{
+		"ID" : 86,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "TXT",
+		"col3" : "Textile Technology"
+	},
+	{
+		"ID" : 87,
+		"dt_created" : "2022-07-08 08:26:39",
+		"col1" : "dept",
+		"col2" : "AS",
+		"col3" : "Applied Science"
+	}
+]
