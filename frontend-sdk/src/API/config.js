@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'http://localhost:3002';
 const API_URL = `${BASE_URL}/api`;
 
 export const AUTH_URL = `${API_URL}/auth`;

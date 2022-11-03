@@ -1,0 +1,74 @@
+[
+	{
+		"id" : 1,
+		"Priority" : "1",
+		"Name" : "Dr C Theivarasu",
+		"Department" : "Chemistry",
+		"Position" : "NULL",
+		"Club" : "NSS"
+	},
+	{
+		"id" : 2,
+		"Priority" : "5",
+		"Name" : "Dr L Thulasimani",
+		"Department" : "ECE",
+		"Position" : "NULL",
+		"Club" : "NSS"
+	},
+	{
+		"id" : 3,
+		"Priority" : "4",
+		"Name" : "Dr T Vasanthi",
+		"Department" : "Maths",
+		"Position" : "NULL",
+		"Club" : "NSS"
+	},
+	{
+		"id" : 4,
+		"Priority" : "3",
+		"Name" : "Dr C Veeramani",
+		"Department" : "AM & CS",
+		"Position" : "NULL",
+		"Club" : "NSS"
+	},
+	{
+		"id" : 5,
+		"Priority" : "2",
+		"Name" : "Dr R Senthilkumar",
+		"Department" : "English",
+		"Position" : "NULL",
+		"Club" : "NSS"
+	},
+	{
+		"id" : 6,
+		"Priority" : "4",
+		"Name" : "Lt. Dr S Babu",
+		"Department" : "Mechanical",
+		"Position" : "1/2 (TN) CTC NCC Engineers Platoon",
+		"Club" : "NCC"
+	},
+	{
+		"id" : 7,
+		"Priority" : "1",
+		"Name" : "Major Dr M D Kannan",
+		"Department" : "Physics",
+		"Position" : "5/4 (TN) BN NCC",
+		"Club" : "NCC"
+	},
+	{
+		"id" : 8,
+		"Priority" : "3",
+		"Name" : "Major Dr M Kalpana",
+		"Department" : "Humanities",
+		"Position" : "5 (TN) Girls BN NCC",
+		"Club" : "NCC"
+	},
+	{
+		"id" : 9,
+		"Priority" : "2",
+		"Name" : "Flg Offr Mr S Prathees Kumar",
+		"Department" : "Production",
+		"Position" : "5 (TN) AIR SQN (Tech) NCC",
+		"Club" : "NCC"
+	}
+]

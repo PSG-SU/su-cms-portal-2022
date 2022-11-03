@@ -1,0 +1,122 @@
+[
+	{
+		"id" : 1,
+		"Name" : "Shri. L. Gopalakrishnan",
+		"Position" : "Managing Trustee",
+		"Charity" : "PSG & Sons' Charity",
+		"Role" : "Chief Patron",
+		"img" : ?
+	},
+	{
+		"id" : 2,
+		"Name" : "Dr. K. Prakasan",
+		"Position" : "Principal",
+		"Charity" : "NULL",
+		"Role" : "Patron",
+		"img" : ?
+	},
+	{
+		"id" : 3,
+		"Name" : "Dr. K. Natarajan",
+		"Position" : "NULL",
+		"Charity" : "NULL",
+		"Role" : "Dean-Student Affairs",
+		"img" : ?
+	},
+	{
+		"id" : 4,
+		"Name" : "Dr. A. Sankar",
+		"Position" : "NULL",
+		"Charity" : "NULL",
+		"Role" : "Associate Dean-Finance",
+		"img" : ?
+	},
+	{
+		"id" : 5,
+		"Name" : "Dr. D. Karthika Renuka",
+		"Position" : "Associate Dean",
+		"Charity" : "NULL",
+		"Role" : "Student Welfare & Councelling",
+		"img" : ?
+	},
+	{
+		"id" : 6,
+		"Name" : "Mr. P. Dhanabal",
+		"Position" : "Faculty Advisor",
+		"Charity" : "NULL",
+		"Role" : "Student Welfare & Councelling",
+		"img" : ?
+	},
+	{
+		"id" : 7,
+		"Name" : "Dr. S. Sankarakumar",
+		"Position" : "Faculty Advisor",
+		"Charity" : "NULL",
+		"Role" : "General Functioning",
+		"img" : ?
+	},
+	{
+		"id" : 8,
+		"Name" : "Dr. H. Rammohan",
+		"Position" : "Faculty Advisor",
+		"Charity" : "NULL",
+		"Role" : "General Functioning",
+		"img" : ?
+	},
+	{
+		"id" : 9,
+		"Name" : "Dr. J. Prabhavathi",
+		"Position" : "Faculty Advisor",
+		"Charity" : "NULL",
+		"Role" : "Tech Music, Dramatics Club, Astronomy Club, Animal Welfare Club, WDC, Martial Arts Club",
+		"img" : ?
+	},
+	{
+		"id" : 11,
+		"Name" : "Dr. P. Visalakshi",
+		"Position" : "Faculty Advisor",
+		"Charity" : "NULL",
+		"Role" : "CAP & Nature Club, ELS, Entrepreneurs Club, NSS, Tamil Mandram, Fine Arts Club, YRC, Rotaract Club, Radio Hub",
+		"img" : ?
+	},
+	{
+		"id" : 13,
+		"Name" : "Mr. D. Muralidhar",
+		"Position" : "Associate Dean",
+		"Charity" : "NULL",
+		"Role" : "Higher Education Forum, Pathshala Club, GLF, SRC, Industry (Alumni)-Interaction Forum, Book Readers Club",
+		"img" : ?
+	},
+	{
+		"id" : 14,
+		"Name" : "Mr. T. Venkatachalam",
+		"Position" : "Faculty Advisor",
+		"Charity" : "NULL",
+		"Role" : "Higher Education Forum, Pathshala Club, GLF, SRC, Industry (Alumni)-Interaction Forum, Book Readers Club",
+		"img" : ?
+	},
+	{
+		"id" : 19,
+		"Name" : "Wedus",
+		"Position" : "Yy",
+		"Charity" : "NULL",
+		"Role" : "Higher Education Forum, Pathshala Club, GLF, SRC, Industry (Alumni)-Interaction Forum, Book Readers Club",
+		"img" : ?
+	},
+	{
+		"id" : 23,
+		"Name" : "Dr. R. Senthilkumar",
+		"Position" : "Faculty Advisor",
+		"Charity" : "NULL",
+		"Role" : "CAP & Nature Club, ELS, Entrepreneurs Club, NSS, Tamil Mandram, Fine Arts Club, YRC, Rotaract Club, Radio Hub",
+		"img" : ?
+	},
+	{
+		"id" : 25,
+		"Name" : "Dr. V .Krishnaraj ",
+		"Position" : "Faculty Advisor",
+		"Charity" : "NULL",
+		"Role" : "Tech Music, Dramatics Club, Astronomy Club, Animal Welfare Club, WDC, Martial Arts Club",
+		"img" : ?
+	}
+]
