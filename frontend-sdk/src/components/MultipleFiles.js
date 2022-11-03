@@ -5,7 +5,7 @@ import ModalImage from "react-modal-image";
 import toast from "react-hot-toast";
 import { VscFilePdf } from "react-icons/vsc";
 
-const FileUpload = ({
+const MultipleFiles = ({
   fileState,
   fileErrorState = ["", (e) => { }],
   className = "",
@@ -13,44 +13,13 @@ const FileUpload = ({
   url = "",
   pdf = false,
 }) => {
-  const [file, setFile] = fileState;
   const [fileError, setFileError] = fileErrorState;
-  const [fileName, setFileName] = useState("");
+  const [files, setFiles] = useState(FileList());
+
 
   useEffect(() => {
-    console.log("UPLOAD", file);
-    if (file) {
-      if ((pdf && file.type === "application/pdf") || (!pdf && (file.type === "image/jpeg" || file.type === "image/png"))) {
-        setFileName(file.name);
-      } else {
-        pdf ? toast.error("Please upload a valid PDF file") : toast.error("Please upload a valid image file");
-      }
-    }
-  }, [file]);
-
-  useEffect(() => {
-    console.log("htdht", url)
-    setFileName(
-      url.length > 0 ? (
-        <div className="flex items-center space-x-2">
-          {pdf && (<VscFilePdf />)}
-
-          {!pdf && (
-            <div>
-              <ModalImage
-                className="w-12 h-12 rounded-full"
-                small={url}
-                large={url}
-                alt="Image URL"
-              />
-            </div>
-          )}
-        </div>
-      ) : (
-        "No file chosen"
-      )
-    );
-  }, [url]);
+    
+  }, [files]);
 
   return (
     <div
@@ -67,17 +36,23 @@ const FileUpload = ({
               <input
                 type="file"
                 className="hidden"
+                multiple
                 onChange={(e) => {
                   e.preventDefault();
-                  setFile(e.target.files[0]);
+                  console.log(e.target.files);
+                  setFiles(e.target.files);
                   setFileError("");
                 }}
               />
               <FiUpload />
             </label>
-            <p className="whitespace-pre-wrap">{fileName}</p>
           </div>
         </div>
+      </div>
+      <div className="flex items-center w-full flex-wrap">
+        {
+          Array.from(files).map(file => <FileItem file={file} />)
+        }
       </div>
       {fileError.length !== 0 && (
         <div className="flex items-center space-x-2 text-xs text-red">
@@ -89,4 +64,25 @@ const FileUpload = ({
   );
 };
 
-export default FileUpload;
+const FileItem = ({file}) => {
+
+  useEffect(() => {
+    console.log(file);
+  
+  }, [file])
+  
+  return (
+    <div className="flex items-center space-x-2">
+      <div>
+        <ModalImage
+          className="w-12 h-12 rounded-full"
+          small={URL.createObjectURL(file)}
+          large={URL.createObjectURL(file)}
+          alt="Image URL"
+        />
+      </div>
+    </div>
+  );
+}
+
+export default MultipleFiles;

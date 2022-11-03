@@ -29,7 +29,7 @@ const ViewMembers = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>View Members</Heading>
-      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
+      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-auto">
         <Table
           theads={["Name", "Role", "Year", "Dept", "Image"]}
           tdata={data}
@@ -37,7 +37,7 @@ const ViewMembers = () => {
           className={`${
             data.length < 8
               ? "max-h-[calc(100vh-20rem)]"
-              : "h-[calc(100vh-20rem)]"
+              : "h-[calc(100vh-25rem)]"
           } w-full`}
           tratio="1fr 1fr 1fr 1fr 0.5fr"
           url={url}

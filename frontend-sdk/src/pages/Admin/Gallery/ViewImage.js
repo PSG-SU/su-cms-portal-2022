@@ -26,7 +26,7 @@ const ViewImage = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>View Images</Heading>
-      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
+      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-auto">
         <Table
           theads={["User ID", "ID", "Title"]}
           tdata={data}
@@ -34,7 +34,7 @@ const ViewImage = () => {
           className={`${
             data.length < 8
               ? "max-h-[calc(100vh-20rem)]"
-              : "h-[calc(100vh-20rem)]"
+              : "h-[calc(100vh-25rem)]"
           } w-full`}
         />
       </div>

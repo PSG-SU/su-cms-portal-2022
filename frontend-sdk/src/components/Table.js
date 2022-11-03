@@ -47,6 +47,7 @@ const Table = ({
   url = "",
   handleUpdate,
 }) => {
+
   const { refreshPage } = useContext(RefreshContext);
 
   const handleDelete = (item) => {
@@ -192,6 +193,9 @@ const Table = ({
           horizontalScroll: false,
         }}
       />
+      <div className="flex justify-end space-x-4 mt-8">
+        <p>Total Count : {nodes.length}</p>
+      </div>
     </div>
   );
 };

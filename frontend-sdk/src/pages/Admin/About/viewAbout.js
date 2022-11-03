@@ -7,6 +7,7 @@ import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import { Worker } from '@react-pdf-viewer/core';
+import { ABOUT_URL } from "../../../API/config";
 
 const ViewAbout = () => {
   const [content, setContent] = useState("");
@@ -14,7 +15,7 @@ const ViewAbout = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/about")
+      .get(ABOUT_URL)
       .then((res) => {
         console.log(res.data);
         setContent(res.data);

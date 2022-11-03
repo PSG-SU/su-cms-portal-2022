@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "../../../components/Button";
-import FileUpload from "../../../components/FileUpload";
+import MultipleFiles from "../../../components/MultipleFiles";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
 
@@ -25,9 +25,10 @@ const AddImage = () => {
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
-          <FileUpload
+          {/* <MultipleFiles
             title="Images to be uploaded"
-            fileState={[file, setFile]} />
+            className="w-1/2"
+            fileState={[file, setFile]} /> */}
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">
           <Button className="w-3/4" text="Upload" />
