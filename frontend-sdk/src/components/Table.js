@@ -46,6 +46,7 @@ const Table = ({
   tratio = "",
   url = "",
   handleUpdate,
+  haveID = false
 }) => {
 
   const { refreshPage } = useContext(RefreshContext);
@@ -69,9 +70,10 @@ const Table = ({
     }
   };
 
-  const nodes = tdata.map((d) => {
+  const nodes = tdata.map((d, di) => {
     console.log(d);
     let j = Object();
+    j["ID"] = di + 1;
     j["_id"] = d["_id"];
     tkeys.forEach((k) => {
       j[k] = d[k];
@@ -108,6 +110,7 @@ const Table = ({
   // console.log("ites"+item[tkeys[idx]])
 
   COLUMNS = [
+    {label: "S.No.", renderCell: (item) => item["ID"]},
     ...COLUMNS,
     {
       label: "Actions",
@@ -168,7 +171,7 @@ const Table = ({
     getTheme(),
     {
       Table: `
-        --data-table-library_grid-template-columns:  ${tratio.length <= 0 ? getDefaults() : tratio
+        --data-table-library_grid-template-columns: 75px ${tratio.length <= 0 ? getDefaults() : tratio
         } 100px;
       `,
     },
