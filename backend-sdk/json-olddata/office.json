@@ -1,0 +1,37 @@
+[
+  {
+    "year": "2022-2023",
+    "roll": "Chairperson",
+    "name": "Mr. Dharmendra R",
+    "deptyos": "Final Year BE RAE",
+    "imge": "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/Dharmendra.jpeg"
+  },
+  {
+    "year": "2022-2023",
+    "roll": "Co-Chairperson",
+    "name": "Mr. Mano M",
+    "deptyos": "Final Year BE Mech(SW)",
+    "imge": "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/Mano.jpeg"
+  },
+  {
+    "year": "2022-2023",
+    "roll": "Secretary(Science)",
+    "name": "Ms. Pavana S",
+    "deptyos": "3rd Year MSc FDM",
+    "imge": "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/Pavana.jpeg"
+  },
+  {
+    "year": "2022-2023",
+    "roll": "Secretary(Men)",
+    "name": "Mr. Aditya Varma ",
+    "deptyos": "3rd Year BE CSE",
+    "imge": "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/Aditya.jpeg"
+  },
+  {
+    "year": "2022-2023",
+    "roll": "Secretary(Women)",
+    "name": "Ms. Sri Athrukshna B",
+    "deptyos": "3rd Year BE PROD",
+    "imge": "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/Athrukshna.jpeg"
+  }
+]

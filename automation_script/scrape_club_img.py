@@ -9,7 +9,7 @@ def getdata(url):
     r = requests.get(url,verify=False) 
     return r.text 
     
-htmldata = getdata("https://su.psgtech.ac.in/clubs.php") 
+htmldata = getdata("https://su.psgtech.ac.in/teams.php") 
 soup = BeautifulSoup(htmldata, 'html.parser') 
 
 for item in soup.find_all('img'):
@@ -20,11 +20,12 @@ for item in soup.find_all('img'):
         img=parenturl+img[2:]
     else:
         img=parenturl+"/"+img
-    name=img.split('/')
-    if len(name)==7:
-        name=name[-2]+".png"
-    else:
-        name=name[-1]
+    
+    print(img)
+
+    n=img.split('/')
+    name=n[-1]
+    y = n[-2]
     # print(name)
     r = requests.get(img,verify=False).content
     try:
@@ -32,8 +33,10 @@ for item in soup.find_all('img'):
         r = str(r, 'utf-8')
         print("Im here")
     except UnicodeDecodeError:
-        if not os.path.exists(os.getcwd()+"/automation_script/scrapeclubimages"):
-            os.mkdir(os.getcwd()+"/automation_script/scrapeclubimages")
-        with open(f"{os.getcwd()}/automation_script/scrapeclubimages/{name}", "wb+") as f:
+        if not os.path.exists(os.getcwd()+"/automation_script/scrapeteamimages"):
+            os.mkdir(os.getcwd()+"/automation_script/scrapeteamimages")
+        if not os.path.exists(os.getcwd()+"/automation_script/scrapeteamimages/"+y):
+            os.mkdir(os.getcwd()+"/automation_script/scrapeteamimages/"+y)
+        with open(f"{os.getcwd()}/automation_script/scrapeteamimages/{y}/{name}", "wb+") as f:
             f.write(r)
 

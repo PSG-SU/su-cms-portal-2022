@@ -1,11 +1,19 @@
 [
 	{
+		"id" : 29,
+		"year" : "2015-2016",
+		"roll" : "Chairperson",
+		"name" : "Mr. K. Arun ",
+		"dept" : "Final Year BE Auto",
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2015-2016/arun.jpg"
+	},
+	{
 		"id" : 1,
 		"year" : "2015-2016",
 		"roll" : "Co-Chairperson",
 		"name" : "Ms. R. Asha Priyanga ",
 		"dept" : "Final Year BE Prod(SW)",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2015-2016/asha.jpg"
 	},
 	{
 		"id" : 2,
@@ -13,7 +21,7 @@
 		"roll" : "Secretary(Men)",
 		"name" : "Mr. A. Arun Nishanthan ",
 		"dept" : "3rd Year BE Metly",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2015-2016/arunnishanthan.jpg"
 	},
 	{
 		"id" : 3,
@@ -21,7 +29,7 @@
 		"roll" : "Secretary(Women)",
 		"name" : "Ms. R. Bhavadharini ",
 		"dept" : "3rd Year BE I&CE",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2015-2016/bhavadharini.jpg"
 	},
 	{
 		"id" : 4,
@@ -29,7 +37,7 @@
 		"roll" : "Chairperson",
 		"name" : "Mr. M. Nandhagopal ",
 		"dept" : "Final Year BE Civil",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2016-2017/nandhagopal.jpg"
 	},
 	{
 		"id" : 5,
@@ -37,15 +45,15 @@
 		"roll" : "Co-Chairperson",
 		"name" : "Mr. A. Pravin ",
 		"dept" : "Final Year BE Mech(SW)",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2016-2017/pravin.jpg"
 	},
 	{
 		"id" : 6,
 		"year" : "2016-2017",
 		"roll" : "Associate Chairperson",
-		"name" : "Ms. L. swarna Lakshmi ",
+		"name" : "Ms. L. Swarna Lakshmi ",
 		"dept" : "Final Year BE EEE(SW)",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2016-2017/swarna.jpg"
 	},
 	{
 		"id" : 7,
@@ -53,7 +61,7 @@
 		"roll" : "Secretary(Men)",
 		"name" : "Mr. U. Sachin Ganesh ",
 		"dept" : "3rd Year BE Mech",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2016-2017/sachin.jpg"
 	},
 	{
 		"id" : 8,
@@ -61,7 +69,7 @@
 		"roll" : "Secretary(Women)",
 		"name" : "Ms. K. Pavithra ",
 		"dept" : "3rd Year BE ECE",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2016-2017/pavithra.jpg"
 	},
 	{
 		"id" : 9,
@@ -69,7 +77,7 @@
 		"roll" : "Chairperson",
 		"name" : "Mr. R. Shakthi Naarayanan ",
 		"dept" : "Final Year BE ECE",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2017-2018/shakthinarayanan.jpg"
 	},
 	{
 		"id" : 10,
@@ -77,7 +85,7 @@
 		"roll" : "Co-Chairperson",
 		"name" : "Ms. R. Sruthi ",
 		"dept" : "Final Year BE Mech(SW)",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2017-2018/shruthi.jpg"
 	},
 	{
 		"id" : 11,
@@ -85,7 +93,7 @@
 		"roll" : "Secretary(Men)",
 		"name" : "Mr. M. Ajith Kumar ",
 		"dept" : "3rd Year BE Prod",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2017-2018/ajith.jpg"
 	},
 	{
 		"id" : 12,
@@ -93,7 +101,7 @@
 		"roll" : "Secretary(Women)",
 		"name" : "Ms. M. Kavyalakshmi ",
 		"dept" : "3rd Year BE I&CE",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2017-2018/kavya.jpg"
 	},
 	{
 		"id" : 13,
@@ -101,7 +109,7 @@
 		"roll" : "Secretary(Science)",
 		"name" : "Ms. C. Kavi Archanaa ",
 		"dept" : "Final Year BSc App Sci",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2017-2018/kaviarchana.jpg"
 	},
 	{
 		"id" : 14,
@@ -109,7 +117,7 @@
 		"roll" : "Chairperson",
 		"name" : "Mr. R. Jawahar ",
 		"dept" : "Final Year BE EEE",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2018-2019/jawahar.jpg"
 	},
 	{
 		"id" : 15,
@@ -117,7 +125,7 @@
 		"roll" : "Co-Chairperson",
 		"name" : "Mr. K. Premnandhakumar ",
 		"dept" : "Final Year BE Mech( SW )",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2018-2019/prem.jpg"
 	},
 	{
 		"id" : 16,
@@ -125,7 +133,7 @@
 		"roll" : "Secretary(Men)",
 		"name" : "Mr. M. Santhosh Kumar ",
 		"dept" : "3rd Year BE ECE",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2018-2019/santhosh.jpg"
 	},
 	{
 		"id" : 17,
@@ -133,7 +141,7 @@
 		"roll" : "Secretary(Women)",
 		"name" : "Ms. K. Aishwarya ",
 		"dept" : "3rd Year BTech IT",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2018-2019/aishwarya.jpg"
 	},
 	{
 		"id" : 18,
@@ -141,7 +149,7 @@
 		"roll" : "Secretary(Science)",
 		"name" : "Ms. V. Priyanka ",
 		"dept" : "Final Year B.Sc Applied Science",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2018-2019/priyanka.jpg"
 	},
 	{
 		"id" : 19,
@@ -149,7 +157,7 @@
 		"roll" : "Chairperson",
 		"name" : "Mr . Adarsh V Srinivasan ",
 		"dept" : "Final Year BE ECE",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2019-2020/Adarsh.jpg"
 	},
 	{
 		"id" : 20,
@@ -157,7 +165,7 @@
 		"roll" : "Co-Chairperson",
 		"name" : "Mr . B. Naveen ",
 		"dept" : "Final Year BE Mech(SW)",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2019-2020/Neeveen.jpg"
 	},
 	{
 		"id" : 21,
@@ -165,7 +173,7 @@
 		"roll" : "Secretary(Men)",
 		"name" : "Mr . Rithik R Jain ",
 		"dept" : "3rd Year B.Tech IT",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2019-2020/Rithik.jpg"
 	},
 	{
 		"id" : 22,
@@ -173,7 +181,7 @@
 		"roll" : "Secretary(Women)",
 		"name" : "Ms . S . Praveena ",
 		"dept" : "3rd Year BTech Textile",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2019-2020/PRAveena S.jpg"
 	},
 	{
 		"id" : 23,
@@ -181,7 +189,7 @@
 		"roll" : "Secretary(Science)",
 		"name" : "Ms . M. Nirupasree ",
 		"dept" : "3rd Year M.Sc FDM",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2019-2020/NIRUPA.jpg"
 	},
 	{
 		"id" : 24,
@@ -189,7 +197,7 @@
 		"roll" : "Chairperson",
 		"name" : "Mr. Arun C (17Y203) ",
 		"dept" : "4th Year BE Metly",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2020-2021/17Y203.jpg"
 	},
 	{
 		"id" : 25,
@@ -197,7 +205,7 @@
 		"roll" : "Co-Chairperson",
 		"name" : "Mr. Vijai Ram A G (16M658) ",
 		"dept" : "5th Year BE (SW) Mech",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2020-2021/16M658.jpg"
 	},
 	{
 		"id" : 26,
@@ -205,7 +213,7 @@
 		"roll" : "Secretary(Men)",
 		"name" : "Mr. Karthik B (18C114) ",
 		"dept" : "3rd Year BE Civil",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2020-2021/18C114.jpg"
 	},
 	{
 		"id" : 27,
@@ -213,7 +221,7 @@
 		"roll" : "Secretary(Women)",
 		"name" : "Ms. Ashika S (18D208) ",
 		"dept" : "3rd Year BE Biomedical",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2020-2021/18D208.jpg"
 	},
 	{
 		"id" : 28,
@@ -221,31 +229,7 @@
 		"roll" : "Secretary(Science)",
 		"name" : "Ms. Kanagadurga D (18PF15) ",
 		"dept" : "3rd Year MSc FDM",
-		"imge" : ?
-	},
-	{
-		"id" : 29,
-		"year" : "2015-2016",
-		"roll" : "Chairperson",
-		"name" : "Mr. K. Arun ",
-		"dept" : "Final Year BE Auto",
-		"imge" : ?
-	},
-	{
-		"id" : 31,
-		"year" : "2021-2022",
-		"roll" : "Co-Chairperson",
-		"name" : "Mr. Srisairam P (17M647)",
-		"dept" : "Final Year BE Mech(SW)",
-		"imge" : ?
-	},
-	{
-		"id" : 33,
-		"year" : "2021-2022",
-		"roll" : "Secretary(Women)",
-		"name" : "Ms. Suresh Kumar Sankruthii (19L257)",
-		"dept" : "3rd Year BE ECE",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2020-2021/18PF15.jpg"
 	},
 	{
 		"id" : 35,
@@ -253,7 +237,15 @@
 		"roll" : "Chairperson",
 		"name" : "Mr.Nandakumar R (18D234)",
 		"dept" : "FINAL YEAR BE Biomedical",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2021-2022/WhatsApp-Image-2022-01-30-at-11.46.25-AM.jpg"
+	},
+	{
+		"id" : 31,
+		"year" : "2021-2022",
+		"roll" : "Co-Chairperson",
+		"name" : "Mr. Srisairam P (17M647)",
+		"dept" : "Final Year BE Mech(SW)",
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2021-2022/srisairam.jpg"
 	},
 	{
 		"id" : 36,
@@ -261,7 +253,15 @@
 		"roll" : "Secretary(Men)",
 		"name" : "Mr.Kumaresh S (19Z327)",
 		"dept" : "3RD YEAR BE CSE",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2021-2022/WhatsApp-Image-2022-01-30-at-11.46.24-AM.jpg"
+	},
+	{
+		"id" : 33,
+		"year" : "2021-2022",
+		"roll" : "Secretary(Women)",
+		"name" : "Ms. Suresh Kumar Sankruthii (19L257)",
+		"dept" : "3rd Year BE ECE",
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2021-2022/SURESH KUMAR SANKRUTHII (19L257).jpeg"
 	},
 	{
 		"id" : 37,
@@ -269,70 +269,41 @@
 		"roll" : "Secretary(Science)",
 		"name" : "Ms. Ezhilarasi D (19PF09)",
 		"dept" : "3rd Year MSc FDM",
-		"imge" : ?
+		"imge" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2021-2022/WhatsApp-Image-2022-01-30-at-11.46.23-AM_1.jpg"
 	},
 	{
-		"id" : 61,
-		"year" : "2022-2023",
-		"roll" : "Chairperson",
-		"name" : "Mr. Dharmendra R",
-		"dept" : "Final Year BE RAE",
-		"imge" : ?
-	},
+    "year": "2022-2023",
+    "roll": "Chairperson",
+    "name": "Mr. Dharmendra R",
+    "dept": "Final Year BE RAE",
+    "imge": "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2022-2023/Dharmendra.jpeg"
+  },
+  {
+    "year": "2022-2023",
+    "roll": "Co-Chairperson",
+    "name": "Mr. Mano M",
+    "dept": "Final Year BE Mech(SW)",
+    "imge": "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2022-2023/Mano.jpeg"
+  },
+  {
+    "year": "2022-2023",
+    "roll": "Secretary(Men)",
+    "name": "Mr. Aditya Varma ",
+    "dept": "3rd Year BE CSE",
+    "imge": "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2022-2023/Aditya.jpeg"
+  },
+  {
+    "year": "2022-2023",
+    "roll": "Secretary(Women)",
+    "name": "Ms. Sri Athrukshna B",
+    "dept": "3rd Year BE PROD",
+    "imge": "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2022-2023/Athrukshna.jpeg"
+  },
 	{
-		"id" : 62,
-		"year" : "2022-2023",
-		"roll" : "Co-Chairperson",
-		"name" : "Mr. Mano M",
-		"dept" : "Final Year BE Mech(SW)",
-		"imge" : ?
-	},
-	{
-		"id" : 65,
-		"year" : "2022-2023",
-		"roll" : "Secretary(Science)",
-		"name" : "Ms. Pavana S",
-		"dept" : "3rd Year MSc FDM",
-		"imge" : ?
-	},
-	{
-		"id" : 68,
-		"year" : "2022-2023",
-		"roll" : "Secretary(Men)",
-		"name" : "Mr. Aditya Varma ",
-		"dept" : "3rd Year BE CSE",
-		"imge" : ?
-	},
-	{
-		"id" : 69,
-		"year" : "2022-2023",
-		"roll" : "Secretary(Women)",
-		"name" : "Ms. Sri Athrukshna B",
-		"dept" : "3rd Year BE PROD",
-		"imge" : ?
-	},
-	{
-		"id" : 70,
-		"year" : "2022-2023",
-		"roll" : "Co-Chairperson",
-		"name" : "Mr. Mano M",
-		"dept" : "Final Year BE Mech(SW)",
-		"imge" : ?
-	},
-	{
-		"id" : 71,
-		"year" : "2022-2023",
-		"roll" : "Chairperson",
-		"name" : "Mr. Dharmendra R",
-		"dept" : "Final Year BE RAE",
-		"imge" : ?
-	},
-	{
-		"id" : 72,
-		"year" : "2022-2023",
-		"roll" : "Co-Chairperson",
-		"name" : "Mr. Mano M",
-		"dept" : "Final Year BE Mech(SW)",
-		"imge" : ?
-	}
+    "year": "2022-2023",
+    "roll": "Secretary(Science)",
+    "name": "Ms. Pavana S",
+    "dept": "3rd Year MSc FDM",
+    "imge": "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/2022-2023/Pavana.jpeg"
+  }
 ]
