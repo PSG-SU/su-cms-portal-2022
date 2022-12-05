@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { fetchAddGeneral, fetchUploadFile } from "../../../API/calls";
+import { fetchAddGeneral, fetchUpdateGeneral, fetchUploadFile } from "../../../API/calls";
 import Button from "../../../components/Button";
 import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
@@ -9,16 +9,18 @@ import TextArea from "../../../components/TextArea";
 const AddGeneral = () => {
   const [file, setFile] = useState(null);
   const [value, setvalue] = useState("");
+  const user = localStorage.getItem("userId");
 
   const handlePost = async () => {
     toast.promise(fetchUploadFile(file), {
       loading: "Uploading...",
       success: (res) => {
         const postBody = {
+          user: user,
           image_url: res.data.url,
           content: value
         };
-        toast.promise(fetchAddGeneral(postBody), {
+        toast.promise(fetchUpdateGeneral(postBody, user), {
           loading: "Adding...",
           success: "Added Successfully",
           error: (err) => `Error: ${err.response.data.error}`,

@@ -85,4 +85,6 @@ export const fetchUpdateNssNcc = (postBody, id) =>
 // For Club - General Page
 export const fetchAddGeneral = (postBody) =>
   axios.post(`${GENERAL_URL}/add`, postBody, {});
+export const fetchUpdateGeneral = (postBody, user) =>
+  axios.put(`${GENERAL_URL}/update/${user}`, postBody, {});
 /* ------------------------------------------- */

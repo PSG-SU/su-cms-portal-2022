@@ -19,6 +19,7 @@ const Login = () => {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("rights", res.data.rights);
+        localStorage.setItem("userId", username);
         toast.success("Login Successful !");
         res.data.rights === "admin" ?
           navigate("/admin") :

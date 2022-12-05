@@ -9,7 +9,7 @@ const ViewGeneral = () => {
 
   useEffect(() => {
     axios
-      .get(GENERAL_URL)
+      .get(`${GENERAL_URL}/${localStorage.getItem("userId")}`)
       .then((res) => {
         console.log(res.data);
         setContent(res.data);
@@ -26,8 +26,8 @@ const ViewGeneral = () => {
         <div className="flex items-center w-full space-x-4">
           <ModalImage
             className="w-36 h-36 rounded-full"
-            small={content[content.length - 1]?.image_url}
-            large={content[content.length - 1]?.image_url}
+            small={content?.image_url}
+            large={content?.image_url}
             alt="Image URL"
           />
         </div>
@@ -37,7 +37,7 @@ const ViewGeneral = () => {
         </div>
 
         <div className="flex items-center w-full space-x-4 mt-4">
-          {content[content.length - 1]?.content}
+          {content?.content}
         </div>
 
       </div>
