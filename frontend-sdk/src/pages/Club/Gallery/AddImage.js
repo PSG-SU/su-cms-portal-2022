@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import Button from "../../../components/Button";
-import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
+import MultipleFiles from "../../../components/MultipleFiles";
 
 const AddImage = () => {
   const [file, setFile] = useState(null);
+
+  const handleUpload = () => {
+
+  }
 
   return (
     <section className="px-8 py-8 w-full">
@@ -17,7 +21,7 @@ const AddImage = () => {
           </p>
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
-          <FileUpload
+          <MultipleFiles
             title="Image to be uploaded"
             fileState={[file, setFile]} />
         </div>

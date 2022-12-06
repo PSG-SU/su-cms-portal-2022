@@ -3,23 +3,18 @@ import { FiUpload } from "react-icons/fi";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import ModalImage from "react-modal-image";
 import toast from "react-hot-toast";
-import { VscFilePdf } from "react-icons/vsc";
+import { IoCloseOutline } from "react-icons/io5";
 
 const MultipleFiles = ({
   fileState,
-  fileErrorState = ["", (e) => { }],
+  fileErrorState = ["", (e) => {}],
   className = "",
   title = "",
   url = "",
   pdf = false,
 }) => {
   const [fileError, setFileError] = fileErrorState;
-  const [files, setFiles] = useState(FileList());
-
-
-  useEffect(() => {
-    
-  }, [files]);
+  const [files, setFiles] = useState([]);
 
   return (
     <div
@@ -28,8 +23,9 @@ const MultipleFiles = ({
       <label className="text-blue text-base">{title}</label>
       <div className="flex space-x-2 items-center w-full">
         <div
-          className={` px-4 py-2 w-full rounded-lg text-slate bg-gray bg-clip-padding bg-no-repeat border-2 border-solid ${fileError.length !== 0 ? "border-yellow" : "border-gray"
-            } first-letter:transition ease-in-out m-0 focus:outline-none focus:border-cloud`}
+          className={` px-4 py-2 w-full rounded-lg text-slate bg-gray bg-clip-padding bg-no-repeat border-2 border-solid ${
+            fileError.length !== 0 ? "border-yellow" : "border-gray"
+          } first-letter:transition ease-in-out m-0 focus:outline-none focus:border-cloud`}
         >
           <div className="w-full flex items-center space-x-6">
             <label className="bg-cloud p-3 rounded-lg w-fit whitespace-nowrap shadow-lg">
@@ -39,8 +35,7 @@ const MultipleFiles = ({
                 multiple
                 onChange={(e) => {
                   e.preventDefault();
-                  console.log(e.target.files);
-                  setFiles(e.target.files);
+                  setFiles(files.concat(Array.from(e.target.files)));
                   setFileError("");
                 }}
               />
@@ -50,9 +45,14 @@ const MultipleFiles = ({
         </div>
       </div>
       <div className="flex items-center w-full flex-wrap">
-        {
-          Array.from(files).map(file => <FileItem file={file} />)
-        }
+        {files.map((file, i) => (
+          <FileItem
+            file={file}
+            onRemove={() => {
+              setFiles(files.slice(0, i).concat(files.slice(i + 1)));
+            }}
+          />
+        ))}
       </div>
       {fileError.length !== 0 && (
         <div className="flex items-center space-x-2 text-xs text-red">
@@ -64,18 +64,22 @@ const MultipleFiles = ({
   );
 };
 
-const FileItem = ({file}) => {
-
+const FileItem = ({ file, onRemove }) => {
   useEffect(() => {
-    console.log(file);
-  
-  }, [file])
-  
+    // console.log(file);
+  }, [file]);
+
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center space-x-2 relative">
+      <button
+        className="rounded-full bg-cloud absolute top-0 right-0 p-1 hover:text-gray z-40"
+        onClick={(e) => onRemove()}
+      >
+        <IoCloseOutline />
+      </button>
       <div>
         <ModalImage
-          className="w-12 h-12 rounded-full"
+          className="w-24 h-24 rounded-full"
           small={URL.createObjectURL(file)}
           large={URL.createObjectURL(file)}
           alt="Image URL"
@@ -83,6 +87,6 @@ const FileItem = ({file}) => {
       </div>
     </div>
   );
-}
+};
 
 export default MultipleFiles;

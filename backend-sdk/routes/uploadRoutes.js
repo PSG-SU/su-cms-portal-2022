@@ -19,4 +19,19 @@ router.post("/", upload.single("file"), async (req, res) => {
   }
 });
 
+router.post("/", upload.array("file"), async (req, res) => {
+  try {
+    console.log(req.file);
+    const result = await cloudinary.uploader.upload(req.file.path);
+    console.log(result);
+    res.status(200).send({
+      name: req.file.originalname,
+      url: result.secure_url,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
+});
+
 export default router;
