@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AUTH_URL, LOGIN_URL, OFFICE_BEARERS_URL, UPLOAD_URL, CLUB_URL, SUTEAM_URL, ABOUT_URL, NSS_NCC_URL, GENERAL_URL } from "./config";
+import { AUTH_URL, LOGIN_URL, OFFICE_BEARERS_URL, UPLOAD_URL, CLUB_URL, SUTEAM_URL, ABOUT_URL, NSS_NCC_URL, GENERAL_URL, TEAM_MEMBER_URL } from "./config";
 import imageCompression from 'browser-image-compression';
 
 const ABOUT_ID = "6355381dcef8729cb955e396";
@@ -87,4 +87,11 @@ export const fetchAddGeneral = (postBody) =>
   axios.post(`${GENERAL_URL}/add`, postBody, {});
 export const fetchUpdateGeneral = (postBody, user) =>
   axios.put(`${GENERAL_URL}/update/${user}`, postBody, {});
+/* ------------------------------------------- */
+
+// For Club - Team Member Page
+export const fetchAddTeamMember = (postBody) =>
+  axios.post(`${TEAM_MEMBER_URL}/add`, postBody, {});
+export const fetchUpdateTeamMember = (postBody, id) =>
+  axios.put(`${TEAM_MEMBER_URL}/update/${id}`, postBody, {});
 /* ------------------------------------------- */

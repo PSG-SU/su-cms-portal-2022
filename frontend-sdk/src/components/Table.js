@@ -88,6 +88,14 @@ const Table = ({
         console.log("ITEM: ", item);
 
         if (
+          /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/.test(
+            item[tkeys[idx]]
+          )
+        ) {
+          return parseInt(item[tkeys[idx]].split("-")[0]) + 1;
+        }
+
+        if (
           /^https?:\/\/(?:[a-z0-9-]+\.)+[a-z]{2,6}(?:\/[^/#?]+)+\.(?:jpg|gif|png)$/.test(
             item[tkeys[idx]]
           )

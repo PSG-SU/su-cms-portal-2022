@@ -34,6 +34,7 @@ const DateInput = ({
           showYearPicker={year}
           showTimeSelect={!year}
           dateFormat={dateformat}
+          placeholderText="Select a date"
         />
       </div>
       {range && (
@@ -60,6 +61,7 @@ const DateInput = ({
               }
             }
             dateFormat={dateformat}
+            placeholderText="Select a date"
           />
         </div>
       )}
