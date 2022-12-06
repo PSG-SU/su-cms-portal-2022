@@ -5,15 +5,12 @@ import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
 import TextArea from "../../../components/TextArea";
+import DateInput from "../../../components/DateInput";
+import { departments } from "../../../components/Departments";
 
 const ApplyProposal = () => {
-  const [date, setDate] = useState("");
   const [eventName, setEventName] = useState("");
-  const [fromDate, setfromDate] = useState("");
-  const [toDate, settoDate] = useState("");
   const [venue, setvenue] = useState("");
-  const [fromTime, setfromTime] = useState("");
-  const [toTime, settoTime] = useState("");
   const [count, setcount] = useState("");
   const [guest, setguest] = useState("");
   const [designation, setdesignation] = useState("");
@@ -26,52 +23,36 @@ const ApplyProposal = () => {
   const [facultyName, setfacultyName] = useState("");
   const [comment, setComment] = useState("");
   const [desc, setDesc] = useState("");
-
   const [file, setFile] = useState(null);
+
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const currentDate = Date().slice(4, 15);
 
   return (
     <section className="px-8 py-8 w-full">
-      <Heading>Event Proposal Application</Heading>
+      <Heading event>Event Proposal Application</Heading>
+      <label className=" text-blue text-base space-x-4">Date: {currentDate}</label>
       <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-y-auto">
         <div className="flex items-center w-full space-x-4">
-          <Inputfield
-            valueState={[date, setDate]}
-            title="Date"
-            placeholder="Enter date"
-          />
           <Inputfield
             valueState={[eventName, setEventName]}
             title="Event"
             placeholder="Enter the event name"
           />
+          <DateInput
+            startTitle="Start Date"
+            startState={[startDate, setStartDate]}
+            endTitle="End Date"
+            endState={[endDate, setEndDate]}
+            range
+          />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
-          <Inputfield
-            valueState={[fromDate, setfromDate]}
-            title="From Date"
-            placeholder="Enter from date"
-          />
-          <Inputfield
-            valueState={[toDate, settoDate]}
-            title="To Date"
-            placeholder="Enter to date"
-          />
           <Inputfield
             valueState={[venue, setvenue]}
             title="Venue"
             placeholder="Eg. J203"
-          />
-        </div>
-        <div className="flex items-center w-full space-x-4 mt-4">
-          <Inputfield
-            valueState={[fromTime, setfromTime]}
-            title="From Time"
-            placeholder="Eg. 4:30 PM"
-          />
-          <Inputfield
-            valueState={[toTime, settoTime]}
-            title="To Time"
-            placeholder="Eg. 6:00 PM"
           />
           <Inputfield
             valueState={[count, setcount]}
@@ -125,13 +106,7 @@ const ApplyProposal = () => {
             valueState={[facultyDept, setfacultyDept]}
             title="Faculty Observer - Department"
             placeholder="Select a department"
-            options={[
-              "Chairperson",
-              "Co-Chairperson",
-              "Secretary(Male)",
-              "Secretary(Female)",
-              "Secretary(Science)",
-            ]}
+            options={departments}
             className="w-full"
           />
           <Inputfield
@@ -159,7 +134,14 @@ const ApplyProposal = () => {
           <FileUpload fileState={[file, setFile]} />
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">
-          <Button className="w-3/4" text="Apply Event Proposal" />
+          <Button
+            className="w-3/4"
+            text="Apply Event Proposal"
+            handleClick={() => {
+              console.log(startDate);
+              console.log(endDate);
+            }}
+          />
         </div>
       </div>
     </section>

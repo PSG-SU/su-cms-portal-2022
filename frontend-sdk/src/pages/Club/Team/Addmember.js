@@ -4,6 +4,8 @@ import Dropdown from "../../../components/Dropdown";
 import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
+import { departments } from "../../../components/Departments";
+import DateInput from "../../../components/DateInput";
 
 const AddMember = () => {
   const [pos, setPos] = useState("");
@@ -16,10 +18,8 @@ const AddMember = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
-
-
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   return (
     <section className="px-8 py-8 w-full">
@@ -44,7 +44,7 @@ const AddMember = () => {
             valueState={[dept, setDept]}
             title="Department"
             placeholder="Select a Department"
-            options={["CSE", "IT", "ECE"]}
+            options={departments}
           />
           <Inputfield
             valueState={[desgn, setDesgn]}
@@ -66,24 +66,29 @@ const AddMember = () => {
             title="Email"
             placeholder="Enter Email-Id"
           />
+          <DateInput
+            startTitle="From"
+            endTitle="To"
+            startState={[startDate, setStartDate]}
+            endState={[endDate, setEndDate]}
+            dateformat="yyyy"
+            range
+            year
+          />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
-          <Dropdown
-            valueState={[from, setFrom]}
-            title="Select Year From"
-            placeholder="Select a Department"
-            options={["2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011"]}
-          />
-          <Dropdown
-            valueState={[to, setTo]}
-            title="Select Year to"
-            placeholder="Select a Department"
-            options={["2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011"]}
-          />
         </div>
 
         <div className="flex items-center space-x-4 mt-8 w-1/2">
-          <Button className="w-3/4" text="Add Team" />
+          <Button
+            className="w-3/4"
+            text="Add Team"
+            handleClick={
+              () => {
+                console.log(startDate.getFullYear(), endDate.getFullYear());
+              }
+            }
+          />
         </div>
       </div>
     </section>
