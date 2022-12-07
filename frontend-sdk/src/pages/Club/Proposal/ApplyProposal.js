@@ -7,6 +7,7 @@ import Inputfield from "../../../components/TextInput";
 import TextArea from "../../../components/TextArea";
 import DateInput from "../../../components/DateInput";
 import { departments } from "../../../components/Departments";
+import MultipleFiles from "../../../components/MultipleFiles";
 
 const ApplyProposal = () => {
   const [eventName, setEventName] = useState("");
@@ -32,12 +33,14 @@ const ApplyProposal = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading event>Event Proposal Application</Heading>
-      <label className=" text-blue text-base space-x-4">Date: {currentDate}</label>
+      <label className=" text-blue text-base space-x-4">
+        Date: {currentDate}
+      </label>
       <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-y-auto">
         <div className="flex items-center w-full space-x-4">
           <Inputfield
             valueState={[eventName, setEventName]}
-            title="Event"
+            title="Event name"
             placeholder="Enter the event name"
           />
           <DateInput
@@ -66,23 +69,6 @@ const ApplyProposal = () => {
             title="Chief Guest"
             placeholder="Eg. Mr. Abc"
           />
-          <Inputfield
-            valueState={[designation, setdesignation]}
-            title="Designation"
-            placeholder="Enter the designation of chief guest"
-          />
-        </div>
-        <div className="flex items-center w-full space-x-4 mt-4">
-          <Inputfield
-            valueState={[address, setaddress]}
-            title="Address"
-            placeholder="Enter the place of work"
-          />
-          <Inputfield
-            valueState={[president, setpresident]}
-            title="President"
-            placeholder="Eg. Mr. Abc"
-          />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
           <Inputfield
@@ -102,24 +88,17 @@ const ApplyProposal = () => {
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
+          <Inputfield
+            valueState={[facultyName, setfacultyName]}
+            title="Faculty Observer - Name"
+            placeholder="Eg. Mr. Abc"
+          />
           <Dropdown
             valueState={[facultyDept, setfacultyDept]}
             title="Faculty Observer - Department"
             placeholder="Select a department"
             options={departments}
             className="w-full"
-          />
-          <Inputfield
-            valueState={[facultyName, setfacultyName]}
-            title="Faculty Observer - Name"
-            placeholder="Eg. Mr. Abc"
-          />
-        </div>
-        <div className="flex items-center w-full space-x-4 mt-4">
-          <TextArea
-            title="Comments"
-            placeholder="Special Requirements (if any)"
-            valueState={[comment, setComment]}
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
@@ -130,8 +109,15 @@ const ApplyProposal = () => {
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
+          <TextArea
+            title="Comments"
+            placeholder="Special Requirements (if any)"
+            valueState={[comment, setComment]}
+          />
+        </div>
+        <div className="flex items-center w-full space-x-4 mt-4">
           <p>Supporting Documents</p>
-          <FileUpload fileState={[file, setFile]} />
+          <MultipleFiles fileState={[file, setFile]} />
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">
           <Button

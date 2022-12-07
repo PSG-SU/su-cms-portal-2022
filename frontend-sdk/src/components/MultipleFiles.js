@@ -4,6 +4,7 @@ import { AiFillExclamationCircle } from "react-icons/ai";
 import ModalImage from "react-modal-image";
 import toast from "react-hot-toast";
 import { IoCloseOutline } from "react-icons/io5";
+import { VscFilePdf } from "react-icons/vsc";
 
 const MultipleFiles = ({
   fileState,
@@ -44,7 +45,7 @@ const MultipleFiles = ({
           </div>
         </div>
       </div>
-      <div className="flex items-center w-full flex-wrap">
+      <div className="flex items-center w-full flex-wrap space-x-1">
         {files.map((file, i) => (
           <FileItem
             file={file}
@@ -66,25 +67,44 @@ const MultipleFiles = ({
 
 const FileItem = ({ file, onRemove }) => {
   useEffect(() => {
-    // console.log(file);
+    console.log(file);
   }, [file]);
 
   return (
     <div className="flex items-center space-x-2 relative">
-      <button
-        className="rounded-full bg-cloud absolute top-0 right-0 p-1 hover:text-gray z-40"
-        onClick={(e) => onRemove()}
-      >
-        <IoCloseOutline />
-      </button>
-      <div>
-        <ModalImage
-          className="w-24 h-24 rounded-full"
-          small={URL.createObjectURL(file)}
-          large={URL.createObjectURL(file)}
-          alt="Image URL"
-        />
-      </div>
+      {(file.type === "image/png" || file.type === "image/jpg") && (
+        <React.Fragment>
+          <button
+            className="rounded-full bg-cloud absolute top-0 right-0 p-1 hover:text-gray z-40"
+            onClick={(e) => onRemove()}
+          >
+            <IoCloseOutline />
+          </button>
+          <div>
+            <ModalImage
+              className="w-16 h-16 rounded-full "
+              small={URL.createObjectURL(file)}
+              large={URL.createObjectURL(file)}
+              alt="Image URL"
+            />
+          </div>
+        </React.Fragment>
+      )}
+      {file.type === "application/pdf" && (
+        <React.Fragment>
+          <button
+            className="rounded-full bg-cloud absolute top-0 right-0 p-1 hover:text-gray z-40"
+            onClick={(e) => onRemove()}
+          >
+            <IoCloseOutline />
+          </button>
+          <div>
+            <div className="flex rounded-full w-16 h-16 text-[#FF3939] bg-[#ffc6c6] text-xl justify-center items-center">
+              <VscFilePdf />
+            </div>
+          </div>
+        </React.Fragment>
+      )}
     </div>
   );
 };
