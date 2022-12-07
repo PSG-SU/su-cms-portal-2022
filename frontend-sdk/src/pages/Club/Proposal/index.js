@@ -1,23 +1,49 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { createContext, useState } from "react";
 import ApplyProposal from "./ApplyProposal";
+import { PROPOSAL_URL } from "../../../API/config";
+import toast from "react-hot-toast";
+
+export const ProposalContext = createContext();
 
 const Proposal = () => {
   const initialTabMenuItems = [
     {
       text: "Apply Proposal",
       tab: <ApplyProposal />,
-      // link: "/Gallery/add",
     },
   ];
 
   const [selected, setSelected] = useState(0);
+  const [updateState, setUpdateState] = useState({});
+  const [tabMenuItems, setTabMenuItems] = useState(initialTabMenuItems);
+
+  const updateByID = (id) => {
+    axios
+      .get(`${PROPOSAL_URL}/${id}`)
+      .then((res) => {
+        setUpdateState(res.data);
+        let tempTabMenuItems = [...tabMenuItems];
+        tabMenuItems[0].text = "Update Proposal";
+        setTabMenuItems(tempTabMenuItems);
+      })
+      .catch((err) => {
+        setUpdateState({});
+        toast("Error Updating");
+        console.log(err);
+      });
+    setSelected(0);
+  };
 
   return (
+    <ProposalContext.Provider 
+    value={{ selectedTab: selected, updateByID, updateState }}
+    >
     <section className="">
       <div className="h-fit bg-gray px-8 pt-8">
         <p className="text-lg uppercase tracking-wider mb-8">EVENT PROPOSAL</p>
         <header className="flex">
-          {initialTabMenuItems.map((item, idx) => {
+          {tabMenuItems.map((item, idx) => {
             return (
               <button
                 onClick={() => setSelected(idx)}
@@ -43,8 +69,9 @@ const Proposal = () => {
           })}
         </header>
       </div>
-      {initialTabMenuItems[selected].tab}
+      {tabMenuItems[selected].tab}
     </section>
+    </ProposalContext.Provider>
   );
 };
 

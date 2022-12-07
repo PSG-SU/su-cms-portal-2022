@@ -1,5 +1,8 @@
 import axios from "axios";
-import { AUTH_URL, LOGIN_URL, OFFICE_BEARERS_URL, UPLOAD_URL, CLUB_URL, SUTEAM_URL, ABOUT_URL, NSS_NCC_URL, GENERAL_URL, TEAM_MEMBER_URL } from "./config";
+import {
+  AUTH_URL, LOGIN_URL, OFFICE_BEARERS_URL, UPLOAD_URL, CLUB_URL, SUTEAM_URL, ABOUT_URL, NSS_NCC_URL,
+  GENERAL_URL, TEAM_MEMBER_URL, PROPOSAL_URL, EVENTS_URL
+} from "./config";
 import imageCompression from 'browser-image-compression';
 
 const ABOUT_ID = "6355381dcef8729cb955e396";
@@ -29,6 +32,23 @@ export const fetchUploadFile = async (file) => {
   let data = new FormData();
   data.append("file", file);
   return axios.post(UPLOAD_URL, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
+export const fetchUploadMultipleFiles = async (files) => {
+  let data = new FormData();
+  files.forEach((file) => {
+    if (file.type === "image/jpeg" || file.type === "image/png") {
+      handleImageUpload(file).then(res => {
+        file = new File([res], res.name, { type: res.type });
+        data.append("file", file);
+      });
+    }
+  })
+  return axios.post(`${UPLOAD_URL}/multiple`, data, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -94,4 +114,22 @@ export const fetchAddTeamMember = (postBody) =>
   axios.post(`${TEAM_MEMBER_URL}/add`, postBody, {});
 export const fetchUpdateTeamMember = (postBody, id) =>
   axios.put(`${TEAM_MEMBER_URL}/update/${id}`, postBody, {});
+/* ------------------------------------------- */
+
+// For Club - Proposal Page
+export const fetchAddProposal = (postBody) =>
+  axios.post(`${PROPOSAL_URL}/add`, postBody, {});
+export const fetchUpdateProposal = (postBody, id) =>
+  axios.put(`${PROPOSAL_URL}/update/${id}`, postBody, {});
+export const fetchGetApprovedProposal = (user) =>
+  axios.get(`${PROPOSAL_URL}/approved/${user}`, {});
+export const fetchGetProposalbyId = (id) =>
+  axios.get(`${PROPOSAL_URL}/${id}`, {});
+/* ------------------------------------------- */
+
+// For Club - Events Page
+export const fetchAddEvents = (postBody) =>
+  axios.post(`${EVENTS_URL}/add`, postBody, {});
+export const fetchUpdateEvents = (postBody, id) =>
+  axios.put(`${EVENTS_URL}/update/${id}`, postBody, {});
 /* ------------------------------------------- */

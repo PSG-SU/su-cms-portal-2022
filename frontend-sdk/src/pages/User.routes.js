@@ -45,13 +45,13 @@ const list = [
     icon: <FaUsers />,
     element: <Team />,
   },
-  {
-    text: "Password",
-    link: "/club/password",
-    rlink: "password",
-    icon: <FaKey />,
-    element: <Password />,
-  },
+  // {
+  //   text: "Password",
+  //   link: "/club/password",
+  //   rlink: "password",
+  //   icon: <FaKey />,
+  //   element: <Password />,
+  // },
   {
     text: "default",
     link: "/club",

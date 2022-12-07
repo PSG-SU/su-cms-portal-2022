@@ -87,8 +87,8 @@ const AddMember = () => {
             phone: phone,
             email: email,
             image_url: res.data.url,
-            from: from.toISOString(),
-            to: to.toISOString(),
+            from: from,
+            to: to,
           };
           toast.promise(fetchUpdateTeamMember(postBody, ID)
             .then((res) => {
@@ -110,8 +110,8 @@ const AddMember = () => {
         designation: desgn,
         phone: phone,
         email: email,
-        from: from.toISOString(),
-        to: to.toISOString(),
+        from: from,
+        to: to,
       };
       toast.promise(fetchUpdateTeamMember(postBody, ID)
         .then((res) => {

@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import Button from "../../../components/Button";
 import Dropdown from "../../../components/Dropdown";
-import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
 import TextArea from "../../../components/TextArea";
 import DateInput from "../../../components/DateInput";
 import { departments } from "../../../components/Departments";
 import MultipleFiles from "../../../components/MultipleFiles";
+import { fetchAddProposal, fetchUpdateProposal, fetchUploadMultipleFiles } from "../../../API/calls";
+import { ProposalContext } from ".";
 
 const ApplyProposal = () => {
+  const { updateState } = useContext(ProposalContext);
+  const user = localStorage.getItem("userId");
+
+  const [ID, setID] = useState("");
   const [eventName, setEventName] = useState("");
   const [venue, setvenue] = useState("");
   const [count, setcount] = useState("");
   const [guest, setguest] = useState("");
-  const [designation, setdesignation] = useState("");
-  const [address, setaddress] = useState("");
-  const [president, setpresident] = useState("");
   const [expectedExpense, setexpectedExpense] = useState("");
   const [allocatedExpense, setallocatedExpense] = useState("");
   const [amountSpent, setamountSpent] = useState("");
@@ -29,6 +32,58 @@ const ApplyProposal = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const currentDate = Date().slice(4, 15);
+
+  useEffect(() => {
+    console.log("Update State: ", updateState);
+    if (Object.keys(updateState).length >= 0) {
+      setID(updateState?._id);
+      setEventName(updateState?.eventName);
+      setvenue(updateState?.venue);
+      setcount(updateState?.count);
+      setguest(updateState?.guest);
+      setexpectedExpense(updateState?.expectedExpense);
+      setallocatedExpense(updateState?.allocatedBudget);
+      setamountSpent(updateState?.amountSpent);
+      setfacultyDept(updateState?.facultyDept);
+      setfacultyName(updateState?.facultyName);
+      setComment(updateState?.comments);
+      setDesc(updateState?.description);
+      setStartDate(Date.parse(updateState?.startDate));
+      setEndDate(Date.parse(updateState?.endDate));
+    }
+  }, [updateState]);
+
+  const handleAddProposal = async () => {
+    const postBody = {
+      eventName: eventName,
+      startDate: startDate,
+      endDate: endDate,
+      venue: venue,
+      count: count,
+      guest: guest,
+      expectedExpense: expectedExpense,
+      allocatedBudget: allocatedExpense,
+      amountSpent: amountSpent,
+      facultyName: facultyName,
+      facultyDept: facultyDept,
+      description: desc,
+      comments: comment,
+      user: user,
+    };
+    toast.promise(fetchAddProposal(postBody)
+      .then((res) => {
+        window.location.reload();
+      }), {
+      loading: "Adding...",
+      success: "Added Successfully",
+      error: (err) => `Error: ${err.response.data.error}`,
+    });
+  };
+
+  const handleCancel = () => {
+    console.log("Cancel Button");
+    window.location.reload();
+  };
 
   return (
     <section className="px-8 py-8 w-full">
@@ -123,10 +178,7 @@ const ApplyProposal = () => {
           <Button
             className="w-3/4"
             text="Apply Event Proposal"
-            handleClick={() => {
-              console.log(startDate);
-              console.log(endDate);
-            }}
+            handleClick={handleAddProposal}
           />
         </div>
       </div>

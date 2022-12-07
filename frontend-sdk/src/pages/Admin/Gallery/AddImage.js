@@ -3,10 +3,24 @@ import Button from "../../../components/Button";
 import MultipleFiles from "../../../components/MultipleFiles";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
+import { fetchUploadMultipleFiles } from "../../../API/calls";
+import toast from "react-hot-toast";
 
 const AddImage = () => {
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);
   const [eventName, setEventName] = useState("");
+
+  const handleUpload = async () => {
+    toast.promise(fetchUploadMultipleFiles(files), {
+      loading: "Uploading...",
+      success: (res) => {
+        console.log(res)
+        return "Uploaded";
+      },
+      error: "Error Occured",
+    });
+  };
+
 
   return (
     <section className="px-8 py-8 w-full">
@@ -25,13 +39,17 @@ const AddImage = () => {
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
-          {/* <MultipleFiles
+          <MultipleFiles
             title="Images to be uploaded"
-            className="w-1/2"
-            fileState={[file, setFile]} /> */}
+            className="w-3/4"
+            fileState={[files, setFiles]} />
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">
-          <Button className="w-3/4" text="Upload" />
+          <Button
+            className="w-3/4"
+            text="Upload"
+            handleClick={handleUpload}
+          />
         </div>
       </div>
     </section>
