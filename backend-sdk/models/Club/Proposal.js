@@ -58,7 +58,7 @@ const ProposalSchema = new Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now,
+    required: true,
   },
   user: {
     type: String,

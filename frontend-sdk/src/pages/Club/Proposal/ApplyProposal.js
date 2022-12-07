@@ -31,7 +31,7 @@ const ApplyProposal = () => {
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const currentDate = Date().slice(4, 15);
+  const IST = 330 * 60000;
 
   useEffect(() => {
     console.log("Update State: ", updateState);
@@ -48,16 +48,16 @@ const ApplyProposal = () => {
       setfacultyName(updateState?.facultyName);
       setComment(updateState?.comments);
       setDesc(updateState?.description);
-      setStartDate(Date.parse(updateState?.startDate));
-      setEndDate(Date.parse(updateState?.endDate));
+      setStartDate(new Date(Date.parse(updateState?.startDate)) - IST);
+      setEndDate(new Date(Date.parse(updateState?.endDate)) - IST);
     }
   }, [updateState]);
 
   const handleAddProposal = async () => {
     const postBody = {
       eventName: eventName,
-      startDate: startDate,
-      endDate: endDate,
+      startDate: new Date(startDate + IST),
+      endDate: new Date(endDate + IST),
       venue: venue,
       count: count,
       guest: guest,
@@ -68,6 +68,7 @@ const ApplyProposal = () => {
       facultyDept: facultyDept,
       description: desc,
       comments: comment,
+      createdAt: new Date(Date.now() + IST),
       user: user,
     };
     toast.promise(fetchAddProposal(postBody)
@@ -80,6 +81,35 @@ const ApplyProposal = () => {
     });
   };
 
+  const handleUpdateProposal = async () => {
+    console.log('id' + ID)
+    const postBody = {
+      eventName: eventName,
+      startDate: new Date(startDate + IST),
+      endDate: new Date(endDate + IST),
+      venue: venue,
+      count: count,
+      guest: guest,
+      expectedExpense: expectedExpense,
+      allocatedBudget: allocatedExpense,
+      amountSpent: amountSpent,
+      facultyName: facultyName,
+      facultyDept: facultyDept,
+      description: desc,
+      comments: comment,
+      createdAt: new Date(Date.now() + IST),
+      user: user,
+    };
+    toast.promise(fetchUpdateProposal(postBody, ID)
+      .then((res) => {
+        window.location.reload();
+      }), {
+      loading: "Updating...",
+      success: "Updated Successfully",
+      error: (err) => `Error: ${err.response.data.error}`,
+    });
+  };
+
   const handleCancel = () => {
     console.log("Cancel Button");
     window.location.reload();
@@ -87,10 +117,7 @@ const ApplyProposal = () => {
 
   return (
     <section className="px-8 py-8 w-full">
-      <Heading event>Event Proposal Application</Heading>
-      <label className=" text-blue text-base space-x-4">
-        Date: {currentDate}
-      </label>
+      <Heading>Event Proposal Application</Heading>
       <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-y-auto">
         <div className="flex items-center w-full space-x-4">
           <Inputfield
@@ -175,11 +202,18 @@ const ApplyProposal = () => {
           <MultipleFiles fileState={[file, setFile]} />
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">
-          <Button
-            className="w-3/4"
-            text="Apply Event Proposal"
-            handleClick={handleAddProposal}
-          />
+          {Object.keys(updateState).length <= 0 ? (
+            <Button
+              className="w-3/4"
+              text="Apply Event Proposal"
+              handleClick={handleAddProposal}
+            />
+          ) : (
+            <div className="flex items-center w-full space-x-4 mt-4">
+              <Button className="w-3/4" text={"Update Proposal"} handleClick={handleUpdateProposal} />
+              <Button className="w-3/4" text={"Cancel Update"} handleClick={handleCancel} />
+            </div>
+          )}
         </div>
       </div>
     </section>

@@ -30,6 +30,7 @@ const DateInput = ({
 
           startDate={startValue}
           endDate={endValue}
+          maxDate={endValue}
 
           showYearPicker={year}
           showTimeSelect={!year}

@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { BsPencil } from "react-icons/bs";
+import { BsCheck2Circle, BsPencil } from "react-icons/bs";
 import { HiOutlineTrash } from "react-icons/hi";
+import { FaRegTimesCircle } from "react-icons/fa";
+import { IoMdTime } from "react-icons/io";
 import { CompactTable } from "@table-library/react-table-library/compact";
 import { useTheme } from "@table-library/react-table-library/theme";
 import { getTheme } from "@table-library/react-table-library/baseline";
@@ -88,14 +90,41 @@ const Table = ({
         console.log("ITEM: ", item);
 
         if (
-          /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/.test(
+          /^(\d{4})-(12)-(31)T(18):(30):(00).(000)(Z)/.test(
             item[tkeys[idx]]
           )
         ) {
           return parseInt(item[tkeys[idx]].split("-")[0]) + 1;
         }
-
-        if (
+        else if (
+          /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/.test(
+            item[tkeys[idx]]
+          )
+        ) {
+          return item[tkeys[idx]].split("T")[0].split("-").reverse().join("-");
+        }
+        else if (
+          item[tkeys[idx]] === "approved" || item[tkeys[idx]] === "rejected" || item[tkeys[idx]] === "pending"
+        ) {
+          return (
+            <div className="flex space-x-2 items-center">
+              <div
+                className={`${item[tkeys[idx]] === "approved"
+                  ? "bg-[green] text-[#eaeaea]"
+                  : item[tkeys[idx]] === "rejected"
+                    ? "bg-[#ff0000] text-[#eaeaea]"
+                    : "bg-[#ffd000] text-[#303030]"
+                  } rounded-full w-8 h-8 flex text-xl justify-center items-center`}
+              >
+                { item[tkeys[idx]] === "approved" && ( <BsCheck2Circle /> )}
+                { item[tkeys[idx]] === "rejected" && ( <FaRegTimesCircle /> )}
+                { item[tkeys[idx]] === "pending" && ( <IoMdTime /> )}
+              </div>
+              <p>{item[tkeys[idx]][0].toUpperCase() + item[tkeys[idx]].slice(1)}</p>
+            </div>
+          );
+        }
+        else if (
           /^https?:\/\/(?:[a-z0-9-]+\.)+[a-z]{2,6}(?:\/[^/#?]+)+\.(?:jpg|gif|png)$/.test(
             item[tkeys[idx]]
           )
@@ -110,7 +139,8 @@ const Table = ({
               />
             </div>
           );
-        } else return item[tkeys[idx]];
+        }
+        else return item[tkeys[idx]];
       },
       // resize: true,
     };
@@ -118,7 +148,7 @@ const Table = ({
   // console.log("ites"+item[tkeys[idx]])
 
   COLUMNS = [
-    {label: "S.No.", renderCell: (item) => item["ID"]},
+    { label: "S.No.", renderCell: (item) => item["ID"] },
     ...COLUMNS,
     {
       label: "Actions",

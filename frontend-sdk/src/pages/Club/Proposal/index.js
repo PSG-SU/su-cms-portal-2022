@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { createContext, useState } from "react";
 import ApplyProposal from "./ApplyProposal";
+import ViewProposal from "./ViewProposal";
 import { PROPOSAL_URL } from "../../../API/config";
 import toast from "react-hot-toast";
 
@@ -11,6 +12,10 @@ const Proposal = () => {
     {
       text: "Apply Proposal",
       tab: <ApplyProposal />,
+    },
+    {
+      text: "View Proposal",
+      tab: <ViewProposal />,
     },
   ];
 
