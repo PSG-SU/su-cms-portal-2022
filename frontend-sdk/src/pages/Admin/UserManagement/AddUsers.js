@@ -131,8 +131,8 @@ const AddUsers = () => {
         <div className="flex items-center w-full space-x-4 mt-4">
           <Inputfield
             valueState={[user, setUser]}
-            title="User Id"
-            placeholder="Enter userId"
+            title="User ID"
+            placeholder="Enter User ID"
           />
           <Inputfield
             type="password"

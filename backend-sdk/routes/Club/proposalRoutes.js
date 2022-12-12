@@ -13,13 +13,13 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get("/user/:user", async (req, res) => {
   try {
-    const proposal = await Proposal.findOne({
-      _id: req.params.id,
+    const proposal = await Proposal.find({
+      user: req.params.user,
     });
     if (!proposal) {
-      return res.status(404).json({ error: 'Proposal not found' });
+      return res.status(404).json({ error: "Not Found" });
     } else {
       res.status(200).json(proposal);
     }
@@ -29,10 +29,42 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.get("/user/:user", async (req, res) => {
+router.get("/all_approved/", async (req, res) => {
   try {
     const proposal = await Proposal.find({
-      user: req.params.user,
+      status: "approved",
+    });
+    if (!proposal) {
+      return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json(proposal);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get("/all_pending/", async (req, res) => {
+  try {
+    const proposal = await Proposal.find({
+      status: "pending",
+    });
+    if (!proposal) {
+      return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json(proposal);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get("/all_rejected/", async (req, res) => {
+  try {
+    const proposal = await Proposal.find({
+      status: "rejected",
     });
     if (!proposal) {
       return res.status(404).json({ error: "Not Found" });
@@ -53,6 +85,22 @@ router.get("/approved/:user", async (req, res) => {
     });
     if (!proposal) {
       return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json(proposal);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get('/:id', async (req, res) => {
+  try {
+    const proposal = await Proposal.findOne({
+      _id: req.params.id,
+    });
+    if (!proposal) {
+      return res.status(404).json({ error: 'Proposal not found' });
     } else {
       res.status(200).json(proposal);
     }

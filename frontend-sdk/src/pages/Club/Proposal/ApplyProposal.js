@@ -98,6 +98,7 @@ const ApplyProposal = () => {
       description: desc,
       comments: comment,
       createdAt: new Date(Date.now() + IST),
+      status: "pending",
       user: user,
     };
     toast.promise(fetchUpdateProposal(postBody, ID)

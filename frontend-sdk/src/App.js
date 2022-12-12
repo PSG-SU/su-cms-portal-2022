@@ -14,8 +14,10 @@ import { Toaster } from "react-hot-toast";
 
 import AdminSUMenuItems from "./pages/Admin.routes.js";
 import SUMenuItems from "./pages/User.routes.js";
+import DeanSUMenuItems from "./pages/Dean.routes.js";
 import AdminWrapper from "./pages/AdminWrapper";
 import UserWrapper from "./pages/UserWrapper";
+import DeanWrapper from "./pages/DeanWrapper";
 import Error404 from "./pages/Error404";
 import Refresher from "./Refresher";
 
@@ -33,6 +35,11 @@ const App = () => {
           </Route>
           <Route path="club" element={<UserWrapper />}>
             {SUMenuItems.map((item) => (
+              <Route key={item.text} path={item.rlink} element={item.element} />
+            ))}
+          </Route>
+          <Route path="dean" element={<DeanWrapper />}>
+            {DeanSUMenuItems.map((item) => (
               <Route key={item.text} path={item.rlink} element={item.element} />
             ))}
           </Route>

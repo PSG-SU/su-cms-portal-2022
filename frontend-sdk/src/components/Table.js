@@ -16,6 +16,7 @@ import Button from "./Button";
 import Popup from "reactjs-popup";
 import styled, { keyframes } from "styled-components";
 import { AUTH_URL } from "../API/config";
+import { fetchUpdateProposal } from "../API/calls";
 
 const breatheAnimation = keyframes`
  0% { opacity: 0; transform: scale(0.25) translateY(75px); }
@@ -48,10 +49,39 @@ const Table = ({
   tratio = "",
   url = "",
   handleUpdate,
-  haveID = false
+  approval = false,
+  users = []
 }) => {
 
   const { refreshPage } = useContext(RefreshContext);
+
+  const ApproveButton = async (id) => {
+    const postBody = {
+      status: "approved"
+    };
+    toast.promise(fetchUpdateProposal(postBody, id)
+      .then((res) => {
+        window.location.reload();
+      }), {
+      loading: "Approving...",
+      success: "Approved Successfully",
+      error: (err) => `Error: ${err.response.data.error}`,
+    });
+  };
+  
+  const RejectButton = async (id) => {
+    const postBody = {
+      status: "rejected"
+    };
+    toast.promise(fetchUpdateProposal(postBody, id)
+      .then((res) => {
+        window.location.reload();
+      }), {
+      loading: "Rejecting...",
+      success: "Rejected Successfully",
+      error: (err) => `Error: ${err.response.data.error}`,
+    });
+  };
 
   const handleDelete = (item) => {
     if (url === AUTH_URL && (item.rights === "admin" || item.rights === "developer")) {
@@ -88,21 +118,23 @@ const Table = ({
       label: h,
       renderCell: (item) => {
         console.log("ITEM: ", item);
+      
+        // User Check
+        const user = users.filter(
+          (user) => user.clubId === item[tkeys[idx]]
+        );
 
-        if (
-          /^(\d{4})-(12)-(31)T(18):(30):(00).(000)(Z)/.test(
-            item[tkeys[idx]]
-          )
-        ) {
+        // Year Check
+        if (/^(\d{4})-(12)-(31)T(18):(30):(00).(000)(Z)/.test(item[tkeys[idx]])) {
           return parseInt(item[tkeys[idx]].split("-")[0]) + 1;
         }
-        else if (
-          /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/.test(
-            item[tkeys[idx]]
-          )
-        ) {
+
+        // Date Check
+        else if (/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/.test(item[tkeys[idx]])) {
           return item[tkeys[idx]].split("T")[0].split("-").reverse().join("-");
         }
+
+        // Status Check
         else if (
           item[tkeys[idx]] === "approved" || item[tkeys[idx]] === "rejected" || item[tkeys[idx]] === "pending"
         ) {
@@ -116,14 +148,21 @@ const Table = ({
                     : "bg-[#ffd000] text-[#303030]"
                   } rounded-full w-8 h-8 flex text-xl justify-center items-center`}
               >
-                { item[tkeys[idx]] === "approved" && ( <BsCheck2Circle /> )}
-                { item[tkeys[idx]] === "rejected" && ( <FaRegTimesCircle /> )}
-                { item[tkeys[idx]] === "pending" && ( <IoMdTime /> )}
+                {item[tkeys[idx]] === "approved" && (<BsCheck2Circle />)}
+                {item[tkeys[idx]] === "rejected" && (<FaRegTimesCircle />)}
+                {item[tkeys[idx]] === "pending" && (<IoMdTime />)}
               </div>
               <p>{item[tkeys[idx]][0].toUpperCase() + item[tkeys[idx]].slice(1)}</p>
             </div>
           );
         }
+
+        // Approval Check
+        else if (approval && user.length > 0) {
+          return user[0].clubName;
+        }
+
+        // Image Check
         else if (
           /^https?:\/\/(?:[a-z0-9-]+\.)+[a-z]{2,6}(?:\/[^/#?]+)+\.(?:jpg|gif|png)$/.test(
             item[tkeys[idx]]
@@ -140,6 +179,7 @@ const Table = ({
             </div>
           );
         }
+        
         else return item[tkeys[idx]];
       },
       // resize: true,
@@ -150,52 +190,84 @@ const Table = ({
   COLUMNS = [
     { label: "S.No.", renderCell: (item) => item["ID"] },
     ...COLUMNS,
-    {
-      label: "Actions",
-      renderCell: (item) => {
-        console.log(item._id);
-        return (
-          <div className="flex space-x-4">
-            <StyledPopup
-              trigger={
-                <button className="hover:text-[#ff0000]">
-                  <HiOutlineTrash />
-                </button>
-              }
-              position="top center"
-              offsetX={-90}
-              offsetY={64}
-            >
-              {(close) => (
-                <div className="flex items-center space-x-4 m-4">
-                  <Button className="w-3/4" text="Cancel" handleClick={close} />
-                  <Button
-                    className="w-3/4"
-                    text="Confirm"
-                    handleClick={(e) => {
-                      console.log("Delete");
-                      handleDelete(item);
-                      close();
-                    }}
-                  />
-                </div>
-              )}
-            </StyledPopup>
-
-            <button
-              className="hover:text-[#494998]"
-              onClick={(e) => {
-                console.log("HEY");
-                handleUpdate(item._id);
-              }}
-            >
-              <BsPencil />
-            </button>
-          </div>
-        );
-      },
-    },
   ];
+
+  if (approval) {
+    COLUMNS = [
+      ...COLUMNS,
+      {
+        label: "Approve / Reject",
+        renderCell: (item) => {
+          return (
+            <div className="flex space-x-4 items-center">
+              <button
+                className="bg-[green] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
+                onClick={() => ApproveButton(item._id)}
+              >
+                <BsCheck2Circle />
+              </button>
+              <button
+                className="bg-[#ff0000] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
+                onClick={() => RejectButton(item._id)}
+              >
+                <FaRegTimesCircle />
+              </button>
+            </div>
+          )
+        },
+      },
+    ];
+  }
+  else {
+    COLUMNS = [
+      ...COLUMNS,
+      {
+        label: "Actions",
+        renderCell: (item) => {
+          console.log(item._id);
+          return (
+            <div className="flex space-x-4">
+              <StyledPopup
+                trigger={
+                  <button className="hover:text-[#ff0000]">
+                    <HiOutlineTrash />
+                  </button>
+                }
+                position="top center"
+                offsetX={-90}
+                offsetY={64}
+              >
+                {(close) => (
+                  <div className="flex items-center space-x-4 m-4">
+                    <Button className="w-3/4" text="Cancel" handleClick={close} />
+                    <Button
+                      className="w-3/4"
+                      text="Confirm"
+                      handleClick={(e) => {
+                        console.log("Delete");
+                        handleDelete(item);
+                        close();
+                      }}
+                    />
+                  </div>
+                )}
+              </StyledPopup>
+
+              <button
+                className="hover:text-[#494998]"
+                onClick={(e) => {
+                  console.log("HEY");
+                  handleUpdate(item._id);
+                }}
+              >
+                <BsPencil />
+              </button>
+            </div>
+          );
+        },
+      },
+    ];
+  }
 
   const getDefaults = () => {
     let defaultRatio = "";
@@ -208,10 +280,7 @@ const Table = ({
   const theme = useTheme([
     getTheme(),
     {
-      Table: `
-        --data-table-library_grid-template-columns: 75px ${tratio.length <= 0 ? getDefaults() : tratio
-        } 100px;
-      `,
+      Table: `--data-table-library_grid-template-columns: 75px ${tratio.length <= 0 ? getDefaults() : tratio} ${approval ? "175px" : "100px"};`,
     },
   ]);
 

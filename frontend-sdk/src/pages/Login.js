@@ -21,9 +21,16 @@ const Login = () => {
         localStorage.setItem("rights", res.data.rights);
         localStorage.setItem("userId", username);
         toast.success("Login Successful !");
-        res.data.rights === "admin" ?
-          navigate("/admin") :
+
+        if (res.data.rights === "admin") {
+          navigate("/admin");
+        } else if (res.data.rights === "club" || res.data.rights === "developer") {
           navigate("/club");
+        } else if (res.data.rights === "dean") {
+          navigate("/dean");
+        } else {
+          toast.error("Invalid Rights");
+        }
       })
       .catch((err) => {
         console.log(err);
