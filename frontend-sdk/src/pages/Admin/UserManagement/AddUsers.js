@@ -14,17 +14,38 @@ const AddUsers = () => {
 
   const [ID, setID] = useState("");
   const [caID, setcaID] = useState("");
+  const [clubName, setClubName] = useState("");
   const [user, setUser] = useState("");
   const [rights, setRights] = useState("");
   const [pwd, setPWD] = useState("");
   const [rpwd, setRPWD] = useState("");
   const [clubs, setClubs] = useState([]);
+  const [dropdownRights, setDropdownRights] = useState("");
 
   useEffect(() => {
     axios.get(`${CLUB_URL}`, {}).then((res) => {
       setClubs(res.data);
     }).catch(err => console.log(err));
   }, []);
+
+  useEffect(() => {
+    if (clubName) {
+      setcaID(clubs.filter((club) => club.clubName === clubName)[0].clubId);
+    }
+  }, [clubName]);
+
+  useEffect(() => {
+    if (dropdownRights === "Admin") {
+      setRights("admin");
+    } else if (dropdownRights === "Dean") {
+      setRights("dean");
+    } else if (dropdownRights === "Club") {
+      setRights("club");
+    } else if (dropdownRights === "Association") {
+      setRights("association");
+    }
+  }, [dropdownRights])
+
 
   useEffect(() => {
     console.log(updateState);
@@ -114,16 +135,16 @@ const AddUsers = () => {
       <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
         <div className="flex items-center w-full space-x-4">
           <Dropdown
-            valueState={[rights, setRights]}
+            valueState={[dropdownRights, setDropdownRights]}
             title="Rights"
             placeholder="Select a Privilege"
-            options={["club", "dean", "admin"]}
+            options={["Club", "Association", "Dean", "Admin"]}
           />
           <Dropdown
-            valueState={[caID, setcaID]}
-            title="Association Name"
-            placeholder="Select an Association"
-            options={clubs.map((club) => club.clubId)}
+            valueState={[clubName, setClubName]}
+            title="Club / Association Name"
+            placeholder="Select a Club / Association"
+            options={clubs.map((club) => club.clubName)}
             className="w-full"
           />
         </div>

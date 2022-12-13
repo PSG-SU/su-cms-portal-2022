@@ -24,7 +24,7 @@ const Login = () => {
 
         if (res.data.rights === "admin") {
           navigate("/admin");
-        } else if (res.data.rights === "club" || res.data.rights === "developer") {
+        } else if (res.data.rights === "club" || res.data.rights === "association" || res.data.rights === "developer") {
           navigate("/club");
         } else if (res.data.rights === "dean") {
           navigate("/dean");
