@@ -6,7 +6,7 @@ import Dropdown from "../../../components/Dropdown";
 import axios from "axios";
 import { ProposalContext } from ".";
 import { RefreshContext } from "../../../Refresher";
-import { AUTH_URL, CLUB_URL, PROPOSAL_URL } from "../../../API/config";
+import { CLUB_URL, PROPOSAL_URL } from "../../../API/config";
 import { IoCloseOutline } from "react-icons/io5";
 
 const PendingProposal = () => {
@@ -22,17 +22,6 @@ const PendingProposal = () => {
       setClubs(res.data);
     }).catch(err => console.log(err));
   }, []);
-
-  useEffect(() => {
-    axios
-      .get(`${url}/all_pending`)
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [refreshToken]);
 
   useEffect(() => {
     if (username) {
@@ -54,11 +43,22 @@ const PendingProposal = () => {
     }
   }, [cid]);
 
-  const { updateByID } = useContext(ProposalContext);
-
   const clearUsername = () => {
     window.location.reload();
   };
+
+  useEffect(() => {
+    axios
+      .get(`${url}/all_pending`)
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [refreshToken]);
+
+  const { updateByID } = useContext(ProposalContext);
 
   return (
     <section className="px-8 py-8 w-full">
@@ -71,14 +71,12 @@ const PendingProposal = () => {
           options={clubs.map((club) => club.clubName)}
           className="w-1/2"
         />
-
         <button
           className="rounded-full mt-8 bg-cloud p-1 hover:text-gray z-40"
           onClick={clearUsername}
         >
           <IoCloseOutline />
         </button>
-
       </div>
       <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-auto">
         <Table
@@ -96,7 +94,7 @@ const PendingProposal = () => {
           clubs={clubs}
         />
       </div>
-    </section >
+    </section>
   );
 };
 
