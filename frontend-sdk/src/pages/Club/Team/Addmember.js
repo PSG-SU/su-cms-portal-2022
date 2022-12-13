@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { AUTH_URL } from "../../../API/config";
 import Button from "../../../components/Button";
 import Dropdown from "../../../components/Dropdown";
 import FileUpload from "../../../components/FileUpload";
@@ -12,7 +14,15 @@ import { TeamMemberContext } from ".";
 
 const AddMember = () => {
   const { updateState } = useContext(TeamMemberContext);
-  const user = localStorage.getItem("userId");
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    axios
+      .get(`${AUTH_URL}/id/${localStorage.getItem("userId")}`, {})
+      .then((res) => {
+        setUser(res.data.caID);
+      })
+  }, [])
 
   const [ID, setID] = useState("");
   const [pos, setPos] = useState("");

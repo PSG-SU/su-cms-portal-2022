@@ -5,12 +5,19 @@ import Table from "../../../components/Table";
 import axios from "axios";
 import { RefreshContext } from "../../../Refresher";
 import { UserManagementTabContext } from ".";
-import { AUTH_URL } from "../../../API/config";
+import { AUTH_URL, CLUB_URL } from "../../../API/config";
 
 const ViewUsers = () => {
   const [data, setData] = useState([]);
+  const [clubs, setClubs] = useState([]);
   const { refreshToken } = useContext(RefreshContext);
   const url = AUTH_URL;
+
+  useEffect(() => {
+    axios.get(`${CLUB_URL}`, {}).then((res) => {
+      setClubs(res.data);
+    }).catch(err => console.log(err));
+  }, []);
 
   useEffect(() => {
     axios
@@ -33,7 +40,7 @@ const ViewUsers = () => {
         <Table
           theads={["User ID", "Association Name", "Rights"]}
           tdata={data}
-          tkeys={["userId", "associationName", "rights"]}
+          tkeys={["userId", "caID", "rights"]}
           className={`${data.length < 8
             ? "max-h-[calc(100vh-20rem)]"
             : "h-[calc(100vh-25rem)]"
@@ -41,6 +48,7 @@ const ViewUsers = () => {
           tratio="1fr 1fr 0.5fr"
           url={url}
           handleUpdate={(id) => updateByID(id)}
+          clubs={clubs}
         />
       </div>
     </section>

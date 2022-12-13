@@ -2,15 +2,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import Heading from "../../../components/Heading";
 import Table from "../../../components/Table";
+import Dropdown from "../../../components/Dropdown";
 import axios from "axios";
 import { ProposalContext } from ".";
 import { RefreshContext } from "../../../Refresher";
 import { AUTH_URL, CLUB_URL, PROPOSAL_URL } from "../../../API/config";
-import Dropdown from "../../../components/Dropdown";
+import { IoCloseOutline } from "react-icons/io5";
 
 const PendingProposal = () => {
   const [data, setData] = useState([]);
   const [clubs, setClubs] = useState([]);
+  const [cid, setCid] = useState("");
   const [username, setUsername] = useState("");
   const { refreshToken } = useContext(RefreshContext);
   const url = PROPOSAL_URL;
@@ -34,8 +36,15 @@ const PendingProposal = () => {
 
   useEffect(() => {
     if (username) {
+      setCid(clubs.filter((club) => club.clubName === username)[0].clubId);
+    }
+  }, [username]);
+
+  useEffect(() => {
+    console.log(cid);
+    if (cid) {
       axios
-        .get(`${url}/user/${username}`)
+        .get(`${url}/pending/${cid}`)
         .then((res) => {
           setData(res.data);
         })
@@ -43,9 +52,13 @@ const PendingProposal = () => {
           console.log(err);
         });
     }
-  }, [username]);
+  }, [cid]);
 
   const { updateByID } = useContext(ProposalContext);
+
+  const clearUsername = () => {
+    window.location.reload();
+  };
 
   return (
     <section className="px-8 py-8 w-full">
@@ -58,24 +71,32 @@ const PendingProposal = () => {
           options={clubs.map((club) => club.clubName)}
           className="w-1/2"
         />
+
+        <button
+          className="rounded-full mt-8 bg-cloud p-1 hover:text-gray z-40"
+          onClick={clearUsername}
+        >
+          <IoCloseOutline />
+        </button>
+
       </div>
       <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-auto">
         <Table
-          theads={["Event", "Club / Association", "Event Date"]}
+          theads={["Event", "Club / Association", "Event Date", "Status"]}
           tdata={data}
-          tkeys={["eventName", "user", "startDate"]}
+          tkeys={["eventName", "user", "startDate", "status"]}
           className={`${data.length < 8
             ? "max-h-[calc(100vh-20rem)]"
             : "h-[calc(100vh-20rem)]"
             } w-full`}
-          tratio="1fr 1fr 1fr"
+          tratio="1fr 1fr 1fr 1fr"
           url={url}
           handleUpdate={(id) => updateByID(id)}
           approval={true}
-          users={clubs}
+          clubs={clubs}
         />
       </div>
-    </section>
+    </section >
   );
 };
 

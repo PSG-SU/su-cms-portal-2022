@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { AUTH_URL } from "../../../API/config";
 import toast from "react-hot-toast";
 import Button from "../../../components/Button";
 import Dropdown from "../../../components/Dropdown";
@@ -13,7 +15,15 @@ import { ProposalContext } from ".";
 
 const ApplyProposal = () => {
   const { updateState } = useContext(ProposalContext);
-  const user = localStorage.getItem("userId");
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    axios
+      .get(`${AUTH_URL}/id/${localStorage.getItem("userId")}`, {})
+      .then((res) => {
+        setUser(res.data.caID);
+      })
+  }, [])
 
   const [ID, setID] = useState("");
   const [eventName, setEventName] = useState("");

@@ -2,22 +2,33 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Heading from "../../../components/Heading";
 import ModalImage from "react-modal-image";
-import { GENERAL_URL } from "../../../API/config";
+import { GENERAL_URL, AUTH_URL } from "../../../API/config";
 
 const ViewGeneral = () => {
   const [content, setContent] = useState("");
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     axios
-      .get(`${GENERAL_URL}/${localStorage.getItem("userId")}`)
+      .get(`${AUTH_URL}/id/${localStorage.getItem("userId")}`, {})
       .then((res) => {
-        console.log(res.data);
-        setContent(res.data);
+        setUser(res.data.caID);
       })
-      .catch((err) => {
-        console.log(err);
-      })
-  }, []);
+  }, [])
+
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(`${GENERAL_URL}/${user}`)
+        .then((res) => {
+          console.log(res.data);
+          setContent(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  }, [user]);
 
   return (
     <section className="px-8 py-8 w-full">

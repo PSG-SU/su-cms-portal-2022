@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { LOGIN_URL, AUTH_URL } from "../API/config";
+import { LOGIN_URL, AUTH_URL, CLUB_URL } from "../API/config";
 import SUMenuItems from "./User.routes.js";
 import { MdLogout } from "react-icons/md";
 import { toast } from "react-hot-toast";
@@ -29,18 +29,16 @@ const UserWrapper = () => {
 
   useEffect(() => {
     axios
-      .get(AUTH_URL)
+      .get(`${AUTH_URL}/id/${localStorage.getItem("userId")}`, {})
       .then((res) => {
-        const user = res.data.filter(
-          (user) => user.userId === localStorage.getItem("userId")
-        );
-        setUsername(user[0].associationName);
+        const caID = res.data.caID;
+        axios
+          .get(`${CLUB_URL}/id/${caID}`, {})
+          .then((res) => {
+            setUsername(res.data.clubName);
+          })
       })
-      .catch((err) => {
-        console.log(err);
-      });
   }, []);
-
 
   const handleLogout = (e) => {
     e.preventDefault();

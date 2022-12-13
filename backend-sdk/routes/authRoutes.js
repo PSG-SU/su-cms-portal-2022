@@ -8,13 +8,13 @@ const router = Router();
 export const SECRET = "sucms.psgtech";
 
 router.post("/add", async (req, res) => {
-  const { userId, password, rights, associationName } = req.body;
+  const { userId, password, rights, caID } = req.body;
   try {
     const user = await User.create({
       userId: userId,
       password: bcrypt.hashSync(password, 10),
       rights: rights,
-      associationName: associationName,
+      caID: caID,
     });
     res.status(201).json({ user: user._id });
   } catch (error) {
@@ -121,8 +121,8 @@ router.put("/update/:id", async (req, res) => {
   try {
     const user = await User.findOneAndUpdate(
       { _id: req.params.id },
-      req.body.password ? {...req.body, password: bcrypt.hashSync(req.body.password, 10)} : req.body,
-      { }
+      req.body.password ? { ...req.body, password: bcrypt.hashSync(req.body.password, 10) } : req.body,
+      {}
     );
     if (!user) return res.status(404).json({ error: "User not found" });
     res.status(200).json(user);

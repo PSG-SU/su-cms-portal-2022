@@ -5,24 +5,34 @@ import Table from "../../../components/Table";
 import axios from "axios";
 import { TeamMemberContext } from ".";
 import { RefreshContext } from "../../../Refresher";
-import { TEAM_MEMBER_URL } from "../../../API/config";
+import { TEAM_MEMBER_URL, AUTH_URL } from "../../../API/config";
 
 const EditandDelete = () => {
   const [data, setData] = useState([]);
   const { refreshToken } = useContext(RefreshContext);
   const url = TEAM_MEMBER_URL;
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     axios
-      .get(`${url}/user/${localStorage.getItem("userId")}`)
+      .get(`${AUTH_URL}/id/${localStorage.getItem("userId")}`, {})
       .then((res) => {
-        setData(res.data);
-        console.log(`${TEAM_MEMBER_URL}/${localStorage.getItem("userId")}`);
+        setUser(res.data.caID);
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [refreshToken]);
+  }, [])
+
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(`${url}/user/${user}`)
+        .then((res) => {
+          setData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [refreshToken, user]);
 
   const { updateByID } = useContext(TeamMemberContext);
 
@@ -34,11 +44,10 @@ const EditandDelete = () => {
           theads={["Name", "Position", "Department", "Designation", "Phone", "Email", "From", "To", "Image"]}
           tdata={data}
           tkeys={["name", "position", "department", "designation", "phone", "email", "from", "to", "image_url"]}
-          className={`${
-            data.length < 8
-              ? "max-h-[calc(100vh-20rem)]"
-              : "h-[calc(100vh-20rem)]"
-          } w-full`}
+          className={`${data.length < 8
+            ? "max-h-[calc(100vh-20rem)]"
+            : "h-[calc(100vh-20rem)]"
+            } w-full`}
           tratio="1fr 1fr 1fr 1fr 1fr 1fr 0.5fr 0.5fr 0.5fr"
           url={url}
           handleUpdate={(id) => updateByID(id)}

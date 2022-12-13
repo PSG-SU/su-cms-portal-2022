@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import toast from "react-hot-toast";
 import { fetchAddGeneral, fetchUpdateGeneral, fetchUploadFile } from "../../../API/calls";
+import { AUTH_URL } from "../../../API/config";
 import Button from "../../../components/Button";
 import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
@@ -9,7 +11,15 @@ import TextArea from "../../../components/TextArea";
 const AddGeneral = () => {
   const [file, setFile] = useState(null);
   const [value, setvalue] = useState("");
-  const user = localStorage.getItem("userId");
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    axios
+      .get(`${AUTH_URL}/id/${localStorage.getItem("userId")}`, {})
+      .then((res) => {
+        setUser(res.data.caID);
+      })
+  }, [])
 
   const handlePost = async () => {
     toast.promise(fetchUploadFile(file), {

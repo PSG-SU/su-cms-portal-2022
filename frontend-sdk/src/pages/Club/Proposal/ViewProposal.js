@@ -5,24 +5,34 @@ import Table from "../../../components/Table";
 import axios from "axios";
 import { ProposalContext } from ".";
 import { RefreshContext } from "../../../Refresher";
-import { PROPOSAL_URL } from "../../../API/config";
+import { PROPOSAL_URL, AUTH_URL } from "../../../API/config";
 
 const ViewProposal = () => {
   const [data, setData] = useState([]);
   const { refreshToken } = useContext(RefreshContext);
   const url = PROPOSAL_URL;
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     axios
-      .get(`${url}/user/${localStorage.getItem("userId")}`)
+      .get(`${AUTH_URL}/id/${localStorage.getItem("userId")}`, {})
       .then((res) => {
-        setData(res.data);
-        console.log(`${PROPOSAL_URL}/${localStorage.getItem("userId")}`);
+        setUser(res.data.caID);
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [refreshToken]);
+  }, [])
+
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(`${url}/user/${user}`)
+        .then((res) => {
+          setData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [refreshToken, user]);
 
   const { updateByID } = useContext(ProposalContext);
 
@@ -34,11 +44,10 @@ const ViewProposal = () => {
           theads={["Event", "Created At", "Status"]}
           tdata={data}
           tkeys={["eventName", "createdAt", "status"]}
-          className={`${
-            data.length < 8
+          className={`${data.length < 8
               ? "max-h-[calc(100vh-20rem)]"
               : "h-[calc(100vh-20rem)]"
-          } w-full`}
+            } w-full`}
           tratio="1fr 1fr 1fr"
           url={url}
           handleUpdate={(id) => updateByID(id)}

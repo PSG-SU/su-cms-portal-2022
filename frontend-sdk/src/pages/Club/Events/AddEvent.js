@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { AUTH_URL } from "../../../API/config";
 import Button from "../../../components/Button";
 import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
@@ -12,9 +14,16 @@ const AddEvent = () => {
   const [thumb, setThumb] = useState(null);
   const [file, setFile] = useState(null);
   const [ID, setID] = useState("");
-
-  const user = localStorage.getItem("userId");
   const [proposals, setProposals] = useState([]);
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    axios
+      .get(`${AUTH_URL}/id/${localStorage.getItem("userId")}`, {})
+      .then((res) => {
+        setUser(res.data.caID);
+      })
+  }, [])
 
   useEffect(() => {
     fetchGetApprovedProposal(user)

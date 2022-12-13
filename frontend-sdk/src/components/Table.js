@@ -50,7 +50,7 @@ const Table = ({
   url = "",
   handleUpdate,
   approval = false,
-  users = []
+  clubs = []
 }) => {
 
   const { refreshPage } = useContext(RefreshContext);
@@ -119,13 +119,17 @@ const Table = ({
       renderCell: (item) => {
         console.log("ITEM: ", item);
       
-        // User Check
-        const user = users.filter(
-          (user) => user.clubId === item[tkeys[idx]]
+        // Club Check
+        const club = clubs.filter(
+          (club) => club.clubId === item[tkeys[idx]]
         );
 
+        if (club.length > 0) {
+          return club[0].clubName;
+        }
+
         // Year Check
-        if (/^(\d{4})-(12)-(31)T(18):(30):(00).(000)(Z)/.test(item[tkeys[idx]])) {
+        else if (/^(\d{4})-(12)-(31)T(18):(30):(00).(000)(Z)/.test(item[tkeys[idx]])) {
           return parseInt(item[tkeys[idx]].split("-")[0]) + 1;
         }
 
@@ -155,11 +159,6 @@ const Table = ({
               <p>{item[tkeys[idx]][0].toUpperCase() + item[tkeys[idx]].slice(1)}</p>
             </div>
           );
-        }
-
-        // Approval Check
-        else if (approval && user.length > 0) {
-          return user[0].clubName;
         }
 
         // Image Check

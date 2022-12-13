@@ -13,7 +13,7 @@ const AddUsers = () => {
   const { updateState } = useContext(UserManagementTabContext);
 
   const [ID, setID] = useState("");
-  const [associationName, setAssociationName] = useState("");
+  const [caID, setcaID] = useState("");
   const [user, setUser] = useState("");
   const [rights, setRights] = useState("");
   const [pwd, setPWD] = useState("");
@@ -30,7 +30,7 @@ const AddUsers = () => {
     console.log(updateState);
     if (Object.keys(updateState).length > 0) {
       setID(updateState?._id);
-      setAssociationName(updateState.associationName);
+      setcaID(updateState.caID);
       setUser(updateState?.userId);
       setRights(updateState?.rights);
       setPWD(null);
@@ -49,7 +49,7 @@ const AddUsers = () => {
   const handleAddUser = async () => {
     if (!checkPassword()) return;
     fetchAddUser({
-      "associationName": associationName,
+      "caID": caID,
       "userId": user,
       "password": pwd,
       "rights": rights,
@@ -69,7 +69,7 @@ const AddUsers = () => {
       if (pwd != null && rpwd != null) {
         if (checkPassword()) {
           const postBody = {
-            associationName: associationName,
+            caID: caID,
             userId: user,
             rights: rights,
             password: pwd,
@@ -85,7 +85,7 @@ const AddUsers = () => {
         }
       } else {
         const postBody = {
-          associationName: associationName,
+          caID: caID,
           userId: user,
           rights: rights,
         };
@@ -120,10 +120,10 @@ const AddUsers = () => {
             options={["club", "dean", "admin"]}
           />
           <Dropdown
-            valueState={[associationName, setAssociationName]}
+            valueState={[caID, setcaID]}
             title="Association Name"
             placeholder="Select an Association"
-            options={clubs.map((club) => club.clubName)}
+            options={clubs.map((club) => club.clubId)}
             className="w-full"
           />
         </div>
