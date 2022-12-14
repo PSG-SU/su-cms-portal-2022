@@ -14,7 +14,7 @@ const RejectedProposal = () => {
   const [clubs, setClubs] = useState([]);
   const [cid, setCid] = useState("");
   const [username, setUsername] = useState("");
-  const { refreshToken } = useContext(RefreshContext);
+  const { refreshPage, refreshToken } = useContext(RefreshContext);
   const url = PROPOSAL_URL;
 
   useEffect(() => {
@@ -44,7 +44,8 @@ const RejectedProposal = () => {
   }, [cid]);
 
   const clearUsername = () => {
-    window.location.reload();
+    setUsername("");
+    refreshPage();
   };
 
   useEffect(() => {

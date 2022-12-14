@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { AiFillExclamationCircle } from "react-icons/ai";
 
 const Dropdown = ({
-  valueState = ["", (v) => {}],
-  errorState = ["", (v) => {}],
+  valueState = ["", (v) => { }],
+  errorState = ["", (v) => { }],
   placeholder = "",
   options = [],
   title = "",
@@ -34,9 +34,8 @@ const Dropdown = ({
             setValue(e.target.value);
             setError("");
           }}
-          className={`px-4 py-2 w-full rounded-lg text-slate bg-gray bg-clip-padding bg-no-repeat border-2 border-solid ${
-            error.length !== 0 ? "border-yellow" : "border-gray"
-          } first-letter:transition ease-in-out m-0 focus:outline-none focus:border-cloud`}
+          className={`px-4 py-2 w-full rounded-lg text-slate bg-gray bg-clip-padding bg-no-repeat border-2 border-solid ${error.length !== 0 ? "border-yellow" : "border-gray"
+            } first-letter:transition ease-in-out m-0 focus:outline-none focus:border-cloud`}
         >
           {placeholder.length > 0 && (
             <option value="" selected disabled>
