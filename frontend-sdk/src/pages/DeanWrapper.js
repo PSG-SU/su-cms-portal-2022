@@ -26,7 +26,7 @@ const DeanWrapper = () => {
           setMenuItems(DeanSUMenuItems);
         });
     } else {
-      navigate("/login");
+      navigate("/404-error");
     }
   }, []);
 
@@ -35,7 +35,7 @@ const DeanWrapper = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("rights");
     toast("Logged Out Successfully");
-    navigate("/login");
+    navigate("/404-error");
   };
 
   return (

@@ -24,7 +24,7 @@ const UserWrapper = () => {
           console.log(res.data);
           setMenuItems(SUMenuItems);
         })
-      : navigate("/login");
+      : navigate("/404-error");
   }, []);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const UserWrapper = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("rights");
     toast("Logged Out Successfully");
-    navigate("/login");
+    navigate("/404-error");
   };
 
   return (

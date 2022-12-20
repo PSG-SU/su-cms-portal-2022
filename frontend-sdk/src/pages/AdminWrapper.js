@@ -26,7 +26,7 @@ const AdminWrapper = () => {
           setMenuItems(AdminSUMenuItems);
         });
     } else {
-      navigate("/login");
+      navigate("/404-error");
     }
   }, []);
 
@@ -35,7 +35,7 @@ const AdminWrapper = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("rights");
     toast("Logged Out Successfully");
-    navigate("/login");
+    navigate("/404-error");
   };
 
   return (

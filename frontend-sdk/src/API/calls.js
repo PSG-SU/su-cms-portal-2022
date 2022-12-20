@@ -21,12 +21,9 @@ async function handleImageUpload(img) {
 };
 
 export const fetchUploadFile = async (file) => {
-  console.log("DE", file);
   if (file.type === "image/jpeg" || file.type === "image/png") {
     await handleImageUpload(file).then(res => {
-      console.log(res)
       file = new File([res], res.name, { type: res.type });
-      console.log(file)
     });
   }
   let data = new FormData();
@@ -38,22 +35,6 @@ export const fetchUploadFile = async (file) => {
   });
 };
 
-export const fetchUploadMultipleFiles = async (files) => {
-  let data = new FormData();
-  files.forEach((file) => {
-    if (file.type === "image/jpeg" || file.type === "image/png") {
-      handleImageUpload(file).then(res => {
-        file = new File([res], res.name, { type: res.type });
-        data.append("file", file);
-      });
-    }
-  })
-  return axios.post(`${UPLOAD_URL}/multiple`, data, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-};
 
 // For Auth
 export const fetchLogin = (postBody) => axios.post(LOGIN_URL, postBody, {});
