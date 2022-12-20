@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
   AUTH_URL, LOGIN_URL, OFFICE_BEARERS_URL, UPLOAD_URL, CLUB_URL, SUTEAM_URL, ABOUT_URL, NSS_NCC_URL,
-  GENERAL_URL, TEAM_MEMBER_URL, PROPOSAL_URL, EVENTS_URL
+  GENERAL_URL, TEAM_MEMBER_URL, PROPOSAL_URL
 } from "./config";
 import imageCompression from 'browser-image-compression';
 
@@ -102,8 +102,8 @@ export const fetchAddProposal = (postBody) =>
   axios.post(`${PROPOSAL_URL}/add`, postBody, {});
 export const fetchUpdateProposal = (postBody, id) =>
   axios.put(`${PROPOSAL_URL}/update/${id}`, postBody, {});
-export const fetchGetApprovedProposal = (user) =>
-  axios.get(`${PROPOSAL_URL}/approved/${user}`, {});
+export const fetchGetApprovedorPublishedProposal = (user) =>
+  axios.all([axios.get(`${PROPOSAL_URL}/approved/${user}`, {}), axios.get(`${PROPOSAL_URL}/published/${user}`, {})]);
 export const fetchGetProposalbyId = (id) =>
   axios.get(`${PROPOSAL_URL}/${id}`, {});
 /* ------------------------------------------- */
