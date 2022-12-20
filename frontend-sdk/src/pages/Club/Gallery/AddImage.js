@@ -4,7 +4,7 @@ import Heading from "../../../components/Heading";
 import MultipleFiles from "../../../components/MultipleFiles";
 
 const AddImage = () => {
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState([]);
 
   const handleUpload = () => {
 

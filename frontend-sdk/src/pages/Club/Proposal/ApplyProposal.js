@@ -10,7 +10,7 @@ import TextArea from "../../../components/TextArea";
 import DateInput from "../../../components/DateInput";
 import { departments } from "../../../components/Departments";
 import MultipleFiles from "../../../components/MultipleFiles";
-import { fetchAddProposal, fetchUpdateProposal, fetchUploadMultipleFiles } from "../../../API/calls";
+import { fetchAddProposal, fetchUpdateProposal } from "../../../API/calls";
 import { ProposalContext } from ".";
 
 const ApplyProposal = () => {
@@ -37,7 +37,7 @@ const ApplyProposal = () => {
   const [facultyName, setfacultyName] = useState("");
   const [comment, setComment] = useState("");
   const [desc, setDesc] = useState("");
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState([]);
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());

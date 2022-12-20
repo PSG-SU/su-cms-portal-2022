@@ -35,7 +35,7 @@ const AdminWrapper = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("rights");
     toast("Logged Out Successfully");
-    navigate("/404-error");
+    navigate("/login");
   };
 
   return (

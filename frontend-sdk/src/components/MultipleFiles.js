@@ -44,7 +44,7 @@ const MultipleFiles = ({
               <FiUpload />
             </label>
 
-            {files.length == 0 && (
+            {files.length === 0 && (
               <label className="w-full">No file chosen</label>
             )}
 
