@@ -107,10 +107,3 @@ export const fetchGetApprovedProposal = (user) =>
 export const fetchGetProposalbyId = (id) =>
   axios.get(`${PROPOSAL_URL}/${id}`, {});
 /* ------------------------------------------- */
-
-// For Club - Events Page
-export const fetchAddEvents = (postBody) =>
-  axios.post(`${EVENTS_URL}/add`, postBody, {});
-export const fetchUpdateEvents = (postBody, id) =>
-  axios.put(`${EVENTS_URL}/update/${id}`, postBody, {});
-/* ------------------------------------------- */

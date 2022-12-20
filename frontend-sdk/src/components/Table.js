@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { BsCheck2Circle, BsPencil } from "react-icons/bs";
+import { BsCheck2Circle, BsPencil, BsCloudArrowUpFill } from "react-icons/bs";
 import { HiOutlineTrash } from "react-icons/hi";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { IoMdTime } from "react-icons/io";
@@ -140,21 +140,24 @@ const Table = ({
 
         // Status Check
         else if (
-          item[tkeys[idx]] === "approved" || item[tkeys[idx]] === "rejected" || item[tkeys[idx]] === "pending"
+          item[tkeys[idx]] === "approved" || item[tkeys[idx]] === "rejected" || item[tkeys[idx]] === "pending" || item[tkeys[idx]] === "published"
         ) {
           return (
             <div className="flex space-x-2 items-center">
               <div
                 className={`${item[tkeys[idx]] === "approved"
-                  ? "bg-[green] text-[#eaeaea]"
+                  ? "bg-[#2bb673] text-[#eaeaea]"
                   : item[tkeys[idx]] === "rejected"
-                    ? "bg-[#ff0000] text-[#eaeaea]"
+                    ? "bg-[#ff0033] text-[#eaeaea]"
+                    : item[tkeys[idx]] === "published"
+                    ? "bg-[#ace5ee] text-[#0f52ba]"
                     : "bg-[#ffd000] text-[#303030]"
                   } rounded-full w-8 h-8 flex text-xl justify-center items-center`}
               >
                 {item[tkeys[idx]] === "approved" && (<BsCheck2Circle />)}
                 {item[tkeys[idx]] === "rejected" && (<FaRegTimesCircle />)}
                 {item[tkeys[idx]] === "pending" && (<IoMdTime />)}
+                {item[tkeys[idx]] === "published" && (<BsCloudArrowUpFill />)}
               </div>
               <p>{item[tkeys[idx]][0].toUpperCase() + item[tkeys[idx]].slice(1)}</p>
             </div>
@@ -200,13 +203,13 @@ const Table = ({
           return (
             <div className="flex space-x-4 items-center">
               <button
-                className="bg-[green] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
+                className="bg-[#2bb673] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
                 onClick={() => ApproveButton(item._id)}
               >
                 <BsCheck2Circle />
               </button>
               <button
-                className="bg-[#ff0000] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
+                className="bg-[#ff0033] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
                 onClick={() => RejectButton(item._id)}
               >
                 <FaRegTimesCircle />
