@@ -5,17 +5,19 @@ import Button from "../../../components/Button";
 import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
 import TextArea from "../../../components/TextArea";
-import { fetchAddEvent, fetchGetApprovedProposal, fetchGetProposalbyId } from "../../../API/calls";
+import { fetchGetApprovedProposal, fetchUpdateProposal } from "../../../API/calls";
 import Dropdown from "../../../components/Dropdown";
+import toast from "react-hot-toast";
 
 const AddEvent = () => {
-  const [eventName, setEventName] = useState("");
-  const [desc, setDesc] = useState("");
   const [thumb, setThumb] = useState(null);
   const [file, setFile] = useState(null);
-  const [ID, setID] = useState("");
-  const [proposals, setProposals] = useState([]);
+
   const [user, setUser] = useState("");
+  const [proposals, setProposals] = useState([]);
+  const [ID, setID] = useState("");
+  const [eventName, setEventName] = useState("");
+  const [desc, setDesc] = useState("");
 
   useEffect(() => {
     axios
@@ -26,25 +28,45 @@ const AddEvent = () => {
   }, [])
 
   useEffect(() => {
-    fetchGetApprovedProposal(user)
-      .then((res) => {
-        res.data.forEach((proposal) => {
-          console.log(proposal.eventName);
-          setProposals(proposals => [proposal.eventName, ...proposals]);
-        });
-      })
-  }, [])
+    if (user) {
+      fetchGetApprovedProposal(user)
+        .then((res) => {
+          res.data.forEach((proposal) => {
+            console.log(proposal.eventName);
+            setProposals(proposals => [proposal.eventName, ...proposals]);
+          });
+        })
+    }
+  }, [user])
 
   useEffect(() => {
-    fetchGetApprovedProposal(user)
-      .then((res) => {
-        res.data.forEach((proposal) => {
-          if (proposal.eventName === eventName) {
-            setDesc(proposal.description);
-          }
-        });
-      })
+    if (eventName) {
+      fetchGetApprovedProposal(user)
+        .then((res) => {
+          res.data.forEach((proposal) => {
+            if (proposal.eventName === eventName) {
+              setDesc(proposal.description);
+              setID(proposal._id);
+            }
+          });
+        })
+    }
   }, [eventName])
+
+  const handleAddEvent = () => {
+    const postBody = {
+      description: desc,
+      status: "published",
+    }
+    toast.promise(fetchUpdateProposal(postBody, ID)
+      .then((res) => {
+        window.location.reload();
+      }), {
+      loading: "Updating...",
+      success: "Updated Successfully",
+      error: (err) => `Error: ${err.response.data.error}`,
+    });
+  }
 
   return (
     <section className="px-8 py-8 w-full">
@@ -74,7 +96,7 @@ const AddEvent = () => {
             fileState={[file, setFile]} />
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">
-          <Button className="w-3/4" text="Submit" />
+          <Button className="w-3/4" text="Submit" handleClick={handleAddEvent} />
         </div>
       </div>
     </section>

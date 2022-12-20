@@ -128,6 +128,23 @@ router.get("/rejected/:user", async (req, res) => {
   }
 });
 
+router.get("/published/:user", async (req, res) => {
+  try {
+    const proposal = await Proposal.find({
+      user: req.params.user,
+      status: "published",
+    });
+    if (!proposal) {
+      return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json(proposal);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
     const proposal = await Proposal.findOne({
