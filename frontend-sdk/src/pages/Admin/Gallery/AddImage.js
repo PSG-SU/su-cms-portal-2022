@@ -13,6 +13,14 @@ const AddImage = () => {
 
   const handleSingleUpload = (files, curr_no, total) => {
     if (files.length <= 0) {
+      toast.promise(fetchAddGallery({ images: fileUrls, event: eventName }), {
+        loading: `Uploading...`,
+        success: (res) => {
+          console.log(res);
+          return "Upload completed";
+        },
+        error: "Error uploading",
+      });
       return;
     }
     const currentFile = files.pop();
@@ -29,18 +37,10 @@ const AddImage = () => {
     });
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (eventName.length <= 0) return toast.error("Event name required.");
     if (files.length <= 0) return toast.error("Files required for upload.");
-    handleSingleUpload(files, 1, files.length);
-    toast.promise(fetchAddGallery({ images: fileUrls, event: eventName }), {
-      loading: `Uploading...`,
-      success: (res) => {
-        console.log(res);
-        return "Upload completed";
-      },
-      error: "Error uploading",
-    });
+    await handleSingleUpload(files, 1, files.length);
   };
 
   return (
