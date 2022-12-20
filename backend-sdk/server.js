@@ -9,6 +9,8 @@ import suTeamRoutes from "./routes/suTeamRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import aboutRoutes from "./routes/aboutRoutes.js";
 import nssRoutes from "./routes/nssStaffRoutes.js";
+import galleryRoutes from "./routes/galleryRoutes.js";
+
 import generalRoutes from "./routes/Club/generalRoutes.js";
 import teamMemberRoutes from "./routes/Club/teamMemberRoutes.js";
 import proposalRoutes from "./routes/Club/proposalRoutes.js";
@@ -27,6 +29,7 @@ app.use("/api/clubs", clubRoutes);
 app.use("/api/suteam", suTeamRoutes);
 app.use("/api/about", aboutRoutes);
 app.use("/api/nssncc", nssRoutes);
+app.use("/api/gallery", galleryRoutes);
 
 app.use("/api/club/general", generalRoutes);
 app.use("/api/club/team-member", teamMemberRoutes);

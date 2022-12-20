@@ -3,7 +3,7 @@ import Button from "../../../components/Button";
 import MultipleFiles from "../../../components/MultipleFiles";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
-import { fetchUploadFile, fetchUploadMultipleFiles } from "../../../API/calls";
+import { fetchAddGallery, fetchUploadFile } from "../../../API/calls";
 import toast from "react-hot-toast";
 
 const AddImage = () => {
@@ -13,8 +13,6 @@ const AddImage = () => {
 
   const handleSingleUpload = (files, curr_no, total) => {
     if (files.length <= 0) {
-      toast.success("Upload completed.");
-      console.log(fileUrls);
       return;
     }
     const currentFile = files.pop();
@@ -32,8 +30,17 @@ const AddImage = () => {
   };
 
   const handleUpload = () => {
+    if (eventName.length <= 0) return toast.error("Event name required.");
     if (files.length <= 0) return toast.error("Files required for upload.");
     handleSingleUpload(files, 1, files.length);
+    toast.promise(fetchAddGallery({ images: fileUrls, event: eventName }), {
+      loading: `Uploading...`,
+      success: (res) => {
+        console.log(res);
+        return "Upload completed";
+      },
+      error: "Error uploading",
+    });
   };
 
   return (

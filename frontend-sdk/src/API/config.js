@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3002';
+const BASE_URL = "http://localhost:3002";
 const API_URL = `${BASE_URL}/api`;
 
 export const AUTH_URL = `${API_URL}/auth`;
@@ -11,7 +11,7 @@ export const CLUB_URL = `${API_URL}/clubs`;
 export const SUTEAM_URL = `${API_URL}/suteam`;
 export const ABOUT_URL = `${API_URL}/about`;
 export const NSS_NCC_URL = `${API_URL}/nssncc`;
-
+export const GALLERY_URL = `${API_URL}/gallery`;
 
 export const GENERAL_URL = `${API_URL}/club/general`;
 export const TEAM_MEMBER_URL = `${API_URL}/club/team-member`;
