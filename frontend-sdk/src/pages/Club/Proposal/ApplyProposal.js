@@ -10,7 +10,7 @@ import TextArea from "../../../components/TextArea";
 import DateInput from "../../../components/DateInput";
 import { departments } from "../../../components/Departments";
 import MultipleFiles from "../../../components/MultipleFiles";
-import { fetchAddProposal, fetchUpdateProposal, fetchUploadMultipleFiles } from "../../../API/calls";
+import { fetchAddProposal, fetchUpdateProposal } from "../../../API/calls";
 import { ProposalContext } from ".";
 
 const ApplyProposal = () => {

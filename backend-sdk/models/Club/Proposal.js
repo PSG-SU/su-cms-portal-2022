@@ -63,6 +63,7 @@ const ProposalSchema = new Schema({
     type: Date,
     required: true,
   },
+  // documents
   user: {
     type: String,
     required: true,
