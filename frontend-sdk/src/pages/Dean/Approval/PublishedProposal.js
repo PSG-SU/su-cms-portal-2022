@@ -91,7 +91,7 @@ const PublishedProposal = () => {
           tratio="1fr 1fr 1fr 1fr"
           url={url}
           handleUpdate={(id) => updateByID(id)}
-          approval={true}
+          // approval={true}
           clubs={clubs}
         />
       </div>

@@ -5,25 +5,11 @@ import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
 import { fetchUploadFile, fetchUploadMultipleFiles } from "../../../API/calls";
 import toast from "react-hot-toast";
-import Dropdown from "../../../components/Dropdown";
-import axios from "axios";
-import { PROPOSAL_URL } from "../../../API/config";
 
 const AddImage = () => {
   const [files, setFiles] = useState([]);
   const [eventName, setEventName] = useState("");
   const [fileUrls, setFileUrls] = useState([]);
-  const [allEvents, setAllEvents] = useState([]);
-
-  useEffect(() => {
-    axios.get(`${PROPOSAL_URL}/all_published/`, {})
-      .then((res) => {
-        res.data.forEach((event) => {
-          console.log(event.eventName);
-          setAllEvents(allEvents => [event.eventName, ...allEvents]);
-        });
-      })
-  }, [])
 
   const handleSingleUpload = (files, curr_no, total) => {
     if (files.length <= 0) {
@@ -62,11 +48,10 @@ const AddImage = () => {
           </p>
         </div>
         <div className="flex items-center w-1/2 space-x-4 mt-4">
-          <Dropdown
+          <Inputfield
             valueState={[eventName, setEventName]}
             title="Event Name"
-            placeholder="Choose an event"
-            options={allEvents}
+            placeholder="Enter Event Name"
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">

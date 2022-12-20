@@ -37,7 +37,7 @@ const ApplyProposal = () => {
   const [facultyName, setfacultyName] = useState("");
   const [comment, setComment] = useState("");
   const [desc, setDesc] = useState("");
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -209,8 +209,10 @@ const ApplyProposal = () => {
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
-          <p>Supporting Documents</p>
-          <MultipleFiles fileState={[file, setFile]} />
+          <MultipleFiles
+            title="Supporting Documents"
+            fileState={[files, setFiles]}
+          />
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">
           {Object.keys(updateState).length <= 0 ? (
