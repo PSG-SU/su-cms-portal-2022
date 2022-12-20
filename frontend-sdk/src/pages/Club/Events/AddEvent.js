@@ -3,21 +3,32 @@ import axios from "axios";
 import { AUTH_URL } from "../../../API/config";
 import Button from "../../../components/Button";
 import FileUpload from "../../../components/FileUpload";
+import MultipleFiles from "../../../components/MultipleFiles";
 import Heading from "../../../components/Heading";
 import TextArea from "../../../components/TextArea";
-import { fetchGetApprovedProposal, fetchUpdateProposal } from "../../../API/calls";
+import { fetchGetApprovedorPublishedProposal, fetchUpdateProposal } from "../../../API/calls";
 import Dropdown from "../../../components/Dropdown";
 import toast from "react-hot-toast";
+import { EventContext } from ".";
 
 const AddEvent = () => {
-  const [thumb, setThumb] = useState(null);
-  const [file, setFile] = useState(null);
-
+  const { updateState } = React.useContext(EventContext);
   const [user, setUser] = useState("");
   const [proposals, setProposals] = useState([]);
   const [ID, setID] = useState("");
   const [eventName, setEventName] = useState("");
   const [desc, setDesc] = useState("");
+  const [files, setFiles] = useState([]);
+
+  useEffect(() => {
+    console.log("Update State: ", updateState);
+    if (Object.keys(updateState).length >= 0) {
+      setID(updateState?._id);
+      setEventName(updateState?.eventName);
+      setDesc(updateState?.description);
+    }
+  }, [updateState])
+
 
   useEffect(() => {
     axios
@@ -29,33 +40,45 @@ const AddEvent = () => {
 
   useEffect(() => {
     if (user) {
-      fetchGetApprovedProposal(user)
-        .then((res) => {
-          res.data.forEach((proposal) => {
+      fetchGetApprovedorPublishedProposal(user)
+        .then(axios.spread((appr, publ) => {
+          console.log(appr.data, publ.data);
+          appr.data.forEach((proposal) => {
             console.log(proposal.eventName);
             setProposals(proposals => [proposal.eventName, ...proposals]);
           });
-        })
+          publ.data.forEach((proposal) => {
+            console.log(proposal.eventName);
+            setProposals(proposals => [proposal.eventName, ...proposals]);
+          });
+        }))
     }
   }, [user])
 
   useEffect(() => {
     if (eventName) {
-      fetchGetApprovedProposal(user)
-        .then((res) => {
-          res.data.forEach((proposal) => {
+      fetchGetApprovedorPublishedProposal(user)
+        .then(axios.spread((appr, publ) => {
+          appr.data.forEach((proposal) => {
             if (proposal.eventName === eventName) {
               setDesc(proposal.description);
               setID(proposal._id);
             }
           });
-        })
+          publ.data.forEach((proposal) => {
+            if (proposal.eventName === eventName) {
+              setDesc(proposal.description);
+              setID(proposal._id);
+            }
+          });
+        }))
     }
   }, [eventName])
 
-  const handleAddEvent = () => {
+  const handlePublishEvent = () => {
     const postBody = {
       description: desc,
+      images: files,
       status: "published",
     }
     toast.promise(fetchUpdateProposal(postBody, ID)
@@ -67,6 +90,11 @@ const AddEvent = () => {
       error: (err) => `Error: ${err.response.data.error}`,
     });
   }
+
+  const handleCancel = () => {
+    console.log("Cancel Button");
+    window.location.reload();
+  };
 
   return (
     <section className="px-8 py-8 w-full">
@@ -88,15 +116,15 @@ const AddEvent = () => {
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
-          <FileUpload
-            title="Thumbnail Image"
-            fileState={[thumb, setThumb]} />
-          <FileUpload
+          <MultipleFiles
             title="Images"
-            fileState={[file, setFile]} />
+            fileState={[files, setFiles]}
+            className="w-3/4"
+          />
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">
-          <Button className="w-3/4" text="Submit" handleClick={handleAddEvent} />
+          <Button className="w-3/4" text="Publish" handleClick={handlePublishEvent} />
+          { (Object.keys(updateState).length > 0 || eventName ) && <Button className="w-3/4" text="Cancel" handleClick={handleCancel} />}
         </div>
       </div>
     </section>

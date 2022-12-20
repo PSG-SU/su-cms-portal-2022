@@ -77,6 +77,22 @@ router.get("/all_rejected/", async (req, res) => {
   }
 });
 
+router.get("/all_published/", async (req, res) => {
+  try {
+    const proposal = await Proposal.find({
+      status: "published",
+    });
+    if (!proposal) {
+      return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json(proposal);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.get("/approved/:user", async (req, res) => {
   try {
     const proposal = await Proposal.find({

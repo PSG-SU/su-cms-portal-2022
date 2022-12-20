@@ -3,6 +3,7 @@ import React, { createContext, useState } from "react";
 import PendingProposal from "./PendingProposal";
 import ApprovedProposal from "./ApprovedProposal";
 import RejectedProposal from "./RejectedProposal";
+import PublishedProposal from "./PublishedProposal";
 import { PROPOSAL_URL } from "../../../API/config";
 import toast from "react-hot-toast";
 
@@ -21,6 +22,10 @@ const Proposal = () => {
     {
       text: "Rejected Proposals",
       tab: <RejectedProposal />,
+    },
+    {
+      text: "Published Proposals",
+      tab: <PublishedProposal />,
     },
   ];
 
