@@ -9,6 +9,9 @@ const SUTeamSchema = new Schema({
     type: String,
     required: true,
   },
+  position: {
+    type: String,
+  },
   image_url: {
     type: String,
     required: true,

@@ -13,6 +13,7 @@ const AddStaff = () => {
 
   const [ID, setID] = useState("");
   const [role, setRole] = useState("");
+  const [position, setPosition] = useState("");
   const [name, setName] = useState("");
   const [file, setFile] = useState("");
   const [image_url, setImage_url] = useState("");
@@ -22,6 +23,7 @@ const AddStaff = () => {
     if (Object.keys(updateState).length > 0) {
       setRole(updateState?.role);
       setName(updateState?.name);
+      setPosition(updateState?.position);
       setImage_url(updateState?.image_url);
       setID(updateState?._id);
     }
@@ -35,6 +37,7 @@ const AddStaff = () => {
         const postBody = {
           role: role,
           name: name,
+          position: position,
           image_url: res.data.url,
         };
         toast.promise(fetchAddSUTeamStaff(postBody)
@@ -60,6 +63,7 @@ const AddStaff = () => {
           const postBody = {
             role: role,
             name: name,
+            position: position,
             image_url: res.data.url,
           };
           toast.promise(fetchUpdateSUTeamStaff(postBody, ID)
@@ -79,6 +83,7 @@ const AddStaff = () => {
       const postBody = {
         role: role,
         name: name,
+        position: position,
       };
       toast.promise(fetchUpdateSUTeamStaff(postBody, ID)
         .then((res) => {
@@ -127,6 +132,18 @@ const AddStaff = () => {
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
+        <Dropdown
+            valueState={[position, setPosition]}
+            title="Position"
+            placeholder="Select a position"
+            options={[
+              "Managing Trustee, PSG & Sons' Charity",
+              "Principal",
+              "Associate Dean",
+              "Faculty Advisor"
+            ]}
+            className="w-1/2"
+          />
           <FileUpload
             fileState={[file, setFile]}
             title="Upload Image"

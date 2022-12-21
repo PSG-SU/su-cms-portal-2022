@@ -2,10 +2,10 @@
 	{
 		"id" : 1,
 		"Name" : "Shri. L. Gopalakrishnan",
-		"Position" : "Managing Trustee",
+		"Position" : "Managing Trustee, PSG & Sons' Charity",
 		"Charity" : "PSG & Sons' Charity",
 		"Role" : "Chief Patron",
-		"img" : ?
+		"img" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/faculty/trustee.jpg"
 	},
 	{
 		"id" : 2,
@@ -13,23 +13,23 @@
 		"Position" : "Principal",
 		"Charity" : "NULL",
 		"Role" : "Patron",
-		"img" : ?
+		"img" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/faculty/principle_pr.jpg"
 	},
 	{
 		"id" : 3,
 		"Name" : "Dr. K. Natarajan",
 		"Position" : "NULL",
 		"Charity" : "NULL",
-		"Role" : "Dean-Student Affairs",
-		"img" : ?
+		"Role" : "Dean - Student Affairs",
+		"img" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/faculty/natarajan.jpg"
 	},
 	{
 		"id" : 4,
 		"Name" : "Dr. A. Sankar",
 		"Position" : "NULL",
 		"Charity" : "NULL",
-		"Role" : "Associate Dean-Finance",
-		"img" : ?
+		"Role" : "Associate Dean - Finance",
+		"img" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/faculty/shankarA.jpg"
 	},
 	{
 		"id" : 5,
@@ -37,7 +37,7 @@
 		"Position" : "Associate Dean",
 		"Charity" : "NULL",
 		"Role" : "Student Welfare & Councelling",
-		"img" : ?
+		"img" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/faculty/karthika.jpg"
 	},
 	{
 		"id" : 6,
@@ -45,7 +45,7 @@
 		"Position" : "Faculty Advisor",
 		"Charity" : "NULL",
 		"Role" : "Student Welfare & Councelling",
-		"img" : ?
+		"img" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/faculty/Dhanabal.jpg"
 	},
 	{
 		"id" : 7,
@@ -53,7 +53,7 @@
 		"Position" : "Faculty Advisor",
 		"Charity" : "NULL",
 		"Role" : "General Functioning",
-		"img" : ?
+		"img" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/faculty/shankarkumar.jpg"
 	},
 	{
 		"id" : 8,
@@ -61,7 +61,7 @@
 		"Position" : "Faculty Advisor",
 		"Charity" : "NULL",
 		"Role" : "General Functioning",
-		"img" : ?
+		"img" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/faculty/rammohan.jpg"
 	},
 	{
 		"id" : 9,
@@ -69,47 +69,7 @@
 		"Position" : "Faculty Advisor",
 		"Charity" : "NULL",
 		"Role" : "Tech Music, Dramatics Club, Astronomy Club, Animal Welfare Club, WDC, Martial Arts Club",
-		"img" : ?
-	},
-	{
-		"id" : 11,
-		"Name" : "Dr. P. Visalakshi",
-		"Position" : "Faculty Advisor",
-		"Charity" : "NULL",
-		"Role" : "CAP & Nature Club, ELS, Entrepreneurs Club, NSS, Tamil Mandram, Fine Arts Club, YRC, Rotaract Club, Radio Hub",
-		"img" : ?
-	},
-	{
-		"id" : 13,
-		"Name" : "Mr. D. Muralidhar",
-		"Position" : "Associate Dean",
-		"Charity" : "NULL",
-		"Role" : "Higher Education Forum, Pathshala Club, GLF, SRC, Industry (Alumni)-Interaction Forum, Book Readers Club",
-		"img" : ?
-	},
-	{
-		"id" : 14,
-		"Name" : "Mr. T. Venkatachalam",
-		"Position" : "Faculty Advisor",
-		"Charity" : "NULL",
-		"Role" : "Higher Education Forum, Pathshala Club, GLF, SRC, Industry (Alumni)-Interaction Forum, Book Readers Club",
-		"img" : ?
-	},
-	{
-		"id" : 19,
-		"Name" : "Wedus",
-		"Position" : "Yy",
-		"Charity" : "NULL",
-		"Role" : "Higher Education Forum, Pathshala Club, GLF, SRC, Industry (Alumni)-Interaction Forum, Book Readers Club",
-		"img" : ?
-	},
-	{
-		"id" : 23,
-		"Name" : "Dr. R. Senthilkumar",
-		"Position" : "Faculty Advisor",
-		"Charity" : "NULL",
-		"Role" : "CAP & Nature Club, ELS, Entrepreneurs Club, NSS, Tamil Mandram, Fine Arts Club, YRC, Rotaract Club, Radio Hub",
-		"img" : ?
+		"img" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/faculty/prabavathi.jpg"
 	},
 	{
 		"id" : 25,
@@ -117,6 +77,38 @@
 		"Position" : "Faculty Advisor",
 		"Charity" : "NULL",
 		"Role" : "Tech Music, Dramatics Club, Astronomy Club, Animal Welfare Club, WDC, Martial Arts Club",
-		"img" : ?
+		"img" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/faculty/krishnaraj.jpg"
+	},
+	{
+		"id" : 11,
+		"Name" : "Dr. P. Visalakshi",
+		"Position" : "Faculty Advisor",
+		"Charity" : "NULL",
+		"Role" : "CAP & Nature Club, ELS, Entrepreneurs Club, NSS, Tamil Mandram, Fine Arts Club, YRC, Rotaract Club, Radio Hub",
+		"img" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/faculty/vishalakshi.jpg"
+	},
+	{
+		"id" : 23,
+		"Name" : "Dr. R. Senthilkumar",
+		"Position" : "Faculty Advisor",
+		"Charity" : "NULL",
+		"Role" : "CAP & Nature Club, ELS, Entrepreneurs Club, NSS, Tamil Mandram, Fine Arts Club, YRC, Rotaract Club, Radio Hub",
+		"img" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/faculty/senthilkumarS.jpg"
+	},
+	{
+		"id" : 13,
+		"Name" : "Mr. D. Muralidhar",
+		"Position" : "Associate Dean",
+		"Charity" : "NULL",
+		"Role" : "Higher Education Forum, Pathshala Club, GLF, SRC, Industry (Alumni) - Interaction Forum, Book Readers Club",
+		"img" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/faculty/muralidhar.jpg"
+	},
+	{
+		"id" : 14,
+		"Name" : "Mr. T. Venkatachalam",
+		"Position" : "Faculty Advisor",
+		"Charity" : "NULL",
+		"Role" : "Higher Education Forum, Pathshala Club, GLF, SRC, Industry (Alumni) - Interaction Forum, Book Readers Club",
+		"img" : "/Users/jeyam/Desktop/Programming/su-cms-portal-2022/automation_script/scrapeteamimages/faculty/venkatachalam.jpg"
 	}
 ]

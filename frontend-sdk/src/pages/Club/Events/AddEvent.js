@@ -26,6 +26,7 @@ const AddEvent = () => {
     if (Object.keys(updateState).length >= 0) {
       setID(updateState?._id);
       setEventName(updateState?.eventName);
+      setFileUrls(updateState?.images);
       setDesc(updateState?.description);
     }
   }, [updateState])
@@ -64,12 +65,14 @@ const AddEvent = () => {
             if (proposal.eventName === eventName) {
               setDesc(proposal.description);
               setID(proposal._id);
+              setFileUrls(proposal.images);
             }
           });
           publ.data.forEach((proposal) => {
             if (proposal.eventName === eventName) {
               setDesc(proposal.description);
               setID(proposal._id);
+              setFileUrls(proposal.images);
             }
           });
         }))
@@ -77,7 +80,22 @@ const AddEvent = () => {
   }, [eventName])
 
   const handleSingleUpload = (files, curr_no, total) => {
-    if (files.length <= 0) return;
+    if (files.length <= 0) {
+      console.log(fileUrls);
+      const postBody = {
+        description: desc,
+        images: fileUrls,
+        status: "published",
+      }
+      toast.promise(fetchUpdateProposal(postBody, ID)
+        .then((res) => {
+          window.location.reload();
+        }), {
+        loading: "Updating...",
+        success: "Updated Successfully",
+        error: (err) => `Error: ${err.response.data.error}`,
+      });
+    };
 
     const currentFile = files.pop();
     toast.promise(fetchUploadFile(currentFile), {
@@ -89,38 +107,14 @@ const AddEvent = () => {
         handleSingleUpload(files, curr_no + 1, total);
         return `Uploaded ${curr_no}/${total}`;
       },
-      error: "Error Occured",
+      error: (err) => `Error: ${err.response.data.error}`,
     });
   };
 
   const handleUpload = async () => {
-    if (eventName.length <= 0) return toast.error("Event name required.");
-    if (files.length <= 0) return toast.error("Files required for upload.");
+    if (!eventName) return toast.error("Event name required.");
     await handleSingleUpload(files, 1, files.length);
   };
-
-  const handlePublishEvent = () => {
-    toast.promise(handleUpload(), {
-      loading: "Uploading...",
-      success: (res) => {
-        const postBody = {
-          description: desc,
-          images: fileUrls,
-          status: "published",
-        }
-        toast.promise(fetchUpdateProposal(postBody, ID)
-          .then((res) => {
-            window.location.reload();
-          }), {
-          loading: "Updating...",
-          success: "Updated Successfully",
-          error: (err) => `Error: ${err.response.data.error}`,
-        });
-        return "Upload completed";
-      },
-      error: "Error Occured",
-    });
-  }
 
   const handleCancel = () => {
     console.log("Cancel Button");
@@ -151,10 +145,11 @@ const AddEvent = () => {
             title="Images"
             fileState={[files, setFiles]}
             className="w-3/4"
+            urlState={[fileUrls, setFileUrls]}
           />
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">
-          <Button className="w-3/4" text="Publish" handleClick={handlePublishEvent} />
+          <Button className="w-3/4" text="Publish" handleClick={handleUpload} />
           {(Object.keys(updateState).length > 0 || eventName) && <Button className="w-3/4" text="Cancel" handleClick={handleCancel} />}
         </div>
       </div>

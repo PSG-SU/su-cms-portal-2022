@@ -31,14 +31,14 @@ const ViewStaff = () => {
       <Heading>View SU Team Staffs</Heading><br></br>
       <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-auto">
         <Table
-          theads={["Name", "Role", "Image"]}
+          theads={["Name", "Role", "Position", "Image"]}
           tdata={data}
-          tkeys={["name", "role", "image_url"]}
+          tkeys={["name", "role", "position", "image_url"]}
           className={`${data.length < 8
             ? "max-h-[calc(100vh-20rem)]"
             : "h-[calc(100vh-25rem)]"
             } w-full`}
-          tratio="1fr 1fr 0.5fr"
+          tratio="1fr 30ch 1fr 0.5fr"
           url={url}
           handleUpdate={(id) => updateByID(id)}
         />
