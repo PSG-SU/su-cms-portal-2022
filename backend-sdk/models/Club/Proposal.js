@@ -36,6 +36,16 @@ const ProposalSchema = new Schema({
     type: Number,
     required: true,
   },
+  inCollab: {
+    type : String,
+    required: true,
+  },
+  orgName: {
+    type : String,
+  },
+  budgetSplit: {
+    type : String,
+  },
   facultyName: {
     type: String,
     required: true,

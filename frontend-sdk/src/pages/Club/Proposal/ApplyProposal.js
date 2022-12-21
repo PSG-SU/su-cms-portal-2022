@@ -34,7 +34,9 @@ const ApplyProposal = () => {
   const [expectedExpense, setexpectedExpense] = useState("");
   const [allocatedExpense, setallocatedExpense] = useState("");
   const [amountSpent, setamountSpent] = useState("");
-  const [inCollab, setInCollab] = useState("Yes")
+  const [inCollab, setInCollab] = useState("Yes");
+  const [orgName, setOrgName] = useState("");
+  const [budgetSplit, setBudgetSplit] = useState("");
   const [facultyDept, setfacultyDept] = useState("");
   const [facultyName, setfacultyName] = useState("");
   const [comment, setComment] = useState("");
@@ -55,6 +57,9 @@ const ApplyProposal = () => {
       setguest(updateState?.guest);
       setexpectedExpense(updateState?.expectedExpense);
       setallocatedExpense(updateState?.allocatedBudget);
+      setInCollab(updateState?.inCollab);
+      setOrgName(updateState?.orgName);
+      setBudgetSplit(updateState?.budgetSplit);
       setamountSpent(updateState?.amountSpent);
       setfacultyDept(updateState?.facultyDept);
       setfacultyName(updateState?.facultyName);
@@ -76,6 +81,9 @@ const ApplyProposal = () => {
       expectedExpense: expectedExpense,
       allocatedBudget: allocatedExpense,
       amountSpent: amountSpent,
+      inCollab: inCollab,
+      orgName: orgName,
+      budgetSplit: budgetSplit,
       facultyName: facultyName,
       facultyDept: facultyDept,
       description: desc,
@@ -105,6 +113,9 @@ const ApplyProposal = () => {
       expectedExpense: expectedExpense,
       allocatedBudget: allocatedExpense,
       amountSpent: amountSpent,
+      inCollab: inCollab,
+      orgName: orgName,
+      budgetSplit: budgetSplit,
       facultyName: facultyName,
       facultyDept: facultyDept,
       description: desc,
@@ -184,12 +195,27 @@ const ApplyProposal = () => {
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
           <Toggle
-            title={"Choose type"}
-            className="mt-4"
+            title={"Is the event being conducted in collaboration with any other organization?"}
+            className="mt-4 w-1/2"
             options={["Yes", "No"]}
             valueState={[inCollab, setInCollab]}
           />
         </div>
+        {
+          (inCollab==="Yes") && ( <div className="flex items-center w-full space-x-4 mt-4">
+          <Inputfield
+              valueState={[orgName, setOrgName]}
+              title="Name of Organisation"
+              placeholder="Eg.Students Union"
+            />
+            <Inputfield
+              valueState={[budgetSplit, setBudgetSplit]}
+              title="How is the budget split "
+              placeholder="Eg. YOC - Rs.5000, Students Union - Rs.5000"
+            />
+          </div>
+          )
+        }
         <div className="flex items-center w-full space-x-4 mt-4">
           <Inputfield
             valueState={[facultyName, setfacultyName]}
