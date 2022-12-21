@@ -12,6 +12,7 @@ import { departments } from "../../../components/Departments";
 import MultipleFiles from "../../../components/MultipleFiles";
 import { fetchAddProposal, fetchUpdateProposal } from "../../../API/calls";
 import { ProposalContext } from ".";
+import Toggle from "../../../components/Toggle";
 
 const ApplyProposal = () => {
   const { updateState } = useContext(ProposalContext);
@@ -33,6 +34,7 @@ const ApplyProposal = () => {
   const [expectedExpense, setexpectedExpense] = useState("");
   const [allocatedExpense, setallocatedExpense] = useState("");
   const [amountSpent, setamountSpent] = useState("");
+  const [inCollab, setInCollab] = useState("Yes")
   const [facultyDept, setfacultyDept] = useState("");
   const [facultyName, setfacultyName] = useState("");
   const [comment, setComment] = useState("");
@@ -178,6 +180,14 @@ const ApplyProposal = () => {
             valueState={[amountSpent, setamountSpent]}
             title="Total amount spent on the day of request"
             placeholder="In rupees, Eg. 300"
+          />
+        </div>
+        <div className="flex items-center w-full space-x-4 mt-4">
+          <Toggle
+            title={"Choose type"}
+            className="mt-4"
+            options={["Yes", "No"]}
+            valueState={[inCollab, setInCollab]}
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
