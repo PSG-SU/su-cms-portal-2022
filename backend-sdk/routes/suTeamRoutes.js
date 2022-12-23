@@ -1,5 +1,5 @@
 import { Router } from "express";
-import SuTeam from "../models/SuTeam.js";
+import SuTeam from "../models/SUTeam.js";
 
 const router = Router();
 
