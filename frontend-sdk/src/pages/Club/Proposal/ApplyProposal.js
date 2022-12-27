@@ -34,7 +34,7 @@ const ApplyProposal = () => {
   const [expectedExpense, setexpectedExpense] = useState("");
   const [allocatedExpense, setallocatedExpense] = useState("");
   const [amountSpent, setamountSpent] = useState("");
-  const [inCollab, setInCollab] = useState("Yes");
+  const [inCollab, setInCollab] = useState("");
   const [orgName, setOrgName] = useState("");
   const [budgetSplit, setBudgetSplit] = useState("");
   const [facultyDept, setfacultyDept] = useState("");
@@ -71,6 +71,17 @@ const ApplyProposal = () => {
   }, [updateState]);
 
   const handleAddProposal = async () => {
+    if (inCollab === "yes") {
+      if (orgName === "") {
+        toast.error("Please enter the name of the organization");
+        return;
+      }
+      if (budgetSplit === "") {
+        toast.error("Please enter the budget split");
+        return;
+      }
+    }
+
     const postBody = {
       eventName: eventName,
       startDate: new Date(startDate + IST),
@@ -202,15 +213,15 @@ const ApplyProposal = () => {
           />
         </div>
         {
-          (inCollab==="Yes") && ( <div className="flex items-center w-full space-x-4 mt-4">
-          <Inputfield
+          (inCollab === "Yes") && (<div className="flex items-center w-full space-x-4 mt-4">
+            <Inputfield
               valueState={[orgName, setOrgName]}
               title="Name of Organisation"
               placeholder="Eg.Students Union"
             />
             <Inputfield
               valueState={[budgetSplit, setBudgetSplit]}
-              title="How is the budget split "
+              title="How is the budget split ?"
               placeholder="Eg. YOC - Rs.5000, Students Union - Rs.5000"
             />
           </div>

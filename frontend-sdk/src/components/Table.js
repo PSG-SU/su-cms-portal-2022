@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { BsCheck2Circle, BsPencil, BsCloudArrowUpFill } from "react-icons/bs";
 import { HiOutlineTrash } from "react-icons/hi";
 import { FaRegTimesCircle } from "react-icons/fa";
-import { IoMdTime } from "react-icons/io";
+import { IoMdDownload, IoMdTime } from "react-icons/io";
 import { CompactTable } from "@table-library/react-table-library/compact";
 import { useTheme } from "@table-library/react-table-library/theme";
 import { getTheme } from "@table-library/react-table-library/baseline";
@@ -10,13 +10,15 @@ import { getTheme } from "@table-library/react-table-library/baseline";
 import ModalImage from "react-modal-image";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import html2pdf from "html2pdf.js";
 
 import { RefreshContext } from "../Refresher";
 import Button from "./Button";
 import Popup from "reactjs-popup";
 import styled, { keyframes } from "styled-components";
 import { AUTH_URL } from "../API/config";
-import { fetchUpdateProposal } from "../API/calls";
+import { fetchUpdateProposal, fetchGetProposalbyId } from "../API/calls";
+import getProposalReport from "../templates/getProposalReport.js";
 
 const breatheAnimation = keyframes`
  0% { opacity: 0; transform: scale(0.25) translateY(75px); }
@@ -55,6 +57,27 @@ const Table = ({
 
   const { refreshPage } = useContext(RefreshContext);
 
+  const handleDownload = async (id) => {
+    toast.promise(fetchGetProposalbyId(id)
+      .then((res) => {
+        console.log(res.data);
+        html2pdf()
+          .from(getProposalReport(res.data))
+          .set({
+            margin: 0.2,
+            filename: `Proposal-${res.data.eventName}.pdf`,
+            image: { type: "jpeg", quality: 0.2 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+          })
+          .save();
+      }), {
+      loading: "Downloading...",
+      success: "Downloaded Successfully",
+      error: (err) => `Error: ${err.message}`,
+    });
+  };
+
   const ApproveButton = async (id) => {
     const postBody = {
       status: "approved"
@@ -68,7 +91,7 @@ const Table = ({
       error: (err) => `Error: ${err.response.data.error}`,
     });
   };
-  
+
   const RejectButton = async (id) => {
     const postBody = {
       status: "rejected"
@@ -118,7 +141,7 @@ const Table = ({
       label: h,
       renderCell: (item) => {
         console.log("ITEM: ", item);
-      
+
         // Club Check
         const club = clubs.filter(
           (club) => club.clubId === item[tkeys[idx]]
@@ -150,8 +173,8 @@ const Table = ({
                   : item[tkeys[idx]] === "rejected"
                     ? "bg-[#ff0033] text-[#eaeaea]"
                     : item[tkeys[idx]] === "published"
-                    ? "bg-[#ace5ee] text-[#0f52ba]"
-                    : "bg-[#ffd000] text-[#303030]"
+                      ? "bg-[#ace5ee] text-[#0f52ba]"
+                      : "bg-[#ffd000] text-[#303030]"
                   } rounded-full w-8 h-8 flex text-xl justify-center items-center`}
               >
                 {item[tkeys[idx]] === "approved" && (<BsCheck2Circle />)}
@@ -181,7 +204,7 @@ const Table = ({
             </div>
           );
         }
-        
+
         else return item[tkeys[idx]];
       },
       // resize: true,
@@ -202,6 +225,12 @@ const Table = ({
         renderCell: (item) => {
           return (
             <div className="flex space-x-4 items-center">
+              <button
+                className="bg-[#1f1fdf] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
+                onClick={() => { handleDownload(item._id); }}
+              >
+                <IoMdDownload />
+              </button>
               <button
                 className="bg-[#2bb673] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
                 onClick={() => ApproveButton(item._id)}
