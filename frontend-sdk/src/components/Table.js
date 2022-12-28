@@ -3,9 +3,9 @@ import { BsCheck2Circle, BsPencil, BsCloudArrowUpFill } from "react-icons/bs";
 import { HiOutlineTrash } from "react-icons/hi";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { IoMdTime } from "react-icons/io";
-import { CompactTable } from "@table-library/react-table-library/compact";
-import { useTheme } from "@table-library/react-table-library/theme";
-import { getTheme } from "@table-library/react-table-library/baseline";
+import { CompactTable } from "@table-library/react-table-library/compact/index";
+import { useTheme } from "@table-library/react-table-library/theme/index";
+import { getTheme } from "@table-library/react-table-library/baseline/index";
 
 import ModalImage from "react-modal-image";
 import axios from "axios";

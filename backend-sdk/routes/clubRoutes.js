@@ -1,5 +1,6 @@
 import { Router } from "express";
 import Club from "../models/Club.js";
+import General from "../models/Club/General.js";
 
 const router = Router();
 
@@ -16,6 +17,25 @@ router.post("/add", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const clubs = await Club.find({});
+    res.status(200).json(clubs);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get("/with-logo", async (req, res) => {
+  try {
+    const clubs = await Club.aggregate([
+      {
+        $lookup: {
+          from: General,
+          localField: "clubId",
+          foreignField: "user",
+          as: "generalDetails",
+        },
+      },
+    ]);
     res.status(200).json(clubs);
   } catch (err) {
     console.log(err);
@@ -58,11 +78,9 @@ router.delete("/delete/:id", async (req, res) => {
 
 router.put("/update/:id", async (req, res) => {
   try {
-    const club = await Club.findOneAndUpdate(
-      { _id: req.params.id },
-      req.body,
-      { new: true }
-    );
+    const club = await Club.findOneAndUpdate({ _id: req.params.id }, req.body, {
+      new: true,
+    });
     if (!club) return res.status(404).json({ error: "Club not found" });
     res.status(200).json(club);
   } catch (err) {
