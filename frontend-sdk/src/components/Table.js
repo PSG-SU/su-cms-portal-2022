@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { BsCheck2Circle, BsPencil, BsCloudArrowUpFill } from "react-icons/bs";
+import { BiUndo } from "react-icons/bi";
 import { HiOutlineTrash } from "react-icons/hi";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { IoMdDownload, IoMdTime } from "react-icons/io";
@@ -51,6 +52,7 @@ const Table = ({
   tratio = "",
   url = "",
   handleUpdate,
+  download = false,
   approval = false,
   clubs = []
 }) => {
@@ -78,13 +80,27 @@ const Table = ({
     });
   };
 
+  const UndoButton = async (id) => {
+    const postBody = {
+      status: "pending"
+    };
+    toast.promise(fetchUpdateProposal(postBody, id)
+      .then((res) => {
+        refreshPage();
+      }), {
+      loading: "Undoing...",
+      success: "Undo Successful",
+      error: (err) => `Error: ${err.response.data.error}`,
+    });
+  };
+
   const ApproveButton = async (id) => {
     const postBody = {
       status: "approved"
     };
     toast.promise(fetchUpdateProposal(postBody, id)
       .then((res) => {
-        window.location.reload();
+        refreshPage();
       }), {
       loading: "Approving...",
       success: "Approved Successfully",
@@ -98,7 +114,7 @@ const Table = ({
     };
     toast.promise(fetchUpdateProposal(postBody, id)
       .then((res) => {
-        window.location.reload();
+        refreshPage();
       }), {
       loading: "Rejecting...",
       success: "Rejected Successfully",
@@ -248,8 +264,7 @@ const Table = ({
         },
       },
     ];
-  }
-  else {
+  } else {
     COLUMNS = [
       ...COLUMNS,
       {
@@ -258,41 +273,62 @@ const Table = ({
           console.log(item._id);
           return (
             <div className="flex space-x-4">
-              <StyledPopup
-                trigger={
-                  <button className="hover:text-[#ff0000]">
-                    <HiOutlineTrash />
-                  </button>
-                }
-                position="top center"
-                offsetX={-90}
-                offsetY={64}
-              >
-                {(close) => (
-                  <div className="flex items-center space-x-4 m-4">
-                    <Button className="w-3/4" text="Cancel" handleClick={close} />
-                    <Button
-                      className="w-3/4"
-                      text="Confirm"
-                      handleClick={(e) => {
-                        console.log("Delete");
-                        handleDelete(item);
-                        close();
-                      }}
-                    />
+              {
+                download ? (
+                  <div className="flex space-x-4">
+                    <button
+                      className="hover:text-[#1f1fdf]"
+                      onClick={() => { handleDownload(item._id); }}
+                    >
+                      <IoMdDownload />
+                    </button>
+                    <button
+                      className="hover:text-[#494998]"
+                      onClick={() => UndoButton(item._id)}
+                    >
+                      <BiUndo />
+                    </button>
                   </div>
-                )}
-              </StyledPopup>
+                ) : (
+                  <div className="flex space-x-4">
+                    <StyledPopup
+                      trigger={
+                        <button className="hover:text-[#ff0000]">
+                          <HiOutlineTrash />
+                        </button>
+                      }
+                      position="top center"
+                      offsetX={-90}
+                      offsetY={64}
+                    >
+                      {(close) => (
+                        <div className="flex items-center space-x-4 m-4">
+                          <Button className="w-3/4" text="Cancel" handleClick={close} />
+                          <Button
+                            className="w-3/4"
+                            text="Confirm"
+                            handleClick={(e) => {
+                              console.log("Delete");
+                              handleDelete(item);
+                              close();
+                            }}
+                          />
+                        </div>
+                      )}
+                    </StyledPopup>
 
-              <button
-                className="hover:text-[#494998]"
-                onClick={(e) => {
-                  console.log("HEY");
-                  handleUpdate(item._id);
-                }}
-              >
-                <BsPencil />
-              </button>
+                    <button
+                      className="hover:text-[#494998]"
+                      onClick={(e) => {
+                        console.log("HEY");
+                        handleUpdate(item._id);
+                      }}
+                    >
+                      <BsPencil />
+                    </button>
+                  </div>
+                )
+              }
             </div>
           );
         },
@@ -311,7 +347,7 @@ const Table = ({
   const theme = useTheme([
     getTheme(),
     {
-      Table: `--data-table-library_grid-template-columns: 75px ${tratio.length <= 0 ? getDefaults() : tratio} ${approval ? "175px" : "100px"};`,
+      Table: `--data-table-library_grid-template-columns: 75px ${tratio.length <= 0 ? getDefaults() : tratio} ${approval ? "175px" : "100px"} ;`,
     },
   ]);
 

@@ -4,6 +4,10 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.4",
+    "@fullcalendar/core": "^6.0.2",
+    "@fullcalendar/daygrid": "^6.0.2",
+    "@fullcalendar/react": "^6.0.2",
+    "@fullcalendar/timegrid": "^6.0.2",
     "@react-pdf-viewer/core": "^3.7.0",
     "@react-pdf-viewer/default-layout": "^3.7.0",
     "@table-library/react-table-library": "^4.0.23",

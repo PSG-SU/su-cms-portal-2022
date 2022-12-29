@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import AddGeneral from "./AddGeneral";
-import Description from "./Description";
 import ViewGeneral from "./ViewGeneral";
 
 const General = () => {

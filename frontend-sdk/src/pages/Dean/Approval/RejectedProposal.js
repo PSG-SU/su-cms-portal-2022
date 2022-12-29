@@ -81,17 +81,17 @@ const RejectedProposal = () => {
       </div>
       <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-auto">
         <Table
-          theads={["Event", "Club / Association", "Event Date", "Status"]}
+          theads={["Event", "Club / Association", "Event Date"]}
           tdata={data}
-          tkeys={["eventName", "user", "startDate", "status"]}
+          tkeys={["eventName", "user", "startDate"]}
           className={`${data.length < 8
             ? "max-h-[calc(100vh-20rem)]"
             : "h-[calc(100vh-20rem)]"
             } w-full`}
-          tratio="1fr 1fr 1fr 1fr"
+          tratio="1fr 1fr 1fr"
           url={url}
           handleUpdate={(id) => updateByID(id)}
-          approval={true}
+          download={true}
           clubs={clubs}
         />
       </div>
