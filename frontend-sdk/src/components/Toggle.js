@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
-=======
 import React, { useEffect, useState } from 'react'
->>>>>>> 9efe1e7b21be959d536f576ee33f7622e0efceab
 
 const Toggle = ({
   options = [],
