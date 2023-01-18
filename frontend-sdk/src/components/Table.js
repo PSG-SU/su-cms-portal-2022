@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { BsCheck2Circle, BsPencil, BsCloudArrowUpFill } from "react-icons/bs";
+import { BsCheck2Circle, BsPencil, BsCloudArrowUpFill, BsCheck2, BsCheck2All } from "react-icons/bs";
 import { BiUndo } from "react-icons/bi";
 import { HiOutlineTrash } from "react-icons/hi";
 import { FaRegTimesCircle } from "react-icons/fa";
@@ -52,8 +52,9 @@ const Table = ({
   tratio = "",
   url = "",
   handleUpdate,
-  download = false,
-  approval = false,
+  UndoButton = null,
+  ApproveButton = null,
+  RejectButton = null,
   clubs = []
 }) => {
 
@@ -77,48 +78,6 @@ const Table = ({
       loading: "Downloading...",
       success: "Downloaded Successfully",
       error: (err) => `Error: ${err.message}`,
-    });
-  };
-
-  const UndoButton = async (id) => {
-    const postBody = {
-      status: "pending"
-    };
-    toast.promise(fetchUpdateProposal(postBody, id)
-      .then((res) => {
-        refreshPage();
-      }), {
-      loading: "Undoing...",
-      success: "Undo Successful",
-      error: (err) => `Error: ${err.response.data.error}`,
-    });
-  };
-
-  const ApproveButton = async (id) => {
-    const postBody = {
-      status: "approved"
-    };
-    toast.promise(fetchUpdateProposal(postBody, id)
-      .then((res) => {
-        refreshPage();
-      }), {
-      loading: "Approving...",
-      success: "Approved Successfully",
-      error: (err) => `Error: ${err.response.data.error}`,
-    });
-  };
-
-  const RejectButton = async (id) => {
-    const postBody = {
-      status: "rejected"
-    };
-    toast.promise(fetchUpdateProposal(postBody, id)
-      .then((res) => {
-        refreshPage();
-      }), {
-      loading: "Rejecting...",
-      success: "Rejected Successfully",
-      error: (err) => `Error: ${err.response.data.error}`,
     });
   };
 
@@ -179,12 +138,12 @@ const Table = ({
 
         // Status Check
         else if (
-          item[tkeys[idx]] === "approved" || item[tkeys[idx]] === "rejected" || item[tkeys[idx]] === "pending" || item[tkeys[idx]] === "published"
+          item[tkeys[idx]] === "facApproved" || item[tkeys[idx]] === "deanApproved" || item[tkeys[idx]] === "rejected" || item[tkeys[idx]] === "pending" || item[tkeys[idx]] === "published"
         ) {
           return (
             <div className="flex space-x-2 items-center">
               <div
-                className={`${item[tkeys[idx]] === "approved"
+                className={`${(item[tkeys[idx]] === "facApproved" || item[tkeys[idx]] === "deanApproved")
                   ? "bg-[#2bb673] text-[#eaeaea]"
                   : item[tkeys[idx]] === "rejected"
                     ? "bg-[#ff0033] text-[#eaeaea]"
@@ -193,12 +152,19 @@ const Table = ({
                       : "bg-[#ffd000] text-[#303030]"
                   } rounded-full w-8 h-8 flex text-xl justify-center items-center`}
               >
-                {item[tkeys[idx]] === "approved" && (<BsCheck2Circle />)}
+                {item[tkeys[idx]] === "facApproved" && (<BsCheck2 />)}
+                {item[tkeys[idx]] === "deanApproved" && (<BsCheck2All />)}
                 {item[tkeys[idx]] === "rejected" && (<FaRegTimesCircle />)}
                 {item[tkeys[idx]] === "pending" && (<IoMdTime />)}
                 {item[tkeys[idx]] === "published" && (<BsCloudArrowUpFill />)}
               </div>
-              <p>{item[tkeys[idx]][0].toUpperCase() + item[tkeys[idx]].slice(1)}</p>
+              <p>
+                {item[tkeys[idx]] === "facApproved" && "Approved By Faculty"}
+                {item[tkeys[idx]] === "deanApproved" && "Approved By Dean"}
+                {item[tkeys[idx]] === "rejected" && "Rejected"}
+                {item[tkeys[idx]] === "pending" && "Pending"}
+                {item[tkeys[idx]] === "published" && "Published"}
+              </p>
             </div>
           );
         }
@@ -233,7 +199,7 @@ const Table = ({
     ...COLUMNS,
   ];
 
-  if (approval) {
+  if (ApproveButton) {
     COLUMNS = [
       ...COLUMNS,
       {
@@ -251,7 +217,7 @@ const Table = ({
                 className="bg-[#2bb673] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
                 onClick={() => ApproveButton(item._id)}
               >
-                <BsCheck2Circle />
+                <BsCheck2 />
               </button>
               <button
                 className="bg-[#ff0033] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
@@ -274,7 +240,7 @@ const Table = ({
           return (
             <div className="flex space-x-4">
               {
-                download ? (
+                UndoButton ? (
                   <div className="flex space-x-4">
                     <button
                       className="hover:text-[#1f1fdf]"
@@ -347,7 +313,7 @@ const Table = ({
   const theme = useTheme([
     getTheme(),
     {
-      Table: `--data-table-library_grid-template-columns: 75px ${tratio.length <= 0 ? getDefaults() : tratio} ${approval ? "175px" : "100px"} ;`,
+      Table: `--data-table-library_grid-template-columns: 75px ${tratio.length <= 0 ? getDefaults() : tratio} ${ApproveButton ? "175px" : "100px"} ;`,
     },
   ]);
 

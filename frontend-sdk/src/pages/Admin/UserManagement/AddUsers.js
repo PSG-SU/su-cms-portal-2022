@@ -43,6 +43,8 @@ const AddUsers = () => {
       setRights("club");
     } else if (dropdownRights === "Association") {
       setRights("association");
+    } else if (dropdownRights === "Faculty") {
+      setRights("faculty");
     }
   }, [dropdownRights])
 
@@ -138,7 +140,7 @@ const AddUsers = () => {
             valueState={[dropdownRights, setDropdownRights]}
             title="Rights"
             placeholder="Select a Privilege"
-            options={["Club", "Association", "Dean", "Admin"]}
+            options={["Admin", "Dean", "Club", "Association", "Faculty"]}
           />
           <Dropdown
             valueState={[clubName, setClubName]}

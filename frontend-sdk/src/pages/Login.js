@@ -28,6 +28,8 @@ const Login = () => {
           navigate("/club");
         } else if (res.data.rights === "dean") {
           navigate("/dean");
+        } else if (res.data.rights === "faculty") {
+          navigate("/faculty");
         } else {
           toast.error("Invalid Rights");
         }

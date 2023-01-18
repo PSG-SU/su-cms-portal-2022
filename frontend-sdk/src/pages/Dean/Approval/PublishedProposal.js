@@ -8,6 +8,8 @@ import { ProposalContext } from ".";
 import { RefreshContext } from "../../../Refresher";
 import { CLUB_URL, PROPOSAL_URL } from "../../../API/config";
 import { IoCloseOutline } from "react-icons/io5";
+import { toast } from "react-hot-toast";
+import { fetchUpdateProposal } from "../../../API/calls";
 
 const PublishedProposal = () => {
   const [data, setData] = useState([]);
@@ -59,6 +61,20 @@ const PublishedProposal = () => {
       });
   }, [refreshToken]);
 
+  const UndoButton = async (id) => {
+    const postBody = {
+      status: "facApproved"
+    };
+    toast.promise(fetchUpdateProposal(postBody, id)
+      .then((res) => {
+        refreshPage();
+      }), {
+      loading: "Undoing...",
+      success: "Undo Successful",
+      error: (err) => `Error: ${err.response.data.error}`,
+    });
+  };
+
   const { updateByID } = useContext(ProposalContext);
 
   return (
@@ -91,7 +107,7 @@ const PublishedProposal = () => {
           tratio="1fr 1fr 1fr"
           url={url}
           handleUpdate={(id) => updateByID(id)}
-          download={true}
+          UndoButton={UndoButton}
           clubs={clubs}
         />
       </div>

@@ -63,7 +63,7 @@ const ProposalSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'approved', 'rejected', 'published'],
+    enum: ['pending', 'facApproved', 'deanApproved', 'rejected', 'published'],
     default: 'pending',
   },
   images: {

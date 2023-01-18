@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { createContext, useState } from "react";
 import PendingProposal from "./PendingProposal";
-import ApprovedProposal from "./ApprovedProposal";
+import FacApprovedProposal from "./FacApprovedProposal";
+import DeanApprovedProposal from "./DeanApprovedProposal";
 import RejectedProposal from "./RejectedProposal";
 import PublishedProposal from "./PublishedProposal";
+import AllProposal from "./AllProposal";
 import { PROPOSAL_URL } from "../../../API/config";
 import toast from "react-hot-toast";
 
@@ -12,12 +14,20 @@ export const ProposalContext = createContext();
 const Proposal = () => {
   const initialTabMenuItems = [
     {
+      text: "All",
+      tab: <AllProposal />,
+    },
+    {
       text: "Pending",
       tab: <PendingProposal />,
     },
     {
-      text: "Approved",
-      tab: <ApprovedProposal />,
+      text: "Approved By Faculty",
+      tab: <FacApprovedProposal />,
+    },
+    {
+      text: "Approved By Dean",
+      tab: <DeanApprovedProposal />,
     },
     {
       text: "Rejected",
