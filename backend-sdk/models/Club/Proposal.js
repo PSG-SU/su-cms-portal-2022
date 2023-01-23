@@ -37,14 +37,14 @@ const ProposalSchema = new Schema({
     required: true,
   },
   inCollab: {
-    type : String,
+    type: String,
     required: true,
   },
   orgName: {
-    type : String,
+    type: String,
   },
   budgetSplit: {
-    type : String,
+    type: String,
   },
   facultyName: {
     type: String,
@@ -78,6 +78,9 @@ const ProposalSchema = new Schema({
     type: String,
     required: true,
   },
+  registrationLink: {
+    type: String,
+  }
 });
 
 export default model('Proposal', ProposalSchema);

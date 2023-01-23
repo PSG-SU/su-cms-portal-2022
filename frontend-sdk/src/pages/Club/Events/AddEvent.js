@@ -8,6 +8,7 @@ import Heading from "../../../components/Heading";
 import TextArea from "../../../components/TextArea";
 import { fetchGetApprovedorPublishedProposal, fetchUpdateProposal, fetchUploadFile } from "../../../API/calls";
 import Dropdown from "../../../components/Dropdown";
+import Inputfield from "../../../components/TextInput";
 import toast from "react-hot-toast";
 import { EventContext } from ".";
 
@@ -20,6 +21,7 @@ const AddEvent = () => {
   const [desc, setDesc] = useState("");
   const [files, setFiles] = useState([]);
   const [fileUrls, setFileUrls] = useState([]);
+  const [reglink,setReglink] =useState("");
 
   useEffect(() => {
     console.log("Update State: ", updateState);
@@ -28,6 +30,7 @@ const AddEvent = () => {
       setEventName(updateState?.eventName);
       setFileUrls(updateState?.images);
       setDesc(updateState?.description);
+      setReglink(updateState?.registrationLink);
     }
   }, [updateState])
 
@@ -66,6 +69,7 @@ const AddEvent = () => {
               setDesc(proposal.description);
               setID(proposal._id);
               setFileUrls(proposal.images);
+              setReglink(proposal.registrationLink);
             }
           });
           publ.data.forEach((proposal) => {
@@ -73,6 +77,7 @@ const AddEvent = () => {
               setDesc(proposal.description);
               setID(proposal._id);
               setFileUrls(proposal.images);
+              setReglink(proposal.registrationLink);
             }
           });
         }))
@@ -86,6 +91,7 @@ const AddEvent = () => {
         description: desc,
         images: fileUrls,
         status: "published",
+        registrationLink:reglink,
       }
       toast.promise(fetchUpdateProposal(postBody, ID)
         .then((res) => {
@@ -147,6 +153,13 @@ const AddEvent = () => {
             className="w-3/4"
             urlState={[fileUrls, setFileUrls]}
           />
+        </div>
+        <div className="flex items-center w-full space-x-4 mt-4 " >
+          <Inputfield
+                        valueState={[reglink,setReglink]}
+                        title="Registration link"
+                        placeholder="Enter reg link"
+                    />
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">
           <Button className="w-3/4" text="Publish" handleClick={handleUpload} />
