@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/', async (req, res) => {
   try {
-    const proposals = await Proposal.find();
+    const proposals = await Proposal.find({}).sort({ createdAt: 'desc'}).exec();
     res.status(200).json(proposals);
   } catch (err) {
     console.log(err);
