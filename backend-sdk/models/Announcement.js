@@ -5,7 +5,7 @@ const announcementSchema = new Schema({
     type: String,
     required: true,
   },
-  description: {
+  body: {
     type: String,
     required: true,
   },
@@ -15,9 +15,13 @@ const announcementSchema = new Schema({
   },
   club: {
     type: String,
+    required: false,
+  },
+  type: {
+    type:String,
     required: true,
   },
-  file_url: {
+  link: {
     type: String,
     required: true,
   },
