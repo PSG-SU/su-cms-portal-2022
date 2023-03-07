@@ -36,10 +36,12 @@ const Login = () => {
       })
       .catch((err) => {
         console.log(err);
-        // toast.error(`Error: ${err}`);
-
+        
         if (err.code === "ERR_BAD_REQUEST") {
           toast.error('Wrong Password!');
+        }else{
+          
+          toast.error(`Error: ${err}`);
         }
       });
   };

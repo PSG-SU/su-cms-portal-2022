@@ -55,7 +55,9 @@ const Table = ({
   UndoButton = null,
   ApproveButton = null,
   RejectButton = null,
-  clubs = []
+  clubs = [],
+  hideUpdate = false,
+  hideDelete = false
 }) => {
 
   const { refreshPage } = useContext(RefreshContext);
@@ -63,7 +65,6 @@ const Table = ({
   const handleDownload = async (id) => {
     toast.promise(fetchGetProposalbyId(id)
       .then((res) => {
-        console.log(res.data);
         html2pdf()
           .from(getProposalReport(res.data))
           .set({
@@ -89,7 +90,6 @@ const Table = ({
       axios
         .delete(`${url}/delete/${item._id}`)
         .then((res) => {
-          console.log(res);
           toast.success("Delete Successful");
           refreshPage();
         })
@@ -101,7 +101,6 @@ const Table = ({
   };
 
   const nodes = tdata.map((d, di) => {
-    console.log(d);
     let j = Object();
     j["ID"] = di + 1;
     j["_id"] = d["_id"];
@@ -115,7 +114,6 @@ const Table = ({
     return {
       label: h,
       renderCell: (item) => {
-        console.log("ITEM: ", item);
 
         // Club Check
         const club = clubs.filter(
@@ -192,7 +190,6 @@ const Table = ({
       // resize: true,
     };
   });
-  // console.log("ites"+item[tkeys[idx]])
 
   COLUMNS = [
     { label: "S.No.", renderCell: (item) => item["ID"] },
@@ -236,7 +233,6 @@ const Table = ({
       {
         label: "Actions",
         renderCell: (item) => {
-          console.log(item._id);
           return (
             <div className="flex space-x-4">
               {
@@ -257,7 +253,7 @@ const Table = ({
                   </div>
                 ) : (
                   <div className="flex space-x-4">
-                    <StyledPopup
+                    {!hideDelete && <StyledPopup
                       trigger={
                         <button className="hover:text-[#ff0000]">
                           <HiOutlineTrash />
@@ -274,7 +270,6 @@ const Table = ({
                             className="w-3/4"
                             text="Confirm"
                             handleClick={(e) => {
-                              console.log("Delete");
                               handleDelete(item);
                               close();
                             }}
@@ -282,16 +277,15 @@ const Table = ({
                         </div>
                       )}
                     </StyledPopup>
-
-                    <button
-                      className="hover:text-[#494998]"
-                      onClick={(e) => {
-                        console.log("HEY");
-                        handleUpdate(item._id);
-                      }}
-                    >
-                      <BsPencil />
-                    </button>
+                    }{!hideUpdate &&
+                      <button
+                        className="hover:text-[#494998]"
+                        onClick={(e) => {
+                          handleUpdate(item._id);
+                        }}
+                      >
+                        <BsPencil />
+                      </button>}
                   </div>
                 )
               }
