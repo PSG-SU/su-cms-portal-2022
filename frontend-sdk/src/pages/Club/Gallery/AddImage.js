@@ -3,7 +3,7 @@ import Button from "../../../components/Button";
 import MultipleFiles from "../../../components/MultipleFiles";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
-import { fetchUploadFile, fetchUploadMultipleFiles } from "../../../API/calls";
+import { fetchAddClubGallery, fetchUploadFile, fetchUploadMultipleFiles } from "../../../API/calls";
 import toast from "react-hot-toast";
 import Dropdown from "../../../components/Dropdown";
 import axios from "axios";
@@ -36,8 +36,14 @@ const AddImage = () => {
 
   const handleSingleUpload = (files, curr_no, total) => {
     if (files.length <= 0) {
-      toast.success("Upload completed.");
-      console.log(fileUrls);
+      toast.promise(fetchAddClubGallery({ images: fileUrls, event: eventName }), {
+        loading: `Uploading...`,
+        success: (res) => {
+          console.log(res);
+          return "Upload completed";
+        },
+        error: "Error uploading",
+      });
       return;
     }
     const currentFile = files.pop();
@@ -55,6 +61,7 @@ const AddImage = () => {
   };
 
   const handleUpload = () => {
+    if(eventName.length <= 0) return toast.error("Chooose Event ");
     if (files.length <= 0) return toast.error("Files required for upload.");
     handleSingleUpload(files, 1, files.length);
   };

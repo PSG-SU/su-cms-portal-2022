@@ -12,6 +12,7 @@ import {
   TEAM_MEMBER_URL,
   PROPOSAL_URL,
   GALLERY_URL,
+  CLUB_GALLERY_URL,
 } from "./config";
 import imageCompression from "browser-image-compression";
 
@@ -129,3 +130,14 @@ export const fetchGetApprovedorPublishedProposal = (user) =>
 export const fetchGetProposalbyId = (id) =>
   axios.get(`${PROPOSAL_URL}/${id}`, {});
 /* ------------------------------------------- */
+
+// For Club - Gallery Page 
+
+export const fetchAddClubGallery = (postBody) =>
+  axios.post(`${CLUB_GALLERY_URL}/add`, postBody, {});
+
+export const fetchGetClubGalleryByEvent = (event) =>
+  axios.get(`${CLUB_GALLERY_URL}/event/${event}`, {});
+
+export const fetchGetClubGallery = () =>
+  axios.get(`${CLUB_GALLERY_URL}`, {});

@@ -17,3 +17,4 @@ export const GENERAL_URL = `${API_URL}/club/general`;
 export const TEAM_MEMBER_URL = `${API_URL}/club/team-member`;
 export const PROPOSAL_URL = `${API_URL}/club/proposal`;
 export const EVENTS_URL = `${API_URL}/club/events`;
+export const CLUB_GALLERY_URL = `${API_URL}/club/gallery`;
