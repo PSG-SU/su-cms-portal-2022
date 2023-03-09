@@ -66,9 +66,9 @@ const ProposalSchema = new Schema({
     enum: ['pending', 'facApproved', 'deanApproved', 'rejected', 'published'],
     default: 'pending',
   },
-  images: {
-    type: Array,
-  },
+  files: [{
+    type: String,
+  }],
   createdAt: {
     type: Date,
     required: true,

@@ -31,7 +31,7 @@ async function handleImageUpload(img) {
 }
 
 export const fetchUploadFile = async (file) => {
-  if (file.type === "image/jpeg" || file.type === "image/png") {
+  if (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/jpg") {
     await handleImageUpload(file).then((res) => {
       file = new File([res], res.name, { type: res.type });
     });
