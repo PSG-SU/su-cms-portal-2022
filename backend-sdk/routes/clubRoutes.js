@@ -26,17 +26,18 @@ router.get("/", async (req, res) => {
 
 router.get("/with-logo", async (req, res) => {
   try {
-    const clubs = await Club.aggregate([
-      {
-        $lookup: {
-          from: General,
-          localField: "clubId",
-          foreignField: "user",
-          as: "generalDetails",
-        },
-      },
-    ]);
-    res.status(200).json(clubs);
+    const clubs = await Club.find({});
+    let details = await Promise.all(
+      await clubs.map(async (club) => {
+        const data = await General.findOne({ user: club.clubId });
+        if (!data) {
+          return null;
+        }
+        return { ...club._doc, image_url: data.image_url };
+      })
+    );
+    details = details.filter((item) => item != null);
+    res.status(200).json(details);
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err.message });
