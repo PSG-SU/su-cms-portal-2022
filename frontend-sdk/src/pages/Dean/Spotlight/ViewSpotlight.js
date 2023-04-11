@@ -37,7 +37,7 @@ const ViewSpotlight = () => {
             ? "max-h-[calc(100vh-20rem)]"
             : "h-[calc(100vh-20rem)]"
         } w-full`}
-        tratio="1fr 1fr 1fr"
+        tratio="1fr 1fr 1fr 1fr"
         url={url}
         handleUpdate={(id) => updateByID(id)}
         // UndoButton={UndoButton}

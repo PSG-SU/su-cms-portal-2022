@@ -2,12 +2,11 @@
 import { Router } from "express";
 import Spotlight from "../models/Spotlight.js";
 
-
 const router = Router();
 
-router.post("/add", async(req, res) => {
+router.post("/add", async (req, res) => {
   const { title, description, name, link } = req.body;
-  try{
+  try {
     const spotlight = await Spotlight.create({
       title: title,
       description: description,
@@ -15,33 +14,75 @@ router.post("/add", async(req, res) => {
       link: link,
     });
     res.status(201).json({ spotlight: spotlight._id });
-  }catch(error){
+  } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
   }
 });
 
-router.get("/", async(req, res) => {
-  try{
+router.get("/", async (req, res) => {
+  try {
     const spotlight = await Spotlight.find({});
     res.status(200).json(spotlight);
-  }catch(error){
+  } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
   }
 });
 
-router.get("/unique/:id", async(req, res) => {
-  try{
+router.get("/unique/:id", async (req, res) => {
+  try {
     const spotlight = await Spotlight.findOne({
       _id: req.params.id,
     });
-    if(!spotlight){
+    if (!spotlight) {
       return res.status(404).json({ error: "Not Found" });
-    }else{
+    } else {
       res.status(200).json(spotlight);
     }
-  }catch(err){
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const spotlight = await Spotlight.findOneAndDelete({
+      _id: req.params.id,
+    });
+    if (!spotlight) {
+      return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json({ message: "Deleted Successfully" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.put("/update/:id", async (req, res) => {
+  const { title, description, name, link } = req.body;
+  try {
+    const spotlight = await Spotlight.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      {
+        title: title,
+        description: description,
+        name: name,
+        link: link,
+      },
+      { new: true }
+    );
+    if (!spotlight) {
+      return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json(spotlight);
+    }
+  } catch (err) {
     console.log(err);
     res.status(500).json({ error: err.message });
   }
