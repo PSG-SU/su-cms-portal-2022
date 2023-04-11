@@ -1,8 +1,11 @@
 const getProposalReport = (data) => {
-
   const dateFormat = (date) => {
-    return date.split("T")[0].split("-").reverse().join("-") + " " + date.split("T")[1].split(".")[0];
-  }
+    return (
+      date.split("T")[0].split("-").reverse().join("-") +
+      " " +
+      date.split("T")[1].split(".")[0]
+    );
+  };
 
   return `
     <body style="width: 21cm; height: 29.7cm;  display: block; font-family: Inter, sans-serif;">
@@ -14,7 +17,9 @@ const getProposalReport = (data) => {
           <tr>
               <td style="text-align: left; padding: 10px;">
                   <h1 style="line-height: 1rem;">Event Proposal Report</h1>
-                  <h2 style="line-height: 1rem; font-weight: 500;">${data.user}</h2>
+                  <h2 style="line-height: 1rem; font-weight: 500;">${
+                    data.user
+                  }</h2>
               </td>
               <td style="width: 120; text-align: right;">
                   <img width="80"
@@ -35,7 +40,11 @@ const getProposalReport = (data) => {
                   <b>Event Proposal Date</b>
               </td>
               <td style="width: 25%; padding: 10px;">
-                  <p class="">${(data.createdAt.split("T")[0].split("-").reverse().join("-"))}</p>
+                  <p class="">${data.createdAt
+                    .split("T")[0]
+                    .split("-")
+                    .reverse()
+                    .join("-")}</p>
               </td>
           </tr>
           <tr style="margin: 0">
@@ -44,7 +53,15 @@ const getProposalReport = (data) => {
               </td>
               <td style="width: 25%; padding: 10px; ">
 
-                  <p class="">${data.startDate.split("T")[0].split("-").reverse().join("-") + " " + data.startDate.split("T")[1].split(".")[0]}</p>
+                  <p class="">${
+                    data.startDate
+                      .split("T")[0]
+                      .split("-")
+                      .reverse()
+                      .join("-") +
+                    " " +
+                    data.startDate.split("T")[1].split(".")[0]
+                  }</p>
               </td>
               <td style="width: 25%; padding: 10px;">
 
@@ -108,7 +125,9 @@ const getProposalReport = (data) => {
                   <p class="">${data.amountSpent}</p>
               </td>
           </tr>
-          ${data.inCollab === "Yes" ? `
+          ${
+            data.inCollab === "Yes"
+              ? `
             <tr style="margin: 0">
                 <td style="width: 16%; padding: 10px;">
                     <b>Is the event being conducted in collaboration with any other organization</b>
@@ -131,7 +150,9 @@ const getProposalReport = (data) => {
                     <p class="">${data.budgetSplit}</p>
                 </td>
             </tr>
-          ` : ``}
+          `
+              : ``
+          }
       </table>
 
       <table style="width: 100%; background: #ffffff; padding: 10px;">
@@ -173,6 +194,11 @@ const getProposalReport = (data) => {
               </td>
           </tr>
       </table>
+      <p
+      style="padding: 55px; font-weight: bold; font-size: medium; float: right;"
+    >
+      Signature
+    </p>
     </body>
   `;
 };

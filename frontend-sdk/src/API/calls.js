@@ -13,6 +13,7 @@ import {
   PROPOSAL_URL,
   GALLERY_URL,
   CLUB_GALLERY_URL,
+  SPOTLIGHT_URL,
 } from "./config";
 import imageCompression from "browser-image-compression";
 
@@ -141,3 +142,11 @@ export const fetchGetClubGalleryByEvent = (event) =>
 
 export const fetchGetClubGallery = () =>
   axios.get(`${CLUB_GALLERY_URL}`, {});
+
+
+// For Spotlight 
+export const fetchGetSpotlight = () =>
+  axios.get(`${SPOTLIGHT_URL}`, {});
+export const fetchAddSpotlight = (postBody) =>
+  axios.post(`${SPOTLIGHT_URL}/add`, postBody, {});
+
