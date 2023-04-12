@@ -2,11 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Heading from "../../../components/Heading";
 
-import { Viewer } from '@react-pdf-viewer/core';
+import { Viewer, Worker } from '@react-pdf-viewer/core';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
-import { Worker } from '@react-pdf-viewer/core';
 import { ABOUT_URL } from "../../../API/config";
 
 const ViewAbout = () => {
