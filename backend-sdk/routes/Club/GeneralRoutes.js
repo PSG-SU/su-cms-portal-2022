@@ -1,5 +1,6 @@
 import { Router } from "express";
 import General from "../../models/Club/General.js";
+import Club from "../../models/Club.js";
 
 const router = Router();
 
@@ -18,10 +19,13 @@ router.get("/:user", async (req, res) => {
     const general = await General.findOne({
       user: req.params.user,
     });
-    if (!general) {
+    const club = await Club.findOne({
+      clubId: req.params.user,
+    });
+    if (!general || !club) {
       return res.status(404).json({ error: "Not Found" });
     } else {
-      res.status(200).json(general);
+      res.status(200).json({ general, clubName: club.clubName });
     }
   } catch (err) {
     console.log(err);

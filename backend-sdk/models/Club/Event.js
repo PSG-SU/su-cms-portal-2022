@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const ProposalSchema = new Schema({
+const EventSchema = new Schema({
   eventName: {
     type: String,
     required: true,
@@ -86,4 +86,4 @@ const ProposalSchema = new Schema({
   },
 });
 
-export default model("Proposal", ProposalSchema);
+export default model("Proposal", EventSchema);

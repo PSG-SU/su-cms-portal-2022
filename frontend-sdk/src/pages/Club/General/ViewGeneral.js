@@ -52,9 +52,9 @@ const ViewGeneral = () => {
         </div>
 
         <div className="flex items-center w-full space-x-4 mt-4">
-          {content?.content ? content?.content : "No description found !"}
+          {content?.description ? content?.description : "No description found !"}
         </div>
-
+            
       </div>
     </section>
   );
