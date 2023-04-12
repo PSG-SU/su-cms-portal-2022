@@ -29,7 +29,7 @@ const AddGeneral = () => {
         .then((res) => {
           console.log(res.data);
           setContent(res.data);
-          setvalue(res.data?.content);
+          setvalue(res.data?.description);
         })
         .catch((err) => {
           console.log(err);
@@ -39,7 +39,7 @@ const AddGeneral = () => {
 
   const handlePost = async () => {
     if (!file) {
-      toast.promise(fetchUpdateGeneral({ user: user, content: value }, user), {
+      toast.promise(fetchUpdateGeneral({ user: user, description: value }, user), {
         loading: "Adding...",
         success: (res) => {
           window.location.reload();
@@ -55,7 +55,7 @@ const AddGeneral = () => {
         const postBody = {
           user: user,
           image_url: res.data.url,
-          content: value
+          description: value,
         };
         toast.promise(fetchUpdateGeneral(postBody, user), {
           loading: "Adding...",

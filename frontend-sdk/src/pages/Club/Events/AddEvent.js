@@ -6,7 +6,11 @@ import FileUpload from "../../../components/FileUpload";
 import MultipleFiles from "../../../components/MultipleFiles";
 import Heading from "../../../components/Heading";
 import TextArea from "../../../components/TextArea";
-import { fetchGetApprovedorPublishedProposal, fetchUpdateProposal, fetchUploadFile } from "../../../API/calls";
+import {
+  fetchGetApprovedorPublishedProposal,
+  fetchUpdateProposal,
+  fetchUploadFile,
+} from "../../../API/calls";
 import Dropdown from "../../../components/Dropdown";
 import Inputfield from "../../../components/TextInput";
 import toast from "react-hot-toast";
@@ -21,7 +25,7 @@ const AddEvent = () => {
   const [desc, setDesc] = useState("");
   const [files, setFiles] = useState([]);
   const [fileUrls, setFileUrls] = useState([]);
-  const [reglink,setReglink] =useState("");
+  const [reglink, setReglink] = useState("");
 
   useEffect(() => {
     console.log("Update State: ", updateState);
@@ -32,38 +36,38 @@ const AddEvent = () => {
       setDesc(updateState?.description);
       setReglink(updateState?.registrationLink);
     }
-  }, [updateState])
-
+  }, [updateState]);
 
   useEffect(() => {
     axios
       .get(`${AUTH_URL}/id/${localStorage.getItem("userId")}`, {})
       .then((res) => {
         setUser(res.data.caID);
-      })
-  }, [])
+      });
+  }, []);
 
   useEffect(() => {
     if (user) {
-      fetchGetApprovedorPublishedProposal(user)
-        .then(axios.spread((appr, publ) => {
+      fetchGetApprovedorPublishedProposal(user).then(
+        axios.spread((appr, publ) => {
           console.log(appr.data, publ.data);
           appr.data.forEach((proposal) => {
             console.log(proposal.eventName);
-            setProposals(proposals => [proposal.eventName, ...proposals]);
+            setProposals((proposals) => [proposal.eventName, ...proposals]);
           });
           publ.data.forEach((proposal) => {
             console.log(proposal.eventName);
-            setProposals(proposals => [proposal.eventName, ...proposals]);
+            setProposals((proposals) => [proposal.eventName, ...proposals]);
           });
-        }))
+        })
+      );
     }
-  }, [user])
+  }, [user]);
 
   useEffect(() => {
     if (eventName) {
-      fetchGetApprovedorPublishedProposal(user)
-        .then(axios.spread((appr, publ) => {
+      fetchGetApprovedorPublishedProposal(user).then(
+        axios.spread((appr, publ) => {
           appr.data.forEach((proposal) => {
             if (proposal.eventName === eventName) {
               setDesc(proposal.description);
@@ -80,9 +84,10 @@ const AddEvent = () => {
               setReglink(proposal.registrationLink);
             }
           });
-        }))
+        })
+      );
     }
-  }, [eventName])
+  }, [eventName]);
 
   const handleSingleUpload = (files, curr_no, total) => {
     if (files.length <= 0) {
@@ -91,17 +96,19 @@ const AddEvent = () => {
         description: desc,
         images: fileUrls,
         status: "published",
-        registrationLink:reglink,
-      }
-      toast.promise(fetchUpdateProposal(postBody, ID)
-        .then((res) => {
+        registrationLink: reglink,
+      };
+      toast.promise(
+        fetchUpdateProposal(postBody, ID).then((res) => {
           window.location.reload();
-        }), {
-        loading: "Updating...",
-        success: "Updated Successfully",
-        error: (err) => `Error: ${err.response.data.error}`,
-      });
-    };
+        }),
+        {
+          loading: "Updating...",
+          success: "Updated Successfully",
+          error: (err) => `Error: ${err.response.data.error}`,
+        }
+      );
+    }
 
     const currentFile = files.pop();
     toast.promise(fetchUploadFile(currentFile), {
@@ -154,16 +161,22 @@ const AddEvent = () => {
             urlState={[fileUrls, setFileUrls]}
           />
         </div>
-        <div className="flex items-center w-full space-x-4 mt-4 " >
+        <div className="flex items-center w-full space-x-4 mt-4 ">
           <Inputfield
-                        valueState={[reglink,setReglink]}
-                        title="Registration link"
-                        placeholder="Enter reg link"
-                    />
+            valueState={[reglink, setReglink]}
+            title="Registration link"
+            placeholder="Enter reg link"
+          />
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">
           <Button className="w-3/4" text="Publish" handleClick={handleUpload} />
-          {(Object.keys(updateState).length > 0 || eventName) && <Button className="w-3/4" text="Cancel" handleClick={handleCancel} />}
+          {(Object.keys(updateState).length > 0 || eventName) && (
+            <Button
+              className="w-3/4"
+              text="Cancel"
+              handleClick={handleCancel}
+            />
+          )}
         </div>
       </div>
     </section>
