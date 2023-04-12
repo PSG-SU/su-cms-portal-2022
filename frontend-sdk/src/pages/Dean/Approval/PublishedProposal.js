@@ -8,6 +8,8 @@ import { ProposalContext } from ".";
 import { RefreshContext } from "../../../Refresher";
 import { CLUB_URL, PROPOSAL_URL } from "../../../API/config";
 import { IoCloseOutline } from "react-icons/io5";
+import { toast } from "react-hot-toast";
+import { fetchUpdateProposal } from "../../../API/calls";
 
 const PublishedProposal = () => {
   const [data, setData] = useState([]);
@@ -59,6 +61,20 @@ const PublishedProposal = () => {
       });
   }, [refreshToken]);
 
+  const UndoButton = async (id) => {
+    const postBody = {
+      status: "facApproved"
+    };
+    toast.promise(fetchUpdateProposal(postBody, id)
+      .then((res) => {
+        refreshPage();
+      }), {
+      loading: "Undoing...",
+      success: "Undo Successful",
+      error: (err) => `Error: ${err.response.data.error}`,
+    });
+  };
+
   const { updateByID } = useContext(ProposalContext);
 
   return (
@@ -81,17 +97,17 @@ const PublishedProposal = () => {
       </div>
       <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-auto">
         <Table
-          theads={["Event", "Club / Association", "Event Date", "Status"]}
+          theads={["Event", "Club / Association", "Event Date"]}
           tdata={data}
-          tkeys={["eventName", "user", "startDate", "status"]}
+          tkeys={["eventName", "user", "startDate"]}
           className={`${data.length < 8
             ? "max-h-[calc(100vh-20rem)]"
             : "h-[calc(100vh-20rem)]"
             } w-full`}
-          tratio="1fr 1fr 1fr 1fr"
+          tratio="1fr 1fr 1fr"
           url={url}
           handleUpdate={(id) => updateByID(id)}
-          // approval={true}
+          UndoButton={UndoButton}
           clubs={clubs}
         />
       </div>

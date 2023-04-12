@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { fetchAddGeneral, fetchUpdateGeneral, fetchUploadFile } from "../../../API/calls";
-import { AUTH_URL } from "../../../API/config";
+import { fetchUpdateGeneral, fetchUploadFile } from "../../../API/calls";
+import { GENERAL_URL, AUTH_URL } from "../../../API/config";
 import Button from "../../../components/Button";
 import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
@@ -12,6 +12,7 @@ const AddGeneral = () => {
   const [file, setFile] = useState(null);
   const [value, setvalue] = useState("");
   const [user, setUser] = useState("");
+  const [content, setContent] = useState("");
 
   useEffect(() => {
     axios
@@ -21,18 +22,47 @@ const AddGeneral = () => {
       })
   }, [])
 
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(`${GENERAL_URL}/${user}`)
+        .then((res) => {
+          console.log(res.data);
+          setContent(res.data);
+          setvalue(res.data?.description);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  }, [user]);
+
   const handlePost = async () => {
+    if (!file) {
+      toast.promise(fetchUpdateGeneral({ user: user, description: value }, user), {
+        loading: "Adding...",
+        success: (res) => {
+          window.location.reload();
+          return "Added Successfully";
+        },
+        error: (err) => `Error: ${err.response.data.error}`,
+      });
+      return;
+    }
     toast.promise(fetchUploadFile(file), {
       loading: "Uploading...",
       success: (res) => {
         const postBody = {
           user: user,
           image_url: res.data.url,
-          content: value
+          description: value,
         };
         toast.promise(fetchUpdateGeneral(postBody, user), {
           loading: "Adding...",
-          success: "Added Successfully",
+          success: (res) => {
+            window.location.reload();
+            return "Added Successfully";
+          },
           error: (err) => `Error: ${err.response.data.error}`,
         });
         return "Uploaded";
@@ -49,7 +79,9 @@ const AddGeneral = () => {
         <div className="flex items-center w-full space-x-4">
           <FileUpload
             title="Image to be uploaded"
-            fileState={[file, setFile]} />
+            fileState={[file, setFile]}
+            url={content?.image_url}
+          />
         </div>
         <div className="flex items-center w-full space-x-4 mt-12">
           <Heading>Description</Heading>
@@ -62,7 +94,7 @@ const AddGeneral = () => {
           />
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">
-          <Button className="w-3/4" text="Upload" handleClick={handlePost} />
+          <Button className="w-3/4" text="Update" handleClick={handlePost} />
         </div>
       </div>
     </section>

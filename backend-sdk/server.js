@@ -10,10 +10,12 @@ import uploadRoutes from "./routes/uploadRoutes.js";
 import aboutRoutes from "./routes/aboutRoutes.js";
 import nssRoutes from "./routes/nssStaffRoutes.js";
 import galleryRoutes from "./routes/galleryRoutes.js";
-
+import announcementRoutes from "./routes/announcementRoutes.js";
 import generalRoutes from "./routes/Club/generalRoutes.js";
 import teamMemberRoutes from "./routes/Club/teamMemberRoutes.js";
 import proposalRoutes from "./routes/Club/proposalRoutes.js";
+import clubGalleryRoutes from "./routes/Club/clubGalleryRoutes.js"
+import spotlightRoutes from "./routes/spotlightRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3002;
@@ -21,7 +23,6 @@ const PORT = process.env.PORT || 3002;
 app.use(cors());
 app.use(json());
 app.use(urlencoded());
-
 app.use("/api/upload", uploadRoutes);
 app.use("/api/auth", userRoutes);
 app.use("/api/office-bearers", officeBearerRoutes);
@@ -30,10 +31,13 @@ app.use("/api/suteam", suTeamRoutes);
 app.use("/api/about", aboutRoutes);
 app.use("/api/nssncc", nssRoutes);
 app.use("/api/gallery", galleryRoutes);
-
+app.use("/api/announcement",announcementRoutes);
 app.use("/api/club/general", generalRoutes);
 app.use("/api/club/team-member", teamMemberRoutes);
 app.use("/api/club/proposal", proposalRoutes);
+app.use("/api/club/gallery", clubGalleryRoutes)
+app.use("/api/spotlight", spotlightRoutes);
+
 
 app.get("/", async (req, res) => {
   res.send("Welcome to the SU CMS API");

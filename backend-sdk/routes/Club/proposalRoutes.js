@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/', async (req, res) => {
   try {
-    const proposals = await Proposal.find();
+    const proposals = await Proposal.find({}).sort({ createdAt: 'desc'}).exec();
     res.status(200).json(proposals);
   } catch (err) {
     console.log(err);
@@ -29,10 +29,10 @@ router.get("/user/:user", async (req, res) => {
   }
 });
 
-router.get("/all_approved/", async (req, res) => {
+router.get("/all_dean_approved/", async (req, res) => {
   try {
     const proposal = await Proposal.find({
-      status: "approved",
+      status: "deanApproved",
     });
     if (!proposal) {
       return res.status(404).json({ error: "Not Found" });
@@ -45,10 +45,10 @@ router.get("/all_approved/", async (req, res) => {
   }
 });
 
-router.get("/all_pending/", async (req, res) => {
+router.get("/all_fac_approved/", async (req, res) => {
   try {
     const proposal = await Proposal.find({
-      status: "pending",
+      status: "facApproved",
     });
     if (!proposal) {
       return res.status(404).json({ error: "Not Found" });
@@ -93,11 +93,28 @@ router.get("/all_published/", async (req, res) => {
   }
 });
 
-router.get("/approved/:user", async (req, res) => {
+router.get("/facApproved/:user", async (req, res) => {
   try {
     const proposal = await Proposal.find({
       user: req.params.user,
-      status: "approved",
+      status: "facApproved",
+    });
+    if (!proposal) {
+      return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json(proposal);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get("/deanApproved/:user", async (req, res) => {
+  try {
+    const proposal = await Proposal.find({
+      user: req.params.user,
+      status: "deanApproved",
     });
     if (!proposal) {
       return res.status(404).json({ error: "Not Found" });

@@ -12,6 +12,8 @@ import {
   TEAM_MEMBER_URL,
   PROPOSAL_URL,
   GALLERY_URL,
+  CLUB_GALLERY_URL,
+  SPOTLIGHT_URL,
 } from "./config";
 import imageCompression from "browser-image-compression";
 
@@ -30,7 +32,7 @@ async function handleImageUpload(img) {
 }
 
 export const fetchUploadFile = async (file) => {
-  if (file.type === "image/jpeg" || file.type === "image/png") {
+  if (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/jpg") {
     await handleImageUpload(file).then((res) => {
       file = new File([res], res.name, { type: res.type });
     });
@@ -97,6 +99,9 @@ export const fetchAddGallery = (postBody) =>
 export const fetchGetGalleryByEvent = (event) =>
   axios.get(`${GALLERY_URL}/event/${event}`, {});
 
+export const fetchGetGallery = () =>
+  axios.get(`${GALLERY_URL}`, {});
+
 /* ------------------------------------------- */
 
 // For Club - General Page
@@ -120,9 +125,28 @@ export const fetchUpdateProposal = (postBody, id) =>
   axios.put(`${PROPOSAL_URL}/update/${id}`, postBody, {});
 export const fetchGetApprovedorPublishedProposal = (user) =>
   axios.all([
-    axios.get(`${PROPOSAL_URL}/approved/${user}`, {}),
+    axios.get(`${PROPOSAL_URL}/deanApproved/${user}`, {}),
     axios.get(`${PROPOSAL_URL}/published/${user}`, {}),
   ]);
 export const fetchGetProposalbyId = (id) =>
   axios.get(`${PROPOSAL_URL}/${id}`, {});
 /* ------------------------------------------- */
+
+// For Club - Gallery Page 
+
+export const fetchAddClubGallery = (postBody) =>
+  axios.post(`${CLUB_GALLERY_URL}/add`, postBody, {});
+
+export const fetchGetClubGalleryByEvent = (event) =>
+  axios.get(`${CLUB_GALLERY_URL}/event/${event}`, {});
+
+export const fetchGetClubGallery = () =>
+  axios.get(`${CLUB_GALLERY_URL}`, {});
+
+
+// For Spotlight 
+export const fetchGetSpotlight = () =>
+  axios.get(`${SPOTLIGHT_URL}`, {});
+export const fetchAddSpotlight = (postBody) =>
+  axios.post(`${SPOTLIGHT_URL}/add`, postBody, {});
+

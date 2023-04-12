@@ -43,8 +43,21 @@ router.get("/", async (req, res) => {
       return res.status(400).json({ err: "Not Found" });
     } else {
       console.log(images);
-      return res.status(200).json({message: images});
+      return res.status(200).json({ message: images });
     }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const image = await Gallery.findByIdAndDelete(req.params.id);
+    if (!image) {
+      return res.status(400).json({ err: "Not found" })
+    }
+    return res.status(200).json({ message: image });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err.message });

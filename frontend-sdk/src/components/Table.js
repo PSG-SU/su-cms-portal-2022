@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { BsCheck2Circle, BsPencil, BsCloudArrowUpFill } from "react-icons/bs";
+import { BsCheck2Circle, BsPencil, BsCloudArrowUpFill, BsCheck2, BsCheck2All } from "react-icons/bs";
+import { BiUndo } from "react-icons/bi";
 import { HiOutlineTrash } from "react-icons/hi";
 import { FaRegTimesCircle } from "react-icons/fa";
-import { IoMdTime } from "react-icons/io";
+import { IoMdDownload, IoMdTime } from "react-icons/io";
 import { CompactTable } from "@table-library/react-table-library/compact";
 import { useTheme } from "@table-library/react-table-library/theme";
 import { getTheme } from "@table-library/react-table-library/baseline";
@@ -10,13 +11,15 @@ import { getTheme } from "@table-library/react-table-library/baseline";
 import ModalImage from "react-modal-image";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import html2pdf from "html2pdf.js";
 
 import { RefreshContext } from "../Refresher";
 import Button from "./Button";
 import Popup from "reactjs-popup";
 import styled, { keyframes } from "styled-components";
 import { AUTH_URL } from "../API/config";
-import { fetchUpdateProposal } from "../API/calls";
+import { fetchUpdateProposal, fetchGetProposalbyId } from "../API/calls";
+import getProposalReport from "../templates/getProposalReport.js";
 
 const breatheAnimation = keyframes`
  0% { opacity: 0; transform: scale(0.25) translateY(75px); }
@@ -49,37 +52,33 @@ const Table = ({
   tratio = "",
   url = "",
   handleUpdate,
-  approval = false,
-  clubs = []
+  UndoButton = null,
+  ApproveButton = null,
+  RejectButton = null,
+  clubs = [],
+  hideUpdate = false,
+  hideDelete = false
 }) => {
 
   const { refreshPage } = useContext(RefreshContext);
 
-  const ApproveButton = async (id) => {
-    const postBody = {
-      status: "approved"
-    };
-    toast.promise(fetchUpdateProposal(postBody, id)
+  const handleDownload = async (id) => {
+    toast.promise(fetchGetProposalbyId(id)
       .then((res) => {
-        window.location.reload();
+        html2pdf()
+          .from(getProposalReport(res.data))
+          .set({
+            margin: 0.2,
+            filename: `Proposal-${res.data.eventName}.pdf`,
+            image: { type: "jpeg", quality: 0.2 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+          })
+          .save();
       }), {
-      loading: "Approving...",
-      success: "Approved Successfully",
-      error: (err) => `Error: ${err.response.data.error}`,
-    });
-  };
-  
-  const RejectButton = async (id) => {
-    const postBody = {
-      status: "rejected"
-    };
-    toast.promise(fetchUpdateProposal(postBody, id)
-      .then((res) => {
-        window.location.reload();
-      }), {
-      loading: "Rejecting...",
-      success: "Rejected Successfully",
-      error: (err) => `Error: ${err.response.data.error}`,
+      loading: "Downloading...",
+      success: "Downloaded Successfully",
+      error: (err) => `Error: ${err.message}`,
     });
   };
 
@@ -91,7 +90,6 @@ const Table = ({
       axios
         .delete(`${url}/delete/${item._id}`)
         .then((res) => {
-          console.log(res);
           toast.success("Delete Successful");
           refreshPage();
         })
@@ -103,7 +101,6 @@ const Table = ({
   };
 
   const nodes = tdata.map((d, di) => {
-    console.log(d);
     let j = Object();
     j["ID"] = di + 1;
     j["_id"] = d["_id"];
@@ -117,8 +114,7 @@ const Table = ({
     return {
       label: h,
       renderCell: (item) => {
-        console.log("ITEM: ", item);
-      
+
         // Club Check
         const club = clubs.filter(
           (club) => club.clubId === item[tkeys[idx]]
@@ -140,26 +136,33 @@ const Table = ({
 
         // Status Check
         else if (
-          item[tkeys[idx]] === "approved" || item[tkeys[idx]] === "rejected" || item[tkeys[idx]] === "pending" || item[tkeys[idx]] === "published"
+          item[tkeys[idx]] === "facApproved" || item[tkeys[idx]] === "deanApproved" || item[tkeys[idx]] === "rejected" || item[tkeys[idx]] === "pending" || item[tkeys[idx]] === "published"
         ) {
           return (
             <div className="flex space-x-2 items-center">
               <div
-                className={`${item[tkeys[idx]] === "approved"
+                className={`${(item[tkeys[idx]] === "facApproved" || item[tkeys[idx]] === "deanApproved")
                   ? "bg-[#2bb673] text-[#eaeaea]"
                   : item[tkeys[idx]] === "rejected"
                     ? "bg-[#ff0033] text-[#eaeaea]"
                     : item[tkeys[idx]] === "published"
-                    ? "bg-[#ace5ee] text-[#0f52ba]"
-                    : "bg-[#ffd000] text-[#303030]"
+                      ? "bg-[#ace5ee] text-[#0f52ba]"
+                      : "bg-[#ffd000] text-[#303030]"
                   } rounded-full w-8 h-8 flex text-xl justify-center items-center`}
               >
-                {item[tkeys[idx]] === "approved" && (<BsCheck2Circle />)}
+                {item[tkeys[idx]] === "facApproved" && (<BsCheck2 />)}
+                {item[tkeys[idx]] === "deanApproved" && (<BsCheck2All />)}
                 {item[tkeys[idx]] === "rejected" && (<FaRegTimesCircle />)}
                 {item[tkeys[idx]] === "pending" && (<IoMdTime />)}
                 {item[tkeys[idx]] === "published" && (<BsCloudArrowUpFill />)}
               </div>
-              <p>{item[tkeys[idx]][0].toUpperCase() + item[tkeys[idx]].slice(1)}</p>
+              <p>
+                {item[tkeys[idx]] === "facApproved" && "Approved By Faculty"}
+                {item[tkeys[idx]] === "deanApproved" && "Approved By Dean"}
+                {item[tkeys[idx]] === "rejected" && "Rejected"}
+                {item[tkeys[idx]] === "pending" && "Pending"}
+                {item[tkeys[idx]] === "published" && "Published"}
+              </p>
             </div>
           );
         }
@@ -181,20 +184,19 @@ const Table = ({
             </div>
           );
         }
-        
+
         else return item[tkeys[idx]];
       },
       // resize: true,
     };
   });
-  // console.log("ites"+item[tkeys[idx]])
 
   COLUMNS = [
     { label: "S.No.", renderCell: (item) => item["ID"] },
     ...COLUMNS,
   ];
 
-  if (approval) {
+  if (ApproveButton) {
     COLUMNS = [
       ...COLUMNS,
       {
@@ -203,10 +205,16 @@ const Table = ({
           return (
             <div className="flex space-x-4 items-center">
               <button
+                className="bg-[#1f1fdf] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
+                onClick={() => { handleDownload(item._id); }}
+              >
+                <IoMdDownload />
+              </button>
+              <button
                 className="bg-[#2bb673] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
                 onClick={() => ApproveButton(item._id)}
               >
-                <BsCheck2Circle />
+                <BsCheck2 />
               </button>
               <button
                 className="bg-[#ff0033] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
@@ -219,51 +227,68 @@ const Table = ({
         },
       },
     ];
-  }
-  else {
+  } else {
     COLUMNS = [
       ...COLUMNS,
       {
         label: "Actions",
         renderCell: (item) => {
-          console.log(item._id);
           return (
             <div className="flex space-x-4">
-              <StyledPopup
-                trigger={
-                  <button className="hover:text-[#ff0000]">
-                    <HiOutlineTrash />
-                  </button>
-                }
-                position="top center"
-                offsetX={-90}
-                offsetY={64}
-              >
-                {(close) => (
-                  <div className="flex items-center space-x-4 m-4">
-                    <Button className="w-3/4" text="Cancel" handleClick={close} />
-                    <Button
-                      className="w-3/4"
-                      text="Confirm"
-                      handleClick={(e) => {
-                        console.log("Delete");
-                        handleDelete(item);
-                        close();
-                      }}
-                    />
+              {
+                UndoButton ? (
+                  <div className="flex space-x-4">
+                    <button
+                      className="hover:text-[#1f1fdf]"
+                      onClick={() => { handleDownload(item._id); }}
+                    >
+                      <IoMdDownload />
+                    </button>
+                    <button
+                      className="hover:text-[#494998]"
+                      onClick={() => UndoButton(item._id)}
+                    >
+                      <BiUndo />
+                    </button>
                   </div>
-                )}
-              </StyledPopup>
-
-              <button
-                className="hover:text-[#494998]"
-                onClick={(e) => {
-                  console.log("HEY");
-                  handleUpdate(item._id);
-                }}
-              >
-                <BsPencil />
-              </button>
+                ) : (
+                  <div className="flex space-x-4">
+                    {!hideDelete && <StyledPopup
+                      trigger={
+                        <button className="hover:text-[#ff0000]">
+                          <HiOutlineTrash />
+                        </button>
+                      }
+                      position="top center"
+                      offsetX={-90}
+                      offsetY={64}
+                    >
+                      {(close) => (
+                        <div className="flex items-center space-x-4 m-4">
+                          <Button className="w-3/4" text="Cancel" handleClick={close} />
+                          <Button
+                            className="w-3/4"
+                            text="Confirm"
+                            handleClick={(e) => {
+                              handleDelete(item);
+                              close();
+                            }}
+                          />
+                        </div>
+                      )}
+                    </StyledPopup>
+                    }{!hideUpdate &&
+                      <button
+                        className="hover:text-[#494998]"
+                        onClick={(e) => {
+                          handleUpdate(item._id);
+                        }}
+                      >
+                        <BsPencil />
+                      </button>}
+                  </div>
+                )
+              }
             </div>
           );
         },
@@ -282,7 +307,7 @@ const Table = ({
   const theme = useTheme([
     getTheme(),
     {
-      Table: `--data-table-library_grid-template-columns: 75px ${tratio.length <= 0 ? getDefaults() : tratio} ${approval ? "175px" : "100px"};`,
+      Table: `--data-table-library_grid-template-columns: 75px ${tratio.length <= 0 ? getDefaults() : tratio} ${ApproveButton ? "175px" : "100px"} ;`,
     },
   ]);
 

@@ -1,17 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Toggle = ({
   options = [],
   title = "",
   className = "",
   buttonClassName = "",
-  valueState = ["", (v) => { }],
+  valueState = ["", (v) => {}],
   icons = [],
   subtext = "",
 }) => {
+  const [value, setValue] = valueState;
 
-  const [optionSelected, setOptionSelected] = useState(0);
-  const [value, setValue] = valueState
+  useEffect(() => {
+    value && value.length <= 0 && setValue(options[0]);
+  }, []);
 
   return (
     <div className={`${className}`}>
@@ -22,10 +24,9 @@ const Toggle = ({
           options.map((item, idx) =>
             <ToggleItem
               handleSelect={() => {
-                setOptionSelected(idx);
-                setValue(options[idx])
+                setValue(item);
               }}
-              isSelected={optionSelected === idx}
+              isSelected={item === value}
               text={item}
               icon={icons[idx]}
               className={buttonClassName}
@@ -34,17 +35,17 @@ const Toggle = ({
         }
       </div>
     </div>
-  )
-}
+  );
+};
 
-const ToggleItem = ({ isSelected, text, handleSelect, className = "", icon}) => {
+const ToggleItem = ({ isSelected, text, handleSelect, className = "", icon }) => {
   return <button onClick={handleSelect} className={`${className} h-full relative  border-yellow ${isSelected && "bg-[#F1E6C9]"} border-2 rounded-lg p-4 px-6 space-x-2 flex-1 flex flex-row items-center text-left`}>
     <div className='rounded-full h-6 w-6 aspect-square p-1 border-yellow border'>
       <div className={`${isSelected ? "bg-yellow" : ""} rounded-full h-full w-full`}></div>
     </div>
     <p className='font-poppins text-blue '>{text}</p>
-    <p>{icon && React.cloneElement(icon, {className: "hidden lg:block text-yellow absolute top-[50%] right-2 -translate-y-[50%] opacity-[50%]", size: 64})}</p>
+    <p>{icon && React.cloneElement(icon, { className: "hidden lg:block text-yellow absolute top-[50%] right-2 -translate-y-[50%] opacity-[50%]", size: 64 })}</p>
   </button>
 }
 
-export default Toggle
+export default Toggle;

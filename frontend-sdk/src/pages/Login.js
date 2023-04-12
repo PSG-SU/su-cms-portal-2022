@@ -28,16 +28,20 @@ const Login = () => {
           navigate("/club");
         } else if (res.data.rights === "dean") {
           navigate("/dean");
+        } else if (res.data.rights === "faculty") {
+          navigate("/faculty");
         } else {
           toast.error("Invalid Rights");
         }
       })
       .catch((err) => {
         console.log(err);
-        // toast.error(`Error: ${err}`);
-
+        
         if (err.code === "ERR_BAD_REQUEST") {
           toast.error('Wrong Password!');
+        }else{
+          
+          toast.error(`Error: ${err}`);
         }
       });
   };

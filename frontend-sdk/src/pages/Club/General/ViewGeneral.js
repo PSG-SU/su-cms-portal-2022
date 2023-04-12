@@ -35,12 +35,16 @@ const ViewGeneral = () => {
       <Heading>Logo</Heading>
       <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-auto">
         <div className="flex items-center w-full space-x-4">
-          <ModalImage
-            className="w-36 h-36 rounded-full"
-            small={content?.image_url}
-            large={content?.image_url}
-            alt="Image URL"
-          />
+          {content?.image_url ? (
+            <ModalImage
+              className="w-36 h-36 rounded-full"
+              small={content?.image_url}
+              large={content?.image_url}
+              alt="Image URL"
+            />
+          ) :
+            (<p>No logo found !</p>
+            )}
         </div>
 
         <div className="flex items-center w-full space-x-4 mt-12">
@@ -48,9 +52,9 @@ const ViewGeneral = () => {
         </div>
 
         <div className="flex items-center w-full space-x-4 mt-4">
-          {content?.content}
+          {content?.description ? content?.description : "No description found !"}
         </div>
-
+            
       </div>
     </section>
   );

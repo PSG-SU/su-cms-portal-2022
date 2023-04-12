@@ -1,9 +1,10 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model } from "mongoose";
 
 const ProposalSchema = new Schema({
   eventName: {
     type: String,
     required: true,
+    unique: true,
   },
   startDate: {
     type: Date,
@@ -37,14 +38,14 @@ const ProposalSchema = new Schema({
     required: true,
   },
   inCollab: {
-    type : String,
+    type: String,
     required: true,
   },
   orgName: {
-    type : String,
+    type: String,
   },
   budgetSplit: {
-    type : String,
+    type: String,
   },
   facultyName: {
     type: String,
@@ -63,12 +64,14 @@ const ProposalSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'approved', 'rejected', 'published'],
-    default: 'pending',
+    enum: ["pending", "facApproved", "deanApproved", "rejected", "published"],
+    default: "pending",
   },
-  images: {
-    type: Array,
-  },
+  files: [
+    {
+      type: String,
+    },
+  ],
   createdAt: {
     type: Date,
     required: true,
@@ -78,6 +81,9 @@ const ProposalSchema = new Schema({
     type: String,
     required: true,
   },
+  registrationLink: {
+    type: String,
+  },
 });
 
-export default model('Proposal', ProposalSchema);
+export default model("Proposal", ProposalSchema);

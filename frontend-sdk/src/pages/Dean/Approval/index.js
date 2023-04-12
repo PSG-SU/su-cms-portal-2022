@@ -12,19 +12,19 @@ export const ProposalContext = createContext();
 const Proposal = () => {
   const initialTabMenuItems = [
     {
-      text: "Pending Proposals",
+      text: "Pending",
       tab: <PendingProposal />,
     },
     {
-      text: "Approved Proposals",
+      text: "Approved",
       tab: <ApprovedProposal />,
     },
     {
-      text: "Rejected Proposals",
+      text: "Rejected",
       tab: <RejectedProposal />,
     },
     {
-      text: "Published Proposals",
+      text: "Published",
       tab: <PublishedProposal />,
     },
   ];
