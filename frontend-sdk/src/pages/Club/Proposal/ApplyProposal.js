@@ -259,6 +259,7 @@ const ApplyProposal = () => {
           <MultipleFiles
             title="Supporting Documents"
             fileState={[files, setFiles]}
+            pdf
           />
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">
