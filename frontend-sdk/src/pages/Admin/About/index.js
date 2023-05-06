@@ -5,12 +5,12 @@ import ViewAbout from "./viewAbout.js";
 const About = () => {
   const initialTabMenuItems = [
     {
-      text: "Edit About",
+      text: "Edit Details",
       tab: <EditAbout />,
       // link: "/Password/add",
     },
     {
-      text: "View About",
+      text: "View Details",
       tab: <ViewAbout />,
       // link: "/Password/add",
     },
@@ -21,7 +21,7 @@ const About = () => {
   return (
     <section className="">
       <div className="h-fit bg-gray px-8 pt-8">
-        <p className="text-lg uppercase tracking-wider mb-8">About Home Page</p>
+        <p className="text-lg uppercase tracking-wider mb-8">Home Page</p>
         <header className="flex">
           {initialTabMenuItems.map((item, idx) => {
             return (

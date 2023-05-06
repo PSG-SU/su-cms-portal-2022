@@ -120,7 +120,7 @@ const Table = ({
           (club) => club.clubId === item[tkeys[idx]]
         );
 
-        if (club.length > 0) {
+        if (h !== "Password" &&  club.length > 0) {
           return club[0].clubName;
         }
 

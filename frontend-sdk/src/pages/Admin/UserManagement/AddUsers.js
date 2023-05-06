@@ -32,7 +32,13 @@ const AddUsers = () => {
     if (clubName) {
       setcaID(clubs.filter((club) => club.clubName === clubName)[0].clubId);
     }
-  }, [clubName]);
+  }, [clubName, clubs]);
+
+  useEffect(() => {
+    if (caID) {
+      setClubName(clubs.filter((club) => club.clubId === caID)[0].clubName);
+    }
+  }, [caID, clubs]);
 
   useEffect(() => {
     if (dropdownRights === "Admin") {
@@ -48,16 +54,29 @@ const AddUsers = () => {
     }
   }, [dropdownRights])
 
+  useEffect(() => {
+    if (rights === "admin") {
+      setDropdownRights("Admin");
+    } else if (rights === "dean") {
+      setDropdownRights("Dean");
+    } else if (rights === "club") {
+      setDropdownRights("Club");
+    } else if (rights === "association") {
+      setDropdownRights("Association");
+    } else if (rights === "faculty") {
+      setDropdownRights("Faculty");
+    }
+  }, [rights]);
 
   useEffect(() => {
     console.log(updateState);
     if (Object.keys(updateState).length > 0) {
       setID(updateState?._id);
-      setcaID(updateState.caID);
+      setcaID(updateState?.caID);
       setUser(updateState?.userId);
       setRights(updateState?.rights);
-      setPWD(null);
-      setRPWD(null);
+      setPWD(updateState?.password);
+      setRPWD(updateState?.password);
     }
   }, [updateState]);
 

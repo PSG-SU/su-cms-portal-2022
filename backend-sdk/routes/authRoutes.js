@@ -12,7 +12,8 @@ router.post("/add", async (req, res) => {
   try {
     const user = await User.create({
       userId: userId,
-      password: bcrypt.hashSync(password, 10),
+      // password: bcrypt.hashSync(password, 10),
+      password: password,
       rights: rights,
       caID: caID,
     });
@@ -68,7 +69,8 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ userId: userId });
     if (user) {
-      const auth = bcrypt.compareSync(password, user.password);
+      // const auth = bcrypt.compareSync(password, user.password);
+      const auth = password === user.password;
       if (auth) {
         res.status(200).json({
           token: jwt.sign({ _id: user._id }, SECRET),
@@ -121,7 +123,8 @@ router.put("/update/:id", async (req, res) => {
   try {
     const user = await User.findOneAndUpdate(
       { _id: req.params.id },
-      req.body.password ? { ...req.body, password: bcrypt.hashSync(req.body.password, 10) } : req.body,
+      // req.body.password ? { ...req.body, password: bcrypt.hashSync(req.body.password, 10) } : req.body,
+      req.body,
       {}
     );
     if (!user) return res.status(404).json({ error: "User not found" });

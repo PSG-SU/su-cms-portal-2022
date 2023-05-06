@@ -32,7 +32,7 @@ const AddEvent = () => {
     if (Object.keys(updateState).length >= 0) {
       setID(updateState?._id);
       setEventName(updateState?.eventName);
-      setFileUrls(updateState?.images);
+      setFileUrls(updateState?.images ? updateState?.images : []);
       setDesc(updateState?.description);
       setReglink(updateState?.registrationLink);
     }
@@ -72,7 +72,7 @@ const AddEvent = () => {
             if (proposal.eventName === eventName) {
               setDesc(proposal.description);
               setID(proposal._id);
-              setFileUrls(proposal.images);
+              setFileUrls(proposal.images ? proposal.images : []);
               setReglink(proposal.registrationLink);
             }
           });
@@ -80,7 +80,7 @@ const AddEvent = () => {
             if (proposal.eventName === eventName) {
               setDesc(proposal.description);
               setID(proposal._id);
-              setFileUrls(proposal.images);
+              setFileUrls(proposal.images ? proposal.images : []);
               setReglink(proposal.registrationLink);
             }
           });
@@ -100,17 +100,21 @@ const AddEvent = () => {
       };
       toast.promise(
         fetchUpdateProposal(postBody, ID).then((res) => {
-          window.location.reload();
+          // window.location.reload();
         }),
         {
           loading: "Updating...",
           success: "Updated Successfully",
-          error: (err) => `Error: ${err.response.data.error}`,
+          error: (err) => {
+            console.log(err);
+            return `Error: ${err}`;
+          },
         }
       );
     }
 
     const currentFile = files.pop();
+    console.log(currentFile);
     toast.promise(fetchUploadFile(currentFile), {
       loading: `Uploading... ${curr_no}/${total}`,
       success: (res) => {
@@ -120,7 +124,10 @@ const AddEvent = () => {
         handleSingleUpload(files, curr_no + 1, total);
         return `Uploaded ${curr_no}/${total}`;
       },
-      error: (err) => `Error: ${err.response.data.error}`,
+      error: (err) => {
+        console.log(err);
+        return `Error: ${err}`;
+      },
     });
   };
 
