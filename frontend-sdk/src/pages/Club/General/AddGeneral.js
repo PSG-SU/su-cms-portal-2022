@@ -12,16 +12,23 @@ import Inputfield from "../../../components/TextInput";
 const AddGeneral = () => {
   const [file, setFile] = useState(null);
   const [banner, setBanner] = useState(null);
-  const [value, setvalue] = useState("");
   const [user, setUser] = useState("");
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState({});
   const [tagline, setTagline] = useState("");
+  const [description, setDescription] = useState("");
   const [name1, setName1] = useState("");
   const [name2, setName2] = useState("");
   const [num1, setNum1] = useState("");
   const [num2, setNum2] = useState("");
   const [mail1, setMail1] = useState("");
   const [mail2, setMail2] = useState("");
+  const [website, setWebsite] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [linkedin, setLinkedin] = useState("");
+  const [linktree, setLinktree] = useState("");
+  const [youtube, setYoutube] = useState("");
+  const [facebook, setFacebook] = useState("");
+  const [twitter, setTwitter] = useState("");
 
   useEffect(() => {
     axios
@@ -38,7 +45,21 @@ const AddGeneral = () => {
         .then((res) => {
           console.log(res.data);
           setContent(res.data);
-          setvalue(res.data?.description);
+          setTagline(res.data?.general?.tagline ? res.data?.general?.tagline : "")
+          setDescription(res.data?.general?.description ? res.data?.general?.description : "");
+          setName1(res.data?.general?.contactName1 ? res.data?.general?.contactName1 : "");
+          setName2(res.data?.general?.contactName2 ? res.data?.general?.contactName2 : "");
+          setNum1(res.data?.general?.contactNumber1 ? res.data?.general?.contactNumber1 : "");
+          setNum2(res.data?.general?.contactNumber2 ? res.data?.general?.contactNumber2 : "");
+          setMail1(res.data?.general?.contactEmail1 ? res.data?.general?.contactEmail1 : "");
+          setMail2(res.data?.general?.contactEmail2 ? res.data?.general?.contactEmail2 : "");
+          setWebsite(res.data?.general?.website ? res.data?.general?.website : "");
+          setInstagram(res.data?.general?.instagram ? res.data?.general?.instagram : "");
+          setLinkedin(res.data?.general?.linkedin ? res.data?.general?.linkedin : "");
+          setLinktree(res.data?.general?.linktree ? res.data?.general?.linktree : "");
+          setYoutube(res.data?.general?.youtube ? res.data?.general?.youtube : "");
+          setFacebook(res.data?.general?.facebook ? res.data?.general?.facebook : "");
+          setTwitter(res.data?.general?.twitter ? res.data?.general?.twitter : "");
         })
         .catch((err) => {
           console.log(err);
@@ -47,37 +68,104 @@ const AddGeneral = () => {
   }, [user]);
 
   const handlePost = async () => {
-    if (!file) {
-      toast.promise(fetchUpdateGeneral({ user: user, description: value }, user), {
-        loading: "Adding...",
+    let postBody = {
+      user: user,
+      description: description,
+      tagline: tagline,
+      contactName1: name1,
+      contactName2: name2,
+      contactNumber1: num1,
+      contactNumber2: num2,
+      contactEmail1: mail1,
+      contactEmail2: mail2,
+      website: website,
+      instagram: instagram,
+      linkedin: linkedin,
+      linktree: linktree,
+      youtube: youtube,
+      facebook: facebook,
+      twitter: twitter,
+    }
+
+    if (file && banner) {
+      toast.promise(fetchUploadFile(file), {
+        loading: "Uploading Logo...",
+        success: (res1) => {
+          toast.promise(fetchUploadFile(banner), {
+            loading: "Uploading Banner...",
+            success: (res2) => {
+              postBody = {
+                ...postBody,
+                image_url: res1.data.url,
+                banner_url: res2.data.url,
+              }
+              toast.promise(fetchUpdateGeneral(postBody, user), {
+                loading: "Updating...",
+                success: (res) => {
+                  window.location.reload();
+                  return "Updated Successfully";
+                },
+                error: (err) => `Error: ${err.response.data.error}`,
+              });
+              return "Uploaded";
+            },
+            error: "Error Occured",
+          });
+          return "Uploaded";
+        },
+        error: "Error Occured",
+      });
+    } else if (file) {
+      toast.promise(fetchUploadFile(file), {
+        loading: "Uploading Logo...",
+        success: (res1) => {
+          postBody = {
+            ...postBody,
+            image_url: res1.data.url,
+          }
+          toast.promise(fetchUpdateGeneral(postBody, user), {
+            loading: "Updating...",
+            success: (res) => {
+              window.location.reload();
+              return "Updated Successfully";
+            },
+            error: (err) => `Error: ${err.response.data.error}`,
+          });
+          return "Uploaded";
+        }
+      })
+    } else if (banner) {
+      toast.promise(fetchUploadFile(banner), {
+        loading: "Uploading Banner...",
+        success: (res2) => {
+          postBody = {
+            ...postBody,
+            banner_url: res2.data.url,
+          }
+          toast.promise(fetchUpdateGeneral(postBody, user), {
+            loading: "Updating...",
+            success: (res) => {
+              window.location.reload();
+              return "Updated Successfully";
+            },
+            error: (err) => `Error: ${err.response.data.error}`,
+          });
+          return "Uploaded";
+        }
+      })
+    } else {
+      toast.promise(fetchUpdateGeneral(postBody, user), {
+        loading: "Updating...",
         success: (res) => {
           window.location.reload();
-          return "Added Successfully";
+          return "Updated Successfully";
         },
-        error: (err) => `Error: ${err.response.data.error}`,
+        error: (err) => {
+          console.log(err);
+          return `Error: ${err.response.data.error}`
+        },
       });
-      return;
     }
-    toast.promise(fetchUploadFile(file), {
-      loading: "Uploading...",
-      success: (res) => {
-        const postBody = {
-          user: user,
-          image_url: res.data.url,
-          description: value,
-        };
-        toast.promise(fetchUpdateGeneral(postBody, user), {
-          loading: "Adding...",
-          success: (res) => {
-            window.location.reload();
-            return "Added Successfully";
-          },
-          error: (err) => `Error: ${err.response.data.error}`,
-        });
-        return "Uploaded";
-      },
-      error: "Error Occured",
-    });
   };
 
 
@@ -92,7 +180,7 @@ const AddGeneral = () => {
               <FileUpload
                 title="Image to be uploaded"
                 fileState={[file, setFile]}
-                url={content?.image_url}
+                url={content?.general?.image_url}
               />
             </div>
           </div>
@@ -103,21 +191,38 @@ const AddGeneral = () => {
               <FileUpload
                 title="Image to be uploaded"
                 fileState={[banner, setBanner]}
-                url={content?.banner_url}
+                url={content?.general?.banner_url}
               />
             </div>
           </div>
         </div>
 
-        <div className="flex items-center w-full space-x-4 mt-12">
-          <Heading>Tagline</Heading>
-        </div>
-        <div className="flex items-center w-full space-x-4 mt-4">
-          <Inputfield
-            valueState={[tagline, setTagline]}
-            title="Enter your club's tagline"
-            placeholder="Tagline"
-          />
+        <div className="flex flex-row w-full gap-x-8">
+          <div className="flex flex-col w-1/2">
+            <div className="flex items-center w-full space-x-4 mt-12">
+              <Heading>Tagline</Heading>
+            </div>
+            <div className="flex items-center w-full space-x-4 mt-4">
+              <Inputfield
+                valueState={[tagline, setTagline]}
+                title="Enter your club's tagline"
+                placeholder="Tagline"
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col w-1/2">
+            <div className="flex items-center w-full space-x-4 mt-12">
+              <Heading>Website Link</Heading>
+            </div>
+            <div className="flex items-center w-full space-x-4 mt-4">
+              <Inputfield
+                valueState={[website, setWebsite]}
+                title="Enter your club's website link"
+                placeholder="Website"
+              />
+            </div>
+          </div>
         </div>
 
         <div className="flex items-center w-full space-x-4 mt-12">
@@ -126,8 +231,8 @@ const AddGeneral = () => {
         <div className="flex items-center w-full space-x-4 mt-4">
           <TextArea
             title="About the club / association"
-            placeholder="Enter about home page"
-            valueState={[value, setvalue]}
+            placeholder="Club Description"
+            valueState={[description, setDescription]}
           />
         </div>
 
@@ -143,7 +248,7 @@ const AddGeneral = () => {
               <Inputfield
                 valueState={[num1, setNum1]}
                 title="Phone Number"
-                placeholder="Eg. 9876543210"
+                placeholder="Eg. 98765 43210"
               />
               <Inputfield
                 valueState={[mail1, setMail1]}
@@ -164,7 +269,7 @@ const AddGeneral = () => {
               <Inputfield
                 valueState={[num2, setNum2]}
                 title="Phone Number"
-                placeholder="Eg. 9876543210"
+                placeholder="Eg. 98765 43210"
               />
               <Inputfield
                 valueState={[mail2, setMail2]}
@@ -173,6 +278,38 @@ const AddGeneral = () => {
               />
             </div>
           </div>
+        </div>
+
+        <div className="flex items-center w-full space-x-4 mt-12">
+          <Heading>Socials</Heading>
+        </div>
+        <div className="flex items-center w-full space-x-4 mt-4">
+          <Inputfield
+            valueState={[instagram, setInstagram]}
+            title="Instagram Profile Link"
+          />
+          <Inputfield
+            valueState={[linkedin, setLinkedin]}
+            title="LinkedIn Profile Link"
+          />
+          <Inputfield
+            valueState={[linktree, setLinktree]}
+            title="Linktree Link"
+          />
+        </div>
+        <div className="flex items-center w-full space-x-4 mt-4">
+          <Inputfield
+            valueState={[youtube, setYoutube]}
+            title="Youtube Channel Link"
+          />
+          <Inputfield
+            valueState={[facebook, setFacebook]}
+            title="Facebook Page Link"
+          />
+          <Inputfield
+            valueState={[twitter, setTwitter]}
+            title="Twitter Profile Link"
+          />
         </div>
 
         <div className="flex items-center space-x-4 mt-8 w-1/2">

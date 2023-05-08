@@ -34,6 +34,27 @@ router.get("/", async (req, res) => {
   }
 });
 
+// update rights: "club" wherever it is null
+router.get("/update", async (req, res) => {
+  try {
+    const users = await User.find({});
+    users.forEach(async (user) => {
+      if (!user.rights) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: user._id },
+          { rights: "club" },
+          { new: true }
+        );
+        console.log(updatedUser);
+      }
+    });
+    res.status(200).json(users);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 router.get("/unique/:id", async (req, res) => {
   try {
     const user = await User.findOne({

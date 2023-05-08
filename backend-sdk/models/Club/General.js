@@ -3,7 +3,6 @@ import { Schema, model } from "mongoose";
 const GeneralSchema = new Schema({
   image_url: {
     type: String,
-    required: true,
   },
   user: {
     type: String,
@@ -11,14 +10,16 @@ const GeneralSchema = new Schema({
   },
   banner_url: {
     type: String,
-    required: true,
     default:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6UnLX1QG3w_BL0YLXdPvRih6LkJpJpE2c41rF-uEmHiyMaKgkKGka88NsiUrp0lMJ3A&usqp=CAU",
+  },
+  tagline: {
+    type: String,
+    default: "No tagline provided",
   },
   description: {
     type: String,
     default: "No description provided",
-    required: true,
   },
   contactName1: {
     type: String,
@@ -26,7 +27,6 @@ const GeneralSchema = new Schema({
   },
   contactName2: {
     type: String,
-    required: true,
   },
   contactNumber1: {
     type: String,
@@ -34,7 +34,6 @@ const GeneralSchema = new Schema({
   },
   contactNumber2: {
     type: String,
-    required: true,
   },
   contactEmail1: {
     type: String,
@@ -42,8 +41,15 @@ const GeneralSchema = new Schema({
   },
   contactEmail2: {
     type: String,
-    required: true,
   },
+  website: { type: String, },
+  instagram: { type: String, },
+  linkedin: { type: String, },
+  linktree: { type: String, },
+  youtube: { type: String, },
+  facebook: { type: String, },
+  twitter: { type: String, },
+
 });
 
 export default model("General", GeneralSchema);
