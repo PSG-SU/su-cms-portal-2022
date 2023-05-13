@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { BsCheck2Circle, BsPencil, BsCloudArrowUpFill, BsCheck2, BsCheck2All } from "react-icons/bs";
-import { BiUndo } from "react-icons/bi";
+import { BiSortAlt2, BiUndo } from "react-icons/bi";
 import { HiOutlineTrash } from "react-icons/hi";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { IoMdDownload, IoMdTime } from "react-icons/io";
@@ -111,9 +111,22 @@ const Table = ({
     return j;
   });
 
+  const [search, setSearch] = useState("");
+  const [sortKey, setSortKey] = useState("");
+  const [order, setOrder] = useState("asc");
+
   let COLUMNS = theads.map((h, idx) => {
     return {
-      label: h,
+      label: <button
+        className="flex items-center hover:text-[#3a3ab7]"
+        onClick={() => {
+          sortKey === tkeys[idx] ? setOrder(order === "asc" ? "desc" : "asc") : setOrder("asc");
+          setSortKey(tkeys[idx]);
+        }}
+      >
+        {h} <BiSortAlt2 className="ml-1" />
+      </button>,
+
       renderCell: (item) => {
 
         // Club Check
@@ -193,7 +206,16 @@ const Table = ({
   });
 
   COLUMNS = [
-    { label: "S.No.", renderCell: (item) => item["ID"] },
+    { label: <button
+        className="flex items-center hover:text-[#3a3ab7]"
+        onClick={() => {
+          sortKey === "ID" ? setOrder(order === "asc" ? "desc" : "asc") : setOrder("asc");
+          setSortKey("ID");
+        }}
+      >
+        No. <BiSortAlt2 className="ml-1" />
+      </button>, renderCell: (item) => item["ID"]
+    },
     ...COLUMNS,
   ];
 
@@ -312,9 +334,21 @@ const Table = ({
     },
   ]);
 
-  const [search, setSearch] = useState("");
+  const sortData = (node, key, order) => {
+    const sortedData = [...node].sort((a, b) => {
+      if (a[key] < b[key]) {
+        return order === "asc" ? -1 : 1;
+      }
+      if (a[key] > b[key]) {
+        return order === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
 
-  const searchNodes = nodes.filter((item) => {
+    return sortedData;
+  }
+
+  const searchNodes = sortData(nodes, sortKey, order).filter((item) => {
     return Object.keys(item).some((key) => {
       let flag = false;
       clubs?.length > 0 && clubs.filter((c) => c.clubName.toLowerCase().includes(search.toLowerCase())).forEach((c) => {
