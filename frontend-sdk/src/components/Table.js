@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { BsCheck2Circle, BsPencil, BsCloudArrowUpFill, BsCheck2, BsCheck2All } from "react-icons/bs";
+import { BsCheck2Circle, BsPencil, BsCloudArrowUpFill, BsCheck2, BsCheck2All, BsSortUpAlt, BsSortDown } from "react-icons/bs";
 import { BiSortAlt2, BiUndo } from "react-icons/bi";
 import { HiOutlineTrash } from "react-icons/hi";
 import { FaRegTimesCircle } from "react-icons/fa";
@@ -121,10 +121,10 @@ const Table = ({
         className="flex items-center hover:text-[#3a3ab7]"
         onClick={() => {
           sortKey === tkeys[idx] ? setOrder(order === "asc" ? "desc" : "asc") : setOrder("asc");
-          setSortKey(tkeys[idx]);
+          setSortKey(order === "desc" ? "ID" : tkeys[idx]);
         }}
       >
-        {h} <BiSortAlt2 className="ml-1" />
+        {h} {sortKey === tkeys[idx] ? (order === "asc" ? <BsSortUpAlt className="ml-1" /> : <BsSortDown className="ml-1" />) : <BiSortAlt2 className="ml-1" />}
       </button>,
 
       renderCell: (item) => {
@@ -213,7 +213,7 @@ const Table = ({
           setSortKey("ID");
         }}
       >
-        No. <BiSortAlt2 className="ml-1" />
+        No. {sortKey === "ID" ? (order === "asc" ? <BsSortUpAlt className="ml-1" /> : <BsSortDown className="ml-1" />) : <BiSortAlt2 className="ml-1" />}
       </button>, renderCell: (item) => item["ID"]
     },
     ...COLUMNS,
@@ -365,7 +365,7 @@ const Table = ({
   }, [nodes]);
 
   return (
-    <div className={`${className} ${searchNodes.length < 8 && "h-auto"}`}>
+    <div className={`${className} ${searchNodes.length < 8 && "h-min h-auto"}`}>
       <div className="flex items-center justify-end space-x-4 -mt-16 mb-6">
         <Inputfield
           className="w-1/4"
