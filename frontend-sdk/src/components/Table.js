@@ -365,7 +365,7 @@ const Table = ({
   }, [nodes]);
 
   return (
-    <div className={`${className} ${searchNodes.length < 8 && "h-min"}`}>
+    <div className={`${className} ${searchNodes.length < 8 && "h-auto"}`}>
       <div className="flex items-center justify-end space-x-4 -mt-16 mb-6">
         <Inputfield
           className="w-1/4"
