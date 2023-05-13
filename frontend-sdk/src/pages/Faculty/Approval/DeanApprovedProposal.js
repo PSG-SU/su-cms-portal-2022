@@ -46,7 +46,7 @@ const DeanApprovedProposal = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>Dean Approved Proposals</Heading>
-      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-auto">
+      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-uto">
         <Table
           theads={["Event", "Venue", "Event Date", "Created At"]}
           tdata={data}

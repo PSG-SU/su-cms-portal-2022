@@ -36,7 +36,7 @@ const ViewUsers = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>View Users</Heading>
-      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-auto">
+      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-uto">
         <Table
           theads={["User ID", "Password", "Club / Association Name", "Rights"]}
           tdata={data}

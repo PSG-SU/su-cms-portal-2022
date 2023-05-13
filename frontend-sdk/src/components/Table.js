@@ -20,6 +20,7 @@ import styled, { keyframes } from "styled-components";
 import { AUTH_URL } from "../API/config";
 import { fetchUpdateProposal, fetchGetProposalbyId } from "../API/calls";
 import getProposalReport from "../templates/getProposalReport.js";
+import Inputfield from "./TextInput";
 
 const breatheAnimation = keyframes`
  0% { opacity: 0; transform: scale(0.25) translateY(75px); }
@@ -120,7 +121,7 @@ const Table = ({
           (club) => club.clubId === item[tkeys[idx]]
         );
 
-        if (h !== "Password" &&  club.length > 0) {
+        if (h !== "Password" && club.length > 0) {
           return club[0].clubName;
         }
 
@@ -311,14 +312,33 @@ const Table = ({
     },
   ]);
 
-  const data = { nodes };
+  const [search, setSearch] = useState("");
+
+  const searchNodes = nodes.filter((item) => {
+    return Object.keys(item).some((key) => {
+      let flag = false;
+      clubs?.length > 0 && clubs.filter((c) => c.clubName.toLowerCase().includes(search.toLowerCase())).forEach((c) => {
+        if (c.clubId === item[key]) flag = true;
+      });
+      return flag || String(item[key]).toLowerCase().includes(search.toLowerCase());
+    });
+  })
+
+  const data = { nodes: searchNodes }
 
   useEffect(() => {
     console.log("JSON", nodes, COLUMNS, getDefaults(), tratio);
   }, [nodes]);
 
   return (
-    <div className={`${className}`}>
+    <div className={`${className} ${searchNodes.length < 8 && "h-min"}`}>
+      <div className="flex items-center justify-end space-x-4 -mt-16 mb-6">
+        <Inputfield
+          className="w-1/4"
+          placeholder="Search"
+          valueState={[search, setSearch]}
+        />
+      </div>
       <CompactTable
         columns={COLUMNS}
         data={data}
@@ -331,7 +351,7 @@ const Table = ({
         }}
       />
       <div className="flex justify-end space-x-4 mt-8">
-        <p>Total Count : {nodes.length}</p>
+        <p>Total Count : {searchNodes.length}</p>
       </div>
     </div>
   );

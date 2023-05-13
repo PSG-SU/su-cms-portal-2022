@@ -29,7 +29,7 @@ const ViewNssNcc = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>View NSS / NCC Staff</Heading>
-      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-auto">
+      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-uto">
         <Table
           theads={["Name", "Scheme", "Priority", "Dept", "Image"]}
           tdata={data}
