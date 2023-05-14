@@ -84,21 +84,16 @@ const Table = ({
   };
 
   const handleDelete = (item) => {
-    if (url === AUTH_URL && (item.rights === "admin" || item.rights === "developer")) {
-      toast.error("Cannot delete admin or developer");
-      return;
-    } else {
-      axios
-        .delete(`${url}/delete/${item._id}`)
-        .then((res) => {
-          toast.success("Delete Successful");
-          refreshPage();
-        })
-        .catch((err) => {
-          console.log(err);
-          toast.error("Delete Unsuccessful");
-        });
-    }
+    axios
+      .delete(`${url}/delete/${item._id}`)
+      .then((res) => {
+        toast.success("Delete Successful");
+        refreshPage();
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Delete Unsuccessful");
+      });
   };
 
   const nodes = tdata.map((d, di) => {
@@ -117,7 +112,7 @@ const Table = ({
 
   let COLUMNS = theads.map((h, idx) => {
     return {
-      label: <button
+      label: (h !== "Image") ? (<button
         className="flex items-center hover:text-[#3a3ab7]"
         onClick={() => {
           sortKey === tkeys[idx] ? setOrder(order === "asc" ? "desc" : "asc") : setOrder("asc");
@@ -125,7 +120,7 @@ const Table = ({
         }}
       >
         {h} {sortKey === tkeys[idx] ? (order === "asc" ? <BsSortUpAlt className="ml-1" /> : <BsSortDown className="ml-1" />) : <BiSortAlt2 className="ml-1" />}
-      </button>,
+      </button>) : h,
 
       renderCell: (item) => {
 
@@ -206,7 +201,8 @@ const Table = ({
   });
 
   COLUMNS = [
-    { label: <button
+    {
+      label: <button
         className="flex items-center hover:text-[#3a3ab7]"
         onClick={() => {
           sortKey === "ID" ? setOrder(order === "asc" ? "desc" : "asc") : setOrder("asc");
@@ -365,7 +361,7 @@ const Table = ({
   }, [nodes]);
 
   return (
-    <div className={`${className} ${searchNodes.length < 8 && "h-min h-auto"}`}>
+    <div className={`${className}`}>
       <div className="flex items-center justify-end space-x-4 -mt-16 mb-6">
         <Inputfield
           className="w-1/4"
@@ -373,17 +369,19 @@ const Table = ({
           valueState={[search, setSearch]}
         />
       </div>
-      <CompactTable
-        columns={COLUMNS}
-        data={data}
-        theme={theme}
-        layout={{
-          custom: true,
-          isDiv: true,
-          fixedHeader: true,
-          horizontalScroll: false,
-        }}
-      />
+      <div className={`${searchNodes.length < 8 ? "h-min" : "h-[calc(100vh-23rem)]"}`}>
+        <CompactTable
+          columns={COLUMNS}
+          data={data}
+          theme={theme}
+          layout={{
+            custom: true,
+            isDiv: true,
+            fixedHeader: true,
+            horizontalScroll: false,
+          }}
+        />
+      </div>
       <div className="flex justify-end space-x-4 mt-8">
         <p>Total Count : {searchNodes.length}</p>
       </div>

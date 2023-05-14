@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { AUTH_URL, CLUB_URL } from "../../../API/config";
+import { CLUB_URL } from "../../../API/config";
 import Button from "../../../components/Button";
 import Dropdown from "../../../components/Dropdown";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
 import { UserManagementTabContext } from ".";
-import { fetchAddUser, fetchGetUser, fetchUpdateUser } from "../../../API/calls";
+import { fetchAddUser, fetchUpdateUser } from "../../../API/calls";
 
 const AddUsers = () => {
   const { updateState } = useContext(UserManagementTabContext);
@@ -30,13 +30,13 @@ const AddUsers = () => {
 
   useEffect(() => {
     if (clubName) {
-      setcaID(clubs.filter((club) => club.clubName === clubName)[0].clubId);
+      setcaID(clubs.filter((club) => club.clubName === clubName)[0]?.clubId);
     }
   }, [clubName, clubs]);
 
   useEffect(() => {
     if (caID) {
-      setClubName(clubs.filter((club) => club.clubId === caID)[0].clubName);
+      setClubName(clubs.filter((club) => club.clubId === caID)[0]?.clubName);
     }
   }, [caID, clubs]);
 
@@ -104,32 +104,13 @@ const AddUsers = () => {
   }
 
   const handleUpdate = async () => {
-    if (rights === "admin" || rights === "developer") {
-      toast.error("Cannot update admin or developer");
-      return;
-    } else {
-      if (pwd != null && rpwd != null) {
-        if (checkPassword()) {
-          const postBody = {
-            caID: caID,
-            userId: user,
-            rights: rights,
-            password: pwd,
-          };
-          toast.promise(fetchUpdateUser(postBody, ID)
-            .then((res) => {
-              window.location.reload();
-            }), {
-            loading: "Adding...",
-            success: "Added Successfully",
-            error: (err) => `Error: ${err.response.data.error}`,
-          });
-        }
-      } else {
+    if (pwd != null && rpwd != null) {
+      if (checkPassword()) {
         const postBody = {
           caID: caID,
           userId: user,
           rights: rights,
+          password: pwd,
         };
         toast.promise(fetchUpdateUser(postBody, ID)
           .then((res) => {
@@ -140,6 +121,20 @@ const AddUsers = () => {
           error: (err) => `Error: ${err.response.data.error}`,
         });
       }
+    } else {
+      const postBody = {
+        caID: caID,
+        userId: user,
+        rights: rights,
+      };
+      toast.promise(fetchUpdateUser(postBody, ID)
+        .then((res) => {
+          window.location.reload();
+        }), {
+        loading: "Adding...",
+        success: "Added Successfully",
+        error: (err) => `Error: ${err.response.data.error}`,
+      });
     }
   };
 
@@ -153,7 +148,7 @@ const AddUsers = () => {
       <Heading>
         {Object.keys(updateState).length <= 0 ? "Add" : "Update"} User
       </Heading>
-      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
+      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-18rem)] overflow-auto">
         <div className="flex items-center w-full space-x-4">
           <Dropdown
             valueState={[dropdownRights, setDropdownRights]}

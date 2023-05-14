@@ -12,12 +12,10 @@ const ClubManagement = () => {
     {
       text: "Add Club",
       tab: <AddClubs />,
-      // link: "/officebearers/add",
     },
     {
       text: "View Clubs",
       tab: <ViewClubs />,
-      // link: "/officebearers/view",
     },
   ];
 

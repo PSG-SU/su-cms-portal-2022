@@ -12,12 +12,10 @@ const OfficeBearers = () => {
     {
       text: "Add Members",
       tab: <AddMembers />,
-      // link: "/officebearers/add",
     },
     {
       text: "View Members",
       tab: <ViewMembers />,
-      // link: "/officebearers/view",
     },
   ];
 

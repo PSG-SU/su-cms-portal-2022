@@ -7,12 +7,10 @@ const About = () => {
     {
       text: "Edit Details",
       tab: <EditAbout />,
-      // link: "/Password/add",
     },
     {
       text: "View Details",
       tab: <ViewAbout />,
-      // link: "/Password/add",
     },
   ];
 

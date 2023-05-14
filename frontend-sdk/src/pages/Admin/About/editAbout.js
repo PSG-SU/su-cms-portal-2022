@@ -86,8 +86,7 @@ const EditAbout = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>Edit Details</Heading>
-      <div className="w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
-
+      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-18rem)] overflow-auto">
         <div className="flex items-center w-full space-x-4 mt-4">
           <TextArea
             title="Tagline"
@@ -95,7 +94,7 @@ const EditAbout = () => {
             valueState={[tagline, setTagline]}
             className="w-3/4"
           />
-          <div>
+          <div className="w-1/4">
             <Inputfield
               title="Number of Schemes"
               placeholder="Enter number of schemes"

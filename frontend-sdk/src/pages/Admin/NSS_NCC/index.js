@@ -12,12 +12,10 @@ const NSS_NCC = () => {
     {
       text: "Add Staff",
       tab: <AddNssNcc />,
-      // link: "/SUStaff/add",
     },
     {
       text: "View Staff",
       tab: <ViewNssNcc />,
-      // link: "/SUStaff/add",
     },
   ];
 

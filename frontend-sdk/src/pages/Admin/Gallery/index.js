@@ -7,12 +7,10 @@ const Gallery = () => {
     {
       text: "Upload Images",
       tab: <AddImage />,
-      // link: "/Gallery/add",
     },
     {
       text: "View Images",
       tab: <ViewImage />,
-      // link: "/Gallery/view",
     },
   ];
 

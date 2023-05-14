@@ -27,14 +27,10 @@ const UserManagement = () => {
     axios
       .get(`${AUTH_URL}/unique/${id}`)
       .then((res) => {
-        if (res.data.rights === "admin" || res.data.rights === "developer") {
-          toast.error("Cannot update admin or developer");
-        } else {
-          setUpdateState(res.data);
-          let tempTabMenuItems = [...tabMenuItems];
-          tabMenuItems[0].text = "Update User";
-          setTabMenuItems(tempTabMenuItems);
-        }
+        setUpdateState(res.data);
+        let tempTabMenuItems = [...tabMenuItems];
+        tabMenuItems[0].text = "Update User";
+        setTabMenuItems(tempTabMenuItems);
       })
       .catch((err) => {
         setUpdateState({});

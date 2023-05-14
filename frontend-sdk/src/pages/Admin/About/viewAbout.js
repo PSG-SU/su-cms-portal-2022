@@ -26,15 +26,12 @@ const ViewAbout = () => {
 
   return (
     <section className="px-8 py-8 w-full">
-      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto text-justify">
-        <div className="flex items-center w-full space-x-4 mt-4">
-          <Heading>View Details</Heading>
-        </div>
-
+      <Heading>View Details</Heading>
+      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-18rem)] overflow-auto text-justify">
         <p className="font-semibold mt-4">Tagline</p>
         <div className="flex items-center w-full space-x-8">
           {details?.tagline}
-          <div className="ml-8 w-1/2">
+          <div className="ml-8 w-1/2 text-right">
             <p className="font-semibold">Number of Schemes: {details?.numberOfSchemes}</p>
             <p className="font-semibold">Number of Wings: {details?.numberOfWings}</p>
           </div>

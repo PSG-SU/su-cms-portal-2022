@@ -109,9 +109,9 @@ const AddNssNcc = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>
-        {Object.keys(updateState).length <= 0 ? "Add" : "Update"} Members
+        {Object.keys(updateState).length <= 0 ? "Add" : "Update"} Member
       </Heading>
-      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
+      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-18rem)] overflow-auto">
         <div className="flex items-center w-full space-x-4">
           <Inputfield
             valueState={[name, setName]}
@@ -158,7 +158,7 @@ const AddNssNcc = () => {
             />
           ) : (
             <div className="flex items-center w-full space-x-4 mt-4">
-              <Button className="w-3/4" text={"Update Club"} handleClick={handleUpdate} />
+              <Button className="w-3/4" text={"Update Staff"} handleClick={handleUpdate} />
               <Button className="w-3/4" text={"Cancel Update"} handleClick={handleCancel} />
             </div>
           )}

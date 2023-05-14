@@ -22,14 +22,14 @@ const ViewMembers = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [refreshToken]);
+  }, [refreshToken, url]);
 
   const { updateByID } = useContext(OfficeBearersTabContext);
 
   return (
     <section className="px-8 py-8 w-full">
       <Heading>View Members</Heading>
-      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-uto">
+      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)]">
         <Table
           theads={["Name", "Role", "Year", "Dept", "Image"]}
           tdata={data}
@@ -38,7 +38,7 @@ const ViewMembers = () => {
               ? "max-h-[calc(100vh-20rem)]"
               : "h-[calc(100vh-25rem)]"
             } w-full`}
-          tratio="1fr 1fr 1fr 1fr 0.5fr"
+          tratio="25ch 1fr 1fr 1fr 0.5fr"
           url={url}
           handleUpdate={(id) => updateByID(id)}
         />

@@ -1,4 +1,4 @@
-import { FaUser, FaUserGraduate, FaUsers, FaUserTie, FaKey, FaHome, FaPhotoVideo } from "react-icons/fa";
+import { FaUser, FaUserGraduate, FaUsers, FaUserTie, FaHome, FaPhotoVideo } from "react-icons/fa";
 
 import OfficeBearers from "./Admin/OfficeBearers";
 import ClubManagement from "./Admin/ClubManagement";
@@ -35,7 +35,7 @@ const list = [
     text: "SU Team Staff",
     link: "/admin/su-staff",
     rlink: "su-staff",
-    icon: < FaUserTie />,
+    icon: <FaUserTie />,
     element: <SUStaff />,
   },
   {

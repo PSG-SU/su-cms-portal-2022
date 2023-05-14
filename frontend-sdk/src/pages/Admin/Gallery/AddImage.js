@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "../../../components/Button";
 import MultipleFiles from "../../../components/MultipleFiles";
 import Heading from "../../../components/Heading";
@@ -17,6 +17,7 @@ const AddImage = () => {
         loading: `Uploading...`,
         success: (res) => {
           console.log(res);
+          window.location.reload();
           return "Upload completed";
         },
         error: "Error uploading",
@@ -46,7 +47,7 @@ const AddImage = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>Upload Images</Heading>
-      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
+      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-18rem)] overflow-auto">
         <div className="flex items-center w-full space-x-4">
           <p>
             The first uploaded image will be on the top during display in the
