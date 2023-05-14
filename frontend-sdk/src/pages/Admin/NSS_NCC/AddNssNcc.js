@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { fetchAddNssNcc, fetchUpdateNssNcc, fetchUploadFile } from "../../../API/calls";
+import { fetchAddNssNcc, fetchUpdateNssNcc } from "../../../API/calls";
 import Button from "../../../components/Button";
 import Dropdown from "../../../components/Dropdown";
-import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
 import { NssNccTabContext } from ".";
@@ -16,8 +15,7 @@ const AddNssNcc = () => {
   const [name, setName] = useState("");
   const [priority, setPriority] = useState(0);
   const [department, setDepartment] = useState("");
-  const [file, setFile] = useState(null);
-  const [image_url, setImage_url] = useState("");
+  const [role, setRole] = useState("")
 
   useEffect(() => {
     console.log(updateState);
@@ -26,79 +24,45 @@ const AddNssNcc = () => {
       setName(updateState?.name);
       setPriority(updateState?.priority);
       setDepartment(updateState?.dept);
-      setImage_url(updateState?.image_url);
+      setRole(updateState?.role);
       setID(updateState?._id);
     }
   }, [updateState]);
 
   const handlePost = async () => {
-    toast.promise(fetchUploadFile(file), {
-      loading: "Uploading...",
-      success: (res) => {
-        setImage_url(res.data.url);
-        const postBody = {
-          name: name,
-          scheme: scheme,
-          priority: priority,
-          dept: department,
-          image_url: res.data.url,
-        };
-        toast.promise(fetchAddNssNcc(postBody)
-          .then((res) => {
-            window.location.reload();
-          }), {
-          loading: "Adding...",
-          success: "Added Successfully",
-          error: (err) => `Error: ${err.response.data.error}`,
-        });
-        return "Uploaded";
-      },
-      error: "Error Occured",
+    const postBody = {
+      name: name,
+      scheme: scheme,
+      priority: priority,
+      dept: department,
+      role: role,
+    };
+    toast.promise(fetchAddNssNcc(postBody)
+      .then((res) => {
+        window.location.reload();
+      }), {
+      loading: "Adding...",
+      success: "Added Successfully",
+      error: (err) => `Error: ${err.response.data.error}`,
     });
   };
 
   const handleUpdate = async () => {
-    if (file) {
-      toast.promise(fetchUploadFile(file), {
-        loading: "Uploading...",
-        success: (res) => {
-          setImage_url(res.data.url);
-          const postBody = {
-            name: name,
-            scheme: scheme,
-            priority: priority,
-            dept: department,
-            image_url: res.data.url,
-          };
-          toast.promise(fetchUpdateNssNcc(postBody, ID)
-            .then((res) => {
-              window.location.reload();
-            }), {
-            loading: "Adding...",
-            success: "Added Successfully",
-            error: (err) => `Error: ${err.response.data.error}`,
-          });
-          return "Uploaded";
-        },
-        error: "Error Occured",
-      });
-
-    } else {
-      const postBody = {
-        name: name,
-        scheme: scheme,
-        priority: priority,
-        dept: department,
-      };
-      toast.promise(fetchUpdateNssNcc(postBody, ID)
-        .then((res) => {
-          window.location.reload();
-        }), {
-        loading: "Adding...",
-        success: "Added Successfully",
-        error: (err) => `Error: ${err.response.data.error}`,
-      });
-    }
+    const postBody = {
+      name: name,
+      scheme: scheme,
+      priority: priority,
+      dept: department,
+      role: role,
+    };
+    toast.promise(fetchUpdateNssNcc(postBody, ID)
+      .then((res) => {
+        window.location.reload();
+      }), {
+      loading: "Adding...",
+      success: "Added Successfully",
+      error: (err) => `Error: ${err.response.data.error}`,
+    });
   };
 
   const handleCancel = () => {
@@ -141,11 +105,11 @@ const AddNssNcc = () => {
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
-          <FileUpload
-            fileState={[file, setFile]}
-            title="Upload Image"
+          <Inputfield
+            valueState={[role, setRole]}
+            title="Role"
+            placeholder="Enter Role"
             className="w-1/2"
-            url={image_url}
           />
         </div>
 

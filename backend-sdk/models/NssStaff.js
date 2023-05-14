@@ -17,12 +17,11 @@ const nssStaffSchema = new Schema({
     type: String,
     required: true,
   },
-  image_url: {
+  role: {
     type: String,
-    required: true,
   },
 });
 
-nssStaffSchema.index({ club: 1, priority: 1 }, { unique: true });
+// nssStaffSchema.index({ club: 1, priority: 1 }, { unique: true });
 
 export default model("NssStaff", nssStaffSchema);
