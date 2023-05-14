@@ -383,7 +383,7 @@ const Table = ({
         />
       </div>
       <div className="flex justify-end space-x-4 mt-8">
-        <p>Total Count : {searchNodes.length}</p>
+        <p>Total Count : <b className="font-semibold">{searchNodes.length}</b></p>
       </div>
     </div>
   );

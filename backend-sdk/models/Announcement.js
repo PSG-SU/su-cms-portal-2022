@@ -11,11 +11,6 @@ const announcementSchema = new Schema({
   },
   date: {
     type: String,
-    required: true,
-  },
-  club: {
-    type: String,
-    required: false,
   },
   type: {
     type:String,
@@ -23,7 +18,6 @@ const announcementSchema = new Schema({
   },
   link: {
     type: String,
-    required: true,
   },
 });
 

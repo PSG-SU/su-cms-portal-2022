@@ -134,7 +134,7 @@ const AddStaff = () => {
         <div className="flex items-center w-full space-x-4 mt-4">
         <Dropdown
             valueState={[position, setPosition]}
-            title="Position"
+            title="Position (Optional)"
             placeholder="Select a position"
             options={[
               "Managing Trustee, PSG & Sons' Charity",

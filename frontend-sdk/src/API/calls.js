@@ -6,6 +6,7 @@ import {
   UPLOAD_URL,
   CLUB_URL,
   SUTEAM_URL,
+  ANNOUNCEMENTS_URL,
   ABOUT_URL,
   NSS_NCC_URL,
   GENERAL_URL,
@@ -77,6 +78,14 @@ export const fetchAddSUTeamStaff = (postBody) =>
 
 export const fetchUpdateSUTeamStaff = (postBody, id) =>
   axios.put(`${SUTEAM_URL}/update/${id}`, postBody, {});
+/* ------------------------------------------- */
+
+// For Announcements
+export const fetchAddAnnouncement = (postBody) =>
+  axios.post(`${ANNOUNCEMENTS_URL}/add`, postBody, {});
+
+export const fetchUpdateAnnouncement = (postBody, id) =>
+  axios.put(`${ANNOUNCEMENTS_URL}/update/${id}`, postBody, {});
 /* ------------------------------------------- */
 
 // For About Page
