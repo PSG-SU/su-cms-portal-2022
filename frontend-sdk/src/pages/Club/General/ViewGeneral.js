@@ -62,9 +62,15 @@ const ViewGeneral = () => {
           </div>
         </div>
 
-        <div className="w-full space-y-4 mt-8">
-          <Heading>Tagline</Heading>
-          <p>{content?.tagline ? content?.tagline : "No tagline found !"}</p>
+        <div className="w-full flex flex-row space-x-4 mt-8">
+          <div className="w-1/2 space-y-4">
+            <Heading>Tagline</Heading>
+            <p>{content?.tagline ? content?.tagline : "No tagline found !"}</p>
+          </div>
+          <div className="w-1/2 space-y-4">
+            <Heading>Website Link</Heading>
+            <p>{content?.website ? content?.website : "No website link found !"}</p>
+          </div>
         </div>
 
         <div className="w-full space-y-4 mt-8">

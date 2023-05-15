@@ -125,9 +125,9 @@ const AddMembers = () => {
             options={[
               "Chairperson",
               "Co-Chairperson",
-              "Secretary(Male)",
-              "Secretary(Female)",
-              "Secretary(Science)",
+              "Secretary (Male)",
+              "Secretary (Female)",
+              "Secretary (Science)",
             ]}
             className="w-full"
           />

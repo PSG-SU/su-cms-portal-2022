@@ -102,7 +102,7 @@ const AddAnnouncements = () => {
         <div className="flex items-center w-full space-x-4 mt-4">
           <Dropdown
             valueState={[type, setType]}
-            title="Type"
+            title="Type (Optional)"
             placeholder="Select a type"
             options={[
               "Event",
