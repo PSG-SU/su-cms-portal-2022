@@ -29,6 +29,7 @@ const AddGeneral = () => {
   const [youtube, setYoutube] = useState("");
   const [facebook, setFacebook] = useState("");
   const [twitter, setTwitter] = useState("");
+  const [discord, setDiscord] = useState("")
 
   useEffect(() => {
     axios
@@ -60,6 +61,7 @@ const AddGeneral = () => {
           setYoutube(res.data?.general?.youtube ? res.data?.general?.youtube : "");
           setFacebook(res.data?.general?.facebook ? res.data?.general?.facebook : "");
           setTwitter(res.data?.general?.twitter ? res.data?.general?.twitter : "");
+          setDiscord(res.data?.general?.discord ? res.data?.general?.discord : "");
         })
         .catch((err) => {
           console.log(err);
@@ -85,6 +87,7 @@ const AddGeneral = () => {
       youtube: youtube,
       facebook: facebook,
       twitter: twitter,
+      discord: discord,
     }
 
     if (file && banner) {
@@ -309,6 +312,13 @@ const AddGeneral = () => {
           <Inputfield
             valueState={[twitter, setTwitter]}
             title="Twitter Profile Link"
+          />
+        </div>
+        <div className="flex items-center w-full space-x-4 mt-4">
+          <Inputfield
+            valueState={[discord, setDiscord]}
+            title="Discord Server Link"
+            className="w-1/3"
           />
         </div>
 

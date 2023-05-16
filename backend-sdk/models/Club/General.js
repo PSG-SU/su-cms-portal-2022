@@ -1,9 +1,7 @@
 import { Schema, model } from "mongoose";
 
 const GeneralSchema = new Schema({
-  image_url: {
-    type: String,
-  },
+  image_url: { type: String, },
   user: {
     type: String,
     required: true,
@@ -21,27 +19,12 @@ const GeneralSchema = new Schema({
     type: String,
     default: "No description provided",
   },
-  contactName1: {
-    type: String,
-    required: true,
-  },
-  contactName2: {
-    type: String,
-  },
-  contactNumber1: {
-    type: String,
-    required: true,
-  },
-  contactNumber2: {
-    type: String,
-  },
-  contactEmail1: {
-    type: String,
-    required: true,
-  },
-  contactEmail2: {
-    type: String,
-  },
+  contactName1: { type: String, },
+  contactName2: { type: String, },
+  contactNumber1: { type: String, },
+  contactNumber2: { type: String, },
+  contactEmail1: { type: String, },
+  contactEmail2: { type: String, },
   website: { type: String, },
   instagram: { type: String, },
   linkedin: { type: String, },
@@ -49,7 +32,7 @@ const GeneralSchema = new Schema({
   youtube: { type: String, },
   facebook: { type: String, },
   twitter: { type: String, },
-
+  discord: { type: String, },
 });
 
 export default model("General", GeneralSchema);

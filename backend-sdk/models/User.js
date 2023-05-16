@@ -17,7 +17,6 @@ const userSchema = new Schema({
   rights: {
     type: String,
     required: true,
-
   },
 });
 
