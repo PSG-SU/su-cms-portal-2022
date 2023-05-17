@@ -1,4 +1,4 @@
-import { FaUser, FaUserGraduate, FaUsers, FaUserTie, FaKey, FaHome, FaPhotoVideo } from "react-icons/fa";
+import { FaUser, FaUserGraduate, FaUsers, FaUserTie, FaHome, FaPhotoVideo, FaBullhorn } from "react-icons/fa";
 
 import OfficeBearers from "./Admin/OfficeBearers";
 import ClubManagement from "./Admin/ClubManagement";
@@ -6,6 +6,7 @@ import UserManagement from "./Admin/UserManagement";
 import SUStaff from "./Admin/SUStaff";
 import NSS_NCC from "./Admin/NSS_NCC";
 import About from "./Admin/About";
+import Announcements from "./Admin/Announcements";
 import Gallery from "./Admin/Gallery";
 import { Navigate } from "react-router-dom";
 
@@ -35,7 +36,7 @@ const list = [
     text: "SU Team Staff",
     link: "/admin/su-staff",
     rlink: "su-staff",
-    icon: < FaUserTie />,
+    icon: <FaUserTie />,
     element: <SUStaff />,
   },
   {
@@ -51,6 +52,13 @@ const list = [
     rlink: "nss-ncc",
     icon: <FaUserTie />,
     element: <NSS_NCC />,
+  },
+  {
+    text: "Announcements",
+    link: "/admin/announcements",
+    rlink: "announcements",
+    icon: <FaBullhorn />,
+    element: <Announcements />,
   },
   {
     text: "Gallery",

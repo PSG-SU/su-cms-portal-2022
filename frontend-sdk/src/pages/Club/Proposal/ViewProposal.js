@@ -32,21 +32,21 @@ const ViewProposal = () => {
           console.log(err);
         });
     }
-  }, [refreshToken, user]);
+  }, [refreshToken, url, user]);
 
   const { updateByID } = useContext(ProposalContext);
 
   return (
     <section className="px-8 py-8 w-full">
       <Heading>View Proposals</Heading>
-      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-auto">
+      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)]">
         <Table
           theads={["Event", "Created At", "Status"]}
           tdata={data}
           tkeys={["eventName", "createdAt", "status"]}
           className={`${data.length < 8
-              ? "max-h-[calc(100vh-20rem)]"
-              : "h-[calc(100vh-20rem)]"
+            ? "max-h-[calc(100vh-20rem)]"
+            : "h-[calc(100vh-20rem)]"
             } w-full`}
           tratio="1fr 1fr 1fr"
           url={url}

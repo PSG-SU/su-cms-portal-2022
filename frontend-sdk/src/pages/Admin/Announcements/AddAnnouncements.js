@@ -1,43 +1,44 @@
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { fetchAddNssNcc, fetchUpdateNssNcc } from "../../../API/calls";
 import Button from "../../../components/Button";
 import Dropdown from "../../../components/Dropdown";
+import TextArea from "../../../components/TextArea";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
-import { NssNccTabContext } from ".";
+import { fetchAddAnnouncement, fetchUpdateAnnouncement } from "../../../API/calls";
+import { AnnouncementsTabContext } from ".";
 
-const AddNssNcc = () => {
-  const { updateState } = useContext(NssNccTabContext);
+const AddAnnouncements = () => {
+  const { updateState } = useContext(AnnouncementsTabContext);
 
   const [ID, setID] = useState("");
-  const [scheme, setScheme] = useState("");
-  const [name, setName] = useState("");
-  const [priority, setPriority] = useState(0);
-  const [department, setDepartment] = useState("");
-  const [role, setRole] = useState("")
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+  const [date, setDate] = useState("");
+  const [type, setType] = useState("");
+  const [link, setLink] = useState("")
 
   useEffect(() => {
     console.log(updateState);
     if (Object.keys(updateState).length > 0) {
-      setScheme(updateState?.scheme);
-      setName(updateState?.name);
-      setPriority(updateState?.priority);
-      setDepartment(updateState?.dept);
-      setRole(updateState?.role);
+      setTitle(updateState?.title);
+      setBody(updateState?.body);
+      setDate(updateState?.date);
+      setType(updateState?.type);
+      setLink(updateState?.link);
       setID(updateState?._id);
     }
   }, [updateState]);
 
   const handlePost = async () => {
     const postBody = {
-      name: name,
-      scheme: scheme,
-      priority: priority,
-      dept: department,
-      role: role,
+      title: title,
+      body: body,
+      date: date,
+      type: type,
+      link: link,
     };
-    toast.promise(fetchAddNssNcc(postBody)
+    toast.promise(fetchAddAnnouncement(postBody)
       .then((res) => {
         window.location.reload();
       }), {
@@ -49,13 +50,13 @@ const AddNssNcc = () => {
 
   const handleUpdate = async () => {
     const postBody = {
-      name: name,
-      scheme: scheme,
-      priority: priority,
-      dept: department,
-      role: role,
+      title: title,
+      body: body,
+      date: date,
+      type: type,
+      link: link,
     };
-    toast.promise(fetchUpdateNssNcc(postBody, ID)
+    toast.promise(fetchUpdateAnnouncement(postBody, ID)
       .then((res) => {
         window.location.reload();
       }), {
@@ -73,56 +74,59 @@ const AddNssNcc = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>
-        {Object.keys(updateState).length <= 0 ? "Add" : "Update"} Member
+        {Object.keys(updateState).length <= 0 ? "Add" : "Update"} Announcement
       </Heading>
       <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-18rem)] overflow-auto">
         <div className="flex items-center w-full space-x-4">
           <Inputfield
-            valueState={[name, setName]}
-            title="Name"
-            placeholder="Enter name"
+            valueState={[title, setTitle]}
+            title="Title"
+            placeholder="Eg. INTRAMS 2022"
+            className="w-1/2"
           />
-          <Dropdown
-            valueState={[scheme, setScheme]}
-            title="NSS / NCC"
-            placeholder="Select NSS / NCC"
-            options={[
-              "NSS", "NCC"
-            ]}
+          <Inputfield
+            valueState={[date, setDate]}
+            title="Date (Optional)"
+            placeholder="Eg. 24th - 26th March 2023"
+            className="w-1/2"
+          />
+        </div>
+        <div className="flex items-center w-full space-x-4 mt-4">
+          <TextArea
+            title="Description"
+            placeholder="Enter description"
+            valueState={[body, setBody]}
             className="w-full"
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
-          <Inputfield
-            valueState={[priority, setPriority]}
-            title="Priority"
-            placeholder="Enter Priority"
+          <Dropdown
+            valueState={[type, setType]}
+            title="Type (Optional)"
+            placeholder="Select a type"
+            options={[
+              "Event",
+              "Classified",
+            ]}
+            className="w-1/2"
           />
           <Inputfield
-            valueState={[department, setDepartment]}
-            title="Department"
-            placeholder="Enter Department"
-          />
-        </div>
-        <div className="flex items-center w-full space-x-4 mt-4">
-          <Inputfield
-            valueState={[role, setRole]}
-            title="Role (Optional)"
-            placeholder="Enter Role"
+            valueState={[link, setLink]}
+            title="Link (Optional)"
+            placeholder="Eg. https://www.psgtech.edu/intrams2022/"
             className="w-1/2"
           />
         </div>
-
         <div className="flex items-center space-x-4 mt-8 w-1/2">
           {Object.keys(updateState).length <= 0 ? (
             <Button
               className="w-3/4"
-              text="Add Staff"
+              text={"Add Announcement"}
               handleClick={handlePost}
             />
           ) : (
             <div className="flex items-center w-full space-x-4 mt-4">
-              <Button className="w-3/4" text={"Update Staff"} handleClick={handleUpdate} />
+              <Button className="w-3/4" text={"Update Announcement"} handleClick={handleUpdate} />
               <Button className="w-3/4" text={"Cancel Update"} handleClick={handleCancel} />
             </div>
           )}
@@ -132,4 +136,4 @@ const AddNssNcc = () => {
   );
 };
 
-export default AddNssNcc;
+export default AddAnnouncements;

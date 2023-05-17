@@ -109,9 +109,9 @@ const AddMembers = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>
-        {Object.keys(updateState).length <= 0 ? "Add" : "Update"} Members
+        {Object.keys(updateState).length <= 0 ? "Add" : "Update"} Member
       </Heading>
-      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
+      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-18rem)] overflow-auto">
         <div className="flex items-center w-full space-x-4">
           <Inputfield
             valueState={[name, setName]}
@@ -125,9 +125,9 @@ const AddMembers = () => {
             options={[
               "Chairperson",
               "Co-Chairperson",
-              "Secretary(Male)",
-              "Secretary(Female)",
-              "Secretary(Science)",
+              "Secretary (Male)",
+              "Secretary (Female)",
+              "Secretary (Science)",
             ]}
             className="w-full"
           />

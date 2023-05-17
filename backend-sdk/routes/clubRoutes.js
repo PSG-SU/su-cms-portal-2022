@@ -30,13 +30,13 @@ router.get("/with-logo", async (req, res) => {
     let details = await Promise.all(
       await clubs.map(async (club) => {
         const data = await General.findOne({ user: club.clubId });
-        if (!data) {
-          return null;
-        }
-        return { ...club._doc, image_url: data.image_url };
+        return {
+          ...club._doc,
+          data,
+          image_url: data ? data.image_url : "https://upload.wikimedia.org/wikipedia/en/e/eb/PSG_College_of_Technology_logo.png",
+        };
       })
     );
-    details = details.filter((item) => item != null);
     res.status(200).json(details);
   } catch (err) {
     console.log(err);

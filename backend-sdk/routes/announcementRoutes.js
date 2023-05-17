@@ -13,6 +13,22 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const announcement = await Announcement.findOne({
+      _id: req.params.id,
+    });
+    if (!announcement) {
+      return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json(announcement);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.post("/add", async (req, res) => {
   try {
     const announcement = await Announcement.create({
@@ -25,5 +41,36 @@ router.post("/add", async (req, res) => {
   }
 });
 
+router.put("/update/:id", async (req, res) => {
+  try {
+    const announcement = await Announcement.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    if (!announcement) {
+      return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json(announcement);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const announcement = await Announcement.findByIdAndDelete(req.params.id);
+    if (!announcement) {
+      return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json(announcement);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
 
 export default router;

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { BsCheck2Circle, BsPencil, BsCloudArrowUpFill, BsCheck2, BsCheck2All } from "react-icons/bs";
-import { BiUndo } from "react-icons/bi";
+import { BsCheck2Circle, BsPencil, BsCloudArrowUpFill, BsCheck2, BsCheck2All, BsSortUpAlt, BsSortDown } from "react-icons/bs";
+import { BiSortAlt2, BiUndo } from "react-icons/bi";
 import { HiOutlineTrash } from "react-icons/hi";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { IoMdDownload, IoMdTime } from "react-icons/io";
@@ -20,6 +20,7 @@ import styled, { keyframes } from "styled-components";
 import { AUTH_URL } from "../API/config";
 import { fetchUpdateProposal, fetchGetProposalbyId } from "../API/calls";
 import getProposalReport from "../templates/getProposalReport.js";
+import Inputfield from "./TextInput";
 
 const breatheAnimation = keyframes`
  0% { opacity: 0; transform: scale(0.25) translateY(75px); }
@@ -83,21 +84,16 @@ const Table = ({
   };
 
   const handleDelete = (item) => {
-    if (url === AUTH_URL && (item.rights === "admin" || item.rights === "developer")) {
-      toast.error("Cannot delete admin or developer");
-      return;
-    } else {
-      axios
-        .delete(`${url}/delete/${item._id}`)
-        .then((res) => {
-          toast.success("Delete Successful");
-          refreshPage();
-        })
-        .catch((err) => {
-          console.log(err);
-          toast.error("Delete Unsuccessful");
-        });
-    }
+    axios
+      .delete(`${url}/delete/${item._id}`)
+      .then((res) => {
+        toast.success("Delete Successful");
+        refreshPage();
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Delete Unsuccessful");
+      });
   };
 
   const nodes = tdata.map((d, di) => {
@@ -110,9 +106,22 @@ const Table = ({
     return j;
   });
 
+  const [search, setSearch] = useState("");
+  const [sortKey, setSortKey] = useState("");
+  const [order, setOrder] = useState("asc");
+
   let COLUMNS = theads.map((h, idx) => {
     return {
-      label: h,
+      label: (h !== "Image") ? (<button
+        className="flex items-center hover:text-[#3a3ab7]"
+        onClick={() => {
+          sortKey === tkeys[idx] ? setOrder(order === "asc" ? "desc" : "asc") : setOrder("asc");
+          setSortKey(order === "desc" ? "ID" : tkeys[idx]);
+        }}
+      >
+        {h} {sortKey === tkeys[idx] ? (order === "asc" ? <BsSortUpAlt className="ml-1" /> : <BsSortDown className="ml-1" />) : <BiSortAlt2 className="ml-1" />}
+      </button>) : h,
+
       renderCell: (item) => {
 
         // Club Check
@@ -120,7 +129,7 @@ const Table = ({
           (club) => club.clubId === item[tkeys[idx]]
         );
 
-        if (club.length > 0) {
+        if (h !== "Password" && club.length > 0) {
           return club[0].clubName;
         }
 
@@ -192,7 +201,17 @@ const Table = ({
   });
 
   COLUMNS = [
-    { label: "S.No.", renderCell: (item) => item["ID"] },
+    {
+      label: <button
+        className="flex items-center hover:text-[#3a3ab7]"
+        onClick={() => {
+          sortKey === "ID" ? setOrder(order === "asc" ? "desc" : "asc") : setOrder("asc");
+          setSortKey("ID");
+        }}
+      >
+        No. {sortKey === "ID" ? (order === "asc" ? <BsSortUpAlt className="ml-1" /> : <BsSortDown className="ml-1" />) : <BiSortAlt2 className="ml-1" />}
+      </button>, renderCell: (item) => item["ID"]
+    },
     ...COLUMNS,
   ];
 
@@ -311,7 +330,31 @@ const Table = ({
     },
   ]);
 
-  const data = { nodes };
+  const sortData = (node, key, order) => {
+    const sortedData = [...node].sort((a, b) => {
+      if (a[key] < b[key]) {
+        return order === "asc" ? -1 : 1;
+      }
+      if (a[key] > b[key]) {
+        return order === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+
+    return sortedData;
+  }
+
+  const searchNodes = sortData(nodes, sortKey, order).filter((item) => {
+    return Object.keys(item).some((key) => {
+      let flag = false;
+      clubs?.length > 0 && clubs.filter((c) => c.clubName.toLowerCase().includes(search.toLowerCase())).forEach((c) => {
+        if (c.clubId === item[key]) flag = true;
+      });
+      return flag || String(item[key]).toLowerCase().includes(search.toLowerCase());
+    });
+  })
+
+  const data = { nodes: searchNodes }
 
   useEffect(() => {
     console.log("JSON", nodes, COLUMNS, getDefaults(), tratio);
@@ -319,19 +362,28 @@ const Table = ({
 
   return (
     <div className={`${className}`}>
-      <CompactTable
-        columns={COLUMNS}
-        data={data}
-        theme={theme}
-        layout={{
-          custom: true,
-          isDiv: true,
-          fixedHeader: true,
-          horizontalScroll: false,
-        }}
-      />
+      <div className="flex items-center justify-end space-x-4 -mt-16 mb-6">
+        <Inputfield
+          className="w-1/4"
+          placeholder="Search"
+          valueState={[search, setSearch]}
+        />
+      </div>
+      <div className={`${searchNodes.length < 8 ? "h-min" : "h-[calc(100vh-23rem)]"}`}>
+        <CompactTable
+          columns={COLUMNS}
+          data={data}
+          theme={theme}
+          layout={{
+            custom: true,
+            isDiv: true,
+            fixedHeader: true,
+            horizontalScroll: false,
+          }}
+        />
+      </div>
       <div className="flex justify-end space-x-4 mt-8">
-        <p>Total Count : {nodes.length}</p>
+        <p>Total Count : <b className="font-semibold">{searchNodes.length}</b></p>
       </div>
     </div>
   );

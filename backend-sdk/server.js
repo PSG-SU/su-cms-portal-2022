@@ -7,11 +7,11 @@ import clubRoutes from "./routes/clubRoutes.js";
 import officeBearerRoutes from "./routes/officeBearerRoutes.js";
 import suTeamRoutes from "./routes/suTeamRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
-import aboutRoutes from "./routes/aboutRoutes.js";
+import aboutRoutes from "./routes/AboutRoutes.js";
 import nssRoutes from "./routes/nssStaffRoutes.js";
 import galleryRoutes from "./routes/galleryRoutes.js";
 import announcementRoutes from "./routes/announcementRoutes.js";
-import generalRoutes from "./routes/Club/generalRoutes.js";
+import generalRoutes from "./routes/Club/GeneralRoutes.js";
 import teamMemberRoutes from "./routes/Club/teamMemberRoutes.js";
 import proposalRoutes from "./routes/Club/proposalRoutes.js";
 import clubGalleryRoutes from "./routes/Club/clubGalleryRoutes.js"

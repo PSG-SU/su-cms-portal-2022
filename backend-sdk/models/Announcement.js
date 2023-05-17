@@ -11,19 +11,12 @@ const announcementSchema = new Schema({
   },
   date: {
     type: String,
-    required: true,
-  },
-  club: {
-    type: String,
-    required: false,
   },
   type: {
     type:String,
-    required: true,
   },
   link: {
     type: String,
-    required: true,
   },
 });
 

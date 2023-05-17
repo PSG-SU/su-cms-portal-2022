@@ -22,18 +22,18 @@ const ViewNssNcc = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [refreshToken]);
+  }, [refreshToken, url]);
 
   const { updateByID } = useContext(NssNccTabContext);
 
   return (
     <section className="px-8 py-8 w-full">
       <Heading>View NSS / NCC Staff</Heading>
-      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-auto">
+      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)]">
         <Table
-          theads={["Name", "Scheme", "Priority", "Dept", "Image"]}
+          theads={["Name", "Scheme", "Priority", "Dept", "Role"]}
           tdata={data}
-          tkeys={["name", "scheme", "priority", "dept", "image_url"]}
+          tkeys={["name", "scheme", "priority", "dept", "role"]}
           className={`${data.length < 8
             ? "max-h-[calc(100vh-20rem)]"
             : "h-[calc(100vh-25rem)]"

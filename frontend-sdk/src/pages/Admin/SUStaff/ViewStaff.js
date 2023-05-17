@@ -22,14 +22,14 @@ const ViewStaff = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [refreshToken]);
+  }, [refreshToken, url]);
 
   const { updateByID } = useContext(SUStaffTabContext);
 
   return (
     <section className="px-8 py-8 w-full">
       <Heading>View SU Team Staffs</Heading><br></br>
-      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-auto">
+      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)]">
         <Table
           theads={["Name", "Role", "Position", "Image"]}
           tdata={data}
@@ -38,7 +38,7 @@ const ViewStaff = () => {
             ? "max-h-[calc(100vh-20rem)]"
             : "h-[calc(100vh-25rem)]"
             } w-full`}
-          tratio="1fr 30ch 1fr 0.5fr"
+          tratio="1fr 30ch 30ch 0.5fr"
           url={url}
           handleUpdate={(id) => updateByID(id)}
         />

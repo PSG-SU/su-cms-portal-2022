@@ -12,12 +12,10 @@ const SUStaff = () => {
     {
       text: "Add Staffs",
       tab: <AddStaff />,
-      // link: "/SUStaff/add",
     },
     {
       text: "View Staffs",
       tab: <ViewStaff />,
-      // link: "/SUStaff/view",
     },
   ];
 

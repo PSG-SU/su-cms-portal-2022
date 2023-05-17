@@ -1,21 +1,21 @@
-import React, { createContext, useState } from "react";
-import AddNssNcc from "./AddNssNcc";
-import ViewNssNcc from "./ViewNssNcc";
-import { NSS_NCC_URL } from "../../../API/config.js";
-import toast from "react-hot-toast";
 import axios from "axios";
+import React, { createContext, useState } from "react";
+import AddAnnouncements from "./AddAnnouncements";
+import ViewAnnouncements from "./ViewAnnouncements";
+import { ANNOUNCEMENTS_URL } from "../../../API/config.js";
+import { toast } from "react-hot-toast";
 
-export const NssNccTabContext = createContext();
+export const AnnouncementsTabContext = createContext();
 
-const NSS_NCC = () => {
+const Announcements = () => {
   const initialTabMenuItems = [
     {
-      text: "Add Staff",
-      tab: <AddNssNcc />,
+      text: "Add Announcement",
+      tab: <AddAnnouncements />,
     },
     {
-      text: "View Staff",
-      tab: <ViewNssNcc />,
+      text: "View Announcements",
+      tab: <ViewAnnouncements />,
     },
   ];
 
@@ -25,11 +25,11 @@ const NSS_NCC = () => {
 
   const updateByID = (id) => {
     axios
-      .get(`${NSS_NCC_URL}/${id}`)
+      .get(`${ANNOUNCEMENTS_URL}/${id}`)
       .then((res) => {
         setUpdateState(res.data);
         let tempTabMenuItems = [...tabMenuItems];
-        tabMenuItems[0].text = "Update Staff";
+        tabMenuItems[0].text = "Update Announcement";
         setTabMenuItems(tempTabMenuItems);
       })
       .catch((err) => {
@@ -41,12 +41,14 @@ const NSS_NCC = () => {
   };
 
   return (
-    <NssNccTabContext.Provider
+    <AnnouncementsTabContext.Provider
       value={{ selectedTab: selected, updateByID, updateState }}
     >
       <section className="">
         <div className="h-fit bg-gray px-8 pt-8">
-          <p className="text-lg uppercase tracking-wider mb-8">NSS / NCC Staff</p>
+          <p className="text-lg uppercase tracking-wider mb-8">
+            ANNOUNCEMENTS
+          </p>
           <header className="flex">
             {tabMenuItems.map((item, idx) => {
               return (
@@ -76,8 +78,8 @@ const NSS_NCC = () => {
         </div>
         {tabMenuItems[selected].tab}
       </section>
-    </NssNccTabContext.Provider>
+    </AnnouncementsTabContext.Provider>
   );
 };
 
-export default NSS_NCC;
+export default Announcements;

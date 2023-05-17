@@ -24,7 +24,7 @@ const Login = () => {
 
         if (res.data.rights === "admin") {
           navigate("/admin");
-        } else if (res.data.rights === "club" || res.data.rights === "association" || res.data.rights === "developer") {
+        } else if (res.data.rights === "club" || res.data.rights === "association") {
           navigate("/club");
         } else if (res.data.rights === "dean") {
           navigate("/dean");
@@ -36,11 +36,10 @@ const Login = () => {
       })
       .catch((err) => {
         console.log(err);
-        
+
         if (err.code === "ERR_BAD_REQUEST") {
           toast.error('Wrong Password!');
-        }else{
-          
+        } else {
           toast.error(`Error: ${err}`);
         }
       });

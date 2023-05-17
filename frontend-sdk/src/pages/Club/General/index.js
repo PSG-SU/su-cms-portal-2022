@@ -5,14 +5,12 @@ import ViewGeneral from "./ViewGeneral";
 const General = () => {
   const initialTabMenuItems = [
     {
-      text: "Add",
+      text: "Update Details",
       tab: <AddGeneral />,
-      // link: "/Gallery/add",
     },
     {
-      text: "View",
+      text: "View Details",
       tab: <ViewGeneral />,
-      // link: "/Gallery/add",
     },
   ];
 

@@ -34,7 +34,7 @@ const ApplyProposal = () => {
   const [expectedExpense, setexpectedExpense] = useState("");
   const [allocatedExpense, setallocatedExpense] = useState("");
   const [amountSpent, setamountSpent] = useState("");
-  const [inCollab, setInCollab] = useState("");
+  const [inCollab, setInCollab] = useState("No");
   const [orgName, setOrgName] = useState("");
   const [budgetSplit, setBudgetSplit] = useState("");
   const [facultyDept, setfacultyDept] = useState("");
@@ -45,7 +45,7 @@ const ApplyProposal = () => {
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const IST = 330 * 60000;
+  // const IST = 330 * 60000;
 
   useEffect(() => {
     console.log("Update State: ", updateState);
@@ -57,7 +57,7 @@ const ApplyProposal = () => {
       setguest(updateState?.guest);
       setexpectedExpense(updateState?.expectedExpense);
       setallocatedExpense(updateState?.allocatedBudget);
-      setInCollab(updateState?.inCollab);
+      setInCollab(updateState?.inCollab ? updateState?.inCollab : "No");
       setOrgName(updateState?.orgName);
       setBudgetSplit(updateState?.budgetSplit);
       setamountSpent(updateState?.amountSpent);
@@ -65,8 +65,8 @@ const ApplyProposal = () => {
       setfacultyName(updateState?.facultyName);
       setComment(updateState?.comments);
       setDesc(updateState?.description);
-      setStartDate(new Date(Date.parse(updateState?.startDate)) - IST);
-      setEndDate(new Date(Date.parse(updateState?.endDate)) - IST);
+      setStartDate(updateState?.startDate ? new Date(updateState?.startDate) : "");
+      setEndDate(updateState?.endDate ? new Date(updateState?.endDate) : "");
     }
   }, [updateState]);
 
@@ -84,8 +84,8 @@ const ApplyProposal = () => {
 
     const postBody = {
       eventName: eventName,
-      startDate: new Date(startDate + IST),
-      endDate: new Date(endDate + IST),
+      startDate: new Date(startDate),
+      endDate: new Date(endDate),
       venue: venue,
       count: count,
       guest: guest,
@@ -99,7 +99,7 @@ const ApplyProposal = () => {
       facultyDept: facultyDept,
       description: desc,
       comments: comment,
-      createdAt: new Date(Date.now() + IST),
+      createdAt: new Date(Date.now()),
       user: user,
     };
     toast.promise(fetchAddProposal(postBody)
@@ -116,8 +116,8 @@ const ApplyProposal = () => {
     console.log('id' + ID)
     const postBody = {
       eventName: eventName,
-      startDate: new Date(startDate + IST),
-      endDate: new Date(endDate + IST),
+      startDate: new Date(startDate),
+      endDate: new Date(endDate),
       venue: venue,
       count: count,
       guest: guest,
@@ -131,7 +131,7 @@ const ApplyProposal = () => {
       facultyDept: facultyDept,
       description: desc,
       comments: comment,
-      createdAt: new Date(Date.now() + IST),
+      createdAt: new Date(Date.now()),
       status: "pending",
       user: user,
     };
@@ -222,7 +222,7 @@ const ApplyProposal = () => {
             <Inputfield
               valueState={[budgetSplit, setBudgetSplit]}
               title="How is the budget split ?"
-              placeholder="Eg. YOC - Rs.5000, Students Union - Rs.5000"
+              placeholder="Eg. Club - Rs.5000, Students Union - Rs.5000"
             />
           </div>
           )
@@ -259,6 +259,7 @@ const ApplyProposal = () => {
           <MultipleFiles
             title="Supporting Documents"
             fileState={[files, setFiles]}
+            pdf
           />
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">

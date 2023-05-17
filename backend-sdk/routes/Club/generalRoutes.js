@@ -33,6 +33,26 @@ router.get("/:user", async (req, res) => {
   }
 });
 
+router.put("/update-desc", async (req, res) => {
+  try {
+    const data = req.body;
+    for (let i = 0; i < data.length; i++) {
+      const club = await General.findOneAndUpdate(
+        { user: data[i].club },
+        { description: data[i].description },
+        { new: true }
+      );
+      if (!club) {
+        return res.status(404).json({ error: "Not Found" });
+      }
+    }
+    res.status(200).json({ message: "Updated" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.post("/add", async (req, res) => {
   try {
     const general = await General.create({

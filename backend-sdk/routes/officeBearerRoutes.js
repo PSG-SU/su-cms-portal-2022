@@ -87,4 +87,22 @@ router.delete("/deleteAll", async (req, res) => {
   }
 });
 
+router.put("/update-role", async (req, res) => {
+  try {
+    const officeBearer = await OfficeBearer.find({});
+
+    for (let i = 0; i < officeBearer.length; i++) {
+      await OfficeBearer.findOneAndUpdate(
+        { role: "Secretary(Male)" },
+        { $set: { role: "Secretary (Male)" } },
+        { new: true }
+      );
+    }
+    res.status(200).json({ message: "Updated" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 export default router;

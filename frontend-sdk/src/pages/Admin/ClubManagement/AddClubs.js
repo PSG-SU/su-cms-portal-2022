@@ -2,10 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Button from "../../../components/Button";
 import Dropdown from "../../../components/Dropdown";
-import FileUpload from "../../../components/FileUpload";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
-import { fetchAddClubs, fetchUpdateClubs, fetchUploadFile } from "../../../API/calls";
+import { fetchAddClubs, fetchUpdateClubs } from "../../../API/calls";
 import { ClubManagementTabContext } from ".";
 
 const AddClubs = () => {
@@ -67,7 +66,7 @@ const AddClubs = () => {
       <Heading>
         {Object.keys(updateState).length <= 0 ? "Add" : "Update"} Club / Association
       </Heading>
-      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
+      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-18rem)] overflow-auto">
         <div className="flex items-center w-1/2 space-x-4">
           <Dropdown
             valueState={[cat, setCat]}

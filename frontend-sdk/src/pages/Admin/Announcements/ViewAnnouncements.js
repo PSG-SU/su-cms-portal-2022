@@ -4,13 +4,13 @@ import Heading from "../../../components/Heading";
 import Table from "../../../components/Table";
 import axios from "axios";
 import { RefreshContext } from "../../../Refresher";
-import { OfficeBearersTabContext } from ".";
-import { OFFICE_BEARERS_URL } from "../../../API/config";
+import { AnnouncementsTabContext } from ".";
+import { ANNOUNCEMENTS_URL } from "../../../API/config";
 
-const ViewMembers = () => {
+const ViewAnnouncements = () => {
   const [data, setData] = useState([]);
   const { refreshToken } = useContext(RefreshContext);
-  const url = OFFICE_BEARERS_URL;
+  const url = ANNOUNCEMENTS_URL;
 
   useEffect(() => {
     axios
@@ -24,21 +24,21 @@ const ViewMembers = () => {
       });
   }, [refreshToken, url]);
 
-  const { updateByID } = useContext(OfficeBearersTabContext);
+  const { updateByID } = useContext(AnnouncementsTabContext);
 
   return (
     <section className="px-8 py-8 w-full">
-      <Heading>View Members</Heading>
+      <Heading>View Announcements</Heading>
       <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)]">
         <Table
-          theads={["Name", "Role", "Year", "Dept", "Image"]}
+          theads={["Title", "Date", "Type", "Link"]}
           tdata={data}
-          tkeys={["name", "role", "year", "deptyos", "image_url"]}
+          tkeys={["title", "date", "type", "link"]}
           className={`${data.length < 8
-              ? "max-h-[calc(100vh-20rem)]"
-              : "h-[calc(100vh-25rem)]"
+            ? "max-h-[calc(100vh-20rem)]"
+            : "h-[calc(100vh-25rem)]"
             } w-full`}
-          tratio="25ch 1fr 1fr 1fr 0.5fr"
+          tratio="30ch 1fr 1fr 25ch"
           url={url}
           handleUpdate={(id) => updateByID(id)}
         />
@@ -47,4 +47,4 @@ const ViewMembers = () => {
   );
 };
 
-export default ViewMembers;
+export default ViewAnnouncements;
