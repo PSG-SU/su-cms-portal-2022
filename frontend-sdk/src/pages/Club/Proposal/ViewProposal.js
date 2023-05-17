@@ -32,14 +32,14 @@ const ViewProposal = () => {
           console.log(err);
         });
     }
-  }, [refreshToken, user]);
+  }, [refreshToken, url, user]);
 
   const { updateByID } = useContext(ProposalContext);
 
   return (
     <section className="px-8 py-8 w-full">
       <Heading>View Proposals</Heading>
-      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-uto">
+      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)]">
         <Table
           theads={["Event", "Created At", "Status"]}
           tdata={data}

@@ -32,7 +32,7 @@ const ViewGeneral = () => {
 
   return (
     <section className="px-8 py-8 w-full">
-      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-auto">
+      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-18rem)] overflow-auto">
         <div className="flex items-center w-full space-x-4">
           <div className="w-1/2 space-y-6">
             <Heading>Logo</Heading>

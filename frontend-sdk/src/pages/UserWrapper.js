@@ -25,7 +25,7 @@ const UserWrapper = () => {
           setMenuItems(SUMenuItems);
         })
       : navigate("/404-error");
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     axios
@@ -50,7 +50,7 @@ const UserWrapper = () => {
 
   return (
     <main className="h-screen w-screen overflow-auto flex">
-      <nav className="bg-gradient-to-bl from-blue to-black shadow-lg w-1/4 overflow-hidden py-8 h-screen">
+      <nav className="bg-gradient-to-bl from-blue to-black shadow-lg w-1/5 overflow-hidden py-8 h-screen">
         <div className="text-white text-3xl font-semibold mb-2 px-8 w-full">
           SU CMS Portal
         </div>
@@ -83,7 +83,7 @@ const UserWrapper = () => {
           </p>
         </div>
       </nav>
-      <div className="w-3/4 overflow-hidden">
+      <div className="w-4/5 overflow-hidden">
         <Outlet />
       </div>
     </main>

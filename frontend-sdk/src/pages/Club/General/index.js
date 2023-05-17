@@ -7,12 +7,10 @@ const General = () => {
     {
       text: "Update Details",
       tab: <AddGeneral />,
-      // link: "/Gallery/add",
     },
     {
       text: "View Details",
       tab: <ViewGeneral />,
-      // link: "/Gallery/add",
     },
   ];
 
