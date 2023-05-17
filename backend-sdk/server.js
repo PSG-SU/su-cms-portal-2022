@@ -18,7 +18,7 @@ import clubGalleryRoutes from "./routes/Club/clubGalleryRoutes.js"
 import spotlightRoutes from "./routes/spotlightRoutes.js";
 
 const app = express();
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3500;
 
 app.use(cors());
 app.use(json());
