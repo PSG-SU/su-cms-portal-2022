@@ -17,14 +17,14 @@ const list = [
     element: <General />,
   },
   {
-    text: "Proposal",
+    text: "Event Proposal",
     link: "/club/proposal",
     rlink: "proposal",
     icon: <FaCalendarDay />,
     element: <Proposal />,
   },
   {
-    text: "Events",
+    text: "Publish Events",
     link: "/club/events",
     rlink: "events",
     icon: <FaCalendarCheck />,
@@ -41,17 +41,16 @@ const list = [
     text: "Team",
     link: "/club/team",
     rlink: "team",
-
     icon: <FaUsers />,
     element: <Team />,
   },
-  // {
-  //   text: "Password",
-  //   link: "/club/password",
-  //   rlink: "password",
-  //   icon: <FaKey />,
-  //   element: <Password />,
-  // },
+  {
+    text: "Password",
+    link: "/club/password",
+    rlink: "password",
+    icon: <FaKey />,
+    element: <Password />,
+  },
   {
     text: "default",
     link: "/club",

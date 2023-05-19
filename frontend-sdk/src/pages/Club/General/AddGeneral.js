@@ -174,8 +174,7 @@ const AddGeneral = () => {
 
   return (
     <section className="px-8 py-8 w-full">
-      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-18rem)] overflow-auto">
-
+      <div className="mt-2 w-full lg:pr-[20%] h-[calc(100vh-15rem)] overflow-auto">
         <div className="flex flex-row w-full gap-x-8">
           <div className="flex flex-col w-1/2">
             <Heading>Upload Logo</Heading>

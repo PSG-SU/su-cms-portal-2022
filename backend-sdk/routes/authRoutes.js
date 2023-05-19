@@ -156,6 +156,29 @@ router.put("/update/:id", async (req, res) => {
   }
 });
 
+router.put("/changePassword/:id", async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.params.id });
+    if (!user) return res.status(404).json({ error: "User not found" });
+    // const auth = bcrypt.compareSync(req.body.oldPassword, user.password);
+    const auth = req.body.oldPassword === user.password;
+    if (auth) {
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: req.params.id },
+        // { password: bcrypt.hashSync(req.body.newPassword, 10) },
+        { password: req.body.newPassword },
+        { new: true }
+      );
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(401).json({ error: "Invalid credentials" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.delete("/delete/:id", async (req, res) => {
   try {
     const user = await User.findOneAndDelete({ _id: req.params.id });

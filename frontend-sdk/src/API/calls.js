@@ -18,7 +18,7 @@ import {
 } from "./config";
 import imageCompression from "browser-image-compression";
 
-const ABOUT_ID = "6355381dcef8729cb955e396";
+// const ABOUT_ID = "6355381dcef8729cb955e396";
 
 async function handleImageUpload(img) {
   const imageFile = img;
@@ -55,6 +55,9 @@ export const fetchUpdateUser = (postBody, id) =>
   axios.put(`${AUTH_URL}/update/${id}`, postBody, {});
 export const fetchGetAllUsers = () => axios.get(`${AUTH_URL}`, {});
 export const fetchGetUser = (id) => axios.get(`${AUTH_URL}/unique/${id}`, {});
+export const fetchChangePassword = (postBody, id) =>
+  axios.put(`${AUTH_URL}/changePassword/${id}`, postBody, {});
+/* ------------------------------------------- */
 
 // For OFFICE BEARERS
 export const fetchAddOfficeBearers = (postBody) =>

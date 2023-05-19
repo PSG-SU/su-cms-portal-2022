@@ -1,8 +1,9 @@
-import { FaCalendarCheck, FaHome } from "react-icons/fa";
+import { FaCalendarCheck, FaHome, FaKey } from "react-icons/fa";
 import { VscFilePdf } from "react-icons/vsc";
 import { BsCalendarWeek } from "react-icons/bs";
 
 import Approval from "./Faculty/Approval";
+import Password from "./Faculty/Password";
 import { Navigate } from "react-router-dom";
 
 const list = [
@@ -12,6 +13,13 @@ const list = [
     rlink: "approval",
     icon: <FaCalendarCheck />,
     element: <Approval />,
+  },
+  {
+    text: "Password",
+    link: "/faculty/password",
+    rlink: "password",
+    icon: <FaKey />,
+    element: <Password />,
   },
   {
     text: "default",
