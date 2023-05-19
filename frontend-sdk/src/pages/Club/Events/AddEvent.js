@@ -169,13 +169,14 @@ const AddEvent = () => {
         <div className="flex items-center w-full space-x-4 mt-4">
           <TextArea
             title="Event Description"
-            placeholder="The content entered here will be shown as a description in events page"
+            placeholder="The content entered here will be shown as description in the feed."
             valueState={[desc, setDesc]}
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
           <MultipleFiles
-            title="Images"
+            title="Images (Optional)"
+            subtitle="Upload event posters, images, etc."
             fileState={[images, setImages]}
             urlState={[imageUrls, setImageUrls]}
           />
@@ -183,7 +184,7 @@ const AddEvent = () => {
         <div className="flex items-center w-full space-x-4 mt-4 ">
           <Inputfield
             valueState={[reglink, setReglink]}
-            title="Registration link"
+            title="Registration link (Optional)"
             placeholder="Enter reg link"
           />
         </div>

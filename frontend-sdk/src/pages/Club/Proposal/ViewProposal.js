@@ -51,6 +51,7 @@ const ViewProposal = () => {
           tratio="1fr 1fr 1fr 1fr 1fr"
           url={url}
           handleUpdate={(id) => updateByID(id)}
+          showDownload
         />
       </div>
     </section>

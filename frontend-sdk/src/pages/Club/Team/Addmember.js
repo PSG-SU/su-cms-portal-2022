@@ -25,48 +25,54 @@ const AddMember = () => {
   }, [])
 
   const [ID, setID] = useState("");
-  const [pos, setPos] = useState("");
-  const [mname, setMname] = useState("");
+  const [position, setPosition] = useState("");
+  const [name, setName] = useState("");
   const [dept, setDept] = useState("");
   const [desgn, setDesgn] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
+  const [year, setYear] = useState("");
   const [file, setFile] = useState(null);
   const [image_url, setImage_url] = useState("");
-  const [from, setFrom] = useState(new Date());
-  const [to, setTo] = useState(new Date());
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
 
   useEffect(() => {
     console.log("UpdateState" + updateState);
     if (Object.keys(updateState).length >= 0) {
       setID(updateState?._id);
-      setPos(updateState?.position);
-      setMname(updateState?.name);
+      setPosition(updateState?.position);
+      setName(updateState?.name);
       setDept(updateState?.department);
       setDesgn(updateState?.designation);
-      setPhone(updateState?.phone);
-      setEmail(updateState?.email);
+      setYear(updateState?.year);
       setImage_url(updateState?.image_url);
-      setFrom(Date.parse(updateState?.from));
-      setTo(Date.parse(updateState?.to));
+      setFrom(updateState.from ? Date.parse(updateState?.from) : "");
+      setTo(updateState.to ? Date.parse(updateState?.to) : "");
     }
   }, [updateState]);
 
   const handleAddMember = async () => {
+    if (position === "Student") {
+      if (!year) {
+        return toast.error("Please enter the year of study");
+      }
+      if (from === "" || to === "") {
+        return toast.error("Please enter the FROM and TO years");
+      }
+    }
+
     toast.promise(fetchUploadFile(file), {
       loading: "Uploading...",
       success: (res) => {
         setImage_url(res.data.url);
         const postBody = {
-          position: pos,
-          name: mname,
+          position: position,
+          name: name,
           department: dept,
           designation: desgn,
-          phone: phone,
-          email: email,
+          year: year,
           image_url: res.data.url,
-          from: from.toISOString(),
-          to: to.toISOString(),
+          from: from,
+          to: to,
           user: user,
         };
         toast.promise(fetchAddTeamMember(postBody)
@@ -84,18 +90,26 @@ const AddMember = () => {
   };
 
   const handleUpdateMember = async () => {
+    if (position === "Student") {
+      if (!year) {
+        return toast.error("Please enter the year of study");
+      }
+      if (from === "" || to === "") {
+        return toast.error("Please enter the FROM and TO years");
+      }
+    }
+
     if (file) {
       toast.promise(fetchUploadFile(file), {
         loading: "Uploading...",
         success: (res) => {
           setImage_url(res.data.url);
           const postBody = {
-            position: pos,
-            name: mname,
+            position: position,
+            name: name,
             department: dept,
             designation: desgn,
-            phone: phone,
-            email: email,
+            year: year,
             image_url: res.data.url,
             from: from,
             to: to,
@@ -114,12 +128,11 @@ const AddMember = () => {
       });
     } else {
       const postBody = {
-        position: pos,
-        name: mname,
+        position: position,
+        name: name,
         department: dept,
         designation: desgn,
-        phone: phone,
-        email: email,
+        year: year,
         from: from,
         to: to,
       };
@@ -142,56 +155,53 @@ const AddMember = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>Content for website</Heading>
-      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-auto">
+      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-18rem)] overflow-auto">
         <div className="flex items-center w-full space-x-4">
           <Dropdown
-            valueState={[pos, setPos]}
+            valueState={[position, setPosition]}
             title="Position"
             placeholder="Select a Position"
             options={[
-              "Faculty",
+              "Faculty Advisor",
               "Student",
             ]}
           />
           <Inputfield
-            valueState={[mname, setMname]}
+            valueState={[name, setName]}
             title="Member Name"
             placeholder="Enter the name of the member"
           />
         </div>
 
         <div className="flex items-center w-full space-x-4 mt-4">
+          <Inputfield
+            valueState={[desgn, setDesgn]}
+            title="Designation"
+            placeholder={`${position === "Faculty Advisor" ? "Eg. Associate Professor" : "Eg. Secretary"}`}
+          />
+          {position === "Student" &&
+            <Inputfield
+              valueState={[year, setYear]}
+              title="Year of Study"
+              placeholder="Eg. 3rd Year"
+            />
+          }
           <Dropdown
             valueState={[dept, setDept]}
             title="Department"
             placeholder="Select a Department"
             options={departments}
           />
-          <Inputfield
-            valueState={[desgn, setDesgn]}
-            title="Designation / Year of study"
-            placeholder="Enter the name of the Club"
-          />
+        </div>
+        <div className="flex items-center w-full space-x-4 mt-4">
           <FileUpload
             title="Member Photo"
             fileState={[file, setFile]}
             url={image_url}
           />
-        </div>
-        <div className="flex items-center w-full space-x-4 mt-4">
-          <Inputfield
-            valueState={[phone, setPhone]}
-            title="Phone Number"
-            placeholder="Enter Phone Number"
-          />
-          <Inputfield
-            valueState={[email, setEmail]}
-            title="Email"
-            placeholder="Enter Email ID"
-          />
           <DateInput
-            startTitle="From"
-            endTitle="To"
+            startTitle={`From ${position === "Faculty Advisor" ? "(Optional)" : ""}`}
+            endTitle={`To ${position === "Faculty Advisor" ? "(Optional)" : ""}`}
             startState={[from, setFrom]}
             endState={[to, setTo]}
             dateformat="yyyy"

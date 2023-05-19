@@ -51,6 +51,7 @@ const ViewEvents = () => {
           tratio="1fr 1fr 25ch 25ch"
           url={url}
           handleUpdate={(id) => updateByID(id)}
+          showDownload
         />
       </div>
     </section>

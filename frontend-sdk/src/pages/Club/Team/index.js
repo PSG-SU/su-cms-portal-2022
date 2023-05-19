@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { createContext, useState } from "react";
-import AddMember from "./Addmember";
-import EditandDelete from "./Editanddelete";
+import AddMember from "./AddMember";
+import EditMember from "./EditMember";
 import { TEAM_MEMBER_URL } from "../../../API/config";
 import { toast } from "react-hot-toast";
 
@@ -14,8 +14,8 @@ const Team = () => {
       tab: <AddMember />,
     },
     {
-      text: "Edit and Delete Member",
-      tab: <EditandDelete />,
+      text: "Edit Member",
+      tab: <EditMember />,
     },
   ];
 

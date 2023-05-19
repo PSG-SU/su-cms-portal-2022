@@ -12,6 +12,7 @@ const MultipleFiles = ({
   fileErrorState = ["", (e) => {}],
   className = "",
   title = "",
+  subtitle = "",
   urlState = [[], (e) => {}],
   pdf = false,
 }) => {
@@ -67,6 +68,7 @@ const MultipleFiles = ({
     >
       <div className="flex flex-col">
         <label className="text-ming text-base">{title}</label>
+        <label className="text-slate text-xs">{subtitle}</label>
         <label className="text-slate text-xs">*Max file size: 10MB</label>
       </div>
       <div className="flex space-x-2 items-center w-full">

@@ -57,27 +57,28 @@ const Table = ({
   RejectButton = null,
   clubs = [],
   hideUpdate = false,
-  hideDelete = false
+  hideDelete = false,
+  showDownload = false,
 }) => {
 
   const { refreshPage } = useContext(RefreshContext);
 
   const handleDownload = async (id) => {
-    toast.promise(fetchGetProposalbyId(id)
-      .then((res) => {
+    toast.promise(fetchGetProposalbyId(id), {
+      loading: "Generating PDF...",
+      success: (res) => {
         let clubName = "";
         axios.get(`${CLUB_URL}/id/${res.data.user}`)
           .then((r) => {
             clubName = r.data.clubName;
             toast.promise(reportWithAttachments(res.data, clubName), {
-              loading: "Generating PDF...",
-              success: "PDF Generated",
+              loading: "Downloading...",
+              success: `Downloaded ${res.data.eventName}`,
               error: (err) => `Error: ${err.message}`,
             });
           });
-      }), {
-      loading: "Downloading...",
-      success: "Downloaded Successfully",
+        return `PDF Generated`;
+      },
       error: (err) => `Error: ${err.message}`,
     });
   };
@@ -139,7 +140,7 @@ const Table = ({
 
         // Date Check
         else if (/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/.test(item[tkeys[idx]])) {
-          
+
           const date = new Date(item[tkeys[idx]]);
 
           const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -150,7 +151,7 @@ const Table = ({
           ${dateTime.getHours() < 12 ? " AM" : " PM"}`
           }
 
-          return date.getDate() + " " + monthNames[date.getMonth()] + " '" + date.getFullYear().toString().slice(-2) + " - " + timeFormat(date);
+          return `${(date.getDate() < 10 && '0') + date.getDate()} ${monthNames[date.getMonth()]} '${date.getFullYear().toString().slice(-2)}, ${timeFormat(date)}`;
         }
 
         // Status Check
@@ -282,6 +283,24 @@ const Table = ({
                   </div>
                 ) : (
                   <div className="flex space-x-4">
+                    {!hideUpdate &&
+                      <button
+                        className="hover:text-[#494998]"
+                        onClick={(e) => {
+                          handleUpdate(item._id);
+                        }}
+                      >
+                        <BsPencil />
+                      </button>
+                    }
+                    {showDownload && (
+                      <button
+                        className="hover:text-[#1f1fdf]"
+                        onClick={() => { handleDownload(item._id); }}
+                      >
+                        <IoMdDownload />
+                      </button>
+                    )}
                     {!hideDelete && <StyledPopup
                       trigger={
                         <button className="hover:text-[#ff0000]">
@@ -306,15 +325,7 @@ const Table = ({
                         </div>
                       )}
                     </StyledPopup>
-                    }{!hideUpdate &&
-                      <button
-                        className="hover:text-[#494998]"
-                        onClick={(e) => {
-                          handleUpdate(item._id);
-                        }}
-                      >
-                        <BsPencil />
-                      </button>}
+                    }
                   </div>
                 )
               }

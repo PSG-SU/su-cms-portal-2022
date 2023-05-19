@@ -255,7 +255,7 @@ const ApplyProposal = () => {
           <Inputfield
             valueState={[venue, setVenue]}
             title="Venue"
-            placeholder="Eg. J203"
+            placeholder="Eg. A123"
           />
           <Inputfield
             valueState={[count, setCount]}
@@ -266,11 +266,11 @@ const ApplyProposal = () => {
         <div className="flex items-center w-full space-x-4 mt-4">
           <Inputfield
             valueState={[guest, setGuest]}
-            title="Chief Guest"
-            placeholder="Eg. Mr. Abc"
+            title="Chief Guest (with designation) (Optional)"
+            placeholder="Eg. Mr. John Doe, Manager, ABC Pvt. Ltd."
           />
         </div>
-        <div className="flex items-center w-full space-x-4 mt-4">
+        <div className="flex items-end w-full space-x-4 mt-4">
           <Inputfield
             valueState={[expectedExpense, setExpectedExpense]}
             title="Expected Expense"
@@ -326,14 +326,14 @@ const ApplyProposal = () => {
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
           <TextArea
-            title="Event Description (Brief)"
-            placeholder="The content entered will be shown as a description for thumbnail in events page"
+            title="Event Description"
+            placeholder="Enter a brief description of the event"
             valueState={[desc, setDesc]}
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
           <TextArea
-            title="Comments"
+            title="Comments (Optional)"
             placeholder="Special Requirements (if any)"
             valueState={[comment, setComment]}
           />
