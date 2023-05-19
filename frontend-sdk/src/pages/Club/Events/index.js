@@ -46,7 +46,7 @@ const Events = () => {
     >
       <section className="">
         <div className="h-fit bg-gray px-8 pt-8">
-          <p className="text-lg uppercase tracking-wider mb-8">EVENTS</p>
+          <p className="text-lg uppercase tracking-wider mb-8">PUBLISH EVENTS</p>
           <header className="flex">
             {initialTabMenuItems.map((item, idx) => {
               return (

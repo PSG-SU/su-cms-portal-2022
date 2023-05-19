@@ -105,12 +105,14 @@ const PendingProposal = () => {
           options={clubs.map((club) => club.clubName)}
           className="w-1/2"
         />
-        <button
-          className="rounded-full mt-8 bg-cloud p-1 hover:text-gray z-40"
-          onClick={clearUsername}
-        >
-          <IoCloseOutline />
-        </button>
+        {username && (
+          <button
+            className="rounded-full mt-8 bg-[#E5E5E5] p-1 hover:bg-cloud hover:text-white z-40"
+            onClick={clearUsername}
+          >
+            <IoCloseOutline />
+          </button>
+        )}
       </div>
       {/* <div className="mt-8 lg:pr-[20%] flex items-center w-full space-x-4">
         <DateInput

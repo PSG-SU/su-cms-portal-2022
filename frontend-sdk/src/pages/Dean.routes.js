@@ -1,10 +1,11 @@
-import { FaCalendarCheck, FaHome } from "react-icons/fa";
+import { FaCalendarCheck, FaHome, FaKey } from "react-icons/fa";
 import { VscFilePdf } from "react-icons/vsc";
 import { BsCalendarWeek, BsSearch } from "react-icons/bs";
 
 import Approval from "./Dean/Approval";
 import Calendar from "./Dean/Calendar";
 import Spotlight from "./Dean/Spotlight"
+import Password from "./Dean/Password";
 import { Navigate } from "react-router-dom";
 
 const list = [
@@ -30,18 +31,25 @@ const list = [
     element: <Calendar />,
   },
   {
-    text: "default",
-    link: "/dean",
-    rlink: "",
-    element: <Navigate to="/dean/approval" />,
-  },
-  {
     text: "Spotlight View",
     link: "/dean/spotlight",
     rlink: "spotlight",
     icon: <BsSearch />,
     element: <Spotlight />,
-  }
+  },
+  {
+    text: "Password",
+    link: "/dean/password",
+    rlink: "password",
+    icon: <FaKey />,
+    element: <Password />,
+  },
+  {
+    text: "default",
+    link: "/dean",
+    rlink: "",
+    element: <Navigate to="/dean/approval" />,
+  },
 ];
 
 export default list;

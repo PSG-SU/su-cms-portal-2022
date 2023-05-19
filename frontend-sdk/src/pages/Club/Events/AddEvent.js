@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AUTH_URL } from "../../../API/config";
 import Button from "../../../components/Button";
-import FileUpload from "../../../components/FileUpload";
 import MultipleFiles from "../../../components/MultipleFiles";
 import Heading from "../../../components/Heading";
 import TextArea from "../../../components/TextArea";
@@ -17,14 +16,14 @@ import toast from "react-hot-toast";
 import { EventContext } from ".";
 
 const AddEvent = () => {
-  const { updateState } = React.useContext(EventContext);
+  const { updateState } = useContext(EventContext);
   const [user, setUser] = useState("");
   const [proposals, setProposals] = useState([]);
   const [ID, setID] = useState("");
   const [eventName, setEventName] = useState("");
   const [desc, setDesc] = useState("");
-  const [files, setFiles] = useState([]);
-  const [fileUrls, setFileUrls] = useState([]);
+  const [images, setImages] = useState([]);
+  const [imageUrls, setImageUrls] = useState([]);
   const [reglink, setReglink] = useState("");
 
   useEffect(() => {
@@ -32,7 +31,7 @@ const AddEvent = () => {
     if (Object.keys(updateState).length >= 0) {
       setID(updateState?._id);
       setEventName(updateState?.eventName);
-      setFileUrls(updateState?.images ? updateState?.images : []);
+      setImageUrls(updateState?.images ? updateState?.images : []);
       setDesc(updateState?.description);
       setReglink(updateState?.registrationLink);
     }
@@ -48,59 +47,49 @@ const AddEvent = () => {
 
   useEffect(() => {
     if (user) {
-      fetchGetApprovedorPublishedProposal(user).then(
-        axios.spread((appr, publ) => {
-          console.log(appr.data, publ.data);
-          appr.data.forEach((proposal) => {
-            console.log(proposal.eventName);
-            setProposals((proposals) => [proposal.eventName, ...proposals]);
-          });
-          publ.data.forEach((proposal) => {
-            console.log(proposal.eventName);
-            setProposals((proposals) => [proposal.eventName, ...proposals]);
+      fetchGetApprovedorPublishedProposal(user)
+        .then((res) => {
+          res.data.forEach((proposal) => {
+            setProposals((prev) => [...prev, proposal.eventName]);
           });
         })
-      );
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, [user]);
 
   useEffect(() => {
     if (eventName) {
-      fetchGetApprovedorPublishedProposal(user).then(
-        axios.spread((appr, publ) => {
-          appr.data.forEach((proposal) => {
-            if (proposal.eventName === eventName) {
-              setDesc(proposal.description);
-              setID(proposal._id);
-              setFileUrls(proposal.images ? proposal.images : []);
-              setReglink(proposal.registrationLink);
-            }
-          });
-          publ.data.forEach((proposal) => {
-            if (proposal.eventName === eventName) {
-              setDesc(proposal.description);
-              setID(proposal._id);
-              setFileUrls(proposal.images ? proposal.images : []);
-              setReglink(proposal.registrationLink);
-            }
-          });
+      fetchGetApprovedorPublishedProposal(user)
+        .then((res) => {
+          const eventData = res.data.filter((p) => p.eventName === eventName)[0]
+          setID(eventData?._id);
+          setEventName(eventData?.eventName);
+          setImageUrls(eventData?.images ? eventData.images : []);
+          setDesc(eventData?.description);
+          setReglink(eventData?.registrationLink);
         })
-      );
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  }, [eventName]);
+  }, [eventName, user]);
 
-  const handleSingleUpload = (files, curr_no, total) => {
+  const handleMultipleUpload = async (files, curr_no, total) => {
     if (files.length <= 0) {
-      console.log(fileUrls);
+      setImageUrls(imageUrls);
+
       const postBody = {
         description: desc,
-        images: fileUrls,
+        images: imageUrls,
         status: "published",
         registrationLink: reglink,
+        publishedAt: new Date(),
       };
       toast.promise(
         fetchUpdateProposal(postBody, ID).then((res) => {
-          // window.location.reload();
+          window.location.reload();
         }),
         {
           loading: "Updating...",
@@ -111,17 +100,17 @@ const AddEvent = () => {
           },
         }
       );
+      return;
     }
 
     const currentFile = files.pop();
-    console.log(currentFile);
     toast.promise(fetchUploadFile(currentFile), {
-      loading: `Uploading... ${curr_no}/${total}`,
+      loading: `Uploading ${currentFile.name} (${curr_no}/${total})`,
       success: (res) => {
-        let tempFileUrls = fileUrls;
+        let tempFileUrls = imageUrls;
         tempFileUrls.push(res.data.url);
-        setFileUrls(tempFileUrls);
-        handleSingleUpload(files, curr_no + 1, total);
+        setImageUrls(tempFileUrls);
+        handleMultipleUpload(files, curr_no + 1, total);
         return `Uploaded ${curr_no}/${total}`;
       },
       error: (err) => {
@@ -131,9 +120,33 @@ const AddEvent = () => {
     });
   };
 
-  const handleUpload = async () => {
+  const handlePublish = async () => {
     if (!eventName) return toast.error("Event name required.");
-    await handleSingleUpload(files, 1, files.length);
+
+    if (images.length > 0) {
+      await handleMultipleUpload(images, 1, images.length);
+    } else {
+      const postBody = {
+        description: desc,
+        images: imageUrls,
+        status: "published",
+        registrationLink: reglink,
+        publishedAt: new Date(),
+      };
+      toast.promise(
+        fetchUpdateProposal(postBody, ID).then((res) => {
+          window.location.reload();
+        }),
+        {
+          loading: "Publishing...",
+          success: "Published Successfully",
+          error: (err) => {
+            console.log(err);
+            return `Error: ${err.response.data.error}`;
+          },
+        }
+      );
+    }
   };
 
   const handleCancel = () => {
@@ -144,7 +157,7 @@ const AddEvent = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>Content for website</Heading>
-      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-y-auto">
+      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-18rem)] overflow-y-auto">
         <div className="flex items-center w-full space-x-4">
           <Dropdown
             valueState={[eventName, setEventName]}
@@ -163,9 +176,8 @@ const AddEvent = () => {
         <div className="flex items-center w-full space-x-4 mt-4">
           <MultipleFiles
             title="Images"
-            fileState={[files, setFiles]}
-            urlState={[fileUrls, setFileUrls]}
-            className="w-3/4"
+            fileState={[images, setImages]}
+            urlState={[imageUrls, setImageUrls]}
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4 ">
@@ -183,7 +195,7 @@ const AddEvent = () => {
               handleClick={handleCancel}
             />
           )}
-          <Button className="w-3/4" text="Publish" handleClick={handleUpload} />
+          <Button className="w-3/4" text="Publish" handleClick={handlePublish} />
         </div>
       </div>
     </section>

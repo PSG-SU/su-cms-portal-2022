@@ -88,12 +88,14 @@ const RejectedProposal = () => {
           options={clubs.map((club) => club.clubName)}
           className="w-1/2"
         />
-        <button
-          className="rounded-full mt-8 bg-cloud p-1 hover:text-gray z-40"
-          onClick={clearUsername}
-        >
-          <IoCloseOutline />
-        </button>
+        {username && (
+          <button
+            className="rounded-full mt-8 bg-[#E5E5E5] p-1 hover:bg-cloud hover:text-white z-40"
+            onClick={clearUsername}
+          >
+            <IoCloseOutline />
+          </button>
+        )}
       </div>
       <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-uto">
         <Table

@@ -69,16 +69,22 @@ const ProposalSchema = new Schema({
   fileURLs: {
     type: [String],
   },
+  images: {
+    type: [String],
+  },
+  registrationLink: {
+    type: String,
+  },
   createdAt: {
     type: Date,
     required: true,
   },
+  publishedAt: {
+    type: Date,
+  },
   user: {
     type: String,
     required: true,
-  },
-  registrationLink: {
-    type: String,
   },
 });
 

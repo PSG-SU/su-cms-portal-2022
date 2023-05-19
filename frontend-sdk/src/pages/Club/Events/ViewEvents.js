@@ -32,23 +32,23 @@ const ViewEvents = () => {
           console.log(err);
         });
     }
-  }, [refreshToken, user]);
+  }, [refreshToken, user, url]);
 
   const { updateByID } = useContext(EventContext);
 
   return (
     <section className="px-8 py-8 w-full">
-      <Heading>View Events</Heading>
-      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-uto">
+      <Heading>View Published Events</Heading>
+      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)]">
         <Table
-          theads={["Event", "Created At", "Reg Link", "Status"]}
+          theads={["Event", "Published At", "Reg Link", "Description"]}
           tdata={data}
-          tkeys={["eventName", "createdAt", "registrationLink", "status"]}
+          tkeys={["eventName", "publishedAt", "registrationLink", "description"]}
           className={`${data.length < 8
             ? "max-h-[calc(100vh-20rem)]"
             : "h-[calc(100vh-20rem)]"
             } w-full`}
-          tratio="1fr 1fr 1fr 1fr"
+          tratio="1fr 1fr 25ch 25ch"
           url={url}
           handleUpdate={(id) => updateByID(id)}
         />

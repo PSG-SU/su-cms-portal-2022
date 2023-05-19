@@ -134,7 +134,7 @@ const FileItem = ({ file, url = "", onRemove, key }) => {
             file.type === "image/jpeg"))) && (
         <React.Fragment>
           <button
-            className="rounded-full bg-cloud absolute top-0 right-0 p-1 hover:text-gray z-40"
+            className="rounded-full bg-cloud absolute -top-1 -right-1 p-1 hover:text-gray z-40"
             onClick={(e) => onRemove()}
           >
             <IoCloseOutline />
@@ -153,7 +153,7 @@ const FileItem = ({ file, url = "", onRemove, key }) => {
         (file && file.type === "application/pdf")) && (
         <React.Fragment>
           <button
-            className="rounded-full bg-cloud absolute -top-1 -right-1 p-1 hover:text-gray z-40"
+            className="rounded-full bg-cloud absolute -top-2 -right-2 p-1 hover:text-gray z-40"
             onClick={(e) => onRemove()}
           >
             <IoCloseOutline />

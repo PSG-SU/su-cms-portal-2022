@@ -8,8 +8,7 @@ const getProposalReport = (data, clubName) => {
     const timeFormat = (dateTime) => {
         return `${(dateTime.getHours() < 10 ? '0' : '') + (parseInt(dateTime.getHours().toString()) <= 12 ?
             dateTime.getHours() :
-            ((parseInt(dateTime.getHours().toString()) - 12 < 10 ? '0' : '') + (parseInt(dateTime.getHours().toString()) - 12)))}
-      : ${(dateTime.getMinutes() < 10 && '0') + dateTime.getMinutes()}
+            ((parseInt(dateTime.getHours().toString()) - 12 < 10 ? '0' : '') + (parseInt(dateTime.getHours().toString()) - 12)))}:${(dateTime.getMinutes() < 10 && '0') + dateTime.getMinutes()}
       ${dateTime.getHours() < 12 ? " AM" : " PM"}`
     }
 

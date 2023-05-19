@@ -136,10 +136,7 @@ export const fetchAddProposal = (postBody) =>
 export const fetchUpdateProposal = (postBody, id) =>
   axios.put(`${PROPOSAL_URL}/update/${id}`, postBody, {});
 export const fetchGetApprovedorPublishedProposal = (user) =>
-  axios.all([
-    axios.get(`${PROPOSAL_URL}/deanApproved/${user}`, {}),
-    axios.get(`${PROPOSAL_URL}/published/${user}`, {}),
-  ]);
+  axios.get(`${PROPOSAL_URL}/deanApprovedAndPublished/${user}`, {});
 export const fetchGetProposalbyId = (id) =>
   axios.get(`${PROPOSAL_URL}/${id}`, {});
 /* ------------------------------------------- */

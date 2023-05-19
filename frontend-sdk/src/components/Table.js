@@ -139,10 +139,18 @@ const Table = ({
 
         // Date Check
         else if (/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/.test(item[tkeys[idx]])) {
+          
           const date = new Date(item[tkeys[idx]]);
-          const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-          return date.getDate() + " " + monthNames[date.getMonth()] + " '" + date.getFullYear().toString().slice(-2);
+          const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+          const timeFormat = (dateTime) => {
+            return `${(dateTime.getHours() < 10 ? '0' : '') + (parseInt(dateTime.getHours().toString()) <= 12 ?
+              dateTime.getHours() :
+              ((parseInt(dateTime.getHours().toString()) - 12 < 10 ? '0' : '') + (parseInt(dateTime.getHours().toString()) - 12)))}:${(dateTime.getMinutes() < 10 && '0') + dateTime.getMinutes()}
+          ${dateTime.getHours() < 12 ? " AM" : " PM"}`
+          }
+
+          return date.getDate() + " " + monthNames[date.getMonth()] + " '" + date.getFullYear().toString().slice(-2) + " - " + timeFormat(date);
         }
 
         // Status Check
