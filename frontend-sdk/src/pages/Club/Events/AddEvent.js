@@ -164,8 +164,8 @@ const AddEvent = () => {
           <MultipleFiles
             title="Images"
             fileState={[files, setFiles]}
-            className="w-3/4"
             urlState={[fileUrls, setFileUrls]}
+            className="w-3/4"
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4 ">
@@ -176,7 +176,6 @@ const AddEvent = () => {
           />
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">
-          <Button className="w-3/4" text="Publish" handleClick={handleUpload} />
           {(Object.keys(updateState).length > 0 || eventName) && (
             <Button
               className="w-3/4"
@@ -184,6 +183,7 @@ const AddEvent = () => {
               handleClick={handleCancel}
             />
           )}
+          <Button className="w-3/4" text="Publish" handleClick={handleUpload} />
         </div>
       </div>
     </section>

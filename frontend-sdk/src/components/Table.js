@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { BsCheck2Circle, BsPencil, BsCloudArrowUpFill, BsCheck2, BsCheck2All, BsSortUpAlt, BsSortDown } from "react-icons/bs";
+import { BsPencil, BsCloudArrowUpFill, BsCheck2, BsCheck2All, BsSortUpAlt, BsSortDown } from "react-icons/bs";
 import { BiSortAlt2, BiUndo } from "react-icons/bi";
 import { HiOutlineTrash } from "react-icons/hi";
 import { FaRegTimesCircle } from "react-icons/fa";
@@ -11,16 +11,15 @@ import { getTheme } from "@table-library/react-table-library/baseline";
 import ModalImage from "react-modal-image";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import html2pdf from "html2pdf.js";
 
 import { RefreshContext } from "../Refresher";
 import Button from "./Button";
 import Popup from "reactjs-popup";
 import styled, { keyframes } from "styled-components";
-import { AUTH_URL } from "../API/config";
-import { fetchUpdateProposal, fetchGetProposalbyId } from "../API/calls";
-import getProposalReport from "../templates/getProposalReport.js";
+import { CLUB_URL } from "../API/config";
+import { fetchGetProposalbyId } from "../API/calls";
 import Inputfield from "./TextInput";
+import reportWithAttachments from "../templates/reportWithAttachments";
 
 const breatheAnimation = keyframes`
  0% { opacity: 0; transform: scale(0.25) translateY(75px); }
@@ -66,16 +65,16 @@ const Table = ({
   const handleDownload = async (id) => {
     toast.promise(fetchGetProposalbyId(id)
       .then((res) => {
-        html2pdf()
-          .from(getProposalReport(res.data))
-          .set({
-            margin: 0.2,
-            filename: `Proposal-${res.data.eventName}.pdf`,
-            image: { type: "jpeg", quality: 0.2 },
-            html2canvas: { scale: 2, useCORS: true },
-            jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
-          })
-          .save();
+        let clubName = "";
+        axios.get(`${CLUB_URL}/id/${res.data.user}`)
+          .then((r) => {
+            clubName = r.data.clubName;
+            toast.promise(reportWithAttachments(res.data, clubName), {
+              loading: "Generating PDF...",
+              success: "PDF Generated",
+              error: (err) => `Error: ${err.message}`,
+            });
+          });
       }), {
       loading: "Downloading...",
       success: "Downloaded Successfully",
@@ -135,12 +134,15 @@ const Table = ({
 
         // Year Check
         else if (/^(\d{4})-(12)-(31)T(18):(30):(00).(000)(Z)/.test(item[tkeys[idx]])) {
-          return parseInt(item[tkeys[idx]].split("-")[0]) + 1;
+          return new Date(item[tkeys[idx]]).getFullYear();
         }
 
         // Date Check
         else if (/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/.test(item[tkeys[idx]])) {
-          return item[tkeys[idx]].split("T")[0].split("-").reverse().join("-");
+          const date = new Date(item[tkeys[idx]]);
+          const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+          return date.getDate() + " " + monthNames[date.getMonth()] + " '" + date.getFullYear().toString().slice(-2);
         }
 
         // Status Check
@@ -258,13 +260,13 @@ const Table = ({
                 UndoButton ? (
                   <div className="flex space-x-4">
                     <button
-                      className="hover:text-[#1f1fdf]"
+                      className="bg-[#1f1fdf] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
                       onClick={() => { handleDownload(item._id); }}
                     >
                       <IoMdDownload />
                     </button>
                     <button
-                      className="hover:text-[#494998]"
+                      className="bg-[#671bd7] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
                       onClick={() => UndoButton(item._id)}
                     >
                       <BiUndo />
@@ -326,7 +328,7 @@ const Table = ({
   const theme = useTheme([
     getTheme(),
     {
-      Table: `--data-table-library_grid-template-columns: 75px ${tratio.length <= 0 ? getDefaults() : tratio} ${ApproveButton ? "175px" : "100px"} ;`,
+      Table: `--data-table-library_grid-template-columns: 75px ${tratio.length <= 0 ? getDefaults() : tratio} ${ApproveButton ? "175px" : "110px"} ;`,
     },
   ]);
 

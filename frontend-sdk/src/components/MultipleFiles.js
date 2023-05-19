@@ -5,6 +5,7 @@ import ModalImage from "react-modal-image";
 import toast from "react-hot-toast";
 import { IoCloseOutline } from "react-icons/io5";
 import { VscFilePdf } from "react-icons/vsc";
+import Button from "./Button";
 
 const MultipleFiles = ({
   fileState,
@@ -25,6 +26,7 @@ const MultipleFiles = ({
         <div className="flex items-center w-full flex-wrap gap-2">
           {fileURLs.map((url, i) => (
             <FileItem
+              key={i}
               url={url}
               onRemove={() => {
                 setFileURLs(fileURLs.slice(0, i).concat(fileURLs.slice(i + 1)));
@@ -61,9 +63,12 @@ const MultipleFiles = ({
 
   return (
     <div
-      className={`${className} flex flex-col items-start justify-center space-y-2 w-full overflow-x-hidden`}
+      className={`${className} flex flex-col font-poppins items-start justify-center space-y-2 w-full overflow-x-hidden`}
     >
-      <label className="text-blue text-base">{title}</label>
+      <div className="flex flex-col">
+        <label className="text-ming text-base">{title}</label>
+        <label className="text-slate text-xs">*Max file size: 10MB</label>
+      </div>
       <div className="flex space-x-2 items-center w-full">
         <div
           className={` px-4 py-2 w-full rounded-lg text-slate bg-gray bg-clip-padding bg-no-repeat border-2 border-solid ${
@@ -91,6 +96,7 @@ const MultipleFiles = ({
               {files.map((file, i) => (
                 <FileItem
                   file={file}
+                  key={i}
                   onRemove={() => {
                     setFiles(files.slice(0, i).concat(files.slice(i + 1)));
                   }}
@@ -110,17 +116,22 @@ const MultipleFiles = ({
   );
 };
 
-const FileItem = ({ file, url = "", onRemove }) => {
+const FileItem = ({ file, url = "", onRemove, key }) => {
   useEffect(() => {
     console.log(file);
   }, [file]);
 
   return (
-    <div className="flex items-center space-x-2 relative">
-      {(url.length > 0 ||
-        file.type === "image/png" ||
-        file.type === "image/jpg" ||
-        file.type === "image/jpeg") && (
+    <div className="flex items-center space-x-2 relative" key={key}>
+      {((url &&
+        url.length > 0 &&
+        (url.endsWith(".png") ||
+          url.endsWith(".jpg") ||
+          url.endsWith(".jpeg"))) ||
+        (file &&
+          (file.type === "image/png" ||
+            file.type === "image/jpg" ||
+            file.type === "image/jpeg"))) && (
         <React.Fragment>
           <button
             className="rounded-full bg-cloud absolute top-0 right-0 p-1 hover:text-gray z-40"
@@ -138,18 +149,29 @@ const FileItem = ({ file, url = "", onRemove }) => {
           </div>
         </React.Fragment>
       )}
-      {file && file.type === "application/pdf" && (
+      {((url && url.length > 0 && url.endsWith(".pdf")) ||
+        (file && file.type === "application/pdf")) && (
         <React.Fragment>
           <button
-            className="rounded-full bg-cloud absolute top-0 right-0 p-1 hover:text-gray z-40"
+            className="rounded-full bg-cloud absolute -top-1 -right-1 p-1 hover:text-gray z-40"
             onClick={(e) => onRemove()}
           >
             <IoCloseOutline />
           </button>
           <div>
-            <div className="flex rounded-full w-16 h-16 text-[#FF3939] bg-[#ffc6c6] text-xl justify-center items-center">
-              <VscFilePdf />
-            </div>
+            <Button
+              text={
+                <div className="flex flex-row items-center gap-2">
+                  <VscFilePdf />
+                  {file && <p className="text-xs">{file.name}</p>}
+                </div>
+              }
+              handleClick={() => {
+                url.length > 0
+                  ? window.open(url, "_blank")
+                  : window.open(URL.createObjectURL(file), "_blank");
+              }}
+            />
           </div>
         </React.Fragment>
       )}

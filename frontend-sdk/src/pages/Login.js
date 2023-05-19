@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -38,7 +37,7 @@ const Login = () => {
         console.log(err);
 
         if (err.code === "ERR_BAD_REQUEST") {
-          toast.error('Wrong Password!');
+          toast.error('Invalid Credentials!');
         } else {
           toast.error(`Error: ${err}`);
         }
