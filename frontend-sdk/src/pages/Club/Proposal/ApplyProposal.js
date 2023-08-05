@@ -343,7 +343,7 @@ const ApplyProposal = () => {
             title="Supporting Documents"
             fileState={[files, setFiles]}
             urlState={[fileURLs, setFileURLs]}
-            // pdf
+            pdf
           />
         </div>
         <div className="flex items-center space-x-4 mt-8 w-1/2">

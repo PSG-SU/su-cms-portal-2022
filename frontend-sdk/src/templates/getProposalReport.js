@@ -93,11 +93,11 @@ const getProposalReport = (data, clubName) => {
               <td style="width: 20%; padding: 10px;">
                   <b style="font-weight:600;">Venue</b>
               </td>
-              <td style="width: 25%; padding: 10px;">
+              <td style="width: 30%; padding: 10px;">
 
                   <p class="">${data.venue}</p>
               </td>
-              <td style="width: 35%; padding: 10px;">
+              <td style="width: 30%; padding: 10px;">
                   <b style="font-weight:600;">Expected Participant Count</b>
               </td>
               <td style="width: 20%; padding: 10px;">

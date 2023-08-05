@@ -114,6 +114,9 @@ export const fetchGetGalleryByEvent = (event) =>
 export const fetchGetGallery = () =>
   axios.get(`${GALLERY_URL}`, {});
 
+export const fetchUpdateGallery = (postBody, id) =>
+  axios.put(`${GALLERY_URL}/update/${id}`, postBody, {});
+
 /* ------------------------------------------- */
 
 // For Club - General Page
