@@ -28,7 +28,11 @@ const EventReportSchema = new Schema({
   images: {
     type: [String],
     required: true,
-  }
+  },
+  user: {
+    type: String,
+    required: true,
+  },
 });
 
 export default model("EventReport", EventReportSchema);

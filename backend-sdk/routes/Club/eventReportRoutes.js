@@ -12,6 +12,7 @@ router.post("/add", async (req, res) => {
       report: req.body.report,
       coverImage: req.body.images[0],
       images: req.body.images,
+      user: req.body.user,
     })
     return res.status(200).json(report);
   } catch (err) {
@@ -23,6 +24,21 @@ router.post("/add", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const report = await EventReport.findById(req.params.id);
+    if (!report) {
+      return res.status(400).json({ err: "Not Found" });
+    } else {
+      console.log(report);
+      return res.status(200).json(report);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get("/user/:user", async (req, res) => {
+  try {
+    const report = await EventReport.find({ user: req.params.user });
     if (!report) {
       return res.status(400).json({ err: "Not Found" });
     } else {

@@ -1,25 +1,37 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { fetchGetAllEventReports } from "../../../API/calls";
+import { fetchGetEventReportByUser } from "../../../API/calls";
+import axios from "axios";
 import Heading from "../../../components/Heading";
 import Table from "../../../components/Table";
 import { RefreshContext } from "../../../Refresher";
-import { REPORT_URL } from "../../../API/config";
+import { REPORT_URL, AUTH_URL } from "../../../API/config";
 import { ReportTabContext } from ".";
 
 const ViewReport = () => {
   const [data, setData] = useState([]);
   const { refreshToken } = useContext(RefreshContext);
+  const [user, setUser] = useState("");
 
   useEffect(() => {
-    fetchGetAllEventReports().then(res => {
-      setData(res.data)
-    }).catch(err => {
-      console.log(err);
-      toast.error(`Error: ${err}`);
-    });
-  }, [refreshToken]);
+    axios
+      .get(`${AUTH_URL}/id/${localStorage.getItem("userId")}`, {})
+      .then((res) => {
+        setUser(res.data.caID);
+      })
+  }, [])
+
+  useEffect(() => {
+    if (user) {
+      fetchGetEventReportByUser(user).then(res => {
+        setData(res.data)
+      }).catch(err => {
+        console.log(err);
+        toast.error(`Error: ${err}`);
+      });
+    }
+  }, [refreshToken, user]);
 
   const { updateByID } = useContext(ReportTabContext);
 

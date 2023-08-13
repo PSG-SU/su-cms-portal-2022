@@ -3,7 +3,7 @@ import Button from "../../../components/Button";
 import MultipleFiles from "../../../components/MultipleFiles";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
-import { fetchAddEventReport, fetchGetEventReport, fetchUpdateEventReport, fetchUploadFile } from "../../../API/calls";
+import { fetchAddEventReport, fetchGetEventReportByName, fetchUpdateEventReport, fetchUploadFile } from "../../../API/calls";
 import toast from "react-hot-toast";
 import Dropdown from "../../../components/Dropdown";
 import axios from "axios";
@@ -61,20 +61,22 @@ const AddReport = () => {
 
   useEffect(() => {
     if (eventName) {
-      fetchGetEventReport({ eventName: eventName }).then((res) => {
+      fetchGetEventReportByName({ eventName: eventName }).then((res) => {
         if (res.data.length > 0) {
           updateByID(res.data[0]._id);
           return;
         }
       })
-    } else if (eventName && allEvents?.length > 0) {
-      const e = allEvents?.filter((event) => event.eventName === eventName)[0];
-      setStartDate(new Date(e?.startDate));
-      setVenue(e?.venue);
-      setParticipants(e?.count);
-      setReport("");
-      setFileUrls([]);
-      updateByID(0);
+
+      if (allEvents?.length > 0) {
+        const e = allEvents?.filter((event) => event.eventName === eventName)[0];
+        setStartDate(new Date(e?.startDate));
+        setVenue(e?.venue);
+        setParticipants(e?.count);
+        setReport("");
+        setFileUrls([]);
+        updateByID(0);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eventName, allEvents])
@@ -108,6 +110,7 @@ const AddReport = () => {
         venue: venue,
         count: participants,
         report: report,
+        user: user,
       }), {
         loading: `Uploading...`,
         success: (res) => {

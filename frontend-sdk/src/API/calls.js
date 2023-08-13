@@ -150,8 +150,10 @@ export const fetchAddEventReport = (postBody) =>
   axios.post(`${REPORT_URL}/add`, postBody, {});
 export const fetchGetEventReportById = (id) =>
   axios.get(`${REPORT_URL}/${id}`, {});
-export const fetchGetEventReport = (postBody) =>
+export const fetchGetEventReportByName = (postBody) =>
   axios.post(`${REPORT_URL}/event`, postBody, {});
+export const fetchGetEventReportByUser = (user) =>
+  axios.get(`${REPORT_URL}/user/${user}`, {});
 export const fetchGetAllEventReports = () =>
   axios.get(`${REPORT_URL}`, {});
 export const fetchUpdateEventReport = (postBody, id) =>
