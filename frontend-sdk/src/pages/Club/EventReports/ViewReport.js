@@ -1,54 +1,47 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { AiOutlineEye } from "react-icons/ai";
-import { BsPencil } from "react-icons/bs";
-import { HiOutlineTrash } from "react-icons/hi";
-import { fetchGetClubGallery, fetchGetGallery } from "../../../API/calls";
-import { CLUB_GALLERY_URL, GALLERY_URL } from "../../../API/config";
+import { fetchGetAllEventReports } from "../../../API/calls";
 import Heading from "../../../components/Heading";
 import Table from "../../../components/Table";
 import { RefreshContext } from "../../../Refresher";
+import { REPORT_URL } from "../../../API/config";
+import { ReportTabContext } from ".";
 
-const ViewImage = () => {
-  const [position, setPosition] = useState("");
-  const [name, setName] = useState("");
-  const [deptyos, setDeptyos] = useState("");
-  const [acayear, setAcayear] = useState("");
-
+const ViewReport = () => {
   const [data, setData] = useState([]);
-
   const { refreshToken } = useContext(RefreshContext);
 
   useEffect(() => {
-
-    fetchGetClubGallery().then(res => {
-      console.log(res.data.message);
-      setData(res.data.message)
+    fetchGetAllEventReports().then(res => {
+      setData(res.data)
     }).catch(err => {
       console.log(err);
       toast.error(`Error: ${err}`);
     });
   }, [refreshToken]);
 
+  const { updateByID } = useContext(ReportTabContext);
+
   return (
     <section className="px-8 py-8 w-full">
-      <Heading>View Images</Heading>
+      <Heading>View Reports</Heading>
       <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-uto">
         <Table
-          theads={["Event", "Image"]}
+          theads={["Event", "Date and Time", "Venue", "Report", "Image"]}
           tdata={data}
-          tkeys={["event", "image_url"]}
+          tkeys={["eventName", "dateTime", "venue", "report", "coverImage"]}
           className={`${data.length < 8
             ? "max-h-[calc(100vh-20rem)]"
             : "h-[calc(100vh-25rem)]"
             } w-full`}
-          hideUpdate
-          url={CLUB_GALLERY_URL}
+          tratio="1fr 1fr 0.5fr 1fr 0.5fr"
+          url={REPORT_URL}
+          handleUpdate={(id) => updateByID(id)}
         />
       </div>
     </section>
   );
 };
 
-export default ViewImage;
+export default ViewReport;

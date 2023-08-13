@@ -14,7 +14,7 @@ import announcementRoutes from "./routes/announcementRoutes.js";
 import generalRoutes from "./routes/Club/generalRoutes.js";
 import teamMemberRoutes from "./routes/Club/teamMemberRoutes.js";
 import proposalRoutes from "./routes/Club/proposalRoutes.js";
-import clubGalleryRoutes from "./routes/Club/clubGalleryRoutes.js"
+import eventReportRoutes from "./routes/Club/eventReportRoutes.js"
 import spotlightRoutes from "./routes/spotlightRoutes.js";
 
 const app = express();
@@ -35,7 +35,7 @@ app.use("/api/announcement",announcementRoutes);
 app.use("/api/club/general", generalRoutes);
 app.use("/api/club/team-member", teamMemberRoutes);
 app.use("/api/club/proposal", proposalRoutes);
-app.use("/api/club/gallery", clubGalleryRoutes)
+app.use("/api/club/report", eventReportRoutes)
 app.use("/api/spotlight", spotlightRoutes);
 
 

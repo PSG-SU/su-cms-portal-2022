@@ -13,7 +13,7 @@ import {
   TEAM_MEMBER_URL,
   PROPOSAL_URL,
   GALLERY_URL,
-  CLUB_GALLERY_URL,
+  REPORT_URL,
   SPOTLIGHT_URL,
 } from "./config";
 import imageCompression from "browser-image-compression";
@@ -144,17 +144,19 @@ export const fetchGetProposalbyId = (id) =>
   axios.get(`${PROPOSAL_URL}/${id}`, {});
 /* ------------------------------------------- */
 
-// For Club - Gallery Page 
+// For Club - Event Report Page 
 
-export const fetchAddClubGallery = (postBody) =>
-  axios.post(`${CLUB_GALLERY_URL}/add`, postBody, {});
-
-export const fetchGetClubGalleryByEvent = (event) =>
-  axios.get(`${CLUB_GALLERY_URL}/event/${event}`, {});
-
-export const fetchGetClubGallery = () =>
-  axios.get(`${CLUB_GALLERY_URL}`, {});
-
+export const fetchAddEventReport = (postBody) =>
+  axios.post(`${REPORT_URL}/add`, postBody, {});
+export const fetchGetEventReportById = (id) =>
+  axios.get(`${REPORT_URL}/${id}`, {});
+export const fetchGetEventReport = (postBody) =>
+  axios.post(`${REPORT_URL}/event`, postBody, {});
+export const fetchGetAllEventReports = () =>
+  axios.get(`${REPORT_URL}`, {});
+export const fetchUpdateEventReport = (postBody, id) =>
+  axios.put(`${REPORT_URL}/update/${id}`, postBody, {});
+/* ------------------------------------------- */
 
 // For Spotlight 
 export const fetchGetSpotlight = () =>

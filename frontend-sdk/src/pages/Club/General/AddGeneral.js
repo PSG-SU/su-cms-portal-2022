@@ -27,8 +27,6 @@ const AddGeneral = () => {
   const [linkedin, setLinkedin] = useState("");
   const [linktree, setLinktree] = useState("");
   const [youtube, setYoutube] = useState("");
-  const [facebook, setFacebook] = useState("");
-  const [twitter, setTwitter] = useState("");
   const [discord, setDiscord] = useState("")
 
   useEffect(() => {
@@ -59,8 +57,6 @@ const AddGeneral = () => {
           setLinkedin(res.data?.general?.linkedin ? res.data?.general?.linkedin : "");
           setLinktree(res.data?.general?.linktree ? res.data?.general?.linktree : "");
           setYoutube(res.data?.general?.youtube ? res.data?.general?.youtube : "");
-          setFacebook(res.data?.general?.facebook ? res.data?.general?.facebook : "");
-          setTwitter(res.data?.general?.twitter ? res.data?.general?.twitter : "");
           setDiscord(res.data?.general?.discord ? res.data?.general?.discord : "");
         })
         .catch((err) => {
@@ -85,8 +81,6 @@ const AddGeneral = () => {
       linkedin: linkedin,
       linktree: linktree,
       youtube: youtube,
-      facebook: facebook,
-      twitter: twitter,
       discord: discord,
     }
 
@@ -303,17 +297,8 @@ const AddGeneral = () => {
           <Inputfield
             valueState={[youtube, setYoutube]}
             title="Youtube Channel Link"
+            className="w-1/3"
           />
-          <Inputfield
-            valueState={[facebook, setFacebook]}
-            title="Facebook Page Link"
-          />
-          <Inputfield
-            valueState={[twitter, setTwitter]}
-            title="Twitter Profile Link"
-          />
-        </div>
-        <div className="flex items-center w-full space-x-4 mt-4">
           <Inputfield
             valueState={[discord, setDiscord]}
             title="Discord Server Link"

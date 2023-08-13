@@ -115,16 +115,6 @@ const ViewGeneral = () => {
               <p>{content?.youtube ? content?.youtube : "No instagram link found !"}</p>
             </div>
             <div className="w-1/3 space-y-2">
-              <p className="font-semibold">Facebook</p>
-              <p>{content?.facebook ? content?.facebook : "No facebook link found !"}</p>
-            </div>
-            <div className="w-1/3 space-y-2">
-              <p className="font-semibold">Twitter</p>
-              <p>{content?.twitter ? content?.twitter : "No twitter link found !"}</p>
-            </div>
-          </div>
-          <div className="flex flex-row space-x-4">
-            <div className="w-1/3 space-y-2">
               <p className="font-semibold">Discord</p>
               <p>{content?.discord ? content?.discord : "No discord link found !"}</p>
             </div>
