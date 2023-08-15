@@ -211,6 +211,44 @@ router.get("/deanApprovedAndPublished/:user", async (req, res) => {
   }
 });
 
+router.get("/current", async (req, res) => {
+  try {
+    const proposal = await Proposal.find({
+      status: "published",
+      $and: [
+        { startDate: { $lte: new Date() } },
+        { endDate: { $gte: new Date() } },
+      ],
+    }).sort({ startDate: "asc" });
+    if (!proposal) {
+      return res.status(404).json({ error: "Not Found" });
+    }
+    res.status(200).json(proposal);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get("/upcoming", async (req, res) => {
+  try {
+    const proposal = await Proposal.find({
+      status: "published",
+      $and: [
+        { startDate: { $gt: new Date() } },
+        { startDate: { $lt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) } },
+      ],
+    }).sort({ startDate: "asc" });
+    if (!proposal) {
+      return res.status(404).json({ error: "Not Found" });
+    }
+    res.status(200).json(proposal);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
     const proposal = await Proposal.findOne({
@@ -229,10 +267,10 @@ router.get('/:id', async (req, res) => {
 
 router.post("/add", async (req, res) => {
   try {
-    const teamMember = await Proposal.create({
+    const proposal = await Proposal.create({
       ...req.body,
     });
-    res.status(201).json({ teamMember: teamMember._id });
+    res.status(201).json({ proposal: proposal._id });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err.message });
@@ -241,15 +279,15 @@ router.post("/add", async (req, res) => {
 
 router.put("/update/:id", async (req, res) => {
   try {
-    const teamMember = await Proposal.findOneAndUpdate(
+    const proposal = await Proposal.findOneAndUpdate(
       { _id: req.params.id },
       req.body,
       { new: true }
     );
-    if (!teamMember) {
+    if (!proposal) {
       return res.status(404).json({ error: "Not Found" });
     } else {
-      res.status(200).json(teamMember);
+      res.status(200).json(proposal);
     }
   } catch (err) {
     console.log(err);
@@ -259,13 +297,13 @@ router.put("/update/:id", async (req, res) => {
 
 router.delete("/delete/:id", async (req, res) => {
   try {
-    const teamMember = await Proposal.findOneAndDelete({
+    const proposal = await Proposal.findOneAndDelete({
       _id: req.params.id,
     });
-    if (!teamMember) {
+    if (!proposal) {
       return res.status(404).json({ error: "Not Found" });
     } else {
-      res.status(200).json(teamMember);
+      res.status(200).json(proposal);
     }
   } catch (err) {
     console.log(err);
