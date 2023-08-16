@@ -3,7 +3,7 @@ import { BsPencil, BsCloudArrowUpFill, BsCheck2, BsCheck2All, BsSortUpAlt, BsSor
 import { BiSortAlt2, BiUndo } from "react-icons/bi";
 import { HiOutlineTrash } from "react-icons/hi";
 import { FaRegTimesCircle } from "react-icons/fa";
-import { IoMdDownload, IoMdTime } from "react-icons/io";
+import { IoMdDownload, IoMdEye, IoMdTime } from "react-icons/io";
 import { CompactTable } from "@table-library/react-table-library/compact";
 import { useTheme } from "@table-library/react-table-library/theme";
 import { getTheme } from "@table-library/react-table-library/baseline";
@@ -63,7 +63,7 @@ const Table = ({
 
   const { refreshPage } = useContext(RefreshContext);
 
-  const handleDownload = async (id) => {
+  const handleDownload = async (id, view = false) => {
     toast.promise(fetchGetProposalbyId(id), {
       loading: "Generating PDF...",
       success: (res) => {
@@ -71,9 +71,9 @@ const Table = ({
         axios.get(`${CLUB_URL}/id/${res.data.user}`)
           .then((r) => {
             clubName = r.data.clubName;
-            toast.promise(reportWithAttachments(res.data, clubName), {
-              loading: "Downloading...",
-              success: `Downloaded ${res.data.eventName}`,
+            toast.promise(reportWithAttachments(res.data, clubName, view), {
+              loading: view ? "Loading" : "Downloading...",
+              success: view ? "Loaded" : `Downloaded ${res.data.eventName}`,
               error: (err) => `Error: ${err.message}`,
             });
           });
@@ -235,6 +235,12 @@ const Table = ({
           return (
             <div className="flex space-x-4 items-center">
               <button
+                className="bg-[#e21ab0] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
+                onClick={() => { handleDownload(item._id, true); }}
+              >
+                <IoMdEye />
+              </button>
+              <button
                 className="bg-[#1f1fdf] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
                 onClick={() => { handleDownload(item._id); }}
               >
@@ -269,6 +275,12 @@ const Table = ({
                 UndoButton ? (
                   <div className="flex space-x-4">
                     <button
+                      className="bg-[#e21ab0] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
+                      onClick={() => { handleDownload(item._id, true); }}
+                    >
+                      <IoMdEye />
+                    </button>
+                    <button
                       className="bg-[#1f1fdf] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
                       onClick={() => { handleDownload(item._id); }}
                     >
@@ -294,12 +306,20 @@ const Table = ({
                       </button>
                     }
                     {showDownload && (
-                      <button
-                        className="hover:text-[#1f1fdf]"
-                        onClick={() => { handleDownload(item._id); }}
-                      >
-                        <IoMdDownload />
-                      </button>
+                      <React.Fragment>
+                        <button
+                          className="hover:text-[#e21ab0]"
+                          onClick={() => { handleDownload(item._id, true); }}
+                        >
+                          <IoMdEye />
+                        </button>
+                        <button
+                          className="hover:text-[#1f1fdf]"
+                          onClick={() => { handleDownload(item._id); }}
+                        >
+                          <IoMdDownload />
+                        </button>
+                      </React.Fragment>
                     )}
                     {!hideDelete && <StyledPopup
                       trigger={
@@ -347,7 +367,7 @@ const Table = ({
   const theme = useTheme([
     getTheme(),
     {
-      Table: `--data-table-library_grid-template-columns: 75px ${tratio.length <= 0 ? getDefaults() : tratio} ${ApproveButton ? "175px" : "110px"} ;`,
+      Table: `--data-table-library_grid-template-columns: 75px ${tratio.length <= 0 ? getDefaults() : tratio} ${ApproveButton ? "200px" : "155px"} ;`,
     },
   ]);
 

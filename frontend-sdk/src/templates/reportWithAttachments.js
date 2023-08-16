@@ -2,7 +2,7 @@ import { PDFDocument } from "pdf-lib";
 import html2pdf from "html2pdf.js";
 import getProposalReport, { imageAttachement } from "./getProposalReport";
 
-const reportWithAttachments = async (proposalData, clubName) => {
+const reportWithAttachments = async (proposalData, clubName, view = false) => {
   const multiplePdfs = [];
 
   async function insertImageAttachements(url) {
@@ -121,12 +121,15 @@ const reportWithAttachments = async (proposalData, clubName) => {
     const link = document.createElement("a");
     link.href = URL.createObjectURL(file);
 
-    link.download = `Proposal - ${proposalData?.eventName}.pdf`;
-    // window.open(link.href, "_blank");
+    if (view) {
+      window.open(link.href, "_blank");
+    } else {
+      link.download = `Proposal - ${proposalData?.eventName}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
 
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
   }
 
   const documentAdder = async () => {

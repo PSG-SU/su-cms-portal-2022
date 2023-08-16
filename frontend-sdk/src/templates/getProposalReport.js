@@ -83,7 +83,7 @@ const getProposalReport = (data, clubName) => {
                     <b style="font-weight:600;">Event Description</b>
                 </td>
                 <td style="width: 80%; padding: 10px;">
-                    <p align="justify">${data.description}</p>
+                    <p align="justify">${data.description.split("\n").join("<br />")}</p>
                 </td>
             </tr>
         </table>
