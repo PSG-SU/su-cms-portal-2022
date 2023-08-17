@@ -13,11 +13,11 @@ export const ABOUT_URL = `${API_URL}/about`;
 export const NSS_NCC_URL = `${API_URL}/nssncc`;
 export const ANNOUNCEMENTS_URL = `${API_URL}/announcement`;
 export const GALLERY_URL = `${API_URL}/gallery`;
+export const LOGS_URL = `${API_URL}/log`;
 
 export const GENERAL_URL = `${API_URL}/club/general`;
 export const TEAM_MEMBER_URL = `${API_URL}/club/team-member`;
 export const PROPOSAL_URL = `${API_URL}/club/proposal`;
-export const EVENTS_URL = `${API_URL}/club/events`;
 export const REPORT_URL = `${API_URL}/club/report`;
 
 export const SPOTLIGHT_URL = `${API_URL}/spotlight`;

@@ -85,7 +85,12 @@ const Table = ({
 
   const handleDelete = (item) => {
     axios
-      .delete(`${url}/delete/${item._id}`)
+      .delete(`${url}/delete/${item._id}`, {
+        data: {
+          login: localStorage.getItem("userId"),
+          eventName: item.eventName ? item.eventName : item.name,
+        },
+      })
       .then((res) => {
         toast.success("Delete Successful");
         refreshPage();

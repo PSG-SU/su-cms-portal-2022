@@ -174,7 +174,7 @@ const ApplyProposal = () => {
         }), {
         loading: "Adding...",
         success: "Added Successfully",
-        error: (err) => `Error: ${err.response.data.error}`,
+        error: (err) => `Error: Fill all the fields with valid data`,
       });
     }
   };
@@ -223,7 +223,7 @@ const ApplyProposal = () => {
         }), {
         loading: "Updating...",
         success: "Updated Successfully",
-        error: (err) => `Error: ${err.response.data.error}`,
+        error: (err) => `Error: Fill all the fields with valid data`,
       });
     }
   };

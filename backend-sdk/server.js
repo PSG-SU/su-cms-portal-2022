@@ -16,6 +16,7 @@ import teamMemberRoutes from "./routes/Club/teamMemberRoutes.js";
 import proposalRoutes from "./routes/Club/proposalRoutes.js";
 import eventReportRoutes from "./routes/Club/eventReportRoutes.js"
 import spotlightRoutes from "./routes/spotlightRoutes.js";
+import logRoutes from "./routes/logRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3002;
@@ -37,7 +38,7 @@ app.use("/api/club/team-member", teamMemberRoutes);
 app.use("/api/club/proposal", proposalRoutes);
 app.use("/api/club/report", eventReportRoutes)
 app.use("/api/spotlight", spotlightRoutes);
-
+app.use("/api/log", logRoutes);
 
 app.get("/", async (req, res) => {
   res.send("Welcome to the SU CMS API");

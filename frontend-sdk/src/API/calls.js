@@ -47,6 +47,8 @@ export const fetchUploadFile = async (file) => {
   });
 };
 
+const loginUser = localStorage.getItem('userId');
+
 // For Auth
 export const fetchLogin = (postBody) => axios.post(LOGIN_URL, postBody, {});
 export const fetchAddUser = (postBody) =>
@@ -123,21 +125,21 @@ export const fetchUpdateGallery = (postBody, id) =>
 export const fetchAddGeneral = (postBody) =>
   axios.post(`${GENERAL_URL}/add`, postBody, {});
 export const fetchUpdateGeneral = (postBody, user) =>
-  axios.put(`${GENERAL_URL}/update/${user}`, postBody, {});
+  axios.put(`${GENERAL_URL}/update/${user}`, { ...postBody, login: loginUser }, {});
 /* ------------------------------------------- */
 
 // For Club - Team Member Page
 export const fetchAddTeamMember = (postBody) =>
-  axios.post(`${TEAM_MEMBER_URL}/add`, postBody, {});
+  axios.post(`${TEAM_MEMBER_URL}/add`, { ...postBody, login: loginUser }, {});
 export const fetchUpdateTeamMember = (postBody, id) =>
-  axios.put(`${TEAM_MEMBER_URL}/update/${id}`, postBody, {});
+  axios.put(`${TEAM_MEMBER_URL}/update/${id}`, { ...postBody, login: loginUser }, {});
 /* ------------------------------------------- */
 
 // For Club - Proposal Page
 export const fetchAddProposal = (postBody) =>
-  axios.post(`${PROPOSAL_URL}/add`, postBody, {});
+  axios.post(`${PROPOSAL_URL}/add`, { ...postBody, login: loginUser }, {});
 export const fetchUpdateProposal = (postBody, id) =>
-  axios.put(`${PROPOSAL_URL}/update/${id}`, postBody, {});
+  axios.put(`${PROPOSAL_URL}/update/${id}`, { ...postBody, login: loginUser }, {});
 export const fetchGetApprovedorPublishedProposal = (user) =>
   axios.get(`${PROPOSAL_URL}/deanApprovedAndPublished/${user}`, {});
 export const fetchGetProposalbyId = (id) =>
@@ -147,7 +149,7 @@ export const fetchGetProposalbyId = (id) =>
 // For Club - Event Report Page 
 
 export const fetchAddEventReport = (postBody) =>
-  axios.post(`${REPORT_URL}/add`, postBody, {});
+  axios.post(`${REPORT_URL}/add`, { ...postBody, login: loginUser }, {});
 export const fetchGetEventReportById = (id) =>
   axios.get(`${REPORT_URL}/${id}`, {});
 export const fetchGetEventReportByName = (postBody) =>
@@ -157,7 +159,7 @@ export const fetchGetEventReportByUser = (user) =>
 export const fetchGetAllEventReports = () =>
   axios.get(`${REPORT_URL}`, {});
 export const fetchUpdateEventReport = (postBody, id) =>
-  axios.put(`${REPORT_URL}/update/${id}`, postBody, {});
+  axios.put(`${REPORT_URL}/update/${id}`, { ...postBody, login: loginUser }, {});
 /* ------------------------------------------- */
 
 // For Spotlight 

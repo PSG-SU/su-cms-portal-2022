@@ -1,6 +1,7 @@
 import { Router } from "express";
 import General from "../../models/Club/General.js";
 import Club from "../../models/Club.js";
+import Log from "../../models/Log.js";
 
 const router = Router();
 
@@ -86,6 +87,13 @@ router.put("/update/:user", async (req, res) => {
     } else {
       res.status(200).json(general);
     }
+
+    const log = await Log.create({
+      user: req.body.login,
+      action: "Updated",
+      section: "Club General Details",
+      timestamp: new Date(),
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err.message });

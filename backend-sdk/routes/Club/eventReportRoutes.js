@@ -1,5 +1,6 @@
 import { Router } from "express";
 import EventReport from "../../models/Club/EventReport.js";
+import Log from "../../models/Log.js";
 const router = Router();
 
 router.post("/add", async (req, res) => {
@@ -14,6 +15,15 @@ router.post("/add", async (req, res) => {
       images: req.body.images,
       user: req.body.user,
     })
+
+    const log = await Log.create({
+      user: req.body.login,
+      action: "Added",
+      section: "Event Report",
+      item: req.body.eventName,
+      timestamp: new Date(),
+    });
+
     return res.status(200).json(report);
   } catch (err) {
     console.log(err);
@@ -96,6 +106,15 @@ router.put("/update/:id", async (req, res) => {
     if (!report) {
       return res.status(400).json({ err: "Not found" })
     }
+
+    const log = await Log.create({
+      user: req.body.login,
+      action: "Updated",
+      section: "Event Report",
+      item: req.body.eventName,
+      timestamp: new Date(),
+    });
+
     return res.status(200).json(report);
   } catch (err) {
     console.log(err);
@@ -109,6 +128,15 @@ router.delete("/delete/:id", async (req, res) => {
     if (!report) {
       return res.status(400).json({ err: "Not found" })
     }
+  
+    const log = await Log.create({
+      user: req.body.login,
+      action: "Deleted",
+      section: "Event Report",
+      item: req.body.eventName,
+      timestamp: new Date(),
+    });
+
     return res.status(200).json(report);
   } catch (err) {
     console.log(err);

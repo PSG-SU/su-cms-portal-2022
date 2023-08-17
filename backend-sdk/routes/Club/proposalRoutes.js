@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import Proposal from '../../models/Club/Proposal.js';
+import Log from '../../models/Log.js';
 
 const router = Router();
 
@@ -271,6 +272,14 @@ router.post("/add", async (req, res) => {
       ...req.body,
     });
     res.status(201).json({ proposal: proposal._id });
+
+    const log = await Log.create({
+      user: req.body.login,
+      action: "Added",
+      section: "Event Proposal",
+      item: req.body.eventName,
+      timestamp: new Date(),
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err.message });
@@ -288,6 +297,14 @@ router.put("/update/:id", async (req, res) => {
       return res.status(404).json({ error: "Not Found" });
     } else {
       res.status(200).json(proposal);
+
+      const log = await Log.create({
+        user: req.body.login,
+        action: "Updated",
+        section: "Event Proposal",
+        item: req.body.eventName,
+        timestamp: new Date(),
+      });
     }
   } catch (err) {
     console.log(err);
@@ -304,6 +321,14 @@ router.delete("/delete/:id", async (req, res) => {
       return res.status(404).json({ error: "Not Found" });
     } else {
       res.status(200).json(proposal);
+
+      const log = await Log.create({
+        user: req.body.login,
+        action: "Deleted",
+        section: "Event Proposal",
+        item: req.body.eventName,
+        timestamp: new Date(),
+      });
     }
   } catch (err) {
     console.log(err);
