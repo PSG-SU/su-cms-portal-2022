@@ -1,5 +1,6 @@
 import { Router } from "express";
 import OfficeBearer from "../models/OfficeBearer.js";
+import Log from "../models/Log.js";
 
 const router = Router();
 
@@ -33,6 +34,14 @@ router.post("/add", async (req, res) => {
   try {
     const officeBearer = await OfficeBearer.create(req.body);
     res.status(201).json({ officeBearer: officeBearer._id });
+
+    const log = await Log.create({
+      user: req.body.login,
+      action: "Added",
+      section: "Office Bearers",
+      item: req.body.name,
+      timestamp: new Date(),
+    });
   } catch (err) {
     console.log(err);
     if (err.code === 11000) {
@@ -54,6 +63,14 @@ router.put("/update/:id", async (req, res) => {
       return res.status(404).json({ error: "Not Found" });
     } else {
       res.status(200).json(officeBearer);
+
+      const log = await Log.create({
+        user: req.body.login,
+        action: "Updated",
+        section: "Office Bearers",
+        item: req.body.name,
+        timestamp: new Date(),
+      });
     }
   } catch (err) {
     console.log(err);
@@ -70,6 +87,14 @@ router.delete("/delete/:id", async (req, res) => {
       return res.status(404).json({ error: "Not Found" });
     } else {
       res.status(200).json(officeBearer);
+
+      const log = await Log.create({
+        user: req.body.login,
+        action: "Deleted",
+        section: "Office Bearers",
+        item: officeBearer.name,
+        timestamp: new Date(),
+      });
     }
   } catch (err) {
     console.log(err);

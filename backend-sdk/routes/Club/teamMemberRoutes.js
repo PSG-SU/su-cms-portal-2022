@@ -106,7 +106,7 @@ router.delete("/delete/:id", async (req, res) => {
         user: req.body.login,
         action: "Deleted",
         section: "Team Member",
-        item: req.body.eventName,
+        item: teamMember.name,
         timestamp: new Date(),
       });
     }

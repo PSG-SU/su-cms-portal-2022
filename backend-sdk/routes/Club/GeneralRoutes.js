@@ -73,6 +73,11 @@ router.put("/update/:user", async (req, res) => {
       req.body,
       { new: true }
     );
+
+    const club = await Club.findOne({
+      clubId: req.params.user,
+    });
+
     if (!general) {
       // return res.status(404).json({ error: "Not Found" });
       try {
@@ -80,20 +85,29 @@ router.put("/update/:user", async (req, res) => {
           ...req.body,
         });
         res.status(201).json({ general: general._id });
+
+        const log = await Log.create({
+          user: req.body.login,
+          action: "Added",
+          section: "Club General Details",
+          item: club.clubName,
+          timestamp: new Date(),
+        });
       } catch (err) {
         console.log(err);
         res.status(500).json({ error: err.message });
       }
     } else {
       res.status(200).json(general);
-    }
 
-    const log = await Log.create({
-      user: req.body.login,
-      action: "Updated",
-      section: "Club General Details",
-      timestamp: new Date(),
-    });
+      const log = await Log.create({
+        user: req.body.login,
+        action: "Updated",
+        section: "Club General Details",
+        item: club.clubName,
+        timestamp: new Date(),
+      });
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err.message });

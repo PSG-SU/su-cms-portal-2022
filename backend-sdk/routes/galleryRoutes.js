@@ -1,5 +1,6 @@
 import { Router } from "express";
 import Gallery from "../models/Gallery.js";
+import Log from "../models/Log.js";
 const router = Router();
 
 router.post("/add", async (req, res) => {
@@ -24,6 +25,14 @@ router.post("/add", async (req, res) => {
     if (!img) {
       return res.status(400).json({ err: "Not Found" });
     }
+
+    const log = await Log.create({
+      user: req.body.login,
+      action: "Added",
+      section: "Gallery",
+      item: req.body.event + " " + req.body.year,
+      timestamp: new Date(),
+    });
 
     return res.status(200).send({ message: img });
   } catch (err) {
@@ -80,6 +89,15 @@ router.delete("/delete/:id", async (req, res) => {
     if (!image) {
       return res.status(400).json({ err: "Not found" })
     }
+
+    const log = await Log.create({
+      user: req.body.login,
+      action: "Deleted",
+      section: "Gallery",
+      item: image.event + " " + image.year,
+      timestamp: new Date(),
+    });
+
     return res.status(200).json({ message: image });
   } catch (err) {
     console.log(err);
@@ -101,6 +119,15 @@ router.put("/update/:id", async (req, res) => {
     if (!image) {
       return res.status(400).json({ err: "Not found" })
     }
+
+    const log = await Log.create({
+      user: req.body.login,
+      action: "Updated",
+      section: "Gallery",
+      item: req.body.event + " " + req.body.year,
+      timestamp: new Date(),
+    });
+
     return res.status(200).json({ message: image });
   } catch (err) {
     console.log(err);

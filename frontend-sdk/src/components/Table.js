@@ -88,7 +88,6 @@ const Table = ({
       .delete(`${url}/delete/${item._id}`, {
         data: {
           login: localStorage.getItem("userId"),
-          eventName: item.eventName ? item.eventName : item.name,
         },
       })
       .then((res) => {

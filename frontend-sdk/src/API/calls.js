@@ -52,63 +52,63 @@ const loginUser = localStorage.getItem('userId');
 // For Auth
 export const fetchLogin = (postBody) => axios.post(LOGIN_URL, postBody, {});
 export const fetchAddUser = (postBody) =>
-  axios.post(`${AUTH_URL}/add`, postBody, {});
+  axios.post(`${AUTH_URL}/add`, { ...postBody, login: loginUser }, {});
 export const fetchUpdateUser = (postBody, id) =>
-  axios.put(`${AUTH_URL}/update/${id}`, postBody, {});
+  axios.put(`${AUTH_URL}/update/${id}`, { ...postBody, login: loginUser }, {});
 export const fetchGetAllUsers = () => axios.get(`${AUTH_URL}`, {});
 export const fetchGetUser = (id) => axios.get(`${AUTH_URL}/unique/${id}`, {});
 export const fetchChangePassword = (postBody, id) =>
-  axios.put(`${AUTH_URL}/changePassword/${id}`, postBody, {});
+  axios.put(`${AUTH_URL}/changePassword/${id}`, { ...postBody, login: loginUser }, {});
 /* ------------------------------------------- */
 
 // For OFFICE BEARERS
 export const fetchAddOfficeBearers = (postBody) =>
-  axios.post(`${OFFICE_BEARERS_URL}/add`, postBody, {});
+  axios.post(`${OFFICE_BEARERS_URL}/add`, { ...postBody, login: loginUser }, {});
 
 export const fetchUpdateOfficeBearers = (postBody, id) =>
-  axios.put(`${OFFICE_BEARERS_URL}/update/${id}`, postBody, {});
+  axios.put(`${OFFICE_BEARERS_URL}/update/${id}`, { ...postBody, login: loginUser }, {});
 /* ------------------------------------------- */
 
 // For CLUBS
 export const fetchAddClubs = (postBody) =>
-  axios.post(`${CLUB_URL}/add`, postBody, {});
+  axios.post(`${CLUB_URL}/add`, { ...postBody, login: loginUser }, {});
 
 export const fetchUpdateClubs = (postBody, id) =>
-  axios.put(`${CLUB_URL}/update/${id}`, postBody, {});
+  axios.put(`${CLUB_URL}/update/${id}`, { ...postBody, login: loginUser }, {});
 /* ------------------------------------------- */
 
 // For SU Team
 export const fetchAddSUTeamStaff = (postBody) =>
-  axios.post(`${SUTEAM_URL}/add`, postBody, {});
+  axios.post(`${SUTEAM_URL}/add`, { ...postBody, login: loginUser }, {});
 
 export const fetchUpdateSUTeamStaff = (postBody, id) =>
-  axios.put(`${SUTEAM_URL}/update/${id}`, postBody, {});
+  axios.put(`${SUTEAM_URL}/update/${id}`, { ...postBody, login: loginUser }, {});
 /* ------------------------------------------- */
 
 // For Announcements
 export const fetchAddAnnouncement = (postBody) =>
-  axios.post(`${ANNOUNCEMENTS_URL}/add`, postBody, {});
+  axios.post(`${ANNOUNCEMENTS_URL}/add`, { ...postBody, login: loginUser }, {});
 
 export const fetchUpdateAnnouncement = (postBody, id) =>
-  axios.put(`${ANNOUNCEMENTS_URL}/update/${id}`, postBody, {});
+  axios.put(`${ANNOUNCEMENTS_URL}/update/${id}`, { ...postBody, login: loginUser }, {});
 /* ------------------------------------------- */
 
 // For About Page
 export const fetchUpdateAbout = (postBody) =>
-  axios.put(`${ABOUT_URL}/update`, postBody, {});
+  axios.put(`${ABOUT_URL}/update`, { ...postBody, login: loginUser }, {});
 /* ------------------------------------------- */
 
 // For NSS NCC Page
 export const fetchAddNssNcc = (postBody) =>
-  axios.post(`${NSS_NCC_URL}/add`, postBody, {});
+  axios.post(`${NSS_NCC_URL}/add`, { ...postBody, login: loginUser }, {});
 
 export const fetchUpdateNssNcc = (postBody, id) =>
-  axios.put(`${NSS_NCC_URL}/update/${id}`, postBody, {});
+  axios.put(`${NSS_NCC_URL}/update/${id}`, { ...postBody, login: loginUser }, {});
 /* ------------------------------------------- */
 
 // For Gallery Page
 export const fetchAddGallery = (postBody) =>
-  axios.post(`${GALLERY_URL}/add`, postBody, {});
+  axios.post(`${GALLERY_URL}/add`, { ...postBody, login: loginUser }, {});
 
 export const fetchGetGalleryByEvent = (event) =>
   axios.get(`${GALLERY_URL}/event/${event}`, {});
@@ -117,7 +117,7 @@ export const fetchGetGallery = () =>
   axios.get(`${GALLERY_URL}`, {});
 
 export const fetchUpdateGallery = (postBody, id) =>
-  axios.put(`${GALLERY_URL}/update/${id}`, postBody, {});
+  axios.put(`${GALLERY_URL}/update/${id}`, { ...postBody, login: loginUser }, {});
 
 /* ------------------------------------------- */
 

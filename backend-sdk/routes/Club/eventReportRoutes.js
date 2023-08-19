@@ -133,7 +133,7 @@ router.delete("/delete/:id", async (req, res) => {
       user: req.body.login,
       action: "Deleted",
       section: "Event Report",
-      item: req.body.eventName,
+      item: report.eventName,
       timestamp: new Date(),
     });
 

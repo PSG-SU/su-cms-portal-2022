@@ -302,7 +302,7 @@ router.put("/update/:id", async (req, res) => {
         user: req.body.login,
         action: "Updated",
         section: "Event Proposal",
-        item: req.body.eventName,
+        item: proposal.eventName,
         timestamp: new Date(),
       });
     }
@@ -326,7 +326,7 @@ router.delete("/delete/:id", async (req, res) => {
         user: req.body.login,
         action: "Deleted",
         section: "Event Proposal",
-        item: req.body.eventName,
+        item: proposal.eventName,
         timestamp: new Date(),
       });
     }

@@ -2,6 +2,7 @@ import { Router } from "express";
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import Log from "../models/Log.js";
 
 const router = Router();
 
@@ -18,6 +19,14 @@ router.post("/add", async (req, res) => {
       caID: caID,
     });
     res.status(201).json({ user: user._id });
+
+    const log = await Log.create({
+      user: req.body.login,
+      action: "Added",
+      section: "User Management",
+      item: req.body.userId,
+      timestamp: new Date(),
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
@@ -150,6 +159,14 @@ router.put("/update/:id", async (req, res) => {
     );
     if (!user) return res.status(404).json({ error: "User not found" });
     res.status(200).json(user);
+
+    const log = await Log.create({
+      user: req.body.login,
+      action: "Updated",
+      section: "User Management",
+      item: req.body.userId,
+      timestamp: new Date(),
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err.message });
@@ -170,6 +187,14 @@ router.put("/changePassword/:id", async (req, res) => {
         { new: true }
       );
       res.status(200).json(updatedUser);
+
+      const log = await Log.create({
+        user: req.body.login,
+        action: "Updated",
+        section: "User Management",
+        item: "Password",
+        timestamp: new Date(),
+      });
     } else {
       res.status(401).json({ error: "Invalid credentials" });
     }
@@ -184,6 +209,14 @@ router.delete("/delete/:id", async (req, res) => {
     const user = await User.findOneAndDelete({ _id: req.params.id });
     if (!user) return res.status(404).json({ error: "User not found" });
     res.status(200).json(user);
+
+    const log = await Log.create({
+      user: req.body.login,
+      action: "Deleted",
+      section: "User Management",
+      item: user.userId,
+      timestamp: new Date(),
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err.message });

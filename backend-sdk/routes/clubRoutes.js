@@ -1,6 +1,7 @@
 import { Router } from "express";
 import Club from "../models/Club.js";
 import General from "../models/Club/General.js";
+import Log from "../models/Log.js";
 
 const router = Router();
 
@@ -8,8 +9,19 @@ router.post("/add", async (req, res) => {
   try {
     const club = await Club.create(req.body);
     res.status(201).json({ club: club._id });
+
+    const log = await Log.create({
+      user: req.body.login,
+      action: "Added",
+      section: "Club Management",
+      item: req.body.clubName,
+      timestamp: new Date(),
+    });
   } catch (err) {
     console.log(err);
+    if (err.code == 11000) {
+      return res.status(400).json({ error: "Club ID already exists" });
+    }
     res.status(500).json({ error: err.message });
   }
 });
@@ -71,6 +83,14 @@ router.delete("/delete/:id", async (req, res) => {
     const club = await Club.findOneAndDelete({ _id: req.params.id });
     if (!club) return res.status(404).json({ error: "Club not found" });
     res.status(200).json(club);
+
+    const log = await Log.create({
+      user: req.body.login,
+      action: "Deleted",
+      section: "Club Management",
+      item: club.clubName,
+      timestamp: new Date(),
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err.message });
@@ -84,6 +104,14 @@ router.put("/update/:id", async (req, res) => {
     });
     if (!club) return res.status(404).json({ error: "Club not found" });
     res.status(200).json(club);
+
+    const log = await Log.create({
+      user: req.body.login,
+      action: "Updated",
+      section: "Club Management",
+      item: req.body.clubName,
+      timestamp: new Date(),
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err.message });

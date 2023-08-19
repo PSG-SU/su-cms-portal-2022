@@ -1,5 +1,6 @@
 import { Router } from "express";
 import SuTeam from "../models/SUTeam.js";
+import Log from "../models/Log.js";
 
 const router = Router();
 
@@ -33,6 +34,15 @@ router.post("/add", async (req, res) => {
       ...req.body,
     });
     res.status(201).json({ suTeam: suTeam._id });
+
+    const log = await Log.create({
+      user: req.body.login,
+      action: "Added",
+      section: "SU Team Staff",
+      item: req.body.name,
+      timestamp: new Date(),
+    });
+
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err.message });
@@ -48,6 +58,14 @@ router.put("/update/:id", async (req, res) => {
       return res.status(404).json({ error: "Not Found" });
     } else {
       res.status(200).json(suTeam);
+
+      const log = await Log.create({
+        user: req.body.login,
+        action: "Updated",
+        section: "SU Team Staff",
+        item: req.body.name,
+        timestamp: new Date(),
+      });
     }
   } catch (err) {
     console.log(err);
@@ -62,6 +80,14 @@ router.delete("/delete/:id", async (req, res) => {
       return res.status(404).json({ error: "Not Found" });
     } else {
       res.status(200).json(suTeam);
+
+      const log = await Log.create({
+        user: req.body.login,
+        action: "Deleted",
+        section: "SU Team Staff",
+        item: suTeam.name,
+        timestamp: new Date(),
+      });
     }
   } catch (err) {
     console.log(err);
