@@ -1,17 +1,12 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-//import timeGridPlugin from "@fullcalendar/timegrid";
-
-// import "@fullcalendar/core/main.css";
-// import "@fullcalendar/daygrid/main.css";
-// import "@fullcalendar/timegrid/main.css";
 
 import Heading from "../../../components/Heading";
 import axios from "axios";
-import { CLUB_URL, PROPOSAL_URL } from "../../../API/config";
+import { CLUB_URL, PROPOSAL_URL, AUTH_URL } from "../../../API/config";
 import { toast } from "react-hot-toast";
 import { fetchGetProposalbyId } from "../../../API/calls";
 import { IoMdDownload, IoMdEye } from "react-icons/io";
@@ -19,27 +14,38 @@ import reportWithAttachments from "../../../templates/reportWithAttachments";
 
 const CalendarView = () => {
   const [events, setEvents] = useState([]);
+  const [cid, setCid] = useState("");
 
   const [currentEvent, setCurrentEvent] = useState(null);
 
   useEffect(() => {
     axios
-      .get(`${PROPOSAL_URL}/`)
+      .get(`${AUTH_URL}/id/${localStorage.getItem("userId")}`, {})
       .then((res) => {
-        console.log(res.data);
-        setEvents(
-          res.data.map((proposal) => ({
-            ...proposal,
-            title: proposal.eventName,
-            start: proposal.startDate.slice(0, -5) + "+00:00",
-            end: proposal.endDate.slice(0, -5) + "+00:00",
-          }))
-        );
+        setCid(res.data.caID);
       })
-      .catch((err) => {
-        console.log(err);
-      });
   }, []);
+
+  useEffect(() => {
+    if (cid) {
+      axios
+        .get(`${PROPOSAL_URL}/user/${cid}`)
+        .then((res) => {
+          console.log("Calendar", res.data);
+          setEvents(
+            res.data.map((proposal) => ({
+              ...proposal,
+              title: proposal.eventName,
+              start: proposal.startDate.slice(0, -5) + "+00:00",
+              end: proposal.endDate.slice(0, -5) + "+00:00",
+            }))
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [cid]);
 
   const handleDownload = async (id, view = false) => {
     toast.promise(fetchGetProposalbyId(id), {

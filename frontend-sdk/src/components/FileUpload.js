@@ -4,6 +4,7 @@ import { AiFillExclamationCircle } from "react-icons/ai";
 import ModalImage from "react-modal-image";
 import toast from "react-hot-toast";
 import { VscFilePdf } from "react-icons/vsc";
+import Button from "./Button";
 
 const FileUpload = ({
   fileState,
@@ -21,21 +22,60 @@ const FileUpload = ({
     console.log("UPLOAD", file);
     if (file) {
       if ((pdf && file.type === "application/pdf") || (!pdf && (file.type === "image/jpeg" || file.type === "image/png"))) {
-        setFileName(file.name);
+        // setFileName(file.name);
+
+        setFileName(
+          <div className="flex items-center space-x-2">
+            {pdf ? (
+              <Button
+                text={
+                  <div className="flex flex-row items-center gap-2">
+                    <VscFilePdf />
+                    {file && <p className="text-xs">{file.name}</p>}
+                  </div>
+                }
+                handleClick={() => {
+                  window.open(URL.createObjectURL(file), "_blank");
+                }}
+              />
+            ) : (
+              <div>
+                <ModalImage
+                  className="w-12 h-12 rounded-full"
+                  small={URL.createObjectURL(file)}
+                  large={URL.createObjectURL(file)}
+                  alt="Image URL"
+                />
+              </div>
+            )}
+          </div>
+        )
       } else {
         pdf ? toast.error("Please upload a valid PDF file") : toast.error("Please upload a valid image file");
       }
     }
-  }, [file]);
+  }, [file, pdf]);
 
   useEffect(() => {
-    console.log("htdht", url)
+    console.log("Upload URL", url)
     setFileName(
-      url.length > 0 ? (
+      url && url.length > 0 ? (
         <div className="flex items-center space-x-2">
-          {pdf && (<VscFilePdf />)}
+          {/* {pdf && (<VscFilePdf />)} */}
 
-          {!pdf && (
+          {pdf ? (
+            <Button
+              text={
+                <div className="flex flex-row items-center gap-2">
+                  <VscFilePdf />
+                  {file && <p className="text-xs">{file.name}</p>}
+                </div>
+              }
+              handleClick={() => {
+                window.open(url, "_blank")
+              }}
+            />
+          ) : (
             <div>
               <ModalImage
                 className="w-12 h-12 rounded-full"

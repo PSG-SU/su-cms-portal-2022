@@ -63,7 +63,7 @@ const ProposalSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ["pending", "facApproved", "deanApproved", "rejected", "published"],
+    enum: ["pending", "facApproved", "deanApproved", "rejected", "published", "approvalVerification"],
     default: "pending",
   },
   fileURLs: {
@@ -71,6 +71,9 @@ const ProposalSchema = new Schema({
   },
   images: {
     type: [String],
+  },
+  approvalForm: {
+    type: String,
   },
   registrationLink: {
     type: String,

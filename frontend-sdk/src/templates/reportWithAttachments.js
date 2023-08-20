@@ -86,6 +86,12 @@ const reportWithAttachments = async (proposalData, clubName, view = false) => {
       });
   };
 
+  async function principalApproval() {
+    if (proposalData?.approvalForm != null) {
+      await imageOrPdf(proposalData.approvalForm);
+    }
+  }
+
   async function supportingDocuments() {
     if (proposalData?.fileURLs != null) {
       for (var i = 0; i < proposalData.fileURLs.length; i++) {
@@ -133,6 +139,7 @@ const reportWithAttachments = async (proposalData, clubName, view = false) => {
   }
 
   const documentAdder = async () => {
+    await principalApproval();
     await proposalDetails();
     await supportingDocuments();
     await mergePdfs();

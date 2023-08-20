@@ -62,6 +62,22 @@ router.get("/all_fac_approved/", async (req, res) => {
   }
 });
 
+router.get("/all_approval_verification/", async (req, res) => {
+  try {
+    const proposal = await Proposal.find({
+      status: "approvalVerification",
+    });
+    if (!proposal) {
+      return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json(proposal);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.get("/all_rejected/", async (req, res) => {
   try {
     const proposal = await Proposal.find({
@@ -115,6 +131,23 @@ router.get("/facApproved/:user", async (req, res) => {
     const proposal = await Proposal.find({
       user: req.params.user,
       status: "facApproved",
+    });
+    if (!proposal) {
+      return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json(proposal);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get("/approvalVerification/:user", async (req, res) => {
+  try {
+    const proposal = await Proposal.find({
+      user: req.params.user,
+      status: "approvalVerification",
     });
     if (!proposal) {
       return res.status(404).json({ error: "Not Found" });
@@ -195,11 +228,28 @@ router.get("/published/:user", async (req, res) => {
   }
 });
 
+router.get("/approvalVerification/:user", async (req, res) => {
+  try {
+    const proposal = await Proposal.find({
+      user: req.params.user,
+      status: "published",
+    });
+    if (!proposal) {
+      return res.status(404).json({ error: "Not Found" });
+    } else {
+      res.status(200).json(proposal);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.get("/deanApprovedAndPublished/:user", async (req, res) => {
   try {
     const proposal = await Proposal.find({
       user: req.params.user,
-      $or: [{ status: "deanApproved" }, { status: "published" }],
+      $or: [{ status: "deanApproved" }, { status: "published" }, { status: "approvalVerification" }],
     });
     if (!proposal) {
       return res.status(404).json({ error: "Not Found" });

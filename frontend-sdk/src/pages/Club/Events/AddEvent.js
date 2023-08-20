@@ -5,6 +5,7 @@ import Button from "../../../components/Button";
 import MultipleFiles from "../../../components/MultipleFiles";
 import Heading from "../../../components/Heading";
 import TextArea from "../../../components/TextArea";
+import FileUpload from "../../../components/FileUpload";
 import {
   fetchGetApprovedorPublishedProposal,
   fetchUpdateProposal,
@@ -22,6 +23,9 @@ const AddEvent = () => {
   const [ID, setID] = useState("");
   const [eventName, setEventName] = useState("");
   const [desc, setDesc] = useState("");
+  const [approvalForm, setApprovalForm] = useState("");
+  const [approvalFormUrl, setApprovalFormUrl] = useState("");
+  const [currentStatus, setCurrentStatus] = useState("");
   const [images, setImages] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
   const [reglink, setReglink] = useState("");
@@ -31,9 +35,11 @@ const AddEvent = () => {
     if (Object.keys(updateState).length >= 0) {
       setID(updateState?._id);
       setEventName(updateState?.eventName);
+      setApprovalFormUrl(updateState?.approvalForm);
       setImageUrls(updateState?.images ? updateState?.images : []);
       setDesc(updateState?.description);
       setReglink(updateState?.registrationLink);
+      setCurrentStatus(updateState?.status);
     }
   }, [updateState]);
 
@@ -69,6 +75,8 @@ const AddEvent = () => {
           setImageUrls(eventData?.images ? eventData.images : []);
           setDesc(eventData?.description);
           setReglink(eventData?.registrationLink);
+          setApprovalFormUrl(eventData?.approvalForm);
+          setCurrentStatus(eventData?.status);
         })
         .catch((err) => {
           console.log(err);
@@ -83,8 +91,9 @@ const AddEvent = () => {
       const postBody = {
         description: desc,
         images: imageUrls,
-        status: "published",
+        status: currentStatus === "published" ? "published" : "approvalVerification",
         registrationLink: reglink,
+        approvalForm: approvalFormUrl,
         publishedAt: new Date(),
       };
       toast.promise(
@@ -122,6 +131,24 @@ const AddEvent = () => {
 
   const handlePublish = async () => {
     if (!eventName) return toast.error("Event name required.");
+    if (!approvalForm && !approvalFormUrl) return toast.error("Approval form required.");
+    if (!desc) return toast.error("Description required.");
+    let approvalUrl = approvalFormUrl ? approvalFormUrl : "";
+
+    if (approvalForm) {
+      await toast.promise(fetchUploadFile(approvalForm), {
+        loading: "Uploading Approval Form...",
+        success: (res) => {
+          approvalUrl = res.data.url;
+          setApprovalFormUrl(res.data.url);
+          return "Uploaded Approval Form";
+        },
+        error: (err) => {
+          console.log(err);
+          return `Error: ${err}`;
+        },
+      });
+    }
 
     if (images.length > 0) {
       await handleMultipleUpload(images, 1, images.length);
@@ -129,8 +156,9 @@ const AddEvent = () => {
       const postBody = {
         description: desc,
         images: imageUrls,
-        status: "published",
+        status: currentStatus === "published" ? "published" : "approvalVerification",
         registrationLink: reglink,
+        approvalForm: approvalUrl,
         publishedAt: new Date(),
       };
       toast.promise(
@@ -164,6 +192,15 @@ const AddEvent = () => {
             title="Event Name"
             placeholder="Select an approved event"
             options={proposals}
+          />
+        </div>
+        <div className="flex items-center w-full space-x-4 mt-4">
+          <FileUpload
+            title="Upload Event Approval Form Signed by Administration Dean and Principal"
+            className="w-full"
+            fileState={[approvalForm, setApprovalForm]}
+            url={approvalFormUrl}
+            pdf
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">

@@ -4,6 +4,7 @@ import { BiSortAlt2, BiUndo } from "react-icons/bi";
 import { HiOutlineTrash } from "react-icons/hi";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { IoMdDownload, IoMdEye, IoMdTime } from "react-icons/io";
+import { IoDocumentTextOutline } from "react-icons/io5";
 import { CompactTable } from "@table-library/react-table-library/compact";
 import { useTheme } from "@table-library/react-table-library/theme";
 import { getTheme } from "@table-library/react-table-library/baseline";
@@ -160,7 +161,7 @@ const Table = ({
 
         // Status Check
         else if (
-          item[tkeys[idx]] === "facApproved" || item[tkeys[idx]] === "deanApproved" || item[tkeys[idx]] === "rejected" || item[tkeys[idx]] === "pending" || item[tkeys[idx]] === "published"
+          item[tkeys[idx]] === "facApproved" || item[tkeys[idx]] === "deanApproved" || item[tkeys[idx]] === "rejected" || item[tkeys[idx]] === "pending" || item[tkeys[idx]] === "published" || item[tkeys[idx]] === "approvalVerification"
         ) {
           return (
             <div className="flex space-x-2 items-center">
@@ -179,6 +180,7 @@ const Table = ({
                 {item[tkeys[idx]] === "rejected" && (<FaRegTimesCircle />)}
                 {item[tkeys[idx]] === "pending" && (<IoMdTime />)}
                 {item[tkeys[idx]] === "published" && (<BsCloudArrowUpFill />)}
+                {item[tkeys[idx]] === "approvalVerification" && (<IoDocumentTextOutline />)}
               </div>
               <p>
                 {item[tkeys[idx]] === "facApproved" && "Approved By Faculty"}
@@ -186,6 +188,7 @@ const Table = ({
                 {item[tkeys[idx]] === "rejected" && "Rejected"}
                 {item[tkeys[idx]] === "pending" && "Pending"}
                 {item[tkeys[idx]] === "published" && "Published"}
+                {item[tkeys[idx]] === "approvalVerification" && "Approval Verification"}
               </p>
             </div>
           );

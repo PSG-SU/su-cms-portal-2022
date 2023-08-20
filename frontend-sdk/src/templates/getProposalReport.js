@@ -18,6 +18,7 @@ const getProposalReport = (data, clubName) => {
         "deanApproved": "Approved by Dean, Students Union",
         "rejected": "Rejected",
         "published": "Published",
+        "approvalVerification": "Waiting for Principal Approval Verification",
     };
 
     return `
