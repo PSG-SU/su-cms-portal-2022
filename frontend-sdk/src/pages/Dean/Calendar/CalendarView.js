@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -19,7 +19,7 @@ import reportWithAttachments from "../../../templates/reportWithAttachments";
 
 const CalendarView = () => {
   const [events, setEvents] = useState([]);
-
+  const [clubName, setClubName] = useState("");
   const [currentEvent, setCurrentEvent] = useState(null);
 
   useEffect(() => {
@@ -45,16 +45,11 @@ const CalendarView = () => {
     toast.promise(fetchGetProposalbyId(id), {
       loading: "Generating PDF...",
       success: (res) => {
-        let clubName = "";
-        axios.get(`${CLUB_URL}/id/${res.data.user}`)
-          .then((r) => {
-            clubName = r.data.clubName;
-            toast.promise(reportWithAttachments(res.data, clubName, view), {
-              loading: view ? "Loading" : "Downloading...",
-              success: view ? "Loaded" : `Downloaded ${res.data.eventName}`,
-              error: (err) => `Error: ${err.message}`,
-            });
-          });
+        toast.promise(reportWithAttachments(res.data, clubName, view), {
+          loading: view ? "Loading" : "Downloading...",
+          success: view ? "Loaded" : `Downloaded ${res.data.eventName}`,
+          error: (err) => `Error: ${err.message}`,
+        });
         return `PDF Generated`;
       },
       error: (err) => `Error: ${err.message}`,
@@ -89,6 +84,11 @@ const CalendarView = () => {
               eventClick={(info) => {
                 console.log(info);
                 setCurrentEvent(info);
+                console.log(info.event.extendedProps.user);
+                axios.get(`${CLUB_URL}/id/${info.event.extendedProps.user}`)
+                  .then((res) => {
+                    setClubName(res.data.clubName);
+                  });
               }}
             />
           </div>
@@ -101,6 +101,9 @@ const CalendarView = () => {
               <div className="w-full flex flex-col gap-2">
                 <h3 className="text-lg font-semibold">
                   {currentEvent.event.title}
+                </h3>
+                <h3 className="font-medium">
+                  {clubName}
                 </h3>
                 <div className="flex mt-2 items-start space-x-6">
                   <div className="w-1/2">

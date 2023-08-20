@@ -1,4 +1,4 @@
-import { FaCalendarCheck, FaHome, FaKey } from "react-icons/fa";
+import { FaCalendarCheck, FaKey } from "react-icons/fa";
 import { VscFilePdf } from "react-icons/vsc";
 import { BsCalendarWeek, BsSearch } from "react-icons/bs";
 
@@ -10,7 +10,7 @@ import { Navigate } from "react-router-dom";
 
 const list = [
   {
-    text: "Proposals",
+    text: "Event Proposals",
     link: "/dean/approval",
     rlink: "approval",
     icon: <FaCalendarCheck />,
@@ -30,13 +30,13 @@ const list = [
     icon: <BsCalendarWeek />,
     element: <Calendar />,
   },
-  {
-    text: "Spotlight View",
-    link: "/dean/spotlight",
-    rlink: "spotlight",
-    icon: <BsSearch />,
-    element: <Spotlight />,
-  },
+  // {
+  //   text: "Spotlight View",
+  //   link: "/dean/spotlight",
+  //   rlink: "spotlight",
+  //   icon: <BsSearch />,
+  //   element: <Spotlight />,
+  // },
   {
     text: "Password",
     link: "/dean/password",

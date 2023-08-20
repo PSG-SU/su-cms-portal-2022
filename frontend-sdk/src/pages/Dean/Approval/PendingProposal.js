@@ -4,11 +4,9 @@ import Heading from "../../../components/Heading";
 import Table from "../../../components/Table";
 import Dropdown from "../../../components/Dropdown";
 import axios from "axios";
-import { ProposalContext } from ".";
 import { RefreshContext } from "../../../Refresher";
 import { CLUB_URL, PROPOSAL_URL } from "../../../API/config";
 import { IoCloseOutline } from "react-icons/io5";
-import DateInput from "../../../components/DateInput";
 import { toast } from "react-hot-toast";
 import { fetchUpdateProposal } from "../../../API/calls";
 
@@ -17,8 +15,6 @@ const PendingProposal = () => {
   const [clubs, setClubs] = useState([]);
   const [cid, setCid] = useState("");
   const [username, setUsername] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
   const { refreshPage, refreshToken } = useContext(RefreshContext);
   const url = PROPOSAL_URL;
 
@@ -46,7 +42,7 @@ const PendingProposal = () => {
           console.log(err);
         });
     }
-  }, [cid]);
+  }, [cid, url, refreshToken]);
 
   const clearUsername = () => {
     setUsername("");
@@ -62,9 +58,7 @@ const PendingProposal = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [refreshToken]);
-
-  const { updateByID } = useContext(ProposalContext);
+  }, [refreshToken, url]);
 
   const ApproveButton = async (id) => {
     const postBody = {
@@ -123,18 +117,17 @@ const PendingProposal = () => {
           range
         />
       </div> */}
-      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-uto">
+      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)]">
         <Table
           theads={["Event", "Club / Association", "Event Date"]}
           tdata={data}
           tkeys={["eventName", "user", "startDate"]}
           className={`${data.length < 8
             ? "max-h-[calc(100vh-20rem)]"
-            : "h-[calc(100vh-20rem)]"
+            : "h-[calc(100vh-25rem)]"
             } w-full`}
           tratio="1fr 1fr 1fr"
           url={url}
-          handleUpdate={(id) => updateByID(id)}
           clubs={clubs}
           ApproveButton={ApproveButton}
           RejectButton={RejectButton}
