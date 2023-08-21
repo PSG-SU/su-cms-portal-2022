@@ -1,5 +1,6 @@
-import { FaUser, FaUserGraduate, FaUsers, FaUserTie, FaHome, FaPhotoVideo, FaBullhorn } from "react-icons/fa";
+import { FaUser, FaUserGraduate, FaUsers, FaUserTie, FaHome, FaPhotoVideo, FaBullhorn, FaRegNewspaper } from "react-icons/fa";
 
+import { Navigate } from "react-router-dom";
 import OfficeBearers from "./Admin/OfficeBearers";
 import ClubManagement from "./Admin/ClubManagement";
 import UserManagement from "./Admin/UserManagement";
@@ -8,7 +9,7 @@ import NSS_NCC from "./Admin/NSS_NCC";
 import About from "./Admin/About";
 import Announcements from "./Admin/Announcements";
 import Gallery from "./Admin/Gallery";
-import { Navigate } from "react-router-dom";
+import Logs from "./Admin/Logs";
 
 const list = [
   {
@@ -66,6 +67,13 @@ const list = [
     rlink: "gallery",
     icon: <FaPhotoVideo />,
     element: <Gallery />,
+  },
+  {
+    text: "Logs",
+    link: "/admin/logs",
+    rlink: "logs",
+    icon: <FaRegNewspaper />,
+    element: <Logs />,
   },
   {
     text: "default",

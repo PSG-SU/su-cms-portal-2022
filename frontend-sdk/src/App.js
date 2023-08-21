@@ -1,10 +1,8 @@
-import { useEffect } from "react";
 import {
   BrowserRouter,
   Navigate,
   Route,
   Routes,
-  useNavigate,
 } from "react-router-dom";
 
 import Login from "./pages/Login";
@@ -24,7 +22,6 @@ import FacultyWrapper from "./pages/FacultyWrapper";
 
 import Error404 from "./pages/Error404";
 import Refresher from "./Refresher";
-import EventView from "./pages/Dean/EventView";
 
 const App = () => {
   return (
@@ -52,7 +49,6 @@ const App = () => {
             {DeanSUMenuItems.map((item) => (
               <Route key={item.text} path={item.rlink} element={item.element} />
             ))}
-            <Route path="event-view" element={<EventView />} />
           </Route>
           <Route path="404-error" element={<Error404 />} />
           <Route path="*" element={<Navigate to="/404-error" />} />

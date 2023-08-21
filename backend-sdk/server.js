@@ -14,8 +14,9 @@ import announcementRoutes from "./routes/announcementRoutes.js";
 import generalRoutes from "./routes/Club/GeneralRoutes.js";
 import teamMemberRoutes from "./routes/Club/teamMemberRoutes.js";
 import proposalRoutes from "./routes/Club/proposalRoutes.js";
-import clubGalleryRoutes from "./routes/Club/clubGalleryRoutes.js"
+import eventReportRoutes from "./routes/Club/eventReportRoutes.js"
 import spotlightRoutes from "./routes/spotlightRoutes.js";
+import logRoutes from "./routes/logRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3002;
@@ -35,9 +36,9 @@ app.use("/api/announcement",announcementRoutes);
 app.use("/api/club/general", generalRoutes);
 app.use("/api/club/team-member", teamMemberRoutes);
 app.use("/api/club/proposal", proposalRoutes);
-app.use("/api/club/gallery", clubGalleryRoutes)
+app.use("/api/club/report", eventReportRoutes)
 app.use("/api/spotlight", spotlightRoutes);
-
+app.use("/api/log", logRoutes);
 
 app.get("/", async (req, res) => {
   res.send("Welcome to the SU CMS API");

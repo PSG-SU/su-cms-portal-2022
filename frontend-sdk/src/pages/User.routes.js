@@ -2,7 +2,7 @@ import { FaCalendarCheck, FaKey, FaPhotoVideo, FaUsers, FaInfoCircle, FaCalendar
 import { Navigate } from "react-router-dom";
 
 import General from "./Club/General";
-import Gallery from "./Club/Gallery";
+import EventReports from "./Club/EventReports";
 import Password from "./Club/Password";
 import Proposal from "./Club/Proposal";
 import Team from "./Club/Team";
@@ -17,41 +17,40 @@ const list = [
     element: <General />,
   },
   {
-    text: "Proposal",
+    text: "Event Proposal",
     link: "/club/proposal",
     rlink: "proposal",
     icon: <FaCalendarDay />,
     element: <Proposal />,
   },
   {
-    text: "Events",
+    text: "Publish Events",
     link: "/club/events",
     rlink: "events",
     icon: <FaCalendarCheck />,
     element: <Events />,
   },
   {
-    text: "Gallery",
-    link: "/club/gallery",
-    rlink: "gallery",
+    text: "Event Reports",
+    link: "/club/reports",
+    rlink: "reports",
     icon: <FaPhotoVideo />,
-    element: <Gallery />,
+    element: <EventReports />,
   },
   {
     text: "Team",
     link: "/club/team",
     rlink: "team",
-
     icon: <FaUsers />,
     element: <Team />,
   },
-  // {
-  //   text: "Password",
-  //   link: "/club/password",
-  //   rlink: "password",
-  //   icon: <FaKey />,
-  //   element: <Password />,
-  // },
+  {
+    text: "Password",
+    link: "/club/password",
+    rlink: "password",
+    icon: <FaKey />,
+    element: <Password />,
+  },
   {
     text: "default",
     link: "/club",

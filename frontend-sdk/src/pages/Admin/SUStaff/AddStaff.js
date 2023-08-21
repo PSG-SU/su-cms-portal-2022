@@ -160,8 +160,8 @@ const AddStaff = () => {
             />
           ) : (
             <div className="flex items-center w-full space-x-4 mt-4">
-              <Button className="w-3/4" text={"Update Staff"} handleClick={handleUpdate} />
               <Button className="w-3/4" text={"Cancel Update"} handleClick={handleCancel} />
+              <Button className="w-3/4" text={"Update Staff"} handleClick={handleUpdate} />
             </div>
           )}
         </div>

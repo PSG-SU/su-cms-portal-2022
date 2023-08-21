@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { BsCheck2Circle, BsPencil, BsCloudArrowUpFill, BsCheck2, BsCheck2All, BsSortUpAlt, BsSortDown } from "react-icons/bs";
+import { BsPencil, BsCloudArrowUpFill, BsCheck2, BsCheck2All, BsSortUpAlt, BsSortDown } from "react-icons/bs";
 import { BiSortAlt2, BiUndo } from "react-icons/bi";
 import { HiOutlineTrash } from "react-icons/hi";
 import { FaRegTimesCircle } from "react-icons/fa";
-import { IoMdDownload, IoMdTime } from "react-icons/io";
+import { IoMdDownload, IoMdEye, IoMdTime } from "react-icons/io";
+import { IoDocumentTextOutline } from "react-icons/io5";
 import { CompactTable } from "@table-library/react-table-library/compact";
 import { useTheme } from "@table-library/react-table-library/theme";
 import { getTheme } from "@table-library/react-table-library/baseline";
@@ -11,16 +12,16 @@ import { getTheme } from "@table-library/react-table-library/baseline";
 import ModalImage from "react-modal-image";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import html2pdf from "html2pdf.js";
 
 import { RefreshContext } from "../Refresher";
 import Button from "./Button";
 import Popup from "reactjs-popup";
 import styled, { keyframes } from "styled-components";
-import { AUTH_URL } from "../API/config";
-import { fetchUpdateProposal, fetchGetProposalbyId } from "../API/calls";
-import getProposalReport from "../templates/getProposalReport.js";
+import { CLUB_URL } from "../API/config";
+import { fetchGetEventReportById, fetchGetProposalbyId } from "../API/calls";
 import Inputfield from "./TextInput";
+import reportWithAttachments from "../templates/reportWithAttachments";
+import eventReportWithAttachments from "../templates/eventReportWithAttachments";
 
 const breatheAnimation = keyframes`
  0% { opacity: 0; transform: scale(0.25) translateY(75px); }
@@ -58,34 +59,60 @@ const Table = ({
   RejectButton = null,
   clubs = [],
   hideUpdate = false,
-  hideDelete = false
+  hideDelete = false,
+  showDownload = false,
+  eventReportPage = false,
 }) => {
 
   const { refreshPage } = useContext(RefreshContext);
 
-  const handleDownload = async (id) => {
-    toast.promise(fetchGetProposalbyId(id)
-      .then((res) => {
-        html2pdf()
-          .from(getProposalReport(res.data))
-          .set({
-            margin: 0.2,
-            filename: `Proposal-${res.data.eventName}.pdf`,
-            image: { type: "jpeg", quality: 0.2 },
-            html2canvas: { scale: 2, useCORS: true },
-            jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
-          })
-          .save();
-      }), {
-      loading: "Downloading...",
-      success: "Downloaded Successfully",
-      error: (err) => `Error: ${err.message}`,
-    });
+  const handleDownload = async (id, view = false) => {
+    if (eventReportPage) {
+      toast.promise(fetchGetEventReportById(id), {
+        loading: "Generating PDF...",
+        success: (res) => {
+          let clubName = "";
+          axios.get(`${CLUB_URL}/id/${res.data.user}`)
+            .then((r) => {
+              clubName = r.data.clubName;
+              toast.promise(eventReportWithAttachments(res.data, clubName, view), {
+                loading: view ? "Loading" : "Downloading...",
+                success: view ? "Loaded" : `Downloaded ${res.data.eventName}`,
+                error: (err) => `Error: ${err.message}`,
+              });
+            });
+          return `PDF Generated`;
+        },
+        error: (err) => `Error: ${err.message}`,
+      });
+    } else {
+      toast.promise(fetchGetProposalbyId(id), {
+        loading: "Generating PDF...",
+        success: (res) => {
+          let clubName = "";
+          axios.get(`${CLUB_URL}/id/${res.data.user}`)
+            .then((r) => {
+              clubName = r.data.clubName;
+              toast.promise(reportWithAttachments(res.data, clubName, view), {
+                loading: view ? "Loading" : "Downloading...",
+                success: view ? "Loaded" : `Downloaded ${res.data.eventName}`,
+                error: (err) => `Error: ${err.message}`,
+              });
+            });
+          return `PDF Generated`;
+        },
+        error: (err) => `Error: ${err.message}`,
+      });
+    }
   };
 
   const handleDelete = (item) => {
     axios
-      .delete(`${url}/delete/${item._id}`)
+      .delete(`${url}/delete/${item._id}`, {
+        data: {
+          login: localStorage.getItem("userId"),
+        },
+      })
       .then((res) => {
         toast.success("Delete Successful");
         refreshPage();
@@ -135,17 +162,28 @@ const Table = ({
 
         // Year Check
         else if (/^(\d{4})-(12)-(31)T(18):(30):(00).(000)(Z)/.test(item[tkeys[idx]])) {
-          return parseInt(item[tkeys[idx]].split("-")[0]) + 1;
+          return new Date(item[tkeys[idx]]).getFullYear();
         }
 
         // Date Check
         else if (/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/.test(item[tkeys[idx]])) {
-          return item[tkeys[idx]].split("T")[0].split("-").reverse().join("-");
+
+          const date = new Date(item[tkeys[idx]]);
+
+          const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+          const timeFormat = (dateTime) => {
+            return `${(dateTime.getHours() < 10 ? '0' : '') + (parseInt(dateTime.getHours().toString()) <= 12 ?
+              dateTime.getHours() :
+              ((parseInt(dateTime.getHours().toString()) - 12 < 10 ? '0' : '') + (parseInt(dateTime.getHours().toString()) - 12)))}:${(dateTime.getMinutes() < 10 && '0') + dateTime.getMinutes()}
+          ${dateTime.getHours() < 12 ? " AM" : " PM"}`
+          }
+
+          return `${(date.getDate() < 10 && '0') + date.getDate()} ${monthNames[date.getMonth()]} '${date.getFullYear().toString().slice(-2)}, ${timeFormat(date)}`;
         }
 
         // Status Check
         else if (
-          item[tkeys[idx]] === "facApproved" || item[tkeys[idx]] === "deanApproved" || item[tkeys[idx]] === "rejected" || item[tkeys[idx]] === "pending" || item[tkeys[idx]] === "published"
+          item[tkeys[idx]] === "facApproved" || item[tkeys[idx]] === "deanApproved" || item[tkeys[idx]] === "rejected" || item[tkeys[idx]] === "pending" || item[tkeys[idx]] === "published" || item[tkeys[idx]] === "approvalVerification"
         ) {
           return (
             <div className="flex space-x-2 items-center">
@@ -164,6 +202,7 @@ const Table = ({
                 {item[tkeys[idx]] === "rejected" && (<FaRegTimesCircle />)}
                 {item[tkeys[idx]] === "pending" && (<IoMdTime />)}
                 {item[tkeys[idx]] === "published" && (<BsCloudArrowUpFill />)}
+                {item[tkeys[idx]] === "approvalVerification" && (<IoDocumentTextOutline />)}
               </div>
               <p>
                 {item[tkeys[idx]] === "facApproved" && "Approved By Faculty"}
@@ -171,6 +210,7 @@ const Table = ({
                 {item[tkeys[idx]] === "rejected" && "Rejected"}
                 {item[tkeys[idx]] === "pending" && "Pending"}
                 {item[tkeys[idx]] === "published" && "Published"}
+                {item[tkeys[idx]] === "approvalVerification" && "Approval Verification"}
               </p>
             </div>
           );
@@ -224,6 +264,12 @@ const Table = ({
           return (
             <div className="flex space-x-4 items-center">
               <button
+                className="bg-[#e21ab0] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
+                onClick={() => { handleDownload(item._id, true); }}
+              >
+                <IoMdEye />
+              </button>
+              <button
                 className="bg-[#1f1fdf] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
                 onClick={() => { handleDownload(item._id); }}
               >
@@ -258,13 +304,19 @@ const Table = ({
                 UndoButton ? (
                   <div className="flex space-x-4">
                     <button
-                      className="hover:text-[#1f1fdf]"
+                      className="bg-[#e21ab0] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
+                      onClick={() => { handleDownload(item._id, true); }}
+                    >
+                      <IoMdEye />
+                    </button>
+                    <button
+                      className="bg-[#1f1fdf] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
                       onClick={() => { handleDownload(item._id); }}
                     >
                       <IoMdDownload />
                     </button>
                     <button
-                      className="hover:text-[#494998]"
+                      className="bg-[#671bd7] text-[#eaeaea] rounded-full w-8 h-8 flex text-xl justify-center items-center"
                       onClick={() => UndoButton(item._id)}
                     >
                       <BiUndo />
@@ -272,6 +324,32 @@ const Table = ({
                   </div>
                 ) : (
                   <div className="flex space-x-4">
+                    {!hideUpdate &&
+                      <button
+                        className="hover:text-[#494998]"
+                        onClick={(e) => {
+                          handleUpdate(item._id);
+                        }}
+                      >
+                        <BsPencil />
+                      </button>
+                    }
+                    {showDownload && (
+                      <React.Fragment>
+                        <button
+                          className="hover:text-[#e21ab0]"
+                          onClick={() => { handleDownload(item._id, true); }}
+                        >
+                          <IoMdEye />
+                        </button>
+                        <button
+                          className="hover:text-[#1f1fdf]"
+                          onClick={() => { handleDownload(item._id); }}
+                        >
+                          <IoMdDownload />
+                        </button>
+                      </React.Fragment>
+                    )}
                     {!hideDelete && <StyledPopup
                       trigger={
                         <button className="hover:text-[#ff0000]">
@@ -296,15 +374,7 @@ const Table = ({
                         </div>
                       )}
                     </StyledPopup>
-                    }{!hideUpdate &&
-                      <button
-                        className="hover:text-[#494998]"
-                        onClick={(e) => {
-                          handleUpdate(item._id);
-                        }}
-                      >
-                        <BsPencil />
-                      </button>}
+                    }
                   </div>
                 )
               }
@@ -326,7 +396,7 @@ const Table = ({
   const theme = useTheme([
     getTheme(),
     {
-      Table: `--data-table-library_grid-template-columns: 75px ${tratio.length <= 0 ? getDefaults() : tratio} ${ApproveButton ? "175px" : "100px"} ;`,
+      Table: `--data-table-library_grid-template-columns: 75px ${tratio.length <= 0 ? getDefaults() : tratio} ${ApproveButton ? "200px" : "155px"} ;`,
     },
   ]);
 

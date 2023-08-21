@@ -4,7 +4,6 @@ import Heading from "../../../components/Heading";
 import Table from "../../../components/Table";
 import Dropdown from "../../../components/Dropdown";
 import axios from "axios";
-import { ProposalContext } from ".";
 import { RefreshContext } from "../../../Refresher";
 import { CLUB_URL, PROPOSAL_URL } from "../../../API/config";
 import { IoCloseOutline } from "react-icons/io5";
@@ -29,7 +28,7 @@ const ApprovedProposal = () => {
     if (username) {
       setCid(clubs.filter((club) => club.clubName === username)[0].clubId);
     }
-  }, [username]);
+  }, [username, clubs]);
 
   useEffect(() => {
     console.log(cid);
@@ -43,7 +42,7 @@ const ApprovedProposal = () => {
           console.log(err);
         });
     }
-  }, [cid]);
+  }, [cid, refreshToken, url]);
 
   const clearUsername = () => {
     setUsername("");
@@ -59,7 +58,7 @@ const ApprovedProposal = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [refreshToken]);
+  }, [refreshToken, url]);
 
   const UndoButton = async (id) => {
     const postBody = {
@@ -75,9 +74,6 @@ const ApprovedProposal = () => {
     });
   };
 
-
-  const { updateByID } = useContext(ProposalContext);
-
   return (
     <section className="px-8 py-8 w-full">
       <Heading>Approved Proposals</Heading>
@@ -89,25 +85,26 @@ const ApprovedProposal = () => {
           options={clubs.map((club) => club.clubName)}
           className="w-1/2"
         />
-        <button
-          className="rounded-full mt-8 bg-cloud p-1 hover:text-gray z-40"
-          onClick={clearUsername}
-        >
-          <IoCloseOutline />
-        </button>
+        {username && (
+          <button
+            className="rounded-full mt-8 bg-[#E5E5E5] p-1 hover:bg-cloud hover:text-white z-40"
+            onClick={clearUsername}
+          >
+            <IoCloseOutline />
+          </button>
+        )}
       </div>
-      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-uto">
+      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)]">
         <Table
           theads={["Event", "Club / Association", "Event Date"]}
           tdata={data}
           tkeys={["eventName", "user", "startDate"]}
           className={`${data.length < 8
             ? "max-h-[calc(100vh-20rem)]"
-            : "h-[calc(100vh-20rem)]"
+            : "h-[calc(100vh-25rem)]"
             } w-full`}
           tratio="1fr 1fr 1fr"
           url={url}
-          handleUpdate={(id) => updateByID(id)}
           UndoButton={UndoButton}
           clubs={clubs}
         />

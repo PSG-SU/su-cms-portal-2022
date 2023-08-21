@@ -100,7 +100,7 @@ const AddAnnouncements = () => {
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
-          <Dropdown
+          {/* <Dropdown
             valueState={[type, setType]}
             title="Type (Optional)"
             placeholder="Select a type"
@@ -108,6 +108,12 @@ const AddAnnouncements = () => {
               "Event",
               "Classified",
             ]}
+            className="w-1/2"
+          /> */}
+          <Inputfield
+            valueState={[type, setType]}
+            title="Subtitle (Optional)"
+            placeholder="Eg. Circular"
             className="w-1/2"
           />
           <Inputfield
@@ -126,8 +132,8 @@ const AddAnnouncements = () => {
             />
           ) : (
             <div className="flex items-center w-full space-x-4 mt-4">
-              <Button className="w-3/4" text={"Update Announcement"} handleClick={handleUpdate} />
               <Button className="w-3/4" text={"Cancel Update"} handleClick={handleCancel} />
+              <Button className="w-full" text={"Update Announcement"} handleClick={handleUpdate} />
             </div>
           )}
         </div>

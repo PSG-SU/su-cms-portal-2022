@@ -4,7 +4,6 @@ const ProposalSchema = new Schema({
   eventName: {
     type: String,
     required: true,
-    unique: true,
   },
   startDate: {
     type: Date,
@@ -64,25 +63,31 @@ const ProposalSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ["pending", "facApproved", "deanApproved", "rejected", "published"],
+    enum: ["pending", "facApproved", "deanApproved", "rejected", "published", "approvalVerification"],
     default: "pending",
   },
-  files: [
-    {
-      type: String,
-    },
-  ],
+  fileURLs: {
+    type: [String],
+  },
+  images: {
+    type: [String],
+  },
+  approvalForm: {
+    type: String,
+  },
+  registrationLink: {
+    type: String,
+  },
   createdAt: {
     type: Date,
     required: true,
   },
-  // documents
+  publishedAt: {
+    type: Date,
+  },
   user: {
     type: String,
     required: true,
-  },
-  registrationLink: {
-    type: String,
   },
 });
 

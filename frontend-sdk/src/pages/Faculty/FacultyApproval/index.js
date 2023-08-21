@@ -1,18 +1,11 @@
 import React, { useState } from "react";
-import AddImage from "./AddImage";
-import ViewImage from "./ViewImage";
+import FacultyApproval from "./FacultyApproval";
 
-const Gallery = () => {
+const FacultyApprovals = () => {
   const initialTabMenuItems = [
     {
-      text: "Upload Images",
-      tab: <AddImage />,
-      // link: "/Gallery/add",
-    },
-    {
-      text: "View Images",
-      tab: <ViewImage />,
-      // link: "/Gallery/view",
+      text: "Pending",
+      tab: <FacultyApproval />,
     },
   ];
 
@@ -21,7 +14,7 @@ const Gallery = () => {
   return (
     <section className="">
       <div className="h-fit bg-gray px-8 pt-8">
-        <p className="text-lg uppercase tracking-wider mb-8">GALLERY</p>
+        <p className="text-lg uppercase tracking-wider mb-8">EVENT PROPOSALS</p>
         <header className="flex">
           {initialTabMenuItems.map((item, idx) => {
             return (
@@ -54,4 +47,4 @@ const Gallery = () => {
   );
 };
 
-export default Gallery;
+export default FacultyApprovals;

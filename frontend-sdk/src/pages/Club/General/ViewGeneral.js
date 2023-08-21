@@ -32,7 +32,7 @@ const ViewGeneral = () => {
 
   return (
     <section className="px-8 py-8 w-full">
-      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-18rem)] overflow-auto">
+      <div className="mt-2 w-full lg:pr-[5%] h-[calc(100vh-15rem)] overflow-auto">
         <div className="flex items-center w-full space-x-4">
           <div className="w-1/2 space-y-6">
             <Heading>Logo</Heading>
@@ -114,16 +114,6 @@ const ViewGeneral = () => {
               <p className="font-semibold">Youtube</p>
               <p>{content?.youtube ? content?.youtube : "No instagram link found !"}</p>
             </div>
-            <div className="w-1/3 space-y-2">
-              <p className="font-semibold">Facebook</p>
-              <p>{content?.facebook ? content?.facebook : "No facebook link found !"}</p>
-            </div>
-            <div className="w-1/3 space-y-2">
-              <p className="font-semibold">Twitter</p>
-              <p>{content?.twitter ? content?.twitter : "No twitter link found !"}</p>
-            </div>
-          </div>
-          <div className="flex flex-row space-x-4">
             <div className="w-1/3 space-y-2">
               <p className="font-semibold">Discord</p>
               <p>{content?.discord ? content?.discord : "No discord link found !"}</p>

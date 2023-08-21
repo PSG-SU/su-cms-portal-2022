@@ -1,5 +1,6 @@
 import { Router } from "express";
 import About from "../models/About.js";
+import Log from "../models/Log.js";
 
 const router = Router();
 
@@ -50,6 +51,14 @@ router.put("/update", async (req, res) => {
       return res.status(404).json({ error: "Not Found" });
     } else {
       res.status(200).json(about);
+
+      const log = await Log.create({
+        user: req.body.login,
+        action: "Updated",
+        section: "About",
+        item: "About Page",
+        timestamp: new Date(),
+      });
     }
   } catch (err) {
     console.log(err);

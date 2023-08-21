@@ -30,8 +30,6 @@ const GeneralSchema = new Schema({
   linkedin: { type: String, },
   linktree: { type: String, },
   youtube: { type: String, },
-  facebook: { type: String, },
-  twitter: { type: String, },
   discord: { type: String, },
 });
 

@@ -17,13 +17,8 @@ const TeamMemberSchema = new Schema({
     type: String,
     required: true,
   },
-  phone: {
+  year: {
     type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
   },
   image_url: {
     type: String,
@@ -31,11 +26,9 @@ const TeamMemberSchema = new Schema({
   },
   from: {
     type: Date,
-    required: true,
   },
   to: {
     type: Date,
-    required: true,
   },
   user: {
     type: String,

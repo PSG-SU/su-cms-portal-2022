@@ -10,7 +10,7 @@ import TextArea from "../../../components/TextArea";
 import DateInput from "../../../components/DateInput";
 import { departments } from "../../../components/Departments";
 import MultipleFiles from "../../../components/MultipleFiles";
-import { fetchAddProposal, fetchUpdateProposal } from "../../../API/calls";
+import { fetchAddProposal, fetchUpdateProposal, fetchUploadFile } from "../../../API/calls";
 import { ProposalContext } from ".";
 import Toggle from "../../../components/Toggle";
 
@@ -28,47 +28,110 @@ const ApplyProposal = () => {
 
   const [ID, setID] = useState("");
   const [eventName, setEventName] = useState("");
-  const [venue, setvenue] = useState("");
-  const [count, setcount] = useState("");
-  const [guest, setguest] = useState("");
-  const [expectedExpense, setexpectedExpense] = useState("");
-  const [allocatedExpense, setallocatedExpense] = useState("");
-  const [amountSpent, setamountSpent] = useState("");
+  const [venue, setVenue] = useState("");
+  const [count, setCount] = useState("");
+  const [guest, setGuest] = useState("");
+  const [expectedExpense, setExpectedExpense] = useState("");
+  const [allocatedExpense, setAllocatedExpense] = useState("");
+  const [amountSpent, setAmountSpent] = useState("");
   const [inCollab, setInCollab] = useState("No");
   const [orgName, setOrgName] = useState("");
   const [budgetSplit, setBudgetSplit] = useState("");
-  const [facultyDept, setfacultyDept] = useState("");
-  const [facultyName, setfacultyName] = useState("");
+  const [facultyDept, setFacultyDept] = useState("");
+  const [facultyName, setFacultyName] = useState("");
   const [comment, setComment] = useState("");
   const [desc, setDesc] = useState("");
   const [files, setFiles] = useState([]);
-
+  const [fileURLs, setFileURLs] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  // const IST = 330 * 60000;
 
   useEffect(() => {
     console.log("Update State: ", updateState);
     if (Object.keys(updateState).length >= 0) {
       setID(updateState?._id);
       setEventName(updateState?.eventName);
-      setvenue(updateState?.venue);
-      setcount(updateState?.count);
-      setguest(updateState?.guest);
-      setexpectedExpense(updateState?.expectedExpense);
-      setallocatedExpense(updateState?.allocatedBudget);
+      setVenue(updateState?.venue);
+      setCount(updateState?.count);
+      setGuest(updateState?.guest);
+      setExpectedExpense(updateState?.expectedExpense);
+      setAllocatedExpense(updateState?.allocatedBudget);
+      setAmountSpent(updateState?.amountSpent);
       setInCollab(updateState?.inCollab ? updateState?.inCollab : "No");
       setOrgName(updateState?.orgName);
       setBudgetSplit(updateState?.budgetSplit);
-      setamountSpent(updateState?.amountSpent);
-      setfacultyDept(updateState?.facultyDept);
-      setfacultyName(updateState?.facultyName);
+      setFacultyDept(updateState?.facultyDept);
+      setFacultyName(updateState?.facultyName);
       setComment(updateState?.comments);
       setDesc(updateState?.description);
+      setFileURLs(updateState?.fileURLs ? updateState?.fileURLs : []);
       setStartDate(updateState?.startDate ? new Date(updateState?.startDate) : "");
       setEndDate(updateState?.endDate ? new Date(updateState?.endDate) : "");
     }
   }, [updateState]);
+
+  const handleMultipleUpload = async (files, curr_no, total, update) => {
+    if (files.length <= 0) {
+      setFileURLs(fileURLs);
+
+      const postBody = {
+        eventName: eventName,
+        startDate: new Date(startDate),
+        endDate: new Date(endDate),
+        venue: venue,
+        count: count,
+        guest: guest,
+        expectedExpense: expectedExpense,
+        allocatedBudget: allocatedExpense,
+        amountSpent: amountSpent,
+        inCollab: inCollab,
+        orgName: orgName,
+        budgetSplit: budgetSplit,
+        facultyName: facultyName,
+        facultyDept: facultyDept,
+        description: desc,
+        comments: comment,
+        createdAt: new Date(Date.now()),
+        user: user,
+        fileURLs: fileURLs,
+      };
+
+      if (update === 1) {
+        toast.promise(fetchUpdateProposal(postBody, ID)
+          .then((res) => {
+            window.location.reload();
+          }), {
+          loading: "Updating...",
+          success: "Updated Successfully",
+          error: (err) => `Error: ${err.response.data.error}`,
+        });
+      } else {
+        toast.promise(fetchAddProposal(postBody)
+          .then((res) => {
+            window.location.reload();
+          }), {
+          loading: "Adding...",
+          success: "Added Successfully",
+          error: (err) => `Error: ${err.response.data.error}`,
+        });
+      }
+      return;
+    }
+    const currentFile = files.pop();
+    toast.promise(fetchUploadFile(currentFile), {
+      loading: `Uploading ${currentFile.name} (${curr_no}/${total})`,
+      success: (res) => {
+        let tempFileUrls = fileURLs;
+        tempFileUrls.push(res.data.url);
+        setFileURLs(tempFileUrls);
+        handleMultipleUpload(files, curr_no + 1, total, update);
+        return `Uploaded ${curr_no}/${total}`;
+      },
+      error: (err) => {
+        return `Error Uploading: ${err.message}`;
+      },
+    });
+  };
 
   const handleAddProposal = async () => {
     if (inCollab === "yes") {
@@ -82,67 +145,87 @@ const ApplyProposal = () => {
       }
     }
 
-    const postBody = {
-      eventName: eventName,
-      startDate: new Date(startDate),
-      endDate: new Date(endDate),
-      venue: venue,
-      count: count,
-      guest: guest,
-      expectedExpense: expectedExpense,
-      allocatedBudget: allocatedExpense,
-      amountSpent: amountSpent,
-      inCollab: inCollab,
-      orgName: orgName,
-      budgetSplit: budgetSplit,
-      facultyName: facultyName,
-      facultyDept: facultyDept,
-      description: desc,
-      comments: comment,
-      createdAt: new Date(Date.now()),
-      user: user,
-    };
-    toast.promise(fetchAddProposal(postBody)
-      .then((res) => {
-        window.location.reload();
-      }), {
-      loading: "Adding...",
-      success: "Added Successfully",
-      error: (err) => `Error: ${err.response.data.error}`,
-    });
+    if (files.length > 0) {
+      await handleMultipleUpload(files, 1, files.length, 0);
+    } else {
+      const postBody = {
+        eventName: eventName,
+        startDate: new Date(startDate),
+        endDate: new Date(endDate),
+        venue: venue,
+        count: count,
+        guest: guest,
+        expectedExpense: expectedExpense,
+        allocatedBudget: allocatedExpense,
+        amountSpent: amountSpent,
+        inCollab: inCollab,
+        orgName: orgName,
+        budgetSplit: budgetSplit,
+        facultyName: facultyName,
+        facultyDept: facultyDept,
+        description: desc,
+        comments: comment,
+        createdAt: new Date(Date.now()),
+        user: user,
+      };
+      toast.promise(fetchAddProposal(postBody)
+        .then((res) => {
+          window.location.reload();
+        }), {
+        loading: "Adding...",
+        success: "Added Successfully",
+        error: (err) => `Error: Fill all the fields with valid data`,
+      });
+    }
   };
 
   const handleUpdateProposal = async () => {
     console.log('id' + ID)
-    const postBody = {
-      eventName: eventName,
-      startDate: new Date(startDate),
-      endDate: new Date(endDate),
-      venue: venue,
-      count: count,
-      guest: guest,
-      expectedExpense: expectedExpense,
-      allocatedBudget: allocatedExpense,
-      amountSpent: amountSpent,
-      inCollab: inCollab,
-      orgName: orgName,
-      budgetSplit: budgetSplit,
-      facultyName: facultyName,
-      facultyDept: facultyDept,
-      description: desc,
-      comments: comment,
-      createdAt: new Date(Date.now()),
-      status: "pending",
-      user: user,
-    };
-    toast.promise(fetchUpdateProposal(postBody, ID)
-      .then((res) => {
-        window.location.reload();
-      }), {
-      loading: "Updating...",
-      success: "Updated Successfully",
-      error: (err) => `Error: ${err.response.data.error}`,
-    });
+
+    if (inCollab === "yes") {
+      if (orgName === "") {
+        toast.error("Please enter the name of the organization");
+        return;
+      }
+      if (budgetSplit === "") {
+        toast.error("Please enter the budget split");
+        return;
+      }
+    }
+    if (files.length > 0) {
+      await handleMultipleUpload(files, 1, files.length, 1);
+    } else {
+      const postBody = {
+        eventName: eventName,
+        startDate: new Date(startDate),
+        endDate: new Date(endDate),
+        venue: venue,
+        count: count,
+        guest: guest,
+        expectedExpense: expectedExpense,
+        allocatedBudget: allocatedExpense,
+        amountSpent: amountSpent,
+        inCollab: inCollab,
+        orgName: orgName,
+        budgetSplit: budgetSplit,
+        facultyName: facultyName,
+        facultyDept: facultyDept,
+        description: desc,
+        comments: comment,
+        fileURLs: fileURLs,
+        createdAt: new Date(Date.now()),
+        status: "pending",
+        user: user,
+      };
+      toast.promise(fetchUpdateProposal(postBody, ID)
+        .then((res) => {
+          window.location.reload();
+        }), {
+        loading: "Updating...",
+        success: "Updated Successfully",
+        error: (err) => `Error: Fill all the fields with valid data`,
+      });
+    }
   };
 
   const handleCancel = () => {
@@ -153,7 +236,7 @@ const ApplyProposal = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>Event Proposal Application</Heading>
-      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-20rem)] overflow-y-auto">
+      <div className="mt-8 w-full lg:pr-[20%] h-[calc(100vh-18rem)] overflow-y-auto">
         <div className="flex items-center w-full space-x-4">
           <Inputfield
             valueState={[eventName, setEventName]}
@@ -170,36 +253,36 @@ const ApplyProposal = () => {
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
           <Inputfield
-            valueState={[venue, setvenue]}
+            valueState={[venue, setVenue]}
             title="Venue"
-            placeholder="Eg. J203"
+            placeholder="Eg. A123"
           />
           <Inputfield
-            valueState={[count, setcount]}
+            valueState={[count, setCount]}
             title="Expected Participant Count"
             placeholder="Eg. 50"
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
           <Inputfield
-            valueState={[guest, setguest]}
-            title="Chief Guest"
-            placeholder="Eg. Mr. Abc"
+            valueState={[guest, setGuest]}
+            title="Chief Guest (with designation) (Optional)"
+            placeholder="Eg. Mr. John Doe, Manager, ABC Pvt. Ltd."
           />
         </div>
-        <div className="flex items-center w-full space-x-4 mt-4">
+        <div className="flex items-end w-full space-x-4 mt-4">
           <Inputfield
-            valueState={[expectedExpense, setexpectedExpense]}
+            valueState={[expectedExpense, setExpectedExpense]}
             title="Expected Expense"
             placeholder="In rupees, Eg. 400"
           />
           <Inputfield
-            valueState={[allocatedExpense, setallocatedExpense]}
+            valueState={[allocatedExpense, setAllocatedExpense]}
             title="Total amount allocated by SU"
             placeholder="In rupees, Eg. 500"
           />
           <Inputfield
-            valueState={[amountSpent, setamountSpent]}
+            valueState={[amountSpent, setAmountSpent]}
             title="Total amount spent on the day of request"
             placeholder="In rupees, Eg. 300"
           />
@@ -229,12 +312,12 @@ const ApplyProposal = () => {
         }
         <div className="flex items-center w-full space-x-4 mt-4">
           <Inputfield
-            valueState={[facultyName, setfacultyName]}
+            valueState={[facultyName, setFacultyName]}
             title="Faculty Observer - Name"
             placeholder="Eg. Mr. Abc"
           />
           <Dropdown
-            valueState={[facultyDept, setfacultyDept]}
+            valueState={[facultyDept, setFacultyDept]}
             title="Faculty Observer - Department"
             placeholder="Select a department"
             options={departments}
@@ -243,14 +326,14 @@ const ApplyProposal = () => {
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
           <TextArea
-            title="Event Description (Brief)"
-            placeholder="The content entered will be shown as a description for thumbnail in events page"
+            title="Event Description"
+            placeholder="Enter a brief description of the event"
             valueState={[desc, setDesc]}
           />
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
           <TextArea
-            title="Comments"
+            title="Comments (Optional)"
             placeholder="Special Requirements (if any)"
             valueState={[comment, setComment]}
           />
@@ -259,6 +342,7 @@ const ApplyProposal = () => {
           <MultipleFiles
             title="Supporting Documents"
             fileState={[files, setFiles]}
+            urlState={[fileURLs, setFileURLs]}
             pdf
           />
         </div>
@@ -271,8 +355,8 @@ const ApplyProposal = () => {
             />
           ) : (
             <div className="flex items-center w-full space-x-4 mt-4">
-              <Button className="w-3/4" text={"Update Proposal"} handleClick={handleUpdateProposal} />
               <Button className="w-3/4" text={"Cancel Update"} handleClick={handleCancel} />
+              <Button className="w-3/4" text={"Update Proposal"} handleClick={handleUpdateProposal} />
             </div>
           )}
         </div>
