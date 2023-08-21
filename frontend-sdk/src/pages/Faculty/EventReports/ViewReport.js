@@ -7,7 +7,6 @@ import Heading from "../../../components/Heading";
 import Table from "../../../components/Table";
 import { RefreshContext } from "../../../Refresher";
 import { REPORT_URL, AUTH_URL } from "../../../API/config";
-import { ReportTabContext } from ".";
 
 const ViewReport = () => {
   const [data, setData] = useState([]);
@@ -33,8 +32,6 @@ const ViewReport = () => {
     }
   }, [refreshToken, user]);
 
-  const { updateByID } = useContext(ReportTabContext);
-
   return (
     <section className="px-8 py-8 w-full">
       <Heading>View Reports</Heading>
@@ -49,9 +46,10 @@ const ViewReport = () => {
             } w-full`}
           tratio="1fr 1fr 1fr 0.5fr 0.5fr 0.5fr"
           url={REPORT_URL}
-          handleUpdate={(id) => updateByID(id)}
           showDownload
           eventReportPage
+          hideUpdate
+          hideDelete
         />
       </div>
     </section>

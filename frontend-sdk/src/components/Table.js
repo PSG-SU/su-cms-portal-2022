@@ -18,9 +18,10 @@ import Button from "./Button";
 import Popup from "reactjs-popup";
 import styled, { keyframes } from "styled-components";
 import { CLUB_URL } from "../API/config";
-import { fetchGetProposalbyId } from "../API/calls";
+import { fetchGetEventReportById, fetchGetProposalbyId } from "../API/calls";
 import Inputfield from "./TextInput";
 import reportWithAttachments from "../templates/reportWithAttachments";
+import eventReportWithAttachments from "../templates/eventReportWithAttachments";
 
 const breatheAnimation = keyframes`
  0% { opacity: 0; transform: scale(0.25) translateY(75px); }
@@ -60,28 +61,49 @@ const Table = ({
   hideUpdate = false,
   hideDelete = false,
   showDownload = false,
+  eventReportPage = false,
 }) => {
 
   const { refreshPage } = useContext(RefreshContext);
 
   const handleDownload = async (id, view = false) => {
-    toast.promise(fetchGetProposalbyId(id), {
-      loading: "Generating PDF...",
-      success: (res) => {
-        let clubName = "";
-        axios.get(`${CLUB_URL}/id/${res.data.user}`)
-          .then((r) => {
-            clubName = r.data.clubName;
-            toast.promise(reportWithAttachments(res.data, clubName, view), {
-              loading: view ? "Loading" : "Downloading...",
-              success: view ? "Loaded" : `Downloaded ${res.data.eventName}`,
-              error: (err) => `Error: ${err.message}`,
+    if (eventReportPage) {
+      toast.promise(fetchGetEventReportById(id), {
+        loading: "Generating PDF...",
+        success: (res) => {
+          let clubName = "";
+          axios.get(`${CLUB_URL}/id/${res.data.user}`)
+            .then((r) => {
+              clubName = r.data.clubName;
+              toast.promise(eventReportWithAttachments(res.data, clubName, view), {
+                loading: view ? "Loading" : "Downloading...",
+                success: view ? "Loaded" : `Downloaded ${res.data.eventName}`,
+                error: (err) => `Error: ${err.message}`,
+              });
             });
-          });
-        return `PDF Generated`;
-      },
-      error: (err) => `Error: ${err.message}`,
-    });
+          return `PDF Generated`;
+        },
+        error: (err) => `Error: ${err.message}`,
+      });
+    } else {
+      toast.promise(fetchGetProposalbyId(id), {
+        loading: "Generating PDF...",
+        success: (res) => {
+          let clubName = "";
+          axios.get(`${CLUB_URL}/id/${res.data.user}`)
+            .then((r) => {
+              clubName = r.data.clubName;
+              toast.promise(reportWithAttachments(res.data, clubName, view), {
+                loading: view ? "Loading" : "Downloading...",
+                success: view ? "Loaded" : `Downloaded ${res.data.eventName}`,
+                error: (err) => `Error: ${err.message}`,
+              });
+            });
+          return `PDF Generated`;
+        },
+        error: (err) => `Error: ${err.message}`,
+      });
+    }
   };
 
   const handleDelete = (item) => {

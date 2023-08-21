@@ -21,6 +21,7 @@ const AddReport = () => {
   const [allEventNames, setAllEventNames] = useState([]);
   const [allEvents, setAllEvents] = useState({});
   const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [venue, setVenue] = useState("");
   const [participants, setParticipants] = useState("");
   const [report, setReport] = useState("");
@@ -31,7 +32,8 @@ const AddReport = () => {
     if (Object.keys(updateState).length > 0) {
       setEventName(updateState?.eventName);
       setFileUrls(updateState?.images);
-      setStartDate(new Date(updateState?.dateTime));
+      setStartDate(new Date(updateState?.startDate));
+      setEndDate(new Date(updateState?.endDate));
       setVenue(updateState?.venue);
       setParticipants(updateState?.count);
       setReport(updateState?.report);
@@ -61,7 +63,7 @@ const AddReport = () => {
 
   useEffect(() => {
     if (eventName) {
-      fetchGetEventReportByName({ eventName: eventName }).then((res) => {
+      fetchGetEventReportByName({ eventName: eventName, user: user }).then((res) => {
         if (res.data.length > 0) {
           updateByID(res.data[0]._id);
           return;
@@ -71,6 +73,7 @@ const AddReport = () => {
       if (allEvents?.length > 0) {
         const e = allEvents?.filter((event) => event.eventName === eventName)[0];
         setStartDate(new Date(e?.startDate));
+        setEndDate(new Date(e?.endDate));
         setVenue(e?.venue);
         setParticipants(e?.count);
         setReport("");
@@ -87,7 +90,8 @@ const AddReport = () => {
         toast.promise(fetchUpdateEventReport({
           images: fileUrls,
           eventName: eventName,
-          dateTime: startDate,
+          startDate: startDate,
+          endDate: endDate,
           venue: venue,
           count: participants,
           report: report,
@@ -106,7 +110,8 @@ const AddReport = () => {
       toast.promise(fetchAddEventReport({
         images: fileUrls,
         eventName: eventName,
-        dateTime: startDate,
+        startDate: startDate,
+        endDate: endDate,
         venue: venue,
         count: participants,
         report: report,
@@ -149,7 +154,8 @@ const AddReport = () => {
       toast.promise(fetchUpdateEventReport({
         images: fileUrls,
         eventName: eventName,
-        dateTime: startDate,
+        startDate: startDate,
+        endDate: endDate,
         venue: venue,
         count: participants,
         report: report,
@@ -195,16 +201,22 @@ const AddReport = () => {
         </div>
         <div className="flex items-center w-full space-x-4 mt-4">
           <DateInput
-            startTitle="Date and Time"
+            startTitle="Start Date"
             startState={[startDate, setStartDate]}
+            endTitle="End Date"
+            endState={[endDate, setEndDate]}
+            range
+            className="w-1/2"
           />
           <Inputfield
             title="Venue"
             valueState={[venue, setVenue]}
+            className="w-1/4"
           />
           <Inputfield
             title="No. of Participants"
             valueState={[participants, setParticipants]}
+            className="w-1/4"
           />
         </div>
         <TextArea

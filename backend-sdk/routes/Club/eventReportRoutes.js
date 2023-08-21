@@ -7,7 +7,8 @@ router.post("/add", async (req, res) => {
   try {
     const report = await EventReport.create({
       eventName: req.body.eventName,
-      dateTime: req.body.dateTime,
+      startDate: req.body.startDate,
+      endDate: req.body.endDate,
       venue: req.body.venue,
       count: req.body.count,
       report: req.body.report,
@@ -63,7 +64,7 @@ router.get("/user/:user", async (req, res) => {
 
 router.post("/event", async (req, res) => {
   try {
-    const report = await EventReport.find({ eventName: req.body.eventName });
+    const report = await EventReport.find({ eventName: req.body.eventName, user: req.body.user });
     if (!report) {
       return res.status(400).json({ err: "Not Found" });
     } else {
@@ -96,7 +97,8 @@ router.put("/update/:id", async (req, res) => {
   try {
     const report = await EventReport.findByIdAndUpdate(req.params.id, {
       eventName: req.body.eventName,
-      dateTime: req.body.dateTime,
+      startDate: req.body.startDate,
+      endDate: req.body.endDate,
       venue: req.body.venue,
       count: req.body.count,
       report: req.body.report,

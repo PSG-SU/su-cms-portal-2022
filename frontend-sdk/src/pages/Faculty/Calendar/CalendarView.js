@@ -158,6 +158,26 @@ const CalendarView = () => {
                   </div>
                 </div>
                 <div className="flex gap-4 mt-4 items-start">
+                  <p className="text-xs font-semibold w-1/5">Event Proposal</p>
+                  <button
+                    className="text-lg hover:opacity-60"
+                    onClick={() =>
+                      handleDownload(currentEvent.event.extendedProps._id)
+                    }
+                  >
+                    <IoMdDownload />
+                  </button>
+                  <button
+                    className="text-lg hover:opacity-60"
+                    onClick={() =>
+                      handleDownload(currentEvent.event.extendedProps._id, true)
+                    }
+                  >
+                    <IoMdEye />
+                  </button>
+                </div>
+                <div className="flex gap-4 mt-4 items-start">
+                  <p className="text-xs font-semibold w-1/5">Event Report</p>
                   <button
                     className="text-lg hover:opacity-60"
                     onClick={() =>

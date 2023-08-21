@@ -5,7 +5,11 @@ const EventReportSchema = new Schema({
     type: String,
     required: true,
   },
-  dateTime: {
+  startDate: {
+    type: Date,
+    required: true,
+  },
+  endDate: {
     type: Date,
     required: true,
   },
@@ -27,6 +31,10 @@ const EventReportSchema = new Schema({
   },
   images: {
     type: [String],
+    required: true,
+  },
+  proposalID: {
+    type: String,
     required: true,
   },
   user: {

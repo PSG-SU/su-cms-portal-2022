@@ -1,12 +1,14 @@
-import { FaCalendarCheck, FaKey, FaFileAlt } from "react-icons/fa";
+import { FaCalendarCheck, FaKey, FaFileAlt, FaPhotoVideo } from "react-icons/fa";
 import { IoMdTime } from "react-icons/io";
 import { BsCalendarWeek } from "react-icons/bs";
+import { VscFilePdf } from "react-icons/vsc";
 
 import { Navigate } from "react-router-dom";
 import Password from "./Faculty/Password";
 import AllProposals from "./Faculty/AllProposalsStatus";
 import ApprovalVerification from "./Faculty/ApprovalVerification";
 import FacultyApprovals from "./Faculty/FacultyApproval";
+import EventReport from "./Faculty/EventReports";
 import Calendar from "./Faculty/Calendar";
 
 const list = [
@@ -37,6 +39,20 @@ const list = [
     rlink: "calendar",
     icon: <BsCalendarWeek />,
     element: <Calendar />,
+  },
+  {
+    text: "Event Reports",
+    link: "/faculty/event-reports",
+    rlink: "event-reports",
+    icon: <FaPhotoVideo />,
+    element: <EventReport />,
+  },
+  {
+    text: "Report Generation",
+    link: "/faculty/report-generation",
+    rlink: "report-generation",
+    icon: <VscFilePdf />,
+    element: <EventReport />,
   },
   {
     text: "Password",

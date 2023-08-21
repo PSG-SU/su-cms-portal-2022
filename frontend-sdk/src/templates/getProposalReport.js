@@ -1,6 +1,7 @@
 const getProposalReport = (data, clubName) => {
 
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const startDate = new Date(data.startDate);
     const endDate = new Date(data.endDate);
     const createdAt = new Date(data.createdAt);
@@ -53,7 +54,7 @@ const getProposalReport = (data, clubName) => {
                   <b style="font-weight:600;">Proposal Created On</b>
               </td>
               <td style="width: 20%; padding: 10px;">
-                  <p class="">${createdAt.getDate()} ${monthNames[createdAt.getMonth()]} ${createdAt.getFullYear()}</p>
+                  <p class="">${createdAt.getDate()} ${monthNames[createdAt.getMonth()]} ${createdAt.getFullYear()}, ${days[createdAt.getDay()]}</p>
               </td>
           </tr>
         </table>
@@ -64,15 +65,14 @@ const getProposalReport = (data, clubName) => {
                   <b style="font-weight:600;">Start Date</b>
               </td>
               <td style="width: 30%; padding: 10px; ">
-                <p class="">${startDate.getDate()} ${monthNames[startDate.getMonth()]} ${startDate.getFullYear()}</p>
+                <p class="">${startDate.getDate()} ${monthNames[startDate.getMonth()]} ${startDate.getFullYear()}, ${days[startDate.getDay()]}</p>
                 <p class="">${timeFormat(startDate)}</p>
               </td>
-              <td style="width: 30%; padding: 10px;">
-
+              <td style="width: 20%; padding: 10px;">
                   <b style="font-weight:600;">End Date</b>
               </td>
-              <td style="width: 20%; padding: 10px;">
-                <p class="">${endDate.getDate()} ${monthNames[endDate.getMonth()]} ${endDate.getFullYear()}</p>
+              <td style="width: 30%; padding: 10px;">
+                <p class="">${endDate.getDate()} ${monthNames[endDate.getMonth()]} ${endDate.getFullYear()}, ${days[endDate.getDay()]}</p>
                 <p class="">${timeFormat(endDate)}</p>
               </td>
           </tr>
