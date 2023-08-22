@@ -14,6 +14,7 @@ router.post("/add", async (req, res) => {
       report: req.body.report,
       coverImage: req.body.images[0],
       images: req.body.images,
+      proposalID: req.body.proposalID,
       user: req.body.user,
     })
 
@@ -62,9 +63,9 @@ router.get("/user/:user", async (req, res) => {
   }
 });
 
-router.post("/event", async (req, res) => {
+router.get("/from-proposal/:proposalID", async (req, res) => {
   try {
-    const report = await EventReport.find({ eventName: req.body.eventName, user: req.body.user });
+    const report = await EventReport.findOne({ proposalID: req.params.proposalID });
     if (!report) {
       return res.status(400).json({ err: "Not Found" });
     } else {
@@ -104,6 +105,7 @@ router.put("/update/:id", async (req, res) => {
       report: req.body.report,
       coverImage: req.body.images[0],
       images: req.body.images,
+      proposalID: req.body.proposalID,
     }, { new: true });
     if (!report) {
       return res.status(400).json({ err: "Not found" })

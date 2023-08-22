@@ -150,16 +150,16 @@ export const fetchGetProposalbyId = (id) =>
 
 export const fetchAddEventReport = (postBody) =>
   axios.post(`${REPORT_URL}/add`, { ...postBody, login: localStorage.getItem('userId') }, {});
+export const fetchUpdateEventReport = (postBody, id) =>
+  axios.put(`${REPORT_URL}/update/${id}`, { ...postBody, login: localStorage.getItem('userId') }, {});
+export const fetchGetEventReportByProposalId = (proposalID) =>
+  axios.get(`${REPORT_URL}/from-proposal/${proposalID}`, {});
 export const fetchGetEventReportById = (id) =>
   axios.get(`${REPORT_URL}/${id}`, {});
-export const fetchGetEventReportByName = (postBody) =>
-  axios.post(`${REPORT_URL}/event`, postBody, {});
 export const fetchGetEventReportByUser = (user) =>
   axios.get(`${REPORT_URL}/user/${user}`, {});
 export const fetchGetAllEventReports = () =>
   axios.get(`${REPORT_URL}`, {});
-export const fetchUpdateEventReport = (postBody, id) =>
-  axios.put(`${REPORT_URL}/update/${id}`, { ...postBody, login: localStorage.getItem('userId') }, {});
 /* ------------------------------------------- */
 
 // For Spotlight 

@@ -17,7 +17,7 @@ const list = [
     element: <Approval />,
   },
   {
-    text: "Report Generation",
+    text: "PDF Report Generation",
     link: "/dean/approval",
     rlink: "approval",
     icon: <VscFilePdf />,

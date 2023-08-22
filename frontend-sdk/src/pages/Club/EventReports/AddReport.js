@@ -3,7 +3,7 @@ import Button from "../../../components/Button";
 import MultipleFiles from "../../../components/MultipleFiles";
 import Heading from "../../../components/Heading";
 import Inputfield from "../../../components/TextInput";
-import { fetchAddEventReport, fetchGetEventReportByName, fetchUpdateEventReport, fetchUploadFile } from "../../../API/calls";
+import { fetchAddEventReport, fetchGetEventReportByProposalId, fetchUpdateEventReport, fetchUploadFile } from "../../../API/calls";
 import toast from "react-hot-toast";
 import Dropdown from "../../../components/Dropdown";
 import axios from "axios";
@@ -25,6 +25,7 @@ const AddReport = () => {
   const [venue, setVenue] = useState("");
   const [participants, setParticipants] = useState("");
   const [report, setReport] = useState("");
+  const [proposalID, setProposalID] = useState("");
   const [user, setUser] = useState("");
   const [ID, setID] = useState("");
 
@@ -37,6 +38,7 @@ const AddReport = () => {
       setVenue(updateState?.venue);
       setParticipants(updateState?.count);
       setReport(updateState?.report);
+      setProposalID(updateState?.proposalID);
       setID(updateState?._id);
     }
   }, [updateState]);
@@ -62,24 +64,22 @@ const AddReport = () => {
   }, [user])
 
   useEffect(() => {
-    if (eventName) {
-      fetchGetEventReportByName({ eventName: eventName, user: user }).then((res) => {
-        if (res.data.length > 0) {
-          updateByID(res.data[0]._id);
-          return;
-        }
+    if (eventName && allEvents?.length > 0) {
+      const e = allEvents?.filter((event) => event.eventName === eventName)[0];
+      setProposalID(e?._id);
+
+      fetchGetEventReportByProposalId(e?._id).then((res) => {
+        updateByID(res?.data?._id);
+        return
       })
 
-      if (allEvents?.length > 0) {
-        const e = allEvents?.filter((event) => event.eventName === eventName)[0];
-        setStartDate(new Date(e?.startDate));
-        setEndDate(new Date(e?.endDate));
-        setVenue(e?.venue);
-        setParticipants(e?.count);
-        setReport("");
-        setFileUrls([]);
-        updateByID(0);
-      }
+      setStartDate(new Date(e?.startDate));
+      setEndDate(new Date(e?.endDate));
+      setVenue(e?.venue);
+      setParticipants(e?.count);
+      setReport("");
+      setFileUrls([]);
+      updateByID(0);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eventName, allEvents])
@@ -95,6 +95,7 @@ const AddReport = () => {
           venue: venue,
           count: participants,
           report: report,
+          proposalID: proposalID,
         }, ID), {
           loading: `Updating...`,
           success: (res) => {
@@ -115,6 +116,7 @@ const AddReport = () => {
         venue: venue,
         count: participants,
         report: report,
+        proposalID: proposalID,
         user: user,
       }), {
         loading: `Uploading...`,
@@ -151,24 +153,30 @@ const AddReport = () => {
     if (Object.keys(updateState).length > 0) {
       if (files.length <= 0 && fileUrls.length <= 0) return toast.error("Files required for upload.");
 
-      toast.promise(fetchUpdateEventReport({
-        images: fileUrls,
-        eventName: eventName,
-        startDate: startDate,
-        endDate: endDate,
-        venue: venue,
-        count: participants,
-        report: report,
-      }, ID), {
-        loading: `Updating...`,
-        success: (res) => {
-          console.log(res);
-          window.location.reload();
-          return "Update completed";
-        },
-        error: "Error updating",
-      });
-      return;
+      if (files.length > 0) {
+        handleSingleUpload(files.reverse(), 1, files.length);
+        return;
+      } else {
+        toast.promise(fetchUpdateEventReport({
+          images: fileUrls,
+          eventName: eventName,
+          startDate: startDate,
+          endDate: endDate,
+          venue: venue,
+          count: participants,
+          report: report,
+          proposalID: proposalID,
+        }, ID), {
+          loading: `Updating...`,
+          success: (res) => {
+            console.log(res);
+            window.location.reload();
+            return "Update completed";
+          },
+          error: "Error updating",
+        });
+        return;
+      }
     }
 
     if (files.length <= 0) return toast.error("Files required for upload.");

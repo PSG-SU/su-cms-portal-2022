@@ -8,15 +8,17 @@ import Heading from "../../../components/Heading";
 import axios from "axios";
 import { CLUB_URL, PROPOSAL_URL, AUTH_URL } from "../../../API/config";
 import { toast } from "react-hot-toast";
-import { fetchGetProposalbyId } from "../../../API/calls";
+import { fetchGetEventReportByProposalId, fetchGetProposalbyId } from "../../../API/calls";
 import { IoMdDownload, IoMdEye } from "react-icons/io";
 import reportWithAttachments from "../../../templates/reportWithAttachments";
+import eventReportWithAttachments from "../../../templates/eventReportWithAttachments";
 
 const CalendarView = () => {
   const [events, setEvents] = useState([]);
   const [cid, setCid] = useState("");
 
   const [currentEvent, setCurrentEvent] = useState(null);
+  const [eventReport, setEventReport] = useState("");
 
   useEffect(() => {
     axios
@@ -46,6 +48,36 @@ const CalendarView = () => {
         });
     }
   }, [cid]);
+
+  useEffect(() => {
+    if (currentEvent) {
+      fetchGetEventReportByProposalId(currentEvent.event.extendedProps._id).then((res) => {
+        setEventReport(res.data._id);
+      });
+
+      setEventReport("");
+    }
+  }, [currentEvent]);
+
+  const handleReportDownload = async (id, view = false) => {
+    toast.promise(fetchGetEventReportByProposalId(id), {
+      loading: "Generating PDF...",
+      success: (res) => {
+        let clubName = "";
+        axios.get(`${CLUB_URL}/id/${res.data.user}`)
+          .then((r) => {
+            clubName = r.data.clubName;
+            toast.promise(eventReportWithAttachments(res.data, clubName, view), {
+              loading: view ? "Loading" : "Downloading...",
+              success: view ? "Loaded" : `Downloaded ${res.data.eventName}`,
+              error: (err) => `Error: ${err.message}`,
+            });
+          });
+        return `PDF Generated`;
+      },
+      error: (err) => `Error: ${err.message}`,
+    });
+  };
 
   const handleDownload = async (id, view = false) => {
     toast.promise(fetchGetProposalbyId(id), {
@@ -176,25 +208,27 @@ const CalendarView = () => {
                     <IoMdEye />
                   </button>
                 </div>
-                <div className="flex gap-4 mt-4 items-start">
-                  <p className="text-xs font-semibold w-1/5">Event Report</p>
-                  <button
-                    className="text-lg hover:opacity-60"
-                    onClick={() =>
-                      handleDownload(currentEvent.event.extendedProps._id)
-                    }
-                  >
-                    <IoMdDownload />
-                  </button>
-                  <button
-                    className="text-lg hover:opacity-60"
-                    onClick={() =>
-                      handleDownload(currentEvent.event.extendedProps._id, true)
-                    }
-                  >
-                    <IoMdEye />
-                  </button>
-                </div>
+                {eventReport && (
+                  <div className="flex gap-4 mt-4 items-start">
+                    <p className="text-xs font-semibold w-1/5">Event Report</p>
+                    <button
+                      className="text-lg hover:opacity-60"
+                      onClick={() =>
+                        handleReportDownload(currentEvent.event.extendedProps._id)
+                      }
+                    >
+                      <IoMdDownload />
+                    </button>
+                    <button
+                      className="text-lg hover:opacity-60"
+                      onClick={() =>
+                        handleReportDownload(currentEvent.event.extendedProps._id, true)
+                      }
+                    >
+                      <IoMdEye />
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>

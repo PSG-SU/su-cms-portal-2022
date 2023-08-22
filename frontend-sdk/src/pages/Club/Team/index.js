@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { createContext, useState } from "react";
-import AddMember from "./AddMember";
+import AddMember from "./Addmember";
 import EditMember from "./EditMember";
 import { TEAM_MEMBER_URL } from "../../../API/config";
 import { toast } from "react-hot-toast";

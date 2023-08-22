@@ -48,7 +48,7 @@ const list = [
     element: <EventReport />,
   },
   {
-    text: "Report Generation",
+    text: "PDF Report Generation",
     link: "/faculty/report-generation",
     rlink: "report-generation",
     icon: <VscFilePdf />,

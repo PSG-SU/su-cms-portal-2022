@@ -36,6 +36,7 @@ const EventReportSchema = new Schema({
   proposalID: {
     type: String,
     required: true,
+    unique: true,
   },
   user: {
     type: String,
