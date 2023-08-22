@@ -10,6 +10,7 @@ import ApprovalVerification from "./Faculty/ApprovalVerification";
 import FacultyApprovals from "./Faculty/FacultyApproval";
 import EventReport from "./Faculty/EventReports";
 import Calendar from "./Faculty/Calendar";
+import PDFReportGen from "./Faculty/PDFReportGen";
 
 const list = [
   {
@@ -52,7 +53,7 @@ const list = [
     link: "/faculty/report-generation",
     rlink: "report-generation",
     icon: <VscFilePdf />,
-    element: <EventReport />,
+    element: <PDFReportGen />,
   },
   {
     text: "Password",

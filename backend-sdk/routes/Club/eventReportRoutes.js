@@ -78,6 +78,41 @@ router.get("/from-proposal/:proposalID", async (req, res) => {
   }
 });
 
+router.post("/date-range-club/:user", async (req, res) => {
+  try {
+    const report = await EventReport.find({
+      user: req.params.user,
+      startDate: { $gte: req.body.startDate, $lte: req.body.endDate },
+    });
+    if (!report) {
+      return res.status(400).json({ err: "Not Found" });
+    } else {
+      console.log(report);
+      return res.status(200).json(report);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.post("/date-range-all", async (req, res) => {
+  try {
+    const report = await EventReport.find({
+      startDate: { $gte: req.body.startDate, $lte: req.body.endDate },
+    });
+    if (!report) {
+      return res.status(400).json({ err: "Not Found" });
+    } else {
+      console.log(report);
+      return res.status(200).json(report);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.get("/", async (req, res) => {
   try {
     const report = await EventReport.find({});
@@ -122,7 +157,7 @@ router.put("/update/:id", async (req, res) => {
     return res.status(200).json(report);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: err.message }); 
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -132,7 +167,7 @@ router.delete("/delete/:id", async (req, res) => {
     if (!report) {
       return res.status(400).json({ err: "Not found" })
     }
-  
+
     const log = await Log.create({
       user: req.body.login,
       action: "Deleted",

@@ -6,6 +6,7 @@ import Approval from "./Dean/Approval";
 import Calendar from "./Dean/Calendar";
 import Spotlight from "./Dean/Spotlight"
 import Password from "./Dean/Password";
+import PDFReportGen from "./Dean/PDFReportGen";
 import { Navigate } from "react-router-dom";
 
 const list = [
@@ -17,18 +18,18 @@ const list = [
     element: <Approval />,
   },
   {
-    text: "PDF Report Generation",
-    link: "/dean/approval",
-    rlink: "approval",
-    icon: <VscFilePdf />,
-    element: <Approval />,
-  },
-  {
     text: "Calendar View",
     link: "/dean/calendar",
     rlink: "calendar",
     icon: <BsCalendarWeek />,
     element: <Calendar />,
+  },
+  {
+    text: "PDF Report Generation",
+    link: "/dean/report-generation",
+    rlink: "report-generation",
+    icon: <VscFilePdf />,
+    element: <PDFReportGen />,
   },
   // {
   //   text: "Spotlight View",

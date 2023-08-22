@@ -35,7 +35,7 @@ const ViewReport = () => {
   return (
     <section className="px-8 py-8 w-full">
       <Heading>View Reports</Heading>
-      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)] overflow-uto">
+      <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-20rem)]">
         <Table
           theads={["Event", "Start Date", "End Date", "Venue", "Count", "Image"]}
           tdata={data}

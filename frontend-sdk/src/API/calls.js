@@ -152,6 +152,7 @@ export const fetchAddEventReport = (postBody) =>
   axios.post(`${REPORT_URL}/add`, { ...postBody, login: localStorage.getItem('userId') }, {});
 export const fetchUpdateEventReport = (postBody, id) =>
   axios.put(`${REPORT_URL}/update/${id}`, { ...postBody, login: localStorage.getItem('userId') }, {});
+
 export const fetchGetEventReportByProposalId = (proposalID) =>
   axios.get(`${REPORT_URL}/from-proposal/${proposalID}`, {});
 export const fetchGetEventReportById = (id) =>
@@ -160,6 +161,11 @@ export const fetchGetEventReportByUser = (user) =>
   axios.get(`${REPORT_URL}/user/${user}`, {});
 export const fetchGetAllEventReports = () =>
   axios.get(`${REPORT_URL}`, {});
+
+export const fetchGetDateRangeEventReports = (postBody, user) =>
+  axios.post(`${REPORT_URL}/date-range-club/${user}`, postBody, {});
+export const fetchGetAllDateRangeEventReports = (postBody) =>
+  axios.post(`${REPORT_URL}/date-range-all`, postBody, {});
 /* ------------------------------------------- */
 
 // For Spotlight 

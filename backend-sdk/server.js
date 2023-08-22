@@ -11,7 +11,7 @@ import aboutRoutes from "./routes/aboutRoutes.js";
 import nssRoutes from "./routes/nssStaffRoutes.js";
 import galleryRoutes from "./routes/galleryRoutes.js";
 import announcementRoutes from "./routes/announcementRoutes.js";
-import generalRoutes from "./routes/Club/generalRoutes.js";
+import generalRoutes from "./routes/Club/GeneralRoutes.js";
 import teamMemberRoutes from "./routes/Club/teamMemberRoutes.js";
 import proposalRoutes from "./routes/Club/proposalRoutes.js";
 import eventReportRoutes from "./routes/Club/eventReportRoutes.js"
