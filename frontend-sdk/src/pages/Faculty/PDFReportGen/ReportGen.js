@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { AUTH_URL, REPORT_URL } from "../../../API/config";
-import { fetchGetDateRangeEventReports } from "../../../API/calls";
+import { fetchGetDateRangeEventReports, fetchGetDateRangeProposals } from "../../../API/calls";
 import Button from "../../../components/Button";
 import Heading from "../../../components/Heading";
 import DateInput from "../../../components/DateInput";
 import Table from "../../../components/Table";
+import Dropdown from "../../../components/Dropdown";
 import consolidatedEventReport from "../../../templates/consolidatedEventReport";
 
 const ReportGen = () => {
@@ -14,6 +15,7 @@ const ReportGen = () => {
   const [endDate, setEndDate] = useState("");
   const [user, setUser] = useState("");
   const [data, setData] = useState(null);
+  const [type, setType] = useState("");
 
   useEffect(() => {
     axios
@@ -33,7 +35,7 @@ const ReportGen = () => {
       endDate: endDate,
     };
 
-    toast.promise(fetchGetDateRangeEventReports(postBody, user), {
+    toast.promise(type === "Event Reports" ? fetchGetDateRangeEventReports(postBody, user) : fetchGetDateRangeProposals(postBody, user), {
       loading: "Fetching Data...",
       success: (res) => {
         if (res.data.length === 0) {
@@ -51,7 +53,7 @@ const ReportGen = () => {
   };
 
   const handleDownload = (view) => () => {
-    toast.promise(consolidatedEventReport(data, view), {
+    toast.promise(consolidatedEventReport(data, type === "Event Proposals", view), {
       loading: view ? "Loading" : "Downloading...",
       success: view ? "Loaded" : `Downloaded`,
       error: (err) => `Error: ${err.message}`,
@@ -63,6 +65,12 @@ const ReportGen = () => {
       <Heading>Generate Report</Heading>
       <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-18rem)] overflow-auto">
         <div className="flex items-center w-full space-x-4 lg:pr-[15%]">
+          <Dropdown
+            title="Type"
+            options={["Event Reports", "Event Proposals"]}
+            valueState={[type, setType]}
+            className="w-1/2"
+          />
           <DateInput
             startTitle="Start Date"
             startState={[startDate, setStartDate]}
@@ -74,7 +82,7 @@ const ReportGen = () => {
         </div>
 
         <div className="flex items-center space-x-4 mt-4 w-full">
-          <Button className="w-1/3" text="Fetch Reports" handleClick={handleFetch} />
+          <Button className="w-1/3" text={`Fetch ${type === "Event Reports" ? "Reports" : "Proposals"}`} handleClick={handleFetch} />
           {data && (
             <React.Fragment>
               <Button className="w-1/3 bg-[#452492] text-[#eaeaea]" text="View Consolidated Report" handleClick={handleDownload(true)} />
@@ -87,18 +95,18 @@ const ReportGen = () => {
           <div className="flex flex-col gap-4 w-full">
             <div className="mt-24 w-full">
               <Table
-                theads={["Event", "Start Date", "End Date", "Venue", "Count", "Image"]}
+                theads={["Event", "Start Date", "End Date", "Venue", "Count"]}
                 tdata={data}
-                tkeys={["eventName", "startDate", "endDate", "venue", "count", "coverImage"]}
+                tkeys={["eventName", "startDate", "endDate", "venue", "count"]}
                 className={`${data.length < 8
                   ? "max-h-[calc(100vh-20rem)]"
                   : "h-[calc(100vh-25rem)]"
                   } w-full`}
-                tratio="1fr 1fr 1fr 0.5fr 0.5fr 0.5fr"
+                tratio="1fr 1fr 1fr 0.5fr 0.5fr"
                 url={REPORT_URL}
                 showDownload
                 smallTable
-                eventReportPage
+                eventReportPage={type === "Event Reports"}
                 hideUpdate
                 hideDelete
               />

@@ -1,11 +1,12 @@
 import { PDFDocument } from "pdf-lib";
 import html2pdf from "html2pdf.js";
 import getEventReport, { imageAttachement } from "./getEventReport";
+import getProposalReport from "./getProposalReport";
 import axios from "axios";
 import { CLUB_URL } from "../API/config";
 
 
-const consolidatedEventReport = async (reportData, view = false) => {
+const consolidatedEventReport = async (reportData, proposal = false, view = false) => {
 
   async function getClubName(clubId) {
     const res = await axios.get(`${CLUB_URL}/id/${clubId}`, {});
@@ -68,7 +69,7 @@ const consolidatedEventReport = async (reportData, view = false) => {
   const reportDetails = async (report, club) => {
     var opt = {
       margin: 0.5,
-      filename: `Event-Report-${report?.eventName}.pdf`,
+      filename: `Report-${report?.eventName}.pdf`,
       image: { type: "jpeg", quality: 0.2 },
       html2canvas: {
         letterRendring: true,
@@ -85,7 +86,7 @@ const consolidatedEventReport = async (reportData, view = false) => {
     };
 
     await html2pdf()
-      .from(getEventReport(report, club))
+      .from(proposal ? getProposalReport(report, club) : getEventReport(report, club))
       .set(opt)
       .toPdf()
       .output("datauristring")
@@ -99,6 +100,20 @@ const consolidatedEventReport = async (reportData, view = false) => {
     if (report?.images != null) {
       for (var i = 0; i < report.images.length; i++) {
         await imageOrPdf(report.images[i]);
+      }
+    }
+  }
+
+  async function principalApproval(proposalData) {
+    if (proposalData?.approvalForm != null) {
+      await imageOrPdf(proposalData.approvalForm);
+    }
+  }
+
+  async function supportingDocuments(proposalData) {
+    if (proposalData?.fileURLs != null) {
+      for (var i = 0; i < proposalData.fileURLs.length; i++) {
+        await imageOrPdf(proposalData.fileURLs[i]);
       }
     }
   }
@@ -133,7 +148,7 @@ const consolidatedEventReport = async (reportData, view = false) => {
     if (view) {
       window.open(link.href, "_blank");
     } else {
-      link.download = `Consolidated Event Report.pdf`;
+      link.download = `${proposal ? "Consolidated Proposal Report.pdf" : "Consolidated Event Report.pdf"}`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -145,8 +160,16 @@ const consolidatedEventReport = async (reportData, view = false) => {
 
     for (let i = 0; i < reportData.length; i++) {
       const club = await getClubName(reportData[i].user);
+      
       await reportDetails(reportData[i], club);
-      await eventImages(reportData[i]);
+
+      if (proposal) {
+        await principalApproval(reportData[i]);
+        await supportingDocuments(reportData[i]);
+      } else {
+        await eventImages(reportData[i]);
+      }
+
     };
 
     await mergePdfs();

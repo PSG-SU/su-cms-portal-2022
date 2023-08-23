@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { CLUB_URL, REPORT_URL } from "../../../API/config";
-import { fetchGetAllDateRangeEventReports, fetchGetDateRangeEventReports } from "../../../API/calls";
+import { fetchGetAllDateRangeEventReports, fetchGetAllDateRangeProposals, fetchGetDateRangeEventReports, fetchGetDateRangeProposals } from "../../../API/calls";
 import Button from "../../../components/Button";
 import Heading from "../../../components/Heading";
 import DateInput from "../../../components/DateInput";
@@ -19,6 +19,7 @@ const ReportGen = () => {
   const [clubs, setClubs] = useState([]);
   const [cid, setCid] = useState("");
   const [username, setUsername] = useState("");
+  const [type, setType] = useState("");
   const { refreshPage, refreshToken } = useContext(RefreshContext);
 
   useEffect(() => {
@@ -44,7 +45,7 @@ const ReportGen = () => {
         endDate: endDate,
       };
 
-      toast.promise(fetchGetDateRangeEventReports(postBody, cid), {
+      toast.promise(type === "Event Reports" ? fetchGetDateRangeEventReports(postBody, cid) : fetchGetDateRangeProposals(postBody, cid), {
         loading: "Filtering Data...",
         success: (res) => {
           if (res.data.length === 0) {
@@ -75,12 +76,15 @@ const ReportGen = () => {
       return toast.error("Please fill in the dates");
     }
 
+    setUsername("");
+    setCid("");
+
     const postBody = {
       startDate: startDate,
       endDate: endDate,
     };
 
-    toast.promise(fetchGetAllDateRangeEventReports(postBody), {
+    toast.promise(type === "Event Reports" ? fetchGetAllDateRangeEventReports(postBody) : fetchGetAllDateRangeProposals(postBody), {
       loading: "Fetching Data...",
       success: (res) => {
         if (res.data.length === 0) {
@@ -98,7 +102,7 @@ const ReportGen = () => {
   };
 
   const handleDownload = (view) => () => {
-    toast.promise(consolidatedEventReport(data, view), {
+    toast.promise(consolidatedEventReport(data, type === "Event Proposals", view), {
       loading: view ? "Loading" : "Downloading...",
       success: view ? "Loaded" : `Downloaded`,
       error: (err) => `Error: ${err.message}`,
@@ -110,6 +114,12 @@ const ReportGen = () => {
       <Heading>Generate Report</Heading>
       <div className="mt-8 w-full lg:pr-[5%] h-[calc(100vh-16.5rem)] overflow-auto">
         <div className="flex items-center w-full space-x-4 lg:pr-[15%]">
+          <Dropdown
+            title="Type"
+            options={["Event Reports", "Event Proposals"]}
+            valueState={[type, setType]}
+            className="w-1/2"
+          />
           <DateInput
             startTitle="Start Date"
             startState={[startDate, setStartDate]}
@@ -121,7 +131,7 @@ const ReportGen = () => {
         </div>
 
         <div className="flex items-center space-x-4 mt-4 w-full">
-          <Button className="w-1/3" text="Fetch Reports" handleClick={handleFetch} />
+          <Button className="w-1/3" text={`Fetch ${type === "Event Reports" ? "Reports" : "Proposals"}`} handleClick={handleFetch} />
           {data && (
             <React.Fragment>
               <Button className="w-1/3 bg-[#452492] text-[#eaeaea]" text="View Consolidated Report" handleClick={handleDownload(true)} />
@@ -152,18 +162,18 @@ const ReportGen = () => {
 
             <div className="w-full">
               <Table
-                theads={["Event", "Club", "Start Date", "Image"]}
+                theads={["Event", "Club", "Start Date", "End Date"]}
                 tdata={data}
-                tkeys={["eventName", "user", "startDate", "coverImage"]}
+                tkeys={["eventName", "user", "startDate", "endDate"]}
                 className={`${data.length < 8
                   ? "max-h-[calc(100vh-20rem)]"
                   : "h-[calc(100vh-25rem)]"
                   } w-full`}
-                tratio="1fr 0.5fr 1fr 0.5fr"
+                tratio="1fr 1fr 1fr 1fr"
                 url={REPORT_URL}
                 clubs={clubs}
                 showDownload
-                eventReportPage
+                eventReportPage={type === "Event Reports"}
                 smallTable
                 hideUpdate
                 hideDelete

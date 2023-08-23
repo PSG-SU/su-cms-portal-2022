@@ -144,6 +144,11 @@ export const fetchGetApprovedorPublishedProposal = (user) =>
   axios.get(`${PROPOSAL_URL}/deanApprovedAndPublished/${user}`, {});
 export const fetchGetProposalbyId = (id) =>
   axios.get(`${PROPOSAL_URL}/${id}`, {});
+
+export const fetchGetDateRangeProposals = (postBody, user) =>
+  axios.post(`${PROPOSAL_URL}/date-range-club/${user}`, postBody, {})
+export const fetchGetAllDateRangeProposals = (postBody) =>
+  axios.post(`${PROPOSAL_URL}/date-range-all`, postBody, {})
 /* ------------------------------------------- */
 
 // For Club - Event Report Page 

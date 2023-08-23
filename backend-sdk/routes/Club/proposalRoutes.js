@@ -316,6 +316,43 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+router.post("/date-range-club/:user", async (req, res) => {
+  try {
+    const proposal = await Proposal.find({
+      user: req.params.user,
+      startDate: { $gte: req.body.startDate, $lte: req.body.endDate },
+      status: "published",
+    });
+    if (!proposal) {
+      return res.status(400).json({ err: "Not Found" });
+    } else {
+      console.log(proposal);
+      return res.status(200).json(proposal);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.post("/date-range-all", async (req, res) => {
+  try {
+    const proposal = await Proposal.find({
+      startDate: { $gte: req.body.startDate, $lte: req.body.endDate },
+      status: "published",
+    });
+    if (!proposal) {
+      return res.status(400).json({ err: "Not Found" });
+    } else {
+      console.log(proposal);
+      return res.status(200).json(proposal);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.post("/add", async (req, res) => {
   try {
     const proposal = await Proposal.create({

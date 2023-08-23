@@ -46,6 +46,7 @@ const DateInput = ({
           <DatePicker
             className="px-4 py-2 w-full rounded-lg text-slate bg-gray bg-clip-padding bg-no-repeat border-2 border-solid border-gray 
               first-letter:transition ease-in-out m-0 focus:outline-none focus:border-cloud"
+            disabled={!startValue}
             selected={endValue}
             onChange={(date) => setEndValue(date)}
             selectsEnd
