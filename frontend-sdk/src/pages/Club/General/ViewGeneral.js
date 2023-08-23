@@ -112,7 +112,7 @@ const ViewGeneral = () => {
           <div className="flex flex-row space-x-4">
             <div className="w-1/3 space-y-2">
               <p className="font-semibold">Youtube</p>
-              <p>{content?.youtube ? content?.youtube : "No instagram link found !"}</p>
+              <p>{content?.youtube ? content?.youtube : "No youtube link found !"}</p>
             </div>
             <div className="w-1/3 space-y-2">
               <p className="font-semibold">Discord</p>
