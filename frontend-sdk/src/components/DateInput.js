@@ -10,7 +10,7 @@ const DateInput = ({
   endState = [new Date(), (v) => { }],
   range = false,
   year = false,
-  dateformat="dd MMM yyyy, hh:mm aa"
+  dateformat = "dd MMM yyyy, hh:mm aa"
 }) => {
   const [startValue, setStartValue] = startState;
   const [endValue, setEndValue] = endState;
@@ -35,7 +35,7 @@ const DateInput = ({
           showYearPicker={year}
           showTimeSelect={!year}
           dateFormat={dateformat}
-          placeholderText="Select a date"
+          placeholderText={`Select a ${year ? "year" : "date"}`}
         />
       </div>
       {range && (
@@ -62,7 +62,7 @@ const DateInput = ({
               }
             }
             dateFormat={dateformat}
-            placeholderText="Select a date"
+            placeholderText={`Select a ${year ? "year" : "date"}`}
           />
         </div>
       )}

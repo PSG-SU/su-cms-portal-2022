@@ -62,6 +62,7 @@ const Table = ({
   hideDelete = false,
   showDownload = false,
   eventReportPage = false,
+  smallTable = false,
 }) => {
 
   const { refreshPage } = useContext(RefreshContext);
@@ -439,7 +440,7 @@ const Table = ({
           valueState={[search, setSearch]}
         />
       </div>
-      <div className={`${searchNodes.length < 8 ? "h-min" : "h-[calc(100vh-23rem)]"}`}>
+      <div className={`${smallTable ? searchNodes.length < 3 ? "h-min" : "h-[calc(100vh-39rem)]" : `${searchNodes.length < 8 ? "h-min" : "h-[calc(100vh-22rem)]"}` }`}>
         <CompactTable
           columns={COLUMNS}
           data={data}

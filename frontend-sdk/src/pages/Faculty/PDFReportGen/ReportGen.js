@@ -23,10 +23,9 @@ const ReportGen = () => {
       })
   }, [])
 
-  const handleClick = () => {
+  const handleFetch = () => {
     if (startDate === "" || endDate === "") {
-      toast.error("Please fill in the dates");
-      return;
+      return toast.error("Please fill in the dates");
     }
 
     const postBody = {
@@ -35,15 +34,15 @@ const ReportGen = () => {
     };
 
     toast.promise(fetchGetDateRangeEventReports(postBody, user), {
-      loading: "Gathering Data...",
+      loading: "Fetching Data...",
       success: (res) => {
         if (res.data.length === 0) {
           setData(null);
           return "No data found";
         }
-        
+
         setData(res.data.sort((a, b) => (new Date(a.startDate) - new Date(b.startDate))));
-        return "Gathered";
+        return "Fetched";
       },
       error: (err) => {
         return `Error: ${err.response.data.error}`;
@@ -70,21 +69,23 @@ const ReportGen = () => {
             endTitle="End Date"
             endState={[endDate, setEndDate]}
             range
+            className="z-20 w-full"
           />
         </div>
 
-        <div className="flex items-center space-x-4 mt-8 w-1/2">
-          <Button className="w-1/2" text="Fetch Reports" handleClick={handleClick} />
+        <div className="flex items-center space-x-4 mt-4 w-full">
+          <Button className="w-1/3" text="Fetch Reports" handleClick={handleFetch} />
+          {data && (
+            <React.Fragment>
+              <Button className="w-1/3 bg-[#452492] text-[#eaeaea]" text="View Consolidated Report" handleClick={handleDownload(true)} />
+              <Button className="w-1/3 bg-[#21218d] text-[#eaeaea]" text="Download Consolidated Report" handleClick={handleDownload(false)} />
+            </React.Fragment>
+          )}
         </div>
 
         {data && (
           <div className="flex flex-col gap-4 w-full">
-            <div className="flex items-center space-x-4 mt-8 w-3/4">
-              <Button className="w-1/2 bg-[#931674] text-[#eaeaea]" text="View Consolidated Report" handleClick={handleDownload(true)} />
-              <Button className="w-1/2 bg-[#121279] text-[#eaeaea]" text="Download Consolidated Report" handleClick={handleDownload(false)} />
-            </div>
-
-            <div className="mt-16 w-full">
+            <div className="mt-24 w-full">
               <Table
                 theads={["Event", "Start Date", "End Date", "Venue", "Count", "Image"]}
                 tdata={data}
@@ -96,6 +97,7 @@ const ReportGen = () => {
                 tratio="1fr 1fr 1fr 0.5fr 0.5fr 0.5fr"
                 url={REPORT_URL}
                 showDownload
+                smallTable
                 eventReportPage
                 hideUpdate
                 hideDelete
