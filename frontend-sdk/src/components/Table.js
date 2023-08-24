@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { BsPencil, BsCloudArrowUpFill, BsCheck2, BsCheck2All, BsSortUpAlt, BsSortDown } from "react-icons/bs";
-import { BiSortAlt2, BiUndo } from "react-icons/bi";
+import { BsPencil, BsCloudArrowUpFill, BsCheck2, BsCheck2All, BsSortUpAlt, BsSortDown, BsTools } from "react-icons/bs";
+import { BiCommentCheck, BiSortAlt2, BiUndo } from "react-icons/bi";
 import { HiOutlineTrash } from "react-icons/hi";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { IoMdDownload, IoMdEye, IoMdTime } from "react-icons/io";
@@ -17,7 +17,7 @@ import { RefreshContext } from "../Refresher";
 import Button from "./Button";
 import Popup from "reactjs-popup";
 import styled, { keyframes } from "styled-components";
-import { CLUB_URL } from "../API/config";
+import { BUGS_URL, CLUB_URL } from "../API/config";
 import { fetchGetEventReportById, fetchGetProposalbyId } from "../API/calls";
 import Inputfield from "./TextInput";
 import reportWithAttachments from "../templates/reportWithAttachments";
@@ -108,6 +108,10 @@ const Table = ({
   };
 
   const handleDelete = (item) => {
+    if (url === BUGS_URL && item.user !== localStorage.getItem("userId")) {
+      return toast.error("Cannot delete other user's item")
+    }
+
     axios
       .delete(`${url}/delete/${item._id}`, {
         data: {
@@ -184,16 +188,16 @@ const Table = ({
 
         // Status Check
         else if (
-          item[tkeys[idx]] === "facApproved" || item[tkeys[idx]] === "deanApproved" || item[tkeys[idx]] === "rejected" || item[tkeys[idx]] === "pending" || item[tkeys[idx]] === "published" || item[tkeys[idx]] === "approvalVerification"
+          item[tkeys[idx]] === "facApproved" || item[tkeys[idx]] === "deanApproved" || item[tkeys[idx]] === "rejected" || item[tkeys[idx]] === "pending" || item[tkeys[idx]] === "published" || item[tkeys[idx]] === "approvalVerification" || item[tkeys[idx]] === "in-progress" || item[tkeys[idx]] === "resolved"
         ) {
           return (
             <div className="flex space-x-2 items-center">
               <div
-                className={`${(item[tkeys[idx]] === "facApproved" || item[tkeys[idx]] === "deanApproved")
+                className={`${(item[tkeys[idx]] === "facApproved" || item[tkeys[idx]] === "deanApproved" || item[tkeys[idx]] === "resolved")
                   ? "bg-[#2bb673] text-[#eaeaea]"
                   : item[tkeys[idx]] === "rejected"
                     ? "bg-[#ff0033] text-[#eaeaea]"
-                    : item[tkeys[idx]] === "published"
+                    : item[tkeys[idx]] === "published" || item[tkeys[idx]] === "in-progress"
                       ? "bg-[#ace5ee] text-[#0f52ba]"
                       : "bg-[#ffd000] text-[#303030]"
                   } rounded-full w-8 h-8 flex text-xl justify-center items-center`}
@@ -204,6 +208,8 @@ const Table = ({
                 {item[tkeys[idx]] === "pending" && (<IoMdTime />)}
                 {item[tkeys[idx]] === "published" && (<BsCloudArrowUpFill />)}
                 {item[tkeys[idx]] === "approvalVerification" && (<IoDocumentTextOutline />)}
+                {item[tkeys[idx]] === "in-progress" && (<BsTools />)}
+                {item[tkeys[idx]] === "resolved" && (<BiCommentCheck />)}
               </div>
               <p>
                 {item[tkeys[idx]] === "facApproved" && "Approved By Faculty"}
@@ -212,6 +218,8 @@ const Table = ({
                 {item[tkeys[idx]] === "pending" && "Pending"}
                 {item[tkeys[idx]] === "published" && "Published"}
                 {item[tkeys[idx]] === "approvalVerification" && "Approval Verification"}
+                {item[tkeys[idx]] === "in-progress" && "In Progress"}
+                {item[tkeys[idx]] === "resolved" && "Resolved"}
               </p>
             </div>
           );
@@ -440,7 +448,7 @@ const Table = ({
           valueState={[search, setSearch]}
         />
       </div>
-      <div className={`${smallTable ? searchNodes.length < 3 ? "h-min" : "h-[calc(100vh-39rem)]" : `${searchNodes.length < 8 ? "h-min" : "h-[calc(100vh-22rem)]"}` }`}>
+      <div className={`${smallTable ? searchNodes.length < 3 ? "h-min" : "h-[calc(100vh-39rem)]" : `${searchNodes.length < 8 ? "h-min" : "h-[calc(100vh-22rem)]"}`}`}>
         <CompactTable
           columns={COLUMNS}
           data={data}

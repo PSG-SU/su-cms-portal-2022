@@ -1,4 +1,4 @@
-import { FaUser, FaUserGraduate, FaUsers, FaUserTie, FaHome, FaPhotoVideo, FaBullhorn, FaRegNewspaper } from "react-icons/fa";
+import { FaUser, FaUserGraduate, FaUsers, FaUserTie, FaHome, FaPhotoVideo, FaBullhorn, FaRegNewspaper, FaBug } from "react-icons/fa";
 
 import { Navigate } from "react-router-dom";
 import OfficeBearers from "./Admin/OfficeBearers";
@@ -10,6 +10,7 @@ import About from "./Admin/About";
 import Announcements from "./Admin/Announcements";
 import Gallery from "./Admin/Gallery";
 import Logs from "./Admin/Logs";
+import Bugs from "./Admin/Bugs"
 
 const list = [
   {
@@ -67,6 +68,13 @@ const list = [
     rlink: "gallery",
     icon: <FaPhotoVideo />,
     element: <Gallery />,
+  },
+  {
+    text: "Bugs / Feature Requests",
+    link: "/admin/bugs",
+    rlink: "bugs",
+    icon: <FaBug />,
+    element: <Bugs />,
   },
   {
     text: "Logs",

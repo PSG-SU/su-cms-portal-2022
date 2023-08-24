@@ -1,4 +1,4 @@
-import { FaCalendarCheck, FaKey, FaPhotoVideo, FaUsers, FaInfoCircle, FaCalendarDay } from "react-icons/fa";
+import { FaCalendarCheck, FaKey, FaPhotoVideo, FaUsers, FaInfoCircle, FaCalendarDay, FaBug } from "react-icons/fa";
 import { Navigate } from "react-router-dom";
 
 import General from "./Club/General";
@@ -7,6 +7,7 @@ import Password from "./Club/Password";
 import Proposal from "./Club/Proposal";
 import Team from "./Club/Team";
 import Events from "./Club/Events";
+import Bugs from "./Common/Bugs";
 
 const list = [
   {
@@ -50,6 +51,13 @@ const list = [
     rlink: "password",
     icon: <FaKey />,
     element: <Password />,
+  },
+  {
+    text: "Bugs / Feature Requests",
+    link: "/club/bugs",
+    rlink: "bugs",
+    icon: <FaBug />,
+    element: <Bugs />,
   },
   {
     text: "default",

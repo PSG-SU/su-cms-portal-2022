@@ -14,6 +14,7 @@ export const NSS_NCC_URL = `${API_URL}/nssncc`;
 export const ANNOUNCEMENTS_URL = `${API_URL}/announcement`;
 export const GALLERY_URL = `${API_URL}/gallery`;
 export const LOGS_URL = `${API_URL}/log`;
+export const BUGS_URL = `${API_URL}/bugs`;
 
 export const GENERAL_URL = `${API_URL}/club/general`;
 export const TEAM_MEMBER_URL = `${API_URL}/club/team-member`;

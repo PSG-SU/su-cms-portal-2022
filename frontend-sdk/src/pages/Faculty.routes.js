@@ -1,4 +1,4 @@
-import { FaCalendarCheck, FaKey, FaFileAlt, FaPhotoVideo } from "react-icons/fa";
+import { FaCalendarCheck, FaKey, FaFileAlt, FaPhotoVideo, FaBug } from "react-icons/fa";
 import { IoMdTime } from "react-icons/io";
 import { BsCalendarWeek } from "react-icons/bs";
 import { VscFilePdf } from "react-icons/vsc";
@@ -11,6 +11,7 @@ import FacultyApprovals from "./Faculty/FacultyApproval";
 import EventReport from "./Faculty/EventReports";
 import Calendar from "./Faculty/Calendar";
 import PDFReportGen from "./Faculty/PDFReportGen";
+import Bugs from "./Common/Bugs"
 
 const list = [
   {
@@ -61,6 +62,13 @@ const list = [
     rlink: "password",
     icon: <FaKey />,
     element: <Password />,
+  },
+  {
+    text: "Bugs / Feature Requests",
+    link: "/faculty/bugs",
+    rlink: "bugs",
+    icon: <FaBug />,
+    element: <Bugs />,
   },
   {
     text: "default",

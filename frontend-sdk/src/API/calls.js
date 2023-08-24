@@ -15,6 +15,7 @@ import {
   GALLERY_URL,
   REPORT_URL,
   SPOTLIGHT_URL,
+  BUGS_URL,
 } from "./config";
 import imageCompression from "browser-image-compression";
 
@@ -171,6 +172,14 @@ export const fetchGetDateRangeEventReports = (postBody, user) =>
   axios.post(`${REPORT_URL}/date-range-club/${user}`, postBody, {});
 export const fetchGetAllDateRangeEventReports = (postBody) =>
   axios.post(`${REPORT_URL}/date-range-all`, postBody, {});
+/* ------------------------------------------- */
+
+// For Bug Reports Page
+
+export const fetchAddBug = (postBody) =>
+  axios.post(`${BUGS_URL}/add`, { ...postBody, login: localStorage.getItem('userId') }, {});
+export const fetchUpdateBug = (postBody, id) =>
+  axios.put(`${BUGS_URL}/update/${id}`, { ...postBody, login: localStorage.getItem('userId') }, {});
 /* ------------------------------------------- */
 
 // For Spotlight 

@@ -1,13 +1,14 @@
-import { FaCalendarCheck, FaKey } from "react-icons/fa";
+import { FaBug, FaCalendarCheck, FaKey } from "react-icons/fa";
 import { VscFilePdf } from "react-icons/vsc";
 import { BsCalendarWeek, BsSearch } from "react-icons/bs";
 
+import { Navigate } from "react-router-dom";
 import Approval from "./Dean/Approval";
 import Calendar from "./Dean/Calendar";
 import Spotlight from "./Dean/Spotlight"
 import Password from "./Dean/Password";
 import PDFReportGen from "./Dean/PDFReportGen";
-import { Navigate } from "react-router-dom";
+import Bugs from "./Common/Bugs";
 
 const list = [
   {
@@ -44,6 +45,13 @@ const list = [
     rlink: "password",
     icon: <FaKey />,
     element: <Password />,
+  },
+  {
+    text: "Bugs / Feature Requests",
+    link: "/dean/bugs",
+    rlink: "bugs",
+    icon: <FaBug />,
+    element: <Bugs />,
   },
   {
     text: "default",

@@ -15,6 +15,7 @@ const MultipleFiles = ({
   subtitle = "",
   urlState = [[], (e) => {}],
   pdf = false,
+  disabled = false,
 }) => {
   const [fileError, setFileError] = fileErrorState;
   const [files, setFiles] = fileState;
@@ -83,6 +84,7 @@ const MultipleFiles = ({
                 type="file"
                 className="hidden"
                 multiple
+                disabled={disabled}
                 onChange={(e) => {
                   e.preventDefault();
                   setFiles(files.concat(Array.from(e.target.files)));
@@ -92,7 +94,7 @@ const MultipleFiles = ({
               <FiUpload />
             </label>
 
-            <div className="flex items-center w-full flex-wrap gap-2">
+            <div className={`flex items-center w-full flex-wrap gap-2 ${disabled && "pointer-events-none"}`}>
               <p className="whitespace-pre-wrap w-full">{fileName}</p>
 
               {files.map((file, i) => (

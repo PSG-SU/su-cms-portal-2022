@@ -23,7 +23,7 @@ const TextArea = ({
         <textarea
           disabled={disabled}
           placeholder={placeholder}
-          value={disabled ? "None" : value}
+          value={value}
           wrap="soft"
           rows="8"
           onChange={(e) => {
